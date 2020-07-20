@@ -6,14 +6,15 @@ import java.util.Scanner;
 import db.DB;
 import model.dao.DaoFactory;
 import model.dao.TelaLoginDao;
+import model.entities.User;
 
 
 public class Test {
-
+    
+    private static Scanner scan = new Scanner (System.in);
+    
     public static void main(String[] args) {
 	
-	Scanner scan = new Scanner (System.in);
-
 	Connection conn = DB.getConnection();
 
 	TelaLoginDao telaLogin = DaoFactory.createTelaLogin(conn);
@@ -32,10 +33,20 @@ public class Test {
 		username = scan.next();
 		System.out.print("Senha: ");
 		password = scan.next();
+	    }else if( op == 2){
+		scan.nextLine();
+		System.out.print("Nome: ");
+		String nome = scan.nextLine();
+		System.out.print("Username: ");
+		String user = scan.next();
+		System.out.print("Password: ");
+		String senha = scan.next();
+		if (telaLogin.cadastrar(new User(nome, user, senha))) System.out.println("Cadastro realizado com sucesso!");
 	    }
 	}
-	System.out.println("Logado com sucesso");
+	System.out.println("Logado com sucesso!");
 	
 	scan.close();
     }
+    
 }

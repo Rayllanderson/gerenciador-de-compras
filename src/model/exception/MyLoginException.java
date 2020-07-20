@@ -1,10 +1,10 @@
 package model.exception;
 
-public class LoginException extends RuntimeException{
+public class MyLoginException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
     
-    public LoginException (String msg) {
+    public MyLoginException (String msg) {
 	super(msg);
     }
 
