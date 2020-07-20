@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.Connection;
 
 import model.dao.impl.ProductJDBC;
+import model.dao.impl.TelaLoginJDBC;
 
 public class DaoFactory {
     
@@ -10,4 +11,7 @@ public class DaoFactory {
 	return new ProductJDBC(conn);
     }
 
+    public static TelaLoginDao createTelaLogin(Connection conn) {
+	return new TelaLoginJDBC(conn);
+    }
 }
