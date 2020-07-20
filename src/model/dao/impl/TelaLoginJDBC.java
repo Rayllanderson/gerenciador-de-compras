@@ -23,14 +23,14 @@ public class TelaLoginJDBC implements TelaLoginDao {
     public boolean login(String username, String password) {
 	Statement st = null;
 	ResultSet rs = null;
-	String sql = "select username, senha from usuario";
+	String sql = "select id from usuario where username = \"" + username + "\" and senha = \"" + password + "\"";
 	try {
 	    st = conn.createStatement();
 	    rs = st.executeQuery(sql);
-	    while (rs.next()) {
-		if (rs.getString("username").equals(username) && (rs.getString("senha").equals(password))) {
-		    return true;
-		}
+	    if (rs.next()) {
+		return true;
+	    }else {
+		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
