@@ -6,13 +6,9 @@ import model.entities.Categoria;
 
 public interface CategoriaDao {
     
-    void inserir(Categoria categoria);
-    
-    void deletById(Integer id);
-    
+    void inserir(Categoria categoria);  
+    void deletById(Integer id);  
     void atualizar(Categoria categoria);
-
     Categoria findById(Integer id);
-    
     List <Categoria> findAll();
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import db.DB;
+import db.DbException;
 import model.dao.TelaLoginDao;
 import model.entities.User;
 import model.exception.MyLoginException;
@@ -20,27 +21,24 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public Integer login(String username, String password) {
 	Statement st = null;
 	ResultSet rs = null;
-	String sql = "select id from usuario where username = \"" + username + "\" and senha = \"" + password + "\"";
+	String sql = "select id from usuario where username = \"" + username + "\" and senha = " + password;
 	try {
 	    st = conn.createStatement();
 	    rs = st.executeQuery(sql);
 	    if (rs.next()) {
-		return true;
+		return rs.getInt("id");
 	    }else {
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
 	} catch (SQLException e) {
-	    e.printStackTrace();
-	} catch (MyLoginException e) {
-	    System.out.println(e.getMessage());
-	} finally {
+	    throw new DbException(e.getMessage());
+	}finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
-	return false;
     }
 
     @Override
@@ -54,7 +52,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
 		return true;
 	    }
 	} catch (SQLException e) {
-	    System.out.println(e.getMessage());
+	    throw new DbException(e.getMessage());
 	} catch (MyLoginException e) {
 	    System.out.println(e.getMessage());
 	} finally {
@@ -75,14 +73,13 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	try {
 	    st = this.conn.createStatement();
 	    rs = st.executeQuery("select username from usuario");
-
 	    while (rs.next()) {
 		if (rs.getString("username").equals(username)) {
 		    throw new MyLoginException("Username já existente!");
 		}
 	    }
 	} catch (SQLException e) {
-
+	    throw new DbException(e.getMessage());
 	} finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
