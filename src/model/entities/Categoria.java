@@ -1,13 +1,17 @@
 package model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Categoria {
 
     private Integer id;
     private String name;
+    private List <Product> produtos = new ArrayList<>();
     
-    public Categoria( String name) {
+    public Categoria(String name) {
 	this.name = name;
-    }
+    }  
 
     public Integer getId() {
         return id;
@@ -23,6 +27,18 @@ public class Categoria {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Product> getProdutos() {
+        return produtos;
+    }
+    
+    public void adicionarProduto(Product produto) {
+	produtos.add(produto);
+    }
+    
+    public void removerProduto(Product produto) {
+	produtos.remove(produto);
     }
 
     @Override

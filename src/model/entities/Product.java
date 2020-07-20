@@ -6,11 +6,13 @@ public class Product {
     private String nome;
     private Double precoEstipulado; //quanto que acho que vai ser tal produto
     private Double precoReal; //quanto que ele realmente foi
+    private Categoria categoria;
     
-    public Product(String nome, Double precoEstipulado, Double precoReal) {
+    public Product(String nome, Double precoEstipulado, Double precoReal, Categoria categoria) {
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
 	this.precoReal = precoReal;
+	this.categoria = categoria;
     }
 
     public Integer getId() {
@@ -44,6 +46,14 @@ public class Product {
     public void setPrecoReal(Double precoReal) {
         this.precoReal = precoReal;
     }
+    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     @Override
     public int hashCode() {
@@ -72,7 +82,7 @@ public class Product {
 
     @Override
     public String toString() {
-	return "Id: [" + id + "]\nNome: " + nome + "\nValor Estipulado: R$" + String.format("%.2f", precoEstipulado) + "\nValor Real: R$"
+	return "Id: [" + id + "]\nNome: " + nome + "\n" + this.categoria +"\nValor Estipulado: R$" + String.format("%.2f", precoEstipulado) + "\nValor Real: R$"
 		+ String.format("%.2f", precoReal);
     }
     
