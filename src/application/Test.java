@@ -4,24 +4,26 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.ProductDao;
-import model.dao.TelaPrincipalDao;
+import model.dao.impl.TelaPrincipalJDBC;
 import model.entities.Product;
+import model.entities.User;
 
 public class Test {
     
     
     public static void main(String[] args) {
-	TelaPrincipalDao telaPrincipal = DaoFactory.createTelaPrincipalDao();
-	ProductDao product = DaoFactory.createProductDao();
+	TelaPrincipalJDBC telaPrincipal = new TelaPrincipalJDBC();
+	/*ProductDao product = DaoFactory.createProductDao();
 	
-	Product p1 = product.findById(5);
+	Product p1 = product.findById(1);
 	System.out.println(p1);
 	System.out.println("_____________");
 	List<Product> list = product.findAll();
-	list.forEach(System.out::println);
+	list.forEach(System.out::println);*/
 	
-	/*telaPrincipal.logar();
-	System.out.println("XAHAHA");*/
+	User oi = telaPrincipal.logar();
+	System.out.println("Logado com sucesso!");
+	System.out.println("Bem vindo, " + oi.getName());
 	
     }
     

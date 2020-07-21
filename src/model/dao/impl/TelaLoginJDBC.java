@@ -21,15 +21,15 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public Integer login(String username, String password) {
+    public User login(String username, String password) {
 	Statement st = null;
 	ResultSet rs = null;
-	String sql = "select id from usuario where username = \"" + username + "\" and senha = " + password;
+	String sql = "select * from usuario where username = \"" + username + "\" and senha = " + password;
 	try {
 	    st = conn.createStatement();
 	    rs = st.executeQuery(sql);
 	    if (rs.next()) {
-		return rs.getInt("id");
+		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
 	    }else {
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }

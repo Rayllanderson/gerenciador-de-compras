@@ -43,5 +43,11 @@ public class CategoriaJDBC implements CategoriaDao{
 	// TODO Auto-generated method stub
 	return null;
     }
+
+    @Override
+    public Categoria findByName(String name) {
+	// TODO Auto-generated method stub
+	return null;
+    }
     
 }

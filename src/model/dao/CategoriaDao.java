@@ -10,5 +10,6 @@ public interface CategoriaDao {
     void deletById(Integer id);  
     void atualizar(Categoria categoria);
     Categoria findById(Integer id);
+    Categoria findByName(String name);
     List <Categoria> findAll();
 }
