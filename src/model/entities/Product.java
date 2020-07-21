@@ -8,11 +8,15 @@ public class Product {
     private Double precoReal; //quanto que ele realmente foi
     private Categoria categoria;
     
-    public Product(String nome, Double precoEstipulado, Double precoReal, Categoria categoria) {
+    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal) {
+	this.id = id;
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
 	this.precoReal = precoReal;
-	this.categoria = categoria;
+    }
+
+    public Product() {
+	// TODO Auto-generated constructor stub
     }
 
     public Integer getId() {

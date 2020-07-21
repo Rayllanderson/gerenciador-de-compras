@@ -9,7 +9,10 @@ public class Categoria {
     private String name;
     private List <Product> produtos = new ArrayList<>();
     
-    public Categoria(String name) {
+    public Categoria () {};
+    
+    public Categoria(Integer id, String name) {
+	this.id = id;
 	this.name = name;
     }  
 
