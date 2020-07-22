@@ -19,4 +19,5 @@ public class DaoFactory {
     public static CategoriaDao createCategoriaDao(User user) {
 	return new CategoriaJDBC(DB.getConnection(), user);
     }
+    
 }

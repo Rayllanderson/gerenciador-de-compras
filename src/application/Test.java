@@ -9,6 +9,7 @@ import model.dao.ProductDao;
 import model.entities.Categoria;
 import model.entities.Product;
 import model.entities.User;
+import model.service.CategoriaService;
 import model.view.TelaPrincipal;
 
 public class Test {
@@ -20,6 +21,7 @@ public class Test {
 	CategoriaDao categoriaDao = DaoFactory.createCategoriaDao(oi);
 	Categoria cat = null;
 	Scanner scan = new Scanner (System.in);
+	
 	/*ProductDao product = DaoFactory.createProductDao();
 	
 	Product p1 = product.findById(1);
@@ -31,21 +33,9 @@ public class Test {
 	oi = telaPrincipal.logar();
 	System.out.println("Logado com sucesso!");
 	System.out.println("Bem vindo, " + oi.getName());
+	cat = telaPrincipal.telaCategoria(oi);
+	System.out.println("Categoria selecionada: " + cat + " com o id: " + cat.getId());
 	
-	System.out.println("O que deseja fazer?");
-	System.out.println("[ 1 ] - Acessar listas");
-	int op = scan.nextInt();
-	
-	switch (op) {
-	case 1:
-	    List<Categoria> list = categoriaDao.findAll();
-	    if (!list.isEmpty())list.forEach(System.out::println);
-	    else System.out.println("Lista vazia. Deseja adicionar uma agora?");
-	    break;
-
-	default:
-	    break;
-	}
 	
 	//teste INSERIR categoria  ----------------- FUNCIONANDO
 	/*cat = new Categoria(null, "feira", oi);

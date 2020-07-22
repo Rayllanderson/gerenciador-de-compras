@@ -11,5 +11,9 @@ public interface CategoriaDao {
     void atualizar(Categoria categoria);
     Categoria findById(Integer id);
     Categoria findByName(String name);
+    
+    /**
+     * @return a list that contains the all Category of an User
+     */
     List <Categoria> findAll();
 }

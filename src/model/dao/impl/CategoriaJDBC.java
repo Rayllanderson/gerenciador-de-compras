@@ -23,6 +23,9 @@ public class CategoriaJDBC implements CategoriaDao {
 	this.conn = conn;
 	this.user = user;
     }
+    public CategoriaJDBC(Connection conn) {
+	this.conn = conn;
+    }
 
     @Override
     public void inserir(Categoria categoria) {

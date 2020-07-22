@@ -41,6 +41,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	}
     }
 
+
     @Override
     public boolean cadastrar(User user) {
 	PreparedStatement st = null;
