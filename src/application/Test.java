@@ -35,6 +35,9 @@ public class Test {
 	System.out.println("Bem vindo, " + oi.getName());
 	cat = telaPrincipal.telaCategoria(oi);
 	System.out.println("Categoria selecionada: " + cat + " com o id: " + cat.getId());
+	ProductDao productDao = DaoFactory.createProductDao(oi, cat);
+	List <Product> list = productDao.findAll();
+	list.forEach(System.out::println);
 	
 	
 	//teste INSERIR categoria  ----------------- FUNCIONANDO

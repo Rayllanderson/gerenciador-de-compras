@@ -8,36 +8,41 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import db.DB;
 import db.DbException;
 import model.dao.ProductDao;
+import model.entities.Categoria;
 import model.entities.Product;
+import model.entities.User;
 
-public class ProductJDBC implements ProductDao{
-        
+public class ProductJDBC implements ProductDao {
+
     private Connection conn;
-    
-    public ProductJDBC(Connection conn) {
+    private Categoria categoria;
+    private User user;
+
+    public ProductJDBC(Connection conn, User user, Categoria categoria) {
 	this.conn = conn;
+	this.categoria = categoria;
+	this.user = user;
     }
 
     @Override
     public void inserir(Product obj) {
 	// TODO Auto-generated method stub
-	
+
     }
 
     @Override
     public void atualizar(Product obj) {
 	// TODO Auto-generated method stub
-	
+
     }
 
     @Override
     public void deletById(Integer id) {
 	// TODO Auto-generated method stub
-	
+
     }
 
     @Override
@@ -45,52 +50,63 @@ public class ProductJDBC implements ProductDao{
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	Product product = null;
-	
+
 	try {
-	    st = this.conn.prepareStatement("select id, nome, preco_estipulado, preco_real from produtos where id = " + id);
+	    st = this.conn
+		    .prepareStatement("select id, nome, preco_estipulado, preco_real from produtos where id = " + id);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		product = instanciarProduto(rs);
-	    }else {
+	    } else {
 		throw new DbException("Ops.. produto não encontrado :(");
 	    }
-	    
-	}catch (SQLException e) {
+
+	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
-	}finally {
+	} finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
-	
+
 	return product;
     }
 
     @Override
     public List<Product> findAll() {
-	List <Product> list = new ArrayList<>();
-	Statement st = null;
+	List<Product> list = new ArrayList<>();
+	PreparedStatement st = null;
 	ResultSet rs = null;
-	try {  
-	    st = this.conn.createStatement();
-	    rs = st.executeQuery("select id, nome, preco_estipulado, preco_real from produtos");
+	try {
+	    st = this.conn.prepareStatement(
+		    "select produtos.*, categoria.*,"
+		    + " usuario.* from produtos inner join"
+		    + " categoria on id_categoria = categoria.id"
+		    + " inner join usuario on id_usuario ="
+		    + " usuario.id where id_usuario = ? and id_categoria = ?");
+	    st.setInt(1, this.categoria.getId());
+	    st.setInt(2, this.user.getId());
+	    rs = st.executeQuery();
 	    while (rs.next()) {
-		list.add(new Product(rs.getInt("id"), rs.getString("nome"), rs.getDouble("preco_estipulado"), rs.getDouble("preco_real")));
-	    }  
-	}catch (SQLException e) {
+		Product p = instanciarProduto(rs);
+		list.add(p);
+	    }
+	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
-	}finally {
+	} finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
 	return list;
     }
-    
-    private Product instanciarProduto (ResultSet rs) throws SQLException {
+
+    private Product instanciarProduto(ResultSet rs) throws SQLException {
 	Product p = new Product();
 	p.setId(rs.getInt("id"));
 	p.setNome(rs.getString("nome"));
 	p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
 	p.setPrecoReal(rs.getDouble("preco_real"));
+	p.setCategoria(this.categoria);
+	p.setUser(this.user);
 	return p;
     }
 }

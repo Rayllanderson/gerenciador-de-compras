@@ -9,11 +9,13 @@ public class Product {
     private Categoria categoria;
     private User user;
     
-    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal) {
+    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, User user, Categoria categoria) {
 	this.id = id;
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
 	this.precoReal = precoReal;
+	this.user = user;
+	this.categoria = categoria;
     }
 
     public Product() {

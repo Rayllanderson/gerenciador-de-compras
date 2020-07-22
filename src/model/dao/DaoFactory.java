@@ -4,12 +4,13 @@ import db.DB;
 import model.dao.impl.CategoriaJDBC;
 import model.dao.impl.ProductJDBC;
 import model.dao.impl.TelaLoginJDBC;
+import model.entities.Categoria;
 import model.entities.User;
 
 public class DaoFactory {
     
-    public static ProductDao createProductDao() {
-	return new ProductJDBC(DB.getConnection());
+    public static ProductDao createProductDao(User user, Categoria categoria) {
+	return new ProductJDBC(DB.getConnection(), user, categoria);
     }
 
     public static TelaLoginDao createTelaLoginDao() {
