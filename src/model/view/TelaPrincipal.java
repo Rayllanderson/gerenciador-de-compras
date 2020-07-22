@@ -1,4 +1,4 @@
-package model.dao.impl;
+package model.view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,12 +8,12 @@ import model.dao.TelaLoginDao;
 import model.entities.User;
 import model.exception.MyLoginException;
 
-public class TelaPrincipalJDBC {
+public class TelaPrincipal {
 
     private static Scanner scan = new Scanner(System.in);
     private TelaLoginDao telaLogin;
 
-    public TelaPrincipalJDBC() {
+    public TelaPrincipal() {
 	this.telaLogin = DaoFactory.createTelaLoginDao();
     }
 
@@ -51,7 +51,7 @@ public class TelaPrincipalJDBC {
 	}
     }
 
-    public void telaInicial() {
+    public void telaInicial() { //provavelmente do tipo categoria, retornando uma categoria
 
     }
 

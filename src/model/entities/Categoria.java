@@ -8,12 +8,14 @@ public class Categoria {
     private Integer id;
     private String name;
     private List <Product> produtos = new ArrayList<>();
+    private User user;
     
     public Categoria () {};
     
-    public Categoria(Integer id, String name) {
+    public Categoria(Integer id, String name, User user) {
 	this.id = id;
 	this.name = name;
+	this.user = user;
     }  
 
     public Integer getId() {
@@ -30,6 +32,14 @@ public class Categoria {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public User getUser() {
+	return user;
+    }
+
+    public void setUser(User user) {
+	this.user = user;
     }
 
     public List<Product> getProdutos() {
@@ -68,10 +78,12 @@ public class Categoria {
 	    return false;
 	return true;
     }
+    
 
     @Override
     public String toString() {
-	return "Categoria [name:" + name + "]";
+	return "Categoria name: " + name + ", User: " + this.user;
     }
+
 
 }
