@@ -4,6 +4,7 @@ import db.DB;
 import model.dao.impl.CategoriaJDBC;
 import model.dao.impl.ProductJDBC;
 import model.dao.impl.TelaLoginJDBC;
+import model.entities.User;
 
 public class DaoFactory {
     
@@ -15,7 +16,7 @@ public class DaoFactory {
 	return new TelaLoginJDBC(DB.getConnection());
     }
     
-    public static CategoriaDao createCategoriaDao() {
-	return new CategoriaJDBC(DB.getConnection());
+    public static CategoriaDao createCategoriaDao(User user) {
+	return new CategoriaJDBC(DB.getConnection(), user);
     }
 }

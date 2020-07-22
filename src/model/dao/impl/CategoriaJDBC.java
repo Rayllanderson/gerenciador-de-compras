@@ -17,9 +17,11 @@ import model.entities.User;
 public class CategoriaJDBC implements CategoriaDao {
 
     private Connection conn;
-
-    public CategoriaJDBC(Connection conn) {
+    private User user;
+    
+    public CategoriaJDBC(Connection conn, User user) {
 	this.conn = conn;
+	this.user = user;
     }
 
     @Override
@@ -104,7 +106,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	    DB.closeStatement(st);
 	}
     }
-
+    
     @Override
     public List<Categoria> findAll() {
 	List<Categoria> list = new ArrayList<>();
@@ -112,30 +114,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	ResultSet rs = null;
 	try {
 	    st = conn.prepareStatement(
-		    "select categoria.*, usuario.* from categoria inner join usuario where categoria.id_user = usuario.id;");
-	    rs = st.executeQuery();
-	    while (rs.next()) {
-		User user = instaciarUsuario(rs);
-		Categoria cat = instaciarCategoria(rs, user);
-		list.add(cat);
-	    }
-	    return list;
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
-    }
-    
-    @Override
-    public List<Categoria> findAll(User user) {
-	List<Categoria> list = new ArrayList<>();
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	try {
-	    st = conn.prepareStatement(
-		    "select * from categoria where categoria.id_user = " + user.getId());
+		    "select * from categoria where categoria.id_user = " + this.user.getId());
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		Categoria cat = instaciarCategoria(rs, user);

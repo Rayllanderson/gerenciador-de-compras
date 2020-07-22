@@ -16,7 +16,8 @@ public class Test {
     
     public static void main(String[] args) {
 	TelaPrincipal telaPrincipal = new TelaPrincipal();
-	CategoriaDao categoriaDao = DaoFactory.createCategoriaDao();
+	User oi = null;
+	CategoriaDao categoriaDao = DaoFactory.createCategoriaDao(oi);
 	Categoria cat = null;
 	Scanner scan = new Scanner (System.in);
 	/*ProductDao product = DaoFactory.createProductDao();
@@ -27,7 +28,7 @@ public class Test {
 	List<Product> list = product.findAll();
 	list.forEach(System.out::println);*/
 	
-	User oi = telaPrincipal.logar();
+	oi = telaPrincipal.logar();
 	System.out.println("Logado com sucesso!");
 	System.out.println("Bem vindo, " + oi.getName());
 	
@@ -37,7 +38,7 @@ public class Test {
 	
 	switch (op) {
 	case 1:
-	    List<Categoria> list = categoriaDao.findAll(oi);
+	    List<Categoria> list = categoriaDao.findAll();
 	    if (!list.isEmpty())list.forEach(System.out::println);
 	    else System.out.println("Lista vazia. Deseja adicionar uma agora?");
 	    break;
