@@ -7,6 +7,7 @@ public class Product {
     private Double precoEstipulado; //quanto que acho que vai ser tal produto
     private Double precoReal; //quanto que ele realmente foi
     private Categoria categoria;
+    private User user;
     
     public Product(Integer id, String nome, Double precoEstipulado, Double precoReal) {
 	this.id = id;
@@ -59,6 +60,14 @@ public class Product {
         this.categoria = categoria;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public int hashCode() {
 	final int prime = 31;
@@ -86,11 +95,7 @@ public class Product {
 
     @Override
     public String toString() {
-	return "Id: [" + id + "]\nNome: " + nome + "\n" + this.categoria +"\nValor Estipulado: R$" + String.format("%.2f", precoEstipulado) + "\nValor Real: R$"
-		+ String.format("%.2f", precoReal);
+	return nome;
     }
-    
-    
-    
     
 }

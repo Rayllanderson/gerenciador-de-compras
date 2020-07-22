@@ -7,6 +7,7 @@ import model.dao.DaoFactory;
 import model.dao.TelaLoginDao;
 import model.entities.Categoria;
 import model.entities.User;
+import model.exception.BackButtonException;
 import model.exception.CategoriaException;
 import model.exception.MyLoginException;
 import model.service.CategoriaService;
@@ -86,7 +87,7 @@ public class TelaPrincipal {
 		scan.next();
 	    } catch (CategoriaException e) {
 		System.out.println(e.getMessage());
-		scan.next();
+	    }catch (BackButtonException e) {
 	    }
 	} while (true);
     }
@@ -114,15 +115,19 @@ public class TelaPrincipal {
 	return scan.next();
     }
 
-    private void botaoVoltar() {
-	
+    private void botaoVoltar(Object opcao) {
+	if (opcao.equals("0") || opcao.equals(0)) {
+	    throw new BackButtonException();
+	}
     }
 
     private void adicionarCategoria(CategoriaService service, User user) {
 	Categoria novaCategoria = new Categoria();
 	System.out.println("*-*-*-*- Criando nova Lista *-*-*-*-");
+	System.out.println("Pressione 0 para voltar");
 	System.out.print("Nome: ");
 	String nome = scan.nextLine();
+	botaoVoltar(nome);
 	novaCategoria.setName(nome);
 	novaCategoria.setUser(user);
 	if (service.criarCategoria(novaCategoria))
@@ -132,12 +137,15 @@ public class TelaPrincipal {
     private void editarCategoria(CategoriaService service) {
 	String name;
 	System.out.println("Selecione a lista que deseja Editar: ");
+	System.out.println("Pressione 0 para voltar");
 	service.ListarCategorias();
 	int num = scan.nextInt();
+	this.botaoVoltar(num);
 	Categoria cat = service.getCategoriaByNumber(num);
 	System.out.print("Novo nome: ");
 	scan.nextLine();
 	name = scan.nextLine();
+	this.botaoVoltar(name);
 	cat.setName(name);
 	if (service.atualizarCategoria(cat))
 	    System.out.println("Lista renomeada com sucesso!");
@@ -145,8 +153,10 @@ public class TelaPrincipal {
 
     private void deletarCategoria(CategoriaService service) {
 	System.out.println("Selecione a lista que deseja Excluir: ");
+	System.out.println("Pressione 0 para voltar");
 	service.ListarCategorias();
 	int numCategoria = scan.nextInt();
+	botaoVoltar(numCategoria);
 	Categoria cat1 = service.getCategoriaByNumber(numCategoria);
 	if (service.deletarCategoria(cat1)) System.out.println("Lista deletada com sucesso!");;
     }
