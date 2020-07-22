@@ -112,7 +112,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	ResultSet rs = null;
 	try {
 	    st = conn.prepareStatement(
-		    "select categoria.*, usuario.* from categoria inner join usuario on categoria.id_user = usuario.id;");
+		    "select categoria.*, usuario.* from categoria inner join usuario where categoria.id_user = usuario.id;");
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		User user = instaciarUsuario(rs);
@@ -123,9 +123,33 @@ public class CategoriaJDBC implements CategoriaDao {
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
 	} finally {
+	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
     }
+    
+    @Override
+    public List<Categoria> findAll(User user) {
+	List<Categoria> list = new ArrayList<>();
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = conn.prepareStatement(
+		    "select * from categoria where categoria.id_user = " + user.getId());
+	    rs = st.executeQuery();
+	    while (rs.next()) {
+		Categoria cat = instaciarCategoria(rs, user);
+		list.add(cat);
+	    }
+	    return list;
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+    }
+
 
     @Override
     public Categoria findByName(String name) {

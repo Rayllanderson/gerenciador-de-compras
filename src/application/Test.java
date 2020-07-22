@@ -1,6 +1,7 @@
 package application;
 
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.CategoriaDao;
 import model.dao.DaoFactory;
@@ -17,6 +18,7 @@ public class Test {
 	TelaPrincipal telaPrincipal = new TelaPrincipal();
 	CategoriaDao categoriaDao = DaoFactory.createCategoriaDao();
 	Categoria cat = null;
+	Scanner scan = new Scanner (System.in);
 	/*ProductDao product = DaoFactory.createProductDao();
 	
 	Product p1 = product.findById(1);
@@ -25,9 +27,24 @@ public class Test {
 	List<Product> list = product.findAll();
 	list.forEach(System.out::println);*/
 	
-	/*User oi = telaPrincipal.logar();
+	User oi = telaPrincipal.logar();
 	System.out.println("Logado com sucesso!");
-	System.out.println("Bem vindo, " + oi.getName());*/
+	System.out.println("Bem vindo, " + oi.getName());
+	
+	System.out.println("O que deseja fazer?");
+	System.out.println("[ 1 ] - Acessar listas");
+	int op = scan.nextInt();
+	
+	switch (op) {
+	case 1:
+	    List<Categoria> list = categoriaDao.findAll(oi);
+	    if (!list.isEmpty())list.forEach(System.out::println);
+	    else System.out.println("Lista vazia. Deseja adicionar uma agora?");
+	    break;
+
+	default:
+	    break;
+	}
 	
 	//teste INSERIR categoria  ----------------- FUNCIONANDO
 	/*cat = new Categoria(null, "feira", oi);
@@ -49,6 +66,9 @@ public class Test {
 	//teste DELETAR -------------------------- FUNCIONANDO
 	//categoriaDao.deletById(5);
 	
+	
+	
+	scan.close();
     }
     
 }
