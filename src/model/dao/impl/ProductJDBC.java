@@ -32,20 +32,19 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("insert into produtos (nome, preco_estipulado, preco_real, "
-	    	+ "id_usuario, id_categoria) "
-	    	+ "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+		    + "id_usuario, id_categoria) " + "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 	    this.inserirProduto(st, obj);
-	   if (st.executeUpdate() > 0) {
-	       ResultSet rs = st.getGeneratedKeys();
-	       if (rs.next()) {
-		   obj.setId(rs.getInt("id"));
-	       }
-	       DB.closeResultSet(rs);
-	   }else
-	       throw new DbException("Ocorreu um erro ao inserir. Tente novamente.");
-	}catch (SQLException e) {
+	    if (st.executeUpdate() > 0) {
+		ResultSet rs = st.getGeneratedKeys();
+		if (rs.next()) {
+		    obj.setId(rs.getInt("id"));
+		}
+		DB.closeResultSet(rs);
+	    } else
+		throw new DbException("Ocorreu um erro ao inserir. Tente novamente.");
+	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
-	}finally {
+	} finally {
 	    DB.closeStatement(st);
 	}
 
@@ -54,17 +53,38 @@ public class ProductJDBC implements ProductDao {
     @Override
     public void atualizar(Product obj) {
 	PreparedStatement st = null;
-	
+	try {
+	    st = conn.prepareStatement("update produtos set nome = ?, preco_estipulado = ?, preco_real = ?, "
+		    + "id_usuario = ?, id_categoria = ? where id = ?");
+	    this.inserirProduto(st, obj);
+	    st.setInt(6, obj.getId());
+	    st.executeUpdate();
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeStatement(st);
+	}
 
     }
 
     @Override
     public void deletById(Integer id) {
-	// TODO Auto-generated method stub
-
+	PreparedStatement st = null;
+	try {
+	    st = conn.prepareStatement("DELETE FROM produtos " + "WHERE Id = ?");
+	    st.setInt(1, id);
+	    int row = st.executeUpdate();
+	    if (row == 0) {
+		throw new DbException("Ops, id não existe ou aconteceu um erro inesperado");
+	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	}finally {
+	    DB.closeStatement(st);
+	}
     }
-    
-    //nao vou fazer agora, acho que não vou precisar
+
+    // nao vou fazer agora, acho que não vou precisar
     @Override
     public Product findById(Integer id) {
 	PreparedStatement st = null;
@@ -72,8 +92,7 @@ public class ProductJDBC implements ProductDao {
 	Product product = null;
 
 	try {
-	    st = this.conn
-		    .prepareStatement("select * from produtos where id = " + id);
+	    st = this.conn.prepareStatement("select * from produtos where id = " + id);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		product = instanciarProduto(rs);
@@ -97,11 +116,8 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    st = this.conn.prepareStatement(
-		    "select produtos.*, categoria.*,"
-		    + " usuario.* from produtos inner join"
-		    + " categoria on id_categoria = categoria.id"
-		    + " inner join usuario on id_usuario ="
+	    st = this.conn.prepareStatement("select produtos.*, categoria.*," + " usuario.* from produtos inner join"
+		    + " categoria on id_categoria = categoria.id" + " inner join usuario on id_usuario ="
 		    + " usuario.id where id_usuario = ? and id_categoria = ?");
 	    st.setInt(1, this.categoria.getId());
 	    st.setInt(2, this.user.getId());
@@ -129,7 +145,7 @@ public class ProductJDBC implements ProductDao {
 	p.setUser(this.user);
 	return p;
     }
-    
+
     private void inserirProduto(PreparedStatement st, Product p) throws SQLException {
 	st.setString(1, p.getNome());
 	st.setDouble(2, p.getPrecoEstipulado());
@@ -138,4 +154,3 @@ public class ProductJDBC implements ProductDao {
 	st.setInt(5, this.categoria.getId());
     }
 }
-
