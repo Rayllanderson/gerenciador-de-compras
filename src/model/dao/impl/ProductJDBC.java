@@ -29,7 +29,25 @@ public class ProductJDBC implements ProductDao {
 
     @Override
     public void inserir(Product obj) {
-	// TODO Auto-generated method stub
+	PreparedStatement st = null;
+	try {
+	    st = conn.prepareStatement("insert into produtos (nome, preco_estipulado, preco_real, "
+	    	+ "id_usuario, id_categoria) "
+	    	+ "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+	    this.inserirProduto(st, obj);
+	   if (st.executeUpdate() > 0) {
+	       ResultSet rs = st.getGeneratedKeys();
+	       if (rs.next()) {
+		   obj.setId(rs.getInt("id"));
+	       }
+	       DB.closeResultSet(rs);
+	   }else
+	       throw new DbException("Ocorreu um erro ao inserir. Tente novamente.");
+	}catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	}finally {
+	    DB.closeStatement(st);
+	}
 
     }
 
@@ -44,7 +62,8 @@ public class ProductJDBC implements ProductDao {
 	// TODO Auto-generated method stub
 
     }
-
+    
+    //nao vou fazer agora, acho que não vou precisar
     @Override
     public Product findById(Integer id) {
 	PreparedStatement st = null;
@@ -53,7 +72,7 @@ public class ProductJDBC implements ProductDao {
 
 	try {
 	    st = this.conn
-		    .prepareStatement("select id, nome, preco_estipulado, preco_real from produtos where id = " + id);
+		    .prepareStatement("select * from produtos where id = " + id);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		product = instanciarProduto(rs);
@@ -109,4 +128,14 @@ public class ProductJDBC implements ProductDao {
 	p.setUser(this.user);
 	return p;
     }
+    
+    private void inserirProduto(PreparedStatement st, Product p) throws SQLException {
+	st.setInt(1, p.getId());
+	st.setString(2, p.getNome());
+	st.setDouble(2, p.getPrecoEstipulado());
+	st.setDouble(3, p.getPrecoReal());
+	st.setInt(4, this.user.getId());
+	st.setInt(5, this.categoria.getId());
+    }
 }
+
