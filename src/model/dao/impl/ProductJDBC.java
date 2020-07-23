@@ -31,13 +31,13 @@ public class ProductJDBC implements ProductDao {
     public void inserir(Product obj) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("insert into produtos (nome, preco_estipulado, preco_real, "
-		    + "id_usuario, id_categoria) " + "values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+	    st = conn.prepareStatement("\r\n" + 
+	    	"insert into produtos (nome, preco_estipulado, preco_real, id_usuario, id_categoria, comprado) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 	    this.inserirProduto(st, obj);
 	    if (st.executeUpdate() > 0) {
 		ResultSet rs = st.getGeneratedKeys();
 		if (rs.next()) {
-		    obj.setId(rs.getInt("id"));
+		    obj.setId(rs.getInt(1));
 		}
 		DB.closeResultSet(rs);
 	    } else
@@ -55,9 +55,9 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("update produtos set nome = ?, preco_estipulado = ?, preco_real = ?, "
-		    + "id_usuario = ?, id_categoria = ? where id = ?");
+		    + "id_usuario = ?, id_categoria = ?, comprado = ? where id = ?");
 	    this.inserirProduto(st, obj);
-	    st.setInt(6, obj.getId());
+	    st.setInt(7, obj.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -152,5 +152,6 @@ public class ProductJDBC implements ProductDao {
 	st.setDouble(3, p.getPrecoReal());
 	st.setInt(4, this.user.getId());
 	st.setInt(5, this.categoria.getId());
+	st.setBoolean(6, p.isCompraro());
     }
 }
