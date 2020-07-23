@@ -13,18 +13,15 @@ import db.DbException;
 import model.dao.ProductDao;
 import model.entities.Categoria;
 import model.entities.Product;
-import model.entities.User;
 
 public class ProductJDBC implements ProductDao {
 
     private Connection conn;
     private Categoria categoria;
-    private User user;
 
-    public ProductJDBC(Connection conn, User user, Categoria categoria) {
+    public ProductJDBC(Connection conn, Categoria categoria) {
 	this.conn = conn;
 	this.categoria = categoria;
-	this.user = user;
     }
 
     @Override
@@ -116,11 +113,9 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    st = this.conn.prepareStatement("select produtos.*, categoria.*," + " usuario.* from produtos inner join"
+	    st = this.conn.prepareStatement("select produtos.*, categoria.*, usuario.* from produtos inner join"
 		    + " categoria on id_categoria = categoria.id" + " inner join usuario on id_usuario ="
-		    + " usuario.id where id_usuario = ? and id_categoria = ?");
-	    st.setInt(1, this.categoria.getId());
-	    st.setInt(2, this.user.getId());
+		    + " usuario.id where id_usuario = "+ this.categoria.getUser().getId() + " and id_categoria = " + this.categoria.getId());
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		Product p = instanciarProduto(rs);
@@ -142,7 +137,7 @@ public class ProductJDBC implements ProductDao {
 	p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
 	p.setPrecoReal(rs.getDouble("preco_real"));
 	p.setCategoria(this.categoria);
-	p.setUser(this.user);
+	p.setUser(this.categoria.getUser());
 	return p;
     }
 
@@ -150,7 +145,7 @@ public class ProductJDBC implements ProductDao {
 	st.setString(1, p.getNome());
 	st.setDouble(2, p.getPrecoEstipulado());
 	st.setDouble(3, p.getPrecoReal());
-	st.setInt(4, this.user.getId());
+	st.setInt(4, this.categoria.getUser().getId());
 	st.setInt(5, this.categoria.getId());
 	st.setBoolean(6, p.isCompraro());
     }

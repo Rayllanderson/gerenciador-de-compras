@@ -8,14 +8,14 @@ public class Product {
     private Double precoReal; //quanto que ele realmente foi
     private Categoria categoria;
     private User user;
-    private boolean compraro;
+    private boolean comprado;
     
     public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, User user, Categoria categoria) {
 	this.id = id;
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
 	this.precoReal = precoReal;
-	this.compraro = comprado;
+	this.comprado = comprado;
 	this.user = user;
 	this.categoria = categoria;
     }
@@ -72,6 +72,14 @@ public class Product {
         this.user = user;
     }
 
+    public boolean isCompraro() {
+	return comprado;
+    }
+
+    public void setCompraro(boolean compraro) {
+	this.comprado = compraro;
+    }
+    
     @Override
     public int hashCode() {
 	final int prime = 31;
@@ -99,15 +107,11 @@ public class Product {
 
     @Override
     public String toString() {
-	return nome;
-    }
-
-    public boolean isCompraro() {
-	return compraro;
-    }
-
-    public void setCompraro(boolean compraro) {
-	this.compraro = compraro;
+	return nome + precoEstipulado + precoReal + this.comprado();
     }
     
+    public String comprado() {
+	if (comprado) return "Sim";
+	else return "Não";
+    }
 }

@@ -9,8 +9,8 @@ import model.entities.User;
 
 public class DaoFactory {
     
-    public static ProductDao createProductDao(User user, Categoria categoria) {
-	return new ProductJDBC(DB.getConnection(), user, categoria);
+    public static ProductDao createProductDao(Categoria categoria) {
+	return new ProductJDBC(DB.getConnection(), categoria);
     }
 
     public static TelaLoginDao createTelaLoginDao() {
