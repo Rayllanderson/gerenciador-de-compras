@@ -53,7 +53,8 @@ public class ProductJDBC implements ProductDao {
 
     @Override
     public void atualizar(Product obj) {
-	// TODO Auto-generated method stub
+	PreparedStatement st = null;
+	
 
     }
 
@@ -130,8 +131,7 @@ public class ProductJDBC implements ProductDao {
     }
     
     private void inserirProduto(PreparedStatement st, Product p) throws SQLException {
-	st.setInt(1, p.getId());
-	st.setString(2, p.getNome());
+	st.setString(1, p.getNome());
 	st.setDouble(2, p.getPrecoEstipulado());
 	st.setDouble(3, p.getPrecoReal());
 	st.setInt(4, this.user.getId());
