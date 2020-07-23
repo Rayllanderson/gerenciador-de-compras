@@ -72,7 +72,7 @@ public class ProductJDBC implements ProductDao {
 	    st.setInt(1, id);
 	    int row = st.executeUpdate();
 	    if (row == 0) {
-		throw new DbException("Ops, id não existe ou aconteceu um erro inesperado");
+		throw new DbException("Ops, id não existe ou ocorreu um erro inesperado");
 	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -138,6 +138,7 @@ public class ProductJDBC implements ProductDao {
 	p.setPrecoReal(rs.getDouble("preco_real"));
 	p.setCategoria(this.categoria);
 	p.setUser(this.categoria.getUser());
+	p.setCompraro(rs.getBoolean("comprado"));
 	return p;
     }
 

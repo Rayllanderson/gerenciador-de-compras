@@ -10,6 +10,7 @@ import model.entities.Product;
 import model.entities.User;
 import model.exception.BackButtonException;
 import model.exception.CategoriaException;
+import model.exception.ListaVaziaException;
 import model.exception.MyLoginException;
 import model.exception.ProductoException;
 import model.service.CategoriaService;
@@ -24,6 +25,8 @@ public class TelaPrincipal {
 	this.telaLogin = DaoFactory.createTelaLoginDao();
     }
 
+    // --------------------------- MENUS PRINCIPAIS
+    // ----------------------------------
     public User logar() {
 	String username = null, password = null;
 	while (true) {
@@ -91,32 +94,36 @@ public class TelaPrincipal {
 	    } catch (CategoriaException e) {
 		System.out.println(e.getMessage());
 	    } catch (BackButtonException e) {
+	    } catch (ProductoException e) {
+		System.out.println(e.getMessage());
+	    } catch (ListaVaziaException e) {
+		System.out.println(e.getMessage());
+
 	    }
 	} while (true);
     }
 
     public boolean telaProduto(Categoria cat) {
 	ProductService service = new ProductService(cat);
+	int opcao = -1;
 	while (true) {
-	    service.listarPordutos();
-	    this.menuProdutos();
 	    try {
-		int opcao = scan.nextInt();
+		service.listarPordutos();
+		this.menuProdutos();
+		opcao = scan.nextInt();
 		switch (opcao) {
 		case 0:
-		    System.exit(0);
+		    return true;
 		case 1:
+		    scan.nextLine();
 		    this.adicionarProduto(service, cat);
+		    break;
 		case 2:
 		    while (this.menuEditarProduto(service));
 		    break;
 		case 3:
 		    Product p = selecionarProduto(service, "Excluir");
 		    service.deletar(p);
-		    break;
-		case 4:
-		    Product p1 = selecionarProduto(service, "Marcar como comprado");
-		    this.marcarComoConcluido(service, p1);
 		    break;
 		default:
 		    throw new InputMismatchException();
@@ -126,35 +133,79 @@ public class TelaPrincipal {
 		scan.next();
 	    } catch (ProductoException e) {
 		System.out.println(e.getMessage());
+	    } catch (ListaVaziaException e) {
+		System.out.println(e.getMessage());
+		System.out.println("Adicionar novo produto a essa lista?");
+		System.out.println("[ 1 ] - sim");
+		System.out.println("[ 2 ] - não");
+		if (scan.nextInt() == 1) {
+		    scan.nextLine();
+		    this.adicionarProduto(service, cat);
+		}else {
+		    return true;
+		}
 	    }
 	}
-
     }
 
-    private void menuCategorias() {
-	System.out.println("[ 1 ] - Acessar suas Listas");
-	System.out.println("[ 2 ] - Adicionar nova Lista");
-	System.out.println("[ 3 ] - Editar Lista");
-	System.out.println("[ 4 ] - Excluir Lista");
-	System.out.println("[ 0 ] - Sair");
+    private boolean menuEditarProduto(ProductService service) {
+	while (true) {
+	    try {
+		Product p = selecionarProduto(service, "Editar");
+		System.out.println("Escolha o que deseja editar");
+		menuEditarProduto();
+		int opcaoEditarProduto = scan.nextInt();
+		if (opcaoEditarProduto == 0) {
+		    return false;
+		}
+		switch (opcaoEditarProduto) {
+		case 1:
+		    scan.nextLine();
+		    editarProduto(service, p);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		case 2:
+		    scan.nextLine();
+		    System.out.print("Novo nome: ");
+		    String name = scan.nextLine();
+		    service.editarNome(p, name);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		case 3:
+		    System.out.print("Novo valor estipulado: R$");
+		    double valorEstipulado = scan.nextDouble();
+		    service.editarPrecoEstipulado(p, valorEstipulado);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		case 4:
+		    editarValorReal(service, p);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		case 5:
+		    marcarComoConcluido(service, p);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		case 6: 
+		    marcarComoNaoConcluido(service, p);
+		    if (naoContinuarEditando())
+			return false;
+		    break;
+		default:
+		    throw new InputMismatchException("Opção inválida");
+		}
+	    } catch (InputMismatchException e) {
+		System.out.println(e.getMessage());
+		scan.next();
+	    }
+	}
     }
 
-    private void menuProdutos() {
-	System.out.println("[ 1 ] - Adicionar Novo Produto");
-	System.out.println("[ 2 ] - Editar Produto");
-	System.out.println("[ 3 ] - Excluir Produto");
-	System.out.println("[ 4 ] - Marcar como comprado");
-	System.out.println("[ 0 ] - Sair");
-    }
-
-    private void menuEditarProduto() {
-	System.out.println("[ 1 ] - Editar tudo");
-	System.out.println("[ 2 ] - Editar nome");
-	System.out.println("[ 3 ] - Editar Preço Estipulado");
-	System.out.println("[ 4 ] - Editar Preço Real");
-	System.out.println("[ 5 ] - Marcar como comprado");
-	System.out.println("[ 0 ] - Voltar");
-    }
+    // ------------------------- MÉTODOS BÁSICOS --------------------------------
 
     private String formatarNome(String nome) {
 	String[] name = nome.split(" ");
@@ -176,6 +227,8 @@ public class TelaPrincipal {
 	    throw new BackButtonException();
 	}
     }
+
+    // --------------------------- CATEGORIA ----------------------------------
 
     private void adicionarCategoria(CategoriaService service, User user) {
 	Categoria novaCategoria = new Categoria();
@@ -216,8 +269,9 @@ public class TelaPrincipal {
 	Categoria cat1 = service.getCategoriaByNumber(numCategoria);
 	if (service.deletarCategoria(cat1))
 	    System.out.println("Lista deletada com sucesso!");
-	;
     }
+
+    // --------------------------- PRODUTOS ----------------------------------
 
     private void adicionarProduto(ProductService service, Categoria cat) {
 	System.out.print("Nome: ");
@@ -234,45 +288,7 @@ public class TelaPrincipal {
 	service.inserir(p);
     }
 
-    private boolean menuEditarProduto(ProductService service) {
-	while (true) {
-	    try {
-		Product p = selecionarProduto(service, "Editar");
-		menuEditarProduto();
-		int opcaoEditarProduto = scan.nextInt();
-		switch (opcaoEditarProduto) {
-		case 0:
-		    return true;
-		case 1:
-		    editarProduto(service, p);
-		    break;
-		case 2:
-		    System.out.print("Novo nome: ");
-		    String name = scan.nextLine();
-		    service.editarNome(p, name);
-		    break;
-		case 3:
-		    System.out.print("Novo valor estipulado: R$");
-		    double valorEstipulado = scan.nextDouble();
-		    service.editarPrecoEstipulado(p, valorEstipulado);
-		    break;
-		case 4:
-		    editarValorReal(service, p);
-		    break;
-		case 5:
-		    marcarComoConcluido(service, p);
-		    break;
-		default:
-		    throw new InputMismatchException("Opção inválida");
-		}
-	    } catch (InputMismatchException e) {
-		System.out.println(e.getMessage());
-		scan.next();
-	    }
-	}
-    }
-
-    private void editarProduto(ProductService service, Product p) {
+    private void editarProduto(ProductService service, Product p) throws InputMismatchException {
 	System.out.print("Nome: ");
 	String nome = scan.nextLine();
 	System.out.print("Qual o preço que você acha que vai pagar? R$");
@@ -300,19 +316,68 @@ public class TelaPrincipal {
 	double value = p.getPrecoReal();
 	service.marcarComoConcluido(p, value);
     }
+    private void marcarComoNaoConcluido(ProductService service, Product p) {
+	if (p.getPrecoReal() != 0) {
+	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
+	    System.out.println("[ 1 ] - sim");
+	    System.out.println("[ 2 ] - nop");
+	    if (scan.nextInt() == 1) {
+		editarValorReal(service, p);
+	    }
+	}
+	double value = p.getPrecoReal();
+	service.marcarComoNaoConcluido(p, value);
+    }
 
     private void editarValorReal(ProductService service, Product p) {
 	System.out.print("Valor real: R$");
 	double valorReal = scan.nextDouble();
 	service.editarPrecoReal(p, valorReal);
     }
-    
+
     private Product selecionarProduto(ProductService service, String acao) {
 	service.listarPordutos();
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
 	int produtoEscolhido = scan.nextInt();
 	Product p = service.getProdutoByNumer(produtoEscolhido);
 	return p;
+    }
+
+    // --------------------------- MENUS ----------------------------------
+    private void menuCategorias() throws InputMismatchException{
+	System.out.println("[ 1 ] - Acessar suas Listas");
+	System.out.println("[ 2 ] - Adicionar nova Lista");
+	System.out.println("[ 3 ] - Editar Lista");
+	System.out.println("[ 4 ] - Excluir Lista");
+	System.out.println("[ 0 ] - Sair");
+    }
+
+    private void menuProdutos() throws InputMismatchException{
+	System.out.println(String.format("%s",
+		"----------------------------------------------------------------------------------------------------------------"));
+	System.out.println("[ 1 ] - Adicionar Novo Produto");
+	System.out.println("[ 2 ] - Editar Produto");
+	System.out.println("[ 3 ] - Excluir Produto");
+	System.out.println("[ 0 ] - Voltar");
+    }
+
+    private void menuEditarProduto() throws InputMismatchException{
+	System.out.println("[ 1 ] - Editar tudo");
+	System.out.println("[ 2 ] - Editar nome");
+	System.out.println("[ 3 ] - Editar Preço Estipulado");
+	System.out.println("[ 4 ] - Editar Preço Real");
+	System.out.println("[ 5 ] - Marcar como comprado");
+	System.out.println("[ 6 ] - Marcar como não comprado");
+	System.out.println("[ 0 ] - Voltar");
+    }
+
+    private boolean naoContinuarEditando() throws InputMismatchException {
+	System.out.println("Feito!");
+	System.out.println("Quer continuar editando?");
+	System.out.println("[ 1 ] - sim");
+	System.out.println("[ 2 ] - não");
+	int n = scan.nextInt();
+	return n == 2;
     }
 
 }

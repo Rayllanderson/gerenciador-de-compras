@@ -9,6 +9,7 @@ import model.dao.DaoFactory;
 import model.entities.Categoria;
 import model.entities.User;
 import model.exception.CategoriaException;
+import model.exception.ListaVaziaException;
 
 public class CategoriaService {
 
@@ -35,7 +36,7 @@ public class CategoriaService {
 		System.out.println("[ " + (i + 1) + " ] - " + list.get(i));
 	    }
 	} else {
-	    throw new CategoriaException("Lista Vazia");
+	    throw new ListaVaziaException("Lista Vazia");
 	}
     }
 
