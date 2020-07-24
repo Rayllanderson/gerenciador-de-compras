@@ -9,7 +9,7 @@ public interface CategoriaDao {
     void inserir(Categoria categoria);  
     void deletById(Integer id);  
     void atualizar(Categoria categoria);
-    Categoria findById(Integer id);
+    void inserirOrcamento (Categoria categoria, Double value);
     Categoria findByName(String name);
     
     /**

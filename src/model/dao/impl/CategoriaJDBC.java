@@ -85,31 +85,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	}
 
     }
-
-    @Override
-    public Categoria findById(Integer id) {
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	Categoria cat = new Categoria();
-	try {
-	    st = conn.prepareStatement("select categoria.*, usuario.*"
-		    + " from categoria inner join usuario on categoria.id_user = usuario.id where categoria.id = "
-		    + id);
-	    rs = st.executeQuery();
-	    if (rs.next()) {
-		User user = instaciarUsuario(rs);
-		cat = instaciarCategoria(rs, user);
-		return cat;
-	    } else {
-		throw new DbException("Não encontrado");
-	    }
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeStatement(st);
-	}
-    }
-    
+  
     @Override
     public List<Categoria> findAll() {
 	List<Categoria> list = new ArrayList<>();
@@ -132,7 +108,6 @@ public class CategoriaJDBC implements CategoriaDao {
 	}
     }
 
-
     @Override
     public Categoria findByName(String name) {
 	// TODO Auto-generated method stub
@@ -144,14 +119,6 @@ public class CategoriaJDBC implements CategoriaDao {
 	st.setInt(2, cat.getUser().getId());
     }
 
-    private User instaciarUsuario(ResultSet rs) throws SQLException {
-	User user = new User();
-	user.setId(rs.getInt("usuario.id"));
-	user.setName(rs.getString("usuario.nome"));
-	user.setUsername(rs.getString("usuario.username"));
-	user.setPassword(rs.getString("usuario.senha"));
-	return user;
-    }
 
     private Categoria instaciarCategoria(ResultSet rs, User user) throws SQLException {
 	Categoria cat = new Categoria();
@@ -160,5 +127,41 @@ public class CategoriaJDBC implements CategoriaDao {
 	cat.setUser(user);
 	return cat;
     }
+    @Override
+    public void inserirOrcamento(Categoria categoria, Double value) {
+	
+    }
+    
+    /*@Override
+    public Categoria findById(Integer id) {
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	Categoria cat = new Categoria();
+	try {
+	    st = conn.prepareStatement("select categoria.*, usuario.*"
+		    + " from categoria inner join usuario on categoria.id_user = usuario.id where categoria.id = "
+		    + id);
+	    rs = st.executeQuery();
+	    if (rs.next()) {
+		User user = instaciarUsuario(rs);
+		cat = instaciarCategoria(rs, user);
+		return cat;
+	    } else {
+		throw new DbException("Não encontrado");
+	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeStatement(st);
+	}
+    }
+    private User instaciarUsuario(ResultSet rs) throws SQLException {
+   	User user = new User();
+   	user.setId(rs.getInt("usuario.id"));
+   	user.setName(rs.getString("usuario.nome"));
+   	user.setUsername(rs.getString("usuario.username"));
+   	user.setPassword(rs.getString("usuario.senha"));
+   	return user;
+       }*/
 
 }
