@@ -123,6 +123,8 @@ public class ProdutosUtil {
 	    System.out.println("Você já gastou R$" + valorGasto + complemento);
 	} catch (NullPointerException e) {
 	    System.out.println("Você não tem orçamento para esta lista. Adicione um no menu principal");
+	}catch (ListaVaziaException e) {
+	    System.out.println("Nenhum produto comprado até o momento, sendo assim, você não gastou nada.");
 	}
 
     }
@@ -153,10 +155,6 @@ public class ProdutosUtil {
     public static void valorEconomizado(ProductService service) {
 	try {
 	    double valorEconomizado = service.valorEconomizado();
-	    if (valorEconomizado == 0) {
-		throw new ListaVaziaException(
-			"Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
-	    }
 	    if (valorEconomizado < 0) {
 		System.out.println("Eita! Você não economizou nada! Valor gastou R$" + (-(valorEconomizado))
 			+ " a mais do que planejava");
@@ -164,7 +162,23 @@ public class ProdutosUtil {
 		System.out.println("Você economizou R$" + valorEconomizado + ", Parabéns!");
 	    }
 	} catch (ListaVaziaException e) {
-	    System.out.println(e.getMessage());
+	    System.out.println("Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
+	}
+    }
+    
+    public static void listarNaoConcluidos(ProductService service) {
+	try {
+	    service.listarNaoConcluidos();
+	}catch (ListaVaziaException e) {
+	    System.out.println("Todos os produtos da lista foram comprados :)");
+	}
+    }
+    
+    public static void listarConcluidos(ProductService service) {
+	try {
+	    service.listarConcluidos();
+	}catch (ListaVaziaException e) {
+	    System.out.println("Nenhum produto da lista foi comprado :(");
 	}
     }
 

@@ -110,13 +110,14 @@ public class TelaPrincipal {
     // --------------------------- MENUS PRODUTO ----------------------------------
     public boolean telaProduto(Categoria cat) {
 	ProductService service = new ProductService(cat);
-	int opcao = -1;
+	String opcao = null;
 	while (true) {
 	    try {
+		mostrarOrcamento(cat);
 		service.listarPordutos();
 		Menu.menuProdutos();
-		opcao = scan.nextInt();
-		switch (opcao) {
+		opcao = scan.next();
+		switch (Integer.parseInt(opcao)) {
 		case 0:
 		    return true;
 		case 1:
@@ -185,6 +186,19 @@ public class TelaPrincipal {
 	    return true;
 	}
 	return false;
+    }
+    
+    private void mostrarOrcamento(Categoria cat) {
+	System.out.println();
+	String complemento = ": ";
+	if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
+	    complemento += "Lista sem orçamento";
+	}else {
+	    complemento += "R$" + cat.getOrcamento();
+	} 
+	
+	System.out.println("Orçamento para esta Lista" + complemento);	
+	System.out.println();
     }
 
 }

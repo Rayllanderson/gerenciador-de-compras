@@ -19,7 +19,6 @@ public class MenuCategoria {
 	String num = scan.next();
 	ButtonUtil.botaoVoltar(num);
 	Categoria cat = service.getCategoriaByNumber(Integer.parseInt(num));
-
 	Menu.menuEditarCategorias();
 	String choose = scan.next();
 	switch (Integer.parseInt(choose)) {
@@ -38,6 +37,4 @@ public class MenuCategoria {
 	    throw new InputMismatchException();
 	}
     }
-
-
 }

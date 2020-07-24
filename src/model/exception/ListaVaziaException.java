@@ -8,6 +8,10 @@ public class ListaVaziaException extends RuntimeException{
 	super(msg);
     }
 
+    public ListaVaziaException() {
+	// TODO Auto-generated constructor stub
+    }
+
 }
 
 

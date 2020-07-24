@@ -82,11 +82,11 @@ public class MenuProduto {
 		    break;
 		case 2:
 		    System.out.println("Produtos comprados: ");
-		    service.listarConcluidos();
+		    ProdutosUtil.listarConcluidos(service);
 		    break;
 		case 3:
 		    System.out.println("Produdos que você ainda não comprou: ");
-		    service.listarNaoConcluidos();
+		    ProdutosUtil.listarNaoConcluidos(service);
 		    break;
 		case 4:
 		    ProdutosUtil.disponivelParaComprar(service, cat);
@@ -103,7 +103,7 @@ public class MenuProduto {
 	    } catch (NumberFormatException e) {
 		System.out.println("Digite apenas números");
 	    } catch (ListaVaziaException e) {
-		System.out.println(e.getMessage());
+		
 	    }
 	}
     }
