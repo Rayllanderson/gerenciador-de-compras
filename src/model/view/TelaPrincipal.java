@@ -27,6 +27,7 @@ public class TelaPrincipal {
 
     public TelaPrincipal() {
 	this.telaLogin = DaoFactory.createTelaLoginDao();
+	scan.useDelimiter(System.lineSeparator());
     }
 
     // --------------------------- MENU LOGIN ----------------------------------
@@ -38,26 +39,24 @@ public class TelaPrincipal {
 		System.out.println("|  [ 1 ] - Login      |");
 		System.out.println("|  [ 2 ] - Cadastrar  |");
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*");
-		int op = scan.nextInt();
-		if (op == 1) {
+		String op = scan.next();
+		if (Integer.parseInt(op) == 1) {
 		    username = pedirUser();
 		    password = pedirSenha();
 		    return this.telaLogin.login(username, password);
-		} else if (op == 2) {
-		    scan.nextLine();
+		} else if (Integer.parseInt(op) == 2) {
 		    System.out.print("Nome: ");
-		    String name = scan.nextLine();
+		    String name = scan.next();
 		    username = pedirUser();
 		    password = pedirSenha();
 		    if (this.telaLogin.cadastrar(new User(null, name, username, password))) {
 			System.out.println("Cadastro realizado com sucesso! Faça login para continuar");
 		    }
 		} else {
-		    throw new InputMismatchException();
+		    throw new MyLoginException("Digite uma opção válida");
 		}
-	    } catch (InputMismatchException e) {
+	    } catch (NumberFormatException e) {
 		System.out.println("Digite uma opcao válida");
-		scan.next();
 	    } catch (MyLoginException e) {
 		System.out.println(e.getMessage());
 	    }
@@ -69,11 +68,12 @@ public class TelaPrincipal {
     public Categoria telaCategoria(User user) {
 	CategoriaService service = new CategoriaService(user);
 	do {
+	    String opcao = null;
 	    System.out.println("O que deseja fazer, " + this.formatarNome(user.getName()) + "?");
 	    Menu.menuCategorias();
 	    try {
-		int opcao = scan.nextInt();
-		switch (opcao) {
+		opcao = scan.next();
+		switch (Integer.parseInt(opcao)) {
 		case 0:
 		    System.exit(0);
 		case 1:
@@ -83,7 +83,6 @@ public class TelaPrincipal {
 		    ButtonUtil.botaoVoltar(selecionarCategoria);
 		    return service.getCategoriaByNumber(selecionarCategoria);
 		case 2:
-		    scan.nextLine();
 		    CategoriaUtil.adicionarCategoria(service, user);
 		    break;
 		case 3:
@@ -95,9 +94,8 @@ public class TelaPrincipal {
 		default:
 		    throw new InputMismatchException();
 		}
-	    } catch (InputMismatchException e) {
-		System.out.println("Opção inválida! Tente novamente.");
-		scan.next();
+	    }catch (InputMismatchException e) {
+		System.out.println("Opção inexistente no momento");
 	    } catch (CategoriaException e) {
 		System.out.println(e.getMessage());
 	    } catch (BackButtonException e) {
@@ -105,7 +103,8 @@ public class TelaPrincipal {
 		System.out.println(e.getMessage());
 	    } catch (ListaVaziaException e) {
 		System.out.println(e.getMessage());
-
+	    } catch (NumberFormatException e) {
+		System.out.println("Opção inválida. Tente digitar apenas números");
 	    }
 	} while (true);
     }
@@ -123,7 +122,6 @@ public class TelaPrincipal {
 		case 0:
 		    return true;
 		case 1:
-		    scan.nextLine();
 		    ProdutosUtil.adicionarProduto(service, cat);
 		    break;
 		case 2:
@@ -145,15 +143,9 @@ public class TelaPrincipal {
 	    } catch (BackButtonException e) {
 	    } catch (ListaVaziaException e) {
 		System.out.println(e.getMessage());
-		System.out.println("Adicionar novo produto a essa lista?");
-		System.out.println("[ 1 ] - sim");
-		System.out.println("[ 2 ] - não");
-		if (scan.nextInt() == 1) {
-		    scan.nextLine();
-		    ProdutosUtil.adicionarProduto(service, cat);
-		} else {
-		    return true;
-		}
+		return createNewList(service, cat);
+	    } catch (NumberFormatException e) {
+		System.out.println("Tente digitar apenas números");
 	    }
 	}
     }
@@ -161,27 +153,27 @@ public class TelaPrincipal {
     // --------------------------- MENUS EDITAR PRODUTO
     // ----------------------------------
     private boolean menuEditarProduto(ProductService service) {
+	scan.useDelimiter(System.lineSeparator());
+	String opcaoEditarProduto;
 	while (true) {
 	    try {
 		Product p = ProdutosUtil.selecionarProduto(service, "Editar");
 		ButtonUtil.botaoVoltar(p);
 		System.out.println("Escolha o que deseja editar");
 		Menu.menuEditarProduto();
-		int opcaoEditarProduto = scan.nextInt();
-		if (opcaoEditarProduto == 0) {
+		opcaoEditarProduto = scan.next();
+		if (Integer.parseInt(opcaoEditarProduto) == 0) {
 		    return false;
 		}
-		switch (opcaoEditarProduto) {
+		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    scan.nextLine();
 		    ProdutosUtil.editarProduto(service, p);
 		    if (Menu.naoContinuarEditando())
 			return false;
 		    break;
 		case 2:
-		    scan.nextLine();
 		    System.out.print("Novo nome: ");
-		    String name = scan.nextLine();
+		    String name = scan.next();
 		    service.editarNome(p, name);
 		    if (Menu.naoContinuarEditando())
 			return false;
@@ -209,13 +201,15 @@ public class TelaPrincipal {
 			return false;
 		    break;
 		default:
-		    throw new InputMismatchException("Opção inválida");
+		    throw new InputMismatchException();
 		}
 	    } catch (InputMismatchException e) {
-		System.out.println(e.getMessage());
+		System.out.println("Opção inválida! Tente novamente.");
 		scan.next();
 	    } catch (BackButtonException e) {
 		return false;
+	    } catch (NumberFormatException e) {
+		System.out.println("Digite apenas números");
 	    }
 	}
 
@@ -236,6 +230,24 @@ public class TelaPrincipal {
     private String pedirSenha() {
 	System.out.print("Senha: ");
 	return scan.next();
+    }
+
+    private boolean createNewList(ProductService service, Categoria cat) {
+	System.out.println("Adicionar novo produto a essa lista?");
+	System.out.println("[ 1 ] - sim");
+	System.out.println("[ 2 ] - não");
+	try {
+	    if (scan.nextInt() == 1) {
+		ProdutosUtil.adicionarProduto(service, cat);
+	    } else {
+		return true;
+	    }
+	} catch (InputMismatchException e1) {
+	    System.out.println("digite apenas números");
+	} catch (BackButtonException e) {
+	    return true;
+	}
+	return false;
     }
 
 }

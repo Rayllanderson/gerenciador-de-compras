@@ -11,12 +11,14 @@ public class ProdutosUtil {
     private static Scanner scan = new Scanner(System.in);
 
     public static void adicionarProduto(ProductService service, Categoria cat) {
+	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
-	String nome = scan.nextLine();
+	String nome = scan.next();
 	ButtonUtil.botaoVoltar(nome);
 	System.out.print("Qual o preço que você acha que vai pagar? R$");
 	double valorEstipulado = scan.nextDouble();
+	ButtonUtil.botaoVoltar(valorEstipulado);
 	System.out.println("OBS: se você não comprou o produto ainda, deixe 0");
 	System.out.print("Qual o preço que você realmente pagou? R$");
 	double valorReal = scan.nextDouble();
@@ -28,17 +30,20 @@ public class ProdutosUtil {
     }
 
     public static void editarProduto(ProductService service, Product p) throws InputMismatchException {
+	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
-	String nome = scan.nextLine();
+	String nome = scan.next();
 	ButtonUtil.botaoVoltar(nome);
 	System.out.print("Qual o preço que você acha que vai pagar? R$");
 	double valorEstipulado = scan.nextDouble();
 	System.out.println("OBS: se você não comprou o produto ainda, deixe 0");
 	System.out.print("Qual o preço que você realmente pagou? R$");
-	double valorReal = scan.nextDouble();
+	Double valorReal = scan.nextDouble();
 	if (!(valorReal == 0)) {
 	    service.marcarComoConcluido(p, valorReal);
+	}else {
+	    valorReal = null;
 	}
 	p.setNome(nome);
 	p.setPrecoEstipulado(valorEstipulado);
@@ -51,11 +56,15 @@ public class ProdutosUtil {
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
 	    System.out.println("[ 1 ] - sim");
 	    System.out.println("[ 2 ] - nop");
-	    int n = scan.nextInt();
+	    String n = scan.next();
 	    ButtonUtil.botaoVoltar(n);
-	    if (n == 1) {
+	    if (Integer.parseInt(n) == 1) {
 		editarValorReal(service, p);
 	    }
+	}
+	if (p.getPrecoReal() == null || p.getPrecoReal() == 0) {
+	    System.out.println("Quanto pagou nesse produto?");
+	    p.setPrecoReal(scan.nextDouble());
 	}
 	double value = p.getPrecoReal();
 	service.marcarComoConcluido(p, value);
@@ -67,9 +76,9 @@ public class ProdutosUtil {
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
 	    System.out.println("[ 1 ] - sim");
 	    System.out.println("[ 2 ] - nop");
-	    int n = scan.nextInt();
+	    String n = scan.next();
 	    ButtonUtil.botaoVoltar(n);
-	    if (n == 1) {
+	    if (Integer.parseInt(n) == 1) {
 		editarValorReal(service, p);
 	    }
 	}
@@ -85,13 +94,13 @@ public class ProdutosUtil {
 	service.editarPrecoReal(p, valorReal);
     }
 
-    public static Product selecionarProduto(ProductService service, String acao) {
+    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException{
 	service.listarPordutos();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
-	int produtoEscolhido = scan.nextInt();
+	String produtoEscolhido = scan.next();
 	ButtonUtil.botaoVoltar(produtoEscolhido);
-	Product p = service.getProdutoByNumer(produtoEscolhido);
+	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
 	return p;
     }
 }
