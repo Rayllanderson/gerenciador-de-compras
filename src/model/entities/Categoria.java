@@ -1,15 +1,12 @@
 package model.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Categoria {
 
     private Integer id;
     private String name;
-    private List <Product> produtos = new ArrayList<>();
     private User user;
-    
+    private Double orcamento;
     public Categoria () {};
     
     public Categoria(Integer id, String name, User user) {
@@ -42,16 +39,12 @@ public class Categoria {
 	this.user = user;
     }
 
-    public List<Product> getProdutos() {
-        return produtos;
+    public Double getOrcamento() {
+	return orcamento;
     }
-    
-    public void adicionarProduto(Product produto) {
-	produtos.add(produto);
-    }
-    
-    public void removerProduto(Product produto) {
-	produtos.remove(produto);
+
+    public void setOrcamento(Double orcamento) {
+	this.orcamento = orcamento;
     }
 
     @Override

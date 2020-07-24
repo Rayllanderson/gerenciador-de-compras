@@ -86,7 +86,7 @@ public class TelaPrincipal {
 		    CategoriaUtil.adicionarCategoria(service, user);
 		    break;
 		case 3:
-		    CategoriaUtil.editarCategoria(service);
+		   CategoriaUtil.editarCategoria(service);
 		    break;
 		case 4:
 		    CategoriaUtil.deletarCategoria(service);

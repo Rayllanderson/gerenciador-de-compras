@@ -74,9 +74,13 @@ public class CategoriaJDBC implements CategoriaDao {
     public void atualizar(Categoria categoria) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update categoria set nome = ? where id = ?");
+	    st = conn.prepareStatement("update categoria set nome = ?, orcamento = ? where id = ?");
 	    st.setString(1, categoria.getName());
-	    st.setInt(2, categoria.getId());
+	    if (categoria.getOrcamento() == null) {
+		categoria.setOrcamento(0.0);
+	    }
+	    st.setDouble(2, categoria.getOrcamento());
+	    st.setInt(3, categoria.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -126,10 +130,6 @@ public class CategoriaJDBC implements CategoriaDao {
 	cat.setName(rs.getString("categoria.nome"));
 	cat.setUser(user);
 	return cat;
-    }
-    @Override
-    public void inserirOrcamento(Categoria categoria, Double value) {
-	
     }
     
     /*@Override

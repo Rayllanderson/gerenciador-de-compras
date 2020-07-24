@@ -41,5 +41,12 @@ public class Menu {
 	int n = scan.nextInt();
 	return n == 2;
     }
+    
+    public static void menuEditarCategorias() throws InputMismatchException{
+	System.out.println("[ 1 ] - Editar Tudo");
+	System.out.println("[ 2 ] - Editar Nome");
+	System.out.println("[ 3 ] - Editar Orçamento");
+	System.out.println("[ 0 ] - Voltar");
+    }
 
 }

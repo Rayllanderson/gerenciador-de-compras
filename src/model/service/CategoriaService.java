@@ -66,4 +66,9 @@ public class CategoriaService {
 	    return false;
 	}
     }
+    
+    public void inserirOrcamento(Categoria categoria, double value) {
+	categoria.setOrcamento(value);
+	categoriaDao.atualizar(categoria);
+    }
 }
