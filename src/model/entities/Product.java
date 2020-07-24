@@ -107,7 +107,7 @@ public class Product {
 
     @Override
     public String toString() {
-	return nome + precoEstipulado + precoReal + this.comprado();
+	return nome;
     }
     
     public String comprado() {

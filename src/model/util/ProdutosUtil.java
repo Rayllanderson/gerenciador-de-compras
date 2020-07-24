@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.Product;
+import model.exception.ListaVaziaException;
 import model.service.ProductService;
 
 public class ProdutosUtil {
@@ -42,7 +43,7 @@ public class ProdutosUtil {
 	Double valorReal = scan.nextDouble();
 	if (!(valorReal == 0)) {
 	    service.marcarComoConcluido(p, valorReal);
-	}else {
+	} else {
 	    valorReal = null;
 	}
 	p.setNome(nome);
@@ -94,7 +95,7 @@ public class ProdutosUtil {
 	service.editarPrecoReal(p, valorReal);
     }
 
-    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException{
+    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
 	service.listarPordutos();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
@@ -103,4 +104,68 @@ public class ProdutosUtil {
 	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
 	return p;
     }
+
+    public static void quantidadeGasta(ProductService service, Categoria cat) {
+	try {
+	    double orcamento = cat.getOrcamento();
+	    double valorGasto = service.quantidadeGasta();
+	    String complemento = ". ";
+	    if (orcamento == 0) {
+		complemento += "Você não tem um orcamento para essa lista";
+	    } else {
+		if (valorGasto > orcamento) {
+		    complemento += "Você já ultrapassou seu orçamento em R$" + (valorGasto - orcamento);
+		} else {
+		    complemento += "Você ainda tem R$" + (orcamento - valorGasto)
+			    + " para gastar de acordo com seu orçamento de R$" + orcamento;
+		}
+	    }
+	    System.out.println("Você já gastou R$" + valorGasto + complemento);
+	} catch (NullPointerException e) {
+	    System.out.println("Você não tem orçamento para esta lista. Adicione um no menu principal");
+	}
+
+    }
+
+    public static void disponivelParaComprar(ProductService service, Categoria cat) {
+	try {
+	    double disponivel = service.valorDisponivelParaCompra(cat);
+	    double valorGasto = service.quantidadeGasta();
+	    String complemento = ". ";
+	    if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
+		throw new NullPointerException();
+	    }
+	    if (disponivel < 0) {
+		complemento += "Ixi! Você passou do seu orcamento em R$" + (-(disponivel));
+		complemento += ". Você não tem mais nada disponível para gastar";
+		complemento += ". Orçamento para lista " + cat.getName() + ": R$" + cat.getOrcamento();
+	    } else {
+		complemento = " e, de acordo com seu orçamento para lista " + cat.getName()
+			+ ", você ainda tem disponível R$" + disponivel;
+	    }
+	    System.out.println("Você já gastou R$" + valorGasto + complemento);
+	} catch (NullPointerException e) {
+	    System.out.println(
+		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
+	}
+    }
+
+    public static void valorEconomizado(ProductService service) {
+	try {
+	    double valorEconomizado = service.valorEconomizado();
+	    if (valorEconomizado == 0) {
+		throw new ListaVaziaException(
+			"Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
+	    }
+	    if (valorEconomizado < 0) {
+		System.out.println("Eita! Você não economizou nada! Valor gastou R$" + (-(valorEconomizado))
+			+ " a mais do que planejava");
+	    } else {
+		System.out.println("Você economizou R$" + valorEconomizado + ", Parabéns!");
+	    }
+	} catch (ListaVaziaException e) {
+	    System.out.println(e.getMessage());
+	}
+    }
+
 }

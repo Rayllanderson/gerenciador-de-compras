@@ -129,6 +129,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	cat.setId(rs.getInt("categoria.id"));
 	cat.setName(rs.getString("categoria.nome"));
 	cat.setUser(user);
+	cat.setOrcamento(rs.getDouble("categoria.orcamento"));
 	return cat;
     }
     

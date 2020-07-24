@@ -1,4 +1,4 @@
-package model.util;
+package model.view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -17,9 +17,10 @@ public class Menu {
     public static void menuProdutos() throws InputMismatchException{
 	System.out.println(String.format("%s",
 		"----------------------------------------------------------------------------------------------------------------"));
-	System.out.println("[ 1 ] - Adicionar Novo Produto");
-	System.out.println("[ 2 ] - Editar Produto");
-	System.out.println("[ 3 ] - Excluir Produto");
+	System.out.println("[ 1 ] - Acessar funções úteis");
+	System.out.println("[ 2 ] - Adicionar Novo Produto");
+	System.out.println("[ 3 ] - Editar Produto");
+	System.out.println("[ 4 ] - Excluir Produto");
 	System.out.println("[ 0 ] - Voltar");
     }
 
@@ -33,19 +34,30 @@ public class Menu {
 	System.out.println("[ 0 ] - Voltar");
     }
 
-    public static boolean naoContinuarEditando() throws InputMismatchException {
+    public static boolean continuarEditando() throws InputMismatchException {
 	System.out.println("Feito!");
 	System.out.println("Quer continuar editando?");
 	System.out.println("[ 1 ] - sim");
 	System.out.println("[ 2 ] - não");
 	int n = scan.nextInt();
-	return n == 2;
+	return n == 1;
     }
     
     public static void menuEditarCategorias() throws InputMismatchException{
 	System.out.println("[ 1 ] - Editar Tudo");
 	System.out.println("[ 2 ] - Editar Nome");
 	System.out.println("[ 3 ] - Editar Orçamento");
+	System.out.println("[ 0 ] - Voltar");
+    }
+    
+    public static void menuFinanceiro() {
+	System.out.println(String.format("%s",
+		"----------------------------------------------------------------------------------------------------------------"));
+	System.out.println("[ 1 ] - Quanto você já gastou");
+	System.out.println("[ 2 ] - Listar Produtos já comprados");
+	System.out.println("[ 3 ] - Listar Produtos que faltam comprar");
+	System.out.println("[ 4 ] - Quanto disponível você ainda tem para gastar");
+	System.out.println("[ 5 ] - Quanto você economizou");
 	System.out.println("[ 0 ] - Voltar");
     }
 

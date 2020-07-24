@@ -87,7 +87,7 @@ public class ProductService {
 
     public void marcarComoConcluido(Product p, double value) {
 	if (p.isCompraro()) {
-	    throw new ProductoException("Produto já estava marcado como comprado");
+	    throw new ProductoException("Produto estava marcado como comprado");
 	}
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
@@ -100,7 +100,7 @@ public class ProductService {
 
     public void marcarComoNaoConcluido(Product p, double value) {
 	if (!(p.isCompraro())) {
-	    throw new ProductoException("Produto já estava marcado como não comprado");
+	    throw new ProductoException("Produto estava marcado como não comprado");
 	}
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
@@ -114,7 +114,7 @@ public class ProductService {
     public void listarNaoConcluidos() {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
-	    throw new ProductoException("Ops, parece que você não tem nenhum produto na lista.");
+	    throw new ListaVaziaException("Ops, sem produtos. Parece que todos os seus produtos já foram comprados.");
 	}
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
@@ -122,9 +122,73 @@ public class ProductService {
 	    if (!(list.get(i).isCompraro())) {
 		FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	    }
-
 	}
     }
 
+    public void listarConcluidos() {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Ops, sem produtos. Parece que você ainda não comprou nenhum produto.");
+	}
+	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
+	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
+	for (int i = 0; i < list.size(); i++) {
+	    if (list.get(i).isCompraro()) {
+		FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
+	    }
+	}
+    }
+
+    public List<Product> produtosNaoConcluidos() {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Todos os produtos da lista foram comprados :)");
+	}
+	for (int i = 0; i < list.size(); i++) {
+	    if (list.get(i).isCompraro()) {
+		list.remove(i);
+	    }
+	}
+	return list;
+    }
+
+    public List<Product> produtosConcluidos() {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Nenhum produto foi comprado ainda :(");
+	}
+	for (int i = 0; i < list.size(); i++) {
+	    if (!(list.get(i).isCompraro())) {
+		list.remove(i);
+	    }
+	}
+	return list;
+    }
+
+    public double quantidadeGasta() {
+	List<Product> list = this.produtosConcluidos();
+	double sum = 0;
+	for (Product p : list) {
+	    sum += p.getPrecoReal();
+	}
+	return sum;
+    }
+
+    public double valorEconomizado() {
+	List<Product> list = this.produtosConcluidos();
+	double total = 0;
+	for (Product p : list) {
+	    total += p.getPrecoEstipulado() - p.getPrecoReal();
+	}
+	return total;
+    }
+    
+    public double valorDisponivelParaCompra(Categoria cat) {
+	double total = 0;
+	double orcamento = cat.getOrcamento();
+	total = orcamento - this.quantidadeGasta();
+	return total;
+    }
+ 
     // talvez editar categoria futuramente...
 }
