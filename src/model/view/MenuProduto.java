@@ -6,14 +6,15 @@ import java.util.Scanner;
 import model.entities.Categoria;
 import model.entities.Product;
 import model.exception.BackButtonException;
+import model.exception.ConfirmException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
 import model.util.ProdutosUtil;
 
 public class MenuProduto {
-    
-    private static Scanner scan = new Scanner (System.in);
-    
+
+    private static Scanner scan = new Scanner(System.in);
+
     // --------------------- MENUS EDITAR PRODUTO ----------------------------
     public static boolean menuEditarProduto(ProductService service) {
 	String opcaoEditarProduto;
@@ -24,40 +25,35 @@ public class MenuProduto {
 		System.out.println("Escolha o que deseja editar");
 		Menu.menuEditarProduto();
 		opcaoEditarProduto = scan.next();
-		if (opcaoEditarProduto.equals("0")) return false;
+		if (opcaoEditarProduto.equals("0"))
+		    return false;
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    ProdutosUtil.editarTudoProduto(service, p);
-		    return Menu.continuarEditando();
+		    eliminarVerbose(ProdutosUtil.editarTudoProduto(service, p));
 		case 2:
 		    ProdutosUtil.editarNomeProduto(service, p);
 		    return Menu.continuarEditando();
 		case 3:
-		    ProdutosUtil.editarValorEstipulado(service, p);
-		    return Menu.continuarEditando();
+		    eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
 		case 4:
-		    ProdutosUtil.editarValorReal(service, p);
-		    return Menu.continuarEditando();
+		   return eliminarVerbose(ProdutosUtil.editarValorReal(service, p));
 		case 5:
-		    ProdutosUtil.marcarComoConcluido(service, p);
-		    return Menu.continuarEditando();
+		    return eliminarVerbose(ProdutosUtil.marcarComoConcluido(service, p)); 
 		case 6:
-		    ProdutosUtil.marcarComoNaoConcluido(service, p);
-		    return Menu.continuarEditando();
+		     return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p)); 
 		default:
 		    throw new InputMismatchException();
 		}
-	    } catch (InputMismatchException e) {
-		System.out.println("Opção inválida! Tente novamente.");
+	    } catch (NumberFormatException e) {
+		System.out.println("Entrada inválida! Tente novamente.");
 	    } catch (BackButtonException e) {
 		return false;
-	    } catch (NumberFormatException e) {
-		System.out.println("Digite apenas números");
+	    } catch (ConfirmException e) {
+		System.out.println(e.getMessage());
 	    }
 	}
-
     }
-    
+
     // ------------------------- MENU FUNCOES UTEIS -------------------------
     public static boolean funcoesUteis(ProductService service, Categoria cat) {
 	String opcaoEditarProduto;
@@ -94,6 +90,15 @@ public class MenuProduto {
 	    } catch (NumberFormatException e) {
 		System.out.println("Digite apenas números");
 	    }
+	}
+    }
+
+    
+    private static boolean eliminarVerbose(boolean funcao) {
+	if (funcao) {
+	    return Menu.continuarEditando();
+	} else {
+	    return false;
 	}
     }
 

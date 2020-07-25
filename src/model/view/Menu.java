@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
     private static Scanner scan = new Scanner(System.in);
     
-    public static void menuCategorias() {
+    public static void menuPrincipalCategorias() {
 	System.out.println("[ 1 ] - Acessar suas Listas");
 	System.out.println("[ 2 ] - Adicionar nova Lista");
 	System.out.println("[ 3 ] - Editar Lista");
@@ -14,7 +14,7 @@ public class Menu {
 	System.out.println("[ 0 ] - Sair");
     }
 
-    public static void menuProdutos() {
+    public static void menuPrincipalProdutos() {
 	System.out.println(String.format("%s",
 		"----------------------------------------------------------------------------------------------------------------"));
 	System.out.println("[ 1 ] - Acessar funções úteis");
@@ -34,15 +34,6 @@ public class Menu {
 	System.out.println("[ 6 ] - Marcar como não comprado");
 	System.out.println("[ 0 ] - Voltar");
     }
-
-    public static boolean continuarEditando() throws InputMismatchException {
-	System.out.println("Feito!");
-	System.out.println("Quer continuar editando?");
-	System.out.println("[ 1 ] - sim");
-	System.out.println("[ 2 ] - não");
-	int n = scan.nextInt();
-	return n == 1;
-    }
     
     public static void menuEditarCategorias(){
 	System.out.println("[ 1 ] - Editar Tudo");
@@ -51,6 +42,15 @@ public class Menu {
 	System.out.println("[ 0 ] - Voltar");
     }
     
+    public static boolean continuarEditando() throws InputMismatchException {
+	System.out.println("Feito!");
+	System.out.println("Quer continuar editando?");
+	System.out.println("[ 1 ] - sim");
+	System.out.println("[ 2 ] - não");
+	int n = scan.nextInt();
+	return n == 1;
+    }
+   
     public static void menuFinanceiro() {
 	System.out.println(String.format("%s",
 		"----------------------------------------------------------------------------------------------------------------"));

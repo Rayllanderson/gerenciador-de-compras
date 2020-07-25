@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.User;
-import model.exception.CategoriaException;
 import model.service.CategoriaService;
 
 public class CategoriaUtil {
@@ -36,16 +35,22 @@ public class CategoriaUtil {
 	    System.out.println("Valor inválido!");
 	}
     }
-    
+
     public static void deletarCategoria(CategoriaService service) throws NumberFormatException {
+	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Selecione a lista que deseja Excluir: ");
 	System.out.println("Pressione 0 para voltar");
 	service.ListarCategorias();
 	String num = scan.next();
 	ButtonUtil.botaoVoltar(num);
 	Categoria cat1 = service.getCategoriaByNumber(Integer.parseInt(num));
-	if (service.deletarCategoria(cat1))
-	    System.out.println("Lista deletada com sucesso!");
+	if (ButtonUtil.confirmar("deletar a lista " + cat1.getName())) {
+	    if (service.deletarCategoria(cat1))
+		System.out.println("Lista deletada com sucesso!");
+	} else {
+	    System.out.println("Lista não deletada.");
+	}
+
     }
 
     private static void inserirOrcamento(CategoriaService service, Categoria cat) throws InputMismatchException {
@@ -54,42 +59,48 @@ public class CategoriaUtil {
 	service.inserirOrcamento(cat, value);
     }
 
-    public static void editarTudoCategoria(CategoriaService service, String oqVaiSerEditado, Categoria cat) throws CategoriaException{
+    public static void editarTudoCategoria(CategoriaService service, String oqVaiSerEditado, Categoria cat) {
 	if (oqVaiSerEditado.equalsIgnoreCase("nome")) {
 	    String name;
 	    System.out.print("Novo nome: ");
 	    name = scan.next();
 	    ButtonUtil.botaoVoltar(name);
-	    cat.setName(name);
-	}
+	    if (ButtonUtil.confirmar("renomear")) {
+		cat.setName(name);
+	    } else {
+		System.out.println("Lista não renomeada");
+	    }
 
+	}
 	if (oqVaiSerEditado.equalsIgnoreCase("orcamento")) {
 	    try {
 		inserirOrcamento(service, cat);
 	    } catch (InputMismatchException e) {
-		throw new InputMismatchException("Digite um valor válido");
+		System.out.println("Digite um valor válido");
 	    }
 	}
-
 	if (oqVaiSerEditado.equalsIgnoreCase("tudo")) {
 	    String name;
 	    System.out.print("Novo nome: ");
 	    name = scan.next();
 	    ButtonUtil.botaoVoltar(name);
-	    cat.setName(name);
-	    inserirOrcamento(service, cat);
+	    if (ButtonUtil.confirmar("alterar os valores")) {
+		cat.setName(name);
+		inserirOrcamento(service, cat);
+	    } else {
+		System.out.println("Lista não atualizada.");
+	    }
 	}
-
 	if (service.atualizarCategoria(cat))
 	    System.out.println("Lista editada com sucesso!");
 	else
-	    throw new CategoriaException("Ocorreu um erro ao editar. Tente novamente");
+	    System.out.println("Ocorreu um erro ao editar. Tente novamente");
     }
-    
+
     public static void adicionarOrcamento(CategoriaService service, Categoria cat) {
 	try {
 	    inserirOrcamento(service, cat);
-	}catch (InputMismatchException e) {
+	} catch (InputMismatchException e) {
 	    System.out.println("Digite um valor válido");
 	}
     }

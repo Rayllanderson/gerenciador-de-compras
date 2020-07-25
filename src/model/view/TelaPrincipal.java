@@ -6,7 +6,6 @@ import java.util.Scanner;
 import model.dao.DaoFactory;
 import model.dao.TelaLoginDao;
 import model.entities.Categoria;
-import model.entities.Product;
 import model.entities.User;
 import model.exception.BackButtonException;
 import model.exception.ListaVaziaException;
@@ -66,7 +65,7 @@ public class TelaPrincipal {
 	do {
 	    String opcao = null;
 	    System.out.println("O que deseja fazer, " + this.formatarNome(user.getName()) + "?");
-	    Menu.menuCategorias();
+	    Menu.menuPrincipalCategorias();
 	    try {
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {
@@ -107,7 +106,7 @@ public class TelaPrincipal {
 	    try {
 		mostrarOrcamento(cat);
 		service.listarPordutos();
-		Menu.menuProdutos();
+		Menu.menuPrincipalProdutos();
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {
 		case 0:
@@ -124,8 +123,8 @@ public class TelaPrincipal {
 			;
 		    break;
 		case 4:
-		    Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
-		    service.deletar(p);
+		    ProdutosUtil.deletarProduto(service);
+		    break;
 		case 5:
 		    CategoriaUtil.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
 		    break;

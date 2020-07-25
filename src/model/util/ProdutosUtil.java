@@ -5,11 +5,18 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.Product;
+import model.exception.ConfirmException;
 import model.exception.ListaVaziaException;
 import model.service.ProductService;
 
 public class ProdutosUtil {
     private static Scanner scan = new Scanner(System.in);
+
+    // ----------------------- MÉTODOS MENU PRINCIPAL ------------------------//
+    /*
+     * Métodos do menu principal não passará ConfirmException adiante
+     * 
+     */
 
     public static void adicionarProduto(ProductService service, Categoria cat) throws InputMismatchException {
 	scan.useDelimiter(System.lineSeparator());
@@ -30,28 +37,49 @@ public class ProdutosUtil {
 	service.inserir(p);
     }
 
-    public static void editarTudoProduto(ProductService service, Product p) throws InputMismatchException {
+    public static void deletarProduto(ProductService service) throws NumberFormatException {
+	Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
+	if (ButtonUtil.confirmar("deletar")) {
+	    service.deletar(p);
+	} else {
+	    System.out.println("Produto não renomeado");
+	}
+    }
+
+    // ---------------------- MÉTODOS EDITAR PRODUTO -------------------------//
+    public static boolean editarTudoProduto(ProductService service, Product p) throws ConfirmException {
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
 	String nome = scan.next();
 	ButtonUtil.botaoVoltar(nome);
 	System.out.print("Qual o preço que você acha que vai pagar? R$");
-	double valorEstipulado = scan.nextDouble();
-	System.out.println("OBS: se você não comprou o produto ainda, deixe 0");
-	System.out.print("Qual o preço que você realmente pagou? R$");
-	Double valorReal = scan.nextDouble();
-	if (!(valorReal == 0)) {
-	    service.marcarComoConcluido(p, valorReal);
-	} else {
-	    valorReal = null;
+	try {
+	    double valorEstipulado = scan.nextDouble();
+	    System.out.println("OBS: se você não comprou o produto ainda, deixe 0");
+	    System.out.print("Qual o preço que você realmente pagou? R$");
+	    Double valorReal = scan.nextDouble();
+	    if (ButtonUtil.confirmar("confirmar as alterações")) {
+		if (!(valorReal == 0)) {
+		    service.marcarComoConcluido(p, valorReal);
+		} else {
+		    valorReal = null;
+		}
+		p.setNome(nome);
+		p.setPrecoEstipulado(valorEstipulado);
+		service.atualizar(p);
+		return true;
+	    } else
+		throw new ConfirmException("Produto não alterado");
+	} catch (InputMismatchException e) {
+	    System.out.println("Valor inválido");
+	    return false;
 	}
-	p.setNome(nome);
-	p.setPrecoEstipulado(valorEstipulado);
-	service.atualizar(p);
     }
 
-    public static void marcarComoConcluido(ProductService service, Product p) throws NumberFormatException {
+    public static boolean marcarComoConcluido(ProductService service, Product p)
+	    throws NumberFormatException, ConfirmException {
+	boolean sucess = true;
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
@@ -60,18 +88,25 @@ public class ProdutosUtil {
 	    String n = scan.next();
 	    ButtonUtil.botaoVoltar(n);
 	    if (Integer.parseInt(n) == 1) {
-		editarValorReal(service, p);
+		sucess = editarValorReal(service, p);
 	    }
 	}
 	if (p.getPrecoReal() == null || p.getPrecoReal() == 0) {
 	    System.out.println("Quanto pagou nesse produto?");
-	    p.setPrecoReal(scan.nextDouble());
+	    try {
+		p.setPrecoReal(scan.nextDouble());
+	    } catch (InputMismatchException e) {
+		System.out.println("Valor inválido");
+		return false;
+	    }
 	}
 	double value = p.getPrecoReal();
 	service.marcarComoConcluido(p, value);
+	return sucess;
     }
 
-    public static void marcarComoNaoConcluido(ProductService service, Product p) throws NumberFormatException {
+    public static boolean marcarComoNaoConcluido(ProductService service, Product p) throws NumberFormatException {
+	boolean sucess = true;
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
@@ -80,54 +115,79 @@ public class ProdutosUtil {
 	    String n = scan.next();
 	    ButtonUtil.botaoVoltar(n);
 	    if (Integer.parseInt(n) == 1) {
-		editarValorReal(service, p);
+		sucess = editarValorReal(service, p);
 	    }
 	}
 	double value = p.getPrecoReal();
 	service.marcarComoNaoConcluido(p, value);
+	return sucess;
     }
 
-    public static void editarValorReal(ProductService service, Product p) throws InputMismatchException {
-	System.out.println("Pressione 0 para cancelar");
-	System.out.print("Valor real: R$");
-	double valorReal = scan.nextDouble();
-	ButtonUtil.botaoVoltar(valorReal);
-	service.editarPrecoReal(p, valorReal);
-    }
-
-    public static void editarValorEstipulado(ProductService service, Product p) {
+    /**
+     * @param service
+     * @param produto
+     * @throws InputMismatchException para pular a pergunta de confirmação assim que
+     *                                esse método termina
+     * @throws ConfirmException       para pular a pergunta também
+     */
+    public static boolean editarValorReal(ProductService service, Product p) throws ConfirmException {
 	try {
-	    System.out.print("Novo valor estipulado: R$");
-	    double valorEstipulado = scan.nextDouble();
-	    service.editarPrecoEstipulado(p, valorEstipulado);
+	    System.out.println("Pressione 0 para cancelar");
+	    System.out.print("Valor real: R$");
+	    double valorReal = scan.nextDouble();
+	    ButtonUtil.botaoVoltar(valorReal);
+	    if (ButtonUtil.confirmar("alterar o valor real")) {
+		service.editarPrecoReal(p, valorReal);
+		return true;
+	    } else
+		throw new ConfirmException("Valor não alterado.");
 	} catch (InputMismatchException e) {
-	    System.out.println("Digite um valor válido");
+	    System.out.println("Digite um valor válido.");
+	    return false;
 	}
     }
 
-    public static void editarNomeProduto(ProductService service, Product p) {
+    /**
+     * @param service
+     * @param produto
+     * @throws InputMismatchException para pular a pergunta de confirmação assim que
+     *                                esse método termina
+     * @throws ConfirmException       para pular a pergunta também
+     */
+    public static boolean editarValorEstipulado(ProductService service, Product p) throws ConfirmException {
+	try {
+	    System.out.print("Novo valor estipulado: R$");
+	    double valorEstipulado = scan.nextDouble();
+	    if (ButtonUtil.confirmar("alterar o valor real")) {
+		service.editarPrecoEstipulado(p, valorEstipulado);
+		return true;
+	    } else {
+		throw new ConfirmException("Valor não alterado.");
+	    }
+	} catch (InputMismatchException e) {
+	    System.out.println("Digite um valor válido.");
+	    return false;
+	}
+    }
+
+    public static void editarNomeProduto(ProductService service, Product p) throws ConfirmException {
 	System.out.print("Novo nome: ");
 	String name = scan.next();
-	service.editarNome(p, name);
+	if (ButtonUtil.confirmar("renomear")) {
+	    service.editarNome(p, name);
+	} else {
+	    throw new ConfirmException("Produto não renomeado");
+	}
     }
 
-    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
-	service.listarPordutos();
-	System.out.println("Pressione 0 para cancelar");
-	System.out.print("Esolha qual produto deseja " + acao + ": ");
-	String produtoEscolhido = scan.next();
-	ButtonUtil.botaoVoltar(produtoEscolhido);
-	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
-	return p;
-    }
-
+    // -------------------- MÉTODOS FUNÇÕES ÚTEIS ----------------------//
     public static void quantidadeGasta(ProductService service, Categoria cat) {
 	try {
 	    double orcamento = cat.getOrcamento();
 	    double valorGasto = service.quantidadeGasta();
 	    String complemento = ". ";
 	    if (orcamento == 0) {
-		complemento += "Você não tem um orcamento para essa lista";
+		complemento += "E você não tem um orcamento para essa lista";
 	    } else {
 		if (valorGasto > orcamento) {
 		    complemento += "Você já ultrapassou seu orçamento em R$" + (valorGasto - orcamento);
@@ -148,7 +208,6 @@ public class ProdutosUtil {
     public static void disponivelParaComprar(ProductService service, Categoria cat) {
 	try {
 	    double disponivel = service.valorDisponivelParaCompra(cat);
-	    double valorGasto = service.quantidadeGasta();
 	    String complemento = ". ";
 	    if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
 		throw new NullPointerException();
@@ -158,14 +217,14 @@ public class ProdutosUtil {
 		complemento += ". Você não tem mais nada disponível para gastar";
 		complemento += ". Orçamento para lista " + cat.getName() + ": R$" + cat.getOrcamento();
 	    } else {
-		complemento = " e, de acordo com seu orçamento para lista " + cat.getName()
-			+ ", você ainda tem disponível R$" + disponivel;
+		complemento = "Você tem disponível R$" + disponivel + ", de acordo com seu orçamento para lista "
+			+ cat.getName();
 	    }
-	    System.out.println("Você já gastou R$" + valorGasto + complemento);
+	    System.out.println(complemento);
 	} catch (NullPointerException e) {
 	    System.out.println(
 		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
-	}catch (ListaVaziaException e) {
+	} catch (ListaVaziaException e) {
 	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, não gastou nada");
 	}
     }
@@ -200,4 +259,17 @@ public class ProdutosUtil {
 	    System.out.println("Nenhum produto da lista foi comprado :(");
 	}
     }
+
+    // -----------------------------------------------------------------------------//
+
+    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
+	service.listarPordutos();
+	System.out.println("Pressione 0 para cancelar");
+	System.out.print("Esolha qual produto deseja " + acao + ": ");
+	String produtoEscolhido = scan.next();
+	ButtonUtil.botaoVoltar(produtoEscolhido);
+	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
+	return p;
+    }
+
 }
