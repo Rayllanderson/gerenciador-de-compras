@@ -9,10 +9,8 @@ import model.entities.Categoria;
 import model.entities.Product;
 import model.entities.User;
 import model.exception.BackButtonException;
-import model.exception.CategoriaException;
 import model.exception.ListaVaziaException;
 import model.exception.MyLoginException;
-import model.exception.ProductoException;
 import model.service.CategoriaService;
 import model.service.ProductService;
 import model.util.ButtonUtil;
@@ -94,13 +92,7 @@ public class TelaPrincipal {
 		}
 	    } catch (InputMismatchException e) {
 		System.out.println("Opção inexistente no momento");
-	    } catch (CategoriaException e) {
-		System.out.println(e.getMessage());
 	    } catch (BackButtonException e) {
-	    } catch (ProductoException e) {
-		System.out.println(e.getMessage());
-	    } catch (ListaVaziaException e) {
-		System.out.println(e.getMessage());
 	    } catch (NumberFormatException e) {
 		System.out.println("Opção inválida. Tente digitar apenas números");
 	    }
@@ -134,6 +126,8 @@ public class TelaPrincipal {
 		case 4:
 		    Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
 		    service.deletar(p);
+		case 5:
+		    CategoriaUtil.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
 		    break;
 		default:
 		    throw new InputMismatchException();
@@ -141,12 +135,10 @@ public class TelaPrincipal {
 	    } catch (InputMismatchException e) {
 		System.out.println("Opção inválida! Tente novamente.");
 		scan.next();
-	    } catch (ProductoException e) {
-		System.out.println(e.getMessage());
 	    } catch (BackButtonException e) {
 	    } catch (ListaVaziaException e) {
 		System.out.println(e.getMessage());
-		return createNewList(service, cat);
+		return MenuCategoria.createNewList(service, cat);
 	    } catch (NumberFormatException e) {
 		System.out.println("Tente digitar apenas números");
 	    }
@@ -169,24 +161,6 @@ public class TelaPrincipal {
 	System.out.print("Senha: ");
 	return scan.next();
     }
-
-    private boolean createNewList(ProductService service, Categoria cat) {
-	System.out.println("Adicionar novo produto a essa lista?");
-	System.out.println("[ 1 ] - sim");
-	System.out.println("[ 2 ] - não");
-	try {
-	    if (scan.nextInt() == 1) {
-		ProdutosUtil.adicionarProduto(service, cat);
-	    } else {
-		return true;
-	    }
-	} catch (InputMismatchException e1) {
-	    System.out.println("digite apenas números");
-	} catch (BackButtonException e) {
-	    return true;
-	}
-	return false;
-    }
     
     private void mostrarOrcamento(Categoria cat) {
 	System.out.println();
@@ -196,7 +170,6 @@ public class TelaPrincipal {
 	}else {
 	    complemento += "R$" + cat.getOrcamento();
 	} 
-	
 	System.out.println("Orçamento para esta Lista" + complemento);	
 	System.out.println();
     }

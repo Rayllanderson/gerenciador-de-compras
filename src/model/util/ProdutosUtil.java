@@ -11,7 +11,7 @@ import model.service.ProductService;
 public class ProdutosUtil {
     private static Scanner scan = new Scanner(System.in);
 
-    public static void adicionarProduto(ProductService service, Categoria cat) {
+    public static void adicionarProduto(ProductService service, Categoria cat) throws InputMismatchException {
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
@@ -30,7 +30,7 @@ public class ProdutosUtil {
 	service.inserir(p);
     }
 
-    public static void editarProduto(ProductService service, Product p) throws InputMismatchException {
+    public static void editarTudoProduto(ProductService service, Product p) throws InputMismatchException {
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
@@ -51,7 +51,7 @@ public class ProdutosUtil {
 	service.atualizar(p);
     }
 
-    public static void marcarComoConcluido(ProductService service, Product p) {
+    public static void marcarComoConcluido(ProductService service, Product p) throws NumberFormatException {
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
@@ -71,7 +71,7 @@ public class ProdutosUtil {
 	service.marcarComoConcluido(p, value);
     }
 
-    public static void marcarComoNaoConcluido(ProductService service, Product p) {
+    public static void marcarComoNaoConcluido(ProductService service, Product p) throws NumberFormatException {
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
 	    System.out.println("O preço real atual é de R$" + p.getPrecoReal() + ". Deseja alterar esse valor?");
@@ -87,12 +87,28 @@ public class ProdutosUtil {
 	service.marcarComoNaoConcluido(p, value);
     }
 
-    public static void editarValorReal(ProductService service, Product p) {
+    public static void editarValorReal(ProductService service, Product p) throws InputMismatchException {
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Valor real: R$");
 	double valorReal = scan.nextDouble();
 	ButtonUtil.botaoVoltar(valorReal);
 	service.editarPrecoReal(p, valorReal);
+    }
+
+    public static void editarValorEstipulado(ProductService service, Product p) {
+	try {
+	    System.out.print("Novo valor estipulado: R$");
+	    double valorEstipulado = scan.nextDouble();
+	    service.editarPrecoEstipulado(p, valorEstipulado);
+	} catch (InputMismatchException e) {
+	    System.out.println("Digite um valor válido");
+	}
+    }
+
+    public static void editarNomeProduto(ProductService service, Product p) {
+	System.out.print("Novo nome: ");
+	String name = scan.next();
+	service.editarNome(p, name);
     }
 
     public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
@@ -123,7 +139,7 @@ public class ProdutosUtil {
 	    System.out.println("Você já gastou R$" + valorGasto + complemento);
 	} catch (NullPointerException e) {
 	    System.out.println("Você não tem orçamento para esta lista. Adicione um no menu principal");
-	}catch (ListaVaziaException e) {
+	} catch (ListaVaziaException e) {
 	    System.out.println("Nenhum produto comprado até o momento, sendo assim, você não gastou nada.");
 	}
 
@@ -149,6 +165,8 @@ public class ProdutosUtil {
 	} catch (NullPointerException e) {
 	    System.out.println(
 		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
+	}catch (ListaVaziaException e) {
+	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, não gastou nada");
 	}
     }
 
@@ -162,24 +180,24 @@ public class ProdutosUtil {
 		System.out.println("Você economizou R$" + valorEconomizado + ", Parabéns!");
 	    }
 	} catch (ListaVaziaException e) {
-	    System.out.println("Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
-	}
-    }
-    
-    public static void listarNaoConcluidos(ProductService service) {
-	try {
-	    service.listarNaoConcluidos();
-	}catch (ListaVaziaException e) {
-	    System.out.println("Todos os produtos da lista foram comprados :)");
-	}
-    }
-    
-    public static void listarConcluidos(ProductService service) {
-	try {
-	    service.listarConcluidos();
-	}catch (ListaVaziaException e) {
-	    System.out.println("Nenhum produto da lista foi comprado :(");
+	    System.out.println(
+		    "Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
 	}
     }
 
+    public static void listarNaoConcluidos(ProductService service) {
+	try {
+	    service.listarNaoConcluidos();
+	} catch (ListaVaziaException e) {
+	    System.out.println("Todos os produtos da lista foram comprados :)");
+	}
+    }
+
+    public static void listarConcluidos(ProductService service) {
+	try {
+	    service.listarConcluidos();
+	} catch (ListaVaziaException e) {
+	    System.out.println("Nenhum produto da lista foi comprado :(");
+	}
+    }
 }

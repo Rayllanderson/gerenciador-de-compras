@@ -6,7 +6,6 @@ import java.util.Scanner;
 import model.entities.Categoria;
 import model.entities.Product;
 import model.exception.BackButtonException;
-import model.exception.ListaVaziaException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
 import model.util.ProdutosUtil;
@@ -25,22 +24,16 @@ public class MenuProduto {
 		System.out.println("Escolha o que deseja editar");
 		Menu.menuEditarProduto();
 		opcaoEditarProduto = scan.next();
-		if (opcaoEditarProduto.equals("0")) {
-		    return false;
-		}
+		if (opcaoEditarProduto.equals("0")) return false;
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    ProdutosUtil.editarProduto(service, p);
+		    ProdutosUtil.editarTudoProduto(service, p);
 		    return Menu.continuarEditando();
 		case 2:
-		    System.out.print("Novo nome: ");
-		    String name = scan.next();
-		    service.editarNome(p, name);
+		    ProdutosUtil.editarNomeProduto(service, p);
 		    return Menu.continuarEditando();
 		case 3:
-		    System.out.print("Novo valor estipulado: R$");
-		    double valorEstipulado = scan.nextDouble();
-		    service.editarPrecoEstipulado(p, valorEstipulado);
+		    ProdutosUtil.editarValorEstipulado(service, p);
 		    return Menu.continuarEditando();
 		case 4:
 		    ProdutosUtil.editarValorReal(service, p);
@@ -56,7 +49,6 @@ public class MenuProduto {
 		}
 	    } catch (InputMismatchException e) {
 		System.out.println("Opção inválida! Tente novamente.");
-		scan.next();
 	    } catch (BackButtonException e) {
 		return false;
 	    } catch (NumberFormatException e) {
@@ -99,11 +91,8 @@ public class MenuProduto {
 		}
 	    } catch (InputMismatchException e) {
 		System.out.println("Opção inválida! Tente novamente.");
-		scan.next();
 	    } catch (NumberFormatException e) {
 		System.out.println("Digite apenas números");
-	    } catch (ListaVaziaException e) {
-		
 	    }
 	}
     }

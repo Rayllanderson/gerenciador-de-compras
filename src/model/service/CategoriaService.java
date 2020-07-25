@@ -28,7 +28,7 @@ public class CategoriaService {
 	}
     }
 
-    public void ListarCategorias() {
+    public void ListarCategorias() throws ListaVaziaException{
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();
 	if (!list.isEmpty()) {
@@ -40,7 +40,7 @@ public class CategoriaService {
 	}
     }
 
-    public Categoria getCategoriaByNumber(int num) {
+    public Categoria getCategoriaByNumber(int num) throws CategoriaException{
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();
 	if (!list.isEmpty() && num <= list.size()) {

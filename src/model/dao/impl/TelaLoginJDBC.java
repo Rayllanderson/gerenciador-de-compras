@@ -22,12 +22,13 @@ public class TelaLoginJDBC implements TelaLoginDao {
 
     @Override
     public User login(String username, String password) {
-	Statement st = null;
+	PreparedStatement st = null;
 	ResultSet rs = null;
-	String sql = "select * from usuario where username = \"" + username + "\" and senha = " + password;
 	try {
-	    st = conn.createStatement();
-	    rs = st.executeQuery(sql);
+	    st = conn.prepareStatement("select * from usuario where username = ? and senha = ?");
+	    st.setString(1, username);
+	    st.setString(2, password);
+	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
 	    }else {

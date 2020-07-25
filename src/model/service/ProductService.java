@@ -111,7 +111,7 @@ public class ProductService {
 	}
     }
 
-    public void listarNaoConcluidos() {
+    public void listarNaoConcluidos() throws ListaVaziaException{
 	List<Product> list = this.produtosNaoConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
@@ -133,7 +133,7 @@ public class ProductService {
 	}
     }
 
-    public List<Product> produtosNaoConcluidos() throws ListaVaziaException {
+    public List<Product> produtosNaoConcluidos() {
 	List<Product> list = dao.findAll();
 	for (int i = 0 ; i<list.size(); i++) {
 	    if (list.get(i).isCompraro()) {
@@ -147,7 +147,7 @@ public class ProductService {
 	return list;
     }
 
-    public List<Product> produtosConcluidos() throws ListaVaziaException{
+    public List<Product> produtosConcluidos(){
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
 	    if (!(list.get(i).isCompraro())) {
@@ -161,7 +161,7 @@ public class ProductService {
 	return list;
     }
 
-    public double quantidadeGasta() {
+    public double quantidadeGasta() throws ListaVaziaException{
 	double sum = 0;
 	List<Product> list = this.produtosConcluidos();
 	for (Product p : list) {
@@ -170,7 +170,7 @@ public class ProductService {
 	return sum;
     }
 
-    public double valorEconomizado() {
+    public double valorEconomizado() throws ListaVaziaException {
 	double total = 0;
 	List<Product> list = this.produtosConcluidos();
 	for (Product p : list) {
@@ -179,7 +179,7 @@ public class ProductService {
 	return total;
     }
 
-    public double valorDisponivelParaCompra(Categoria cat) {
+    public double valorDisponivelParaCompra(Categoria cat) throws NullPointerException {
 	double total = 0;
 	double orcamento = cat.getOrcamento();
 	total = orcamento - this.quantidadeGasta();

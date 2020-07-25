@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
     private static Scanner scan = new Scanner(System.in);
     
-    public static void menuCategorias() throws InputMismatchException{
+    public static void menuCategorias() {
 	System.out.println("[ 1 ] - Acessar suas Listas");
 	System.out.println("[ 2 ] - Adicionar nova Lista");
 	System.out.println("[ 3 ] - Editar Lista");
@@ -14,17 +14,18 @@ public class Menu {
 	System.out.println("[ 0 ] - Sair");
     }
 
-    public static void menuProdutos() throws InputMismatchException{
+    public static void menuProdutos() {
 	System.out.println(String.format("%s",
 		"----------------------------------------------------------------------------------------------------------------"));
 	System.out.println("[ 1 ] - Acessar funções úteis");
 	System.out.println("[ 2 ] - Adicionar Novo Produto");
 	System.out.println("[ 3 ] - Editar Produto");
 	System.out.println("[ 4 ] - Excluir Produto");
+	System.out.println("[ 5 ] - Adicionar/Editar Orçamento");
 	System.out.println("[ 0 ] - Voltar");
     }
 
-    public static void menuEditarProduto() throws InputMismatchException{
+    public static void menuEditarProduto(){
 	System.out.println("[ 1 ] - Editar tudo");
 	System.out.println("[ 2 ] - Editar nome");
 	System.out.println("[ 3 ] - Editar Preço Estipulado");
@@ -43,7 +44,7 @@ public class Menu {
 	return n == 1;
     }
     
-    public static void menuEditarCategorias() throws InputMismatchException{
+    public static void menuEditarCategorias(){
 	System.out.println("[ 1 ] - Editar Tudo");
 	System.out.println("[ 2 ] - Editar Nome");
 	System.out.println("[ 3 ] - Editar Orçamento");
