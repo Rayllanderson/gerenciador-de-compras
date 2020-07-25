@@ -34,7 +34,7 @@ public class MenuProduto {
 		    ProdutosUtil.editarNomeProduto(service, p);
 		    return Menu.continuarEditando();
 		case 3:
-		    eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
+		    return eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
 		case 4:
 		   return eliminarVerbose(ProdutosUtil.editarValorReal(service, p));
 		case 5:
@@ -42,7 +42,7 @@ public class MenuProduto {
 		case 6:
 		     return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p)); 
 		default:
-		    throw new InputMismatchException();
+		    throw new NumberFormatException();
 		}
 	    } catch (NumberFormatException e) {
 		System.out.println("Entrada inválida! Tente novamente.");

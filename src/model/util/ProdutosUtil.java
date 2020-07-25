@@ -155,9 +155,10 @@ public class ProdutosUtil {
      * @throws ConfirmException       para pular a pergunta também
      */
     public static boolean editarValorEstipulado(ProductService service, Product p) throws ConfirmException {
+	double valorEstipulado = 0;
 	try {
 	    System.out.print("Novo valor estipulado: R$");
-	    double valorEstipulado = scan.nextDouble();
+	    valorEstipulado = scan.nextDouble();
 	    if (ButtonUtil.confirmar("alterar o valor real")) {
 		service.editarPrecoEstipulado(p, valorEstipulado);
 		return true;
@@ -263,10 +264,12 @@ public class ProdutosUtil {
     // -----------------------------------------------------------------------------//
 
     public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
+	@SuppressWarnings("resource")
+	Scanner scan2 = new Scanner (System.in);
 	service.listarPordutos();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
-	String produtoEscolhido = scan.next();
+	String produtoEscolhido = scan2.next();
 	ButtonUtil.botaoVoltar(produtoEscolhido);
 	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
 	return p;

@@ -66,8 +66,6 @@ public class MenuCategoria {
 	    System.out.println("digite apenas números");
 	} catch (BackButtonException e) {
 	    return true;
-	}catch (InputMismatchException e) {
-	    System.out.println("Digite um valor válido");
 	}
 	return false;
     }
