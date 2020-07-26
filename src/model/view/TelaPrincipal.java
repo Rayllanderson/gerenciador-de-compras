@@ -8,13 +8,12 @@ import model.dao.TelaLoginDao;
 import model.entities.Categoria;
 import model.entities.User;
 import model.exception.BackButtonException;
-import model.exception.CategoriaException;
 import model.exception.ListaVaziaException;
 import model.exception.MyLoginException;
+import model.exception.OpcaoInvalidaException;
 import model.exception.ProductoException;
 import model.service.CategoriaService;
 import model.service.ProductService;
-import model.util.ButtonUtil;
 import model.util.CategoriaUtil;
 import model.util.ProdutosUtil;
 
@@ -77,11 +76,7 @@ public class TelaPrincipal {
 		    scan.close();
 		    System.exit(0);
 		case 1:
-		    System.out.println("Pressione 0 para cancelar");
-		    service.ListarCategorias();
-		    int selecionarCategoria = scan.nextInt();
-		    ButtonUtil.botaoVoltar(selecionarCategoria);
-		    return service.getCategoriaByNumber(selecionarCategoria);
+		   return CategoriaUtil.selecionarCategoria(service, scan);
 		case 2:
 		    CategoriaUtil.adicionarCategoria(service, user);
 		    break;
@@ -92,16 +87,14 @@ public class TelaPrincipal {
 		    CategoriaUtil.deletarCategoria(service);
 		    break;
 		default:
-		    throw new InputMismatchException();
+		    throw new OpcaoInvalidaException("Opção inválida");
 		}
 	    } catch (InputMismatchException e) {
 		System.out.println("Opção inexistente no momento");
 	    } catch (BackButtonException e) {
 	    } catch (NumberFormatException e) {
 		System.out.println("Opção inválida. Tente digitar apenas números");
-	    } catch (CategoriaException e) {
-		System.out.println(e.getMessage());
-	    } catch (ListaVaziaException e) {
+	    }catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
 	    }
 	} while (true);

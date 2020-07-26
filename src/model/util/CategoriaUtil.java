@@ -25,7 +25,6 @@ public class CategoriaUtil {
      */
     public static Categoria selecionarCategoria(CategoriaService service, Scanner scan)
 	    throws BackButtonException, NumberFormatException, OpcaoInvalidaException {
-	System.out.println("Selecione a lista que deseja Editar: ");
 	System.out.println("Pressione 0 para voltar");
 	try {
 	    service.ListarCategorias();

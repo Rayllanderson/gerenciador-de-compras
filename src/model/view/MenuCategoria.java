@@ -16,6 +16,7 @@ public class MenuCategoria {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	try {
+	    System.out.println("Selecione a lista que deseja Editar: ");
 	    Categoria cat = CategoriaUtil.selecionarCategoria(service, scan);
 	    Menu.menuEditarCategorias();
 	    String choose = scan.next();
