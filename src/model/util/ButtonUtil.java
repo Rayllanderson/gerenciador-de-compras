@@ -9,6 +9,11 @@ public class ButtonUtil {
     
     private static Scanner scan = new Scanner (System.in);
     
+    /**
+     * 
+     * @param opcao
+     * @throws BackButtonException
+     */
     public static void botaoVoltar(Object opcao) throws BackButtonException{
 	if (opcao.equals("0") || opcao.equals(0)) {
 	    throw new BackButtonException();

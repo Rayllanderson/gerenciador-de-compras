@@ -28,6 +28,10 @@ public class CategoriaService {
 	}
     }
 
+    /**
+     * 
+     * @throws ListaVaziaException ja com mensagem
+     */
     public void ListarCategorias() throws ListaVaziaException{
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();
@@ -40,10 +44,9 @@ public class CategoriaService {
 	}
     }
     /**
-     * 
      * @param numero da categoria
      * @return a categoria escolhida
-     * @throws CategoriaException se nao encontrar categoria com o número digitado
+     * @throws CategoriaException se nao encontrar categoria com o número digitado. Exception já contem mensagem
      */
     public Categoria getCategoriaByNumber(int num) throws CategoriaException{
 	List<Categoria> list = new ArrayList<>();
