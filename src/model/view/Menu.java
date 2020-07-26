@@ -64,9 +64,10 @@ public class Menu {
     }
     
     public static void menuConfiguracoesConta() {
-	System.out.println("[ 1 ] - Editar nome");
-	System.out.println("[ 2 ] - Editar username");
-	System.out.println("[ 3 ] - Editar senha");
+	System.out.println("[ 1 ] - Alterar nome");
+	System.out.println("[ 2 ] - Alterar username");
+	System.out.println("[ 3 ] - Alterar senha");
+	System.out.println("[ 0 ] - Voltar");
     }
 
 }

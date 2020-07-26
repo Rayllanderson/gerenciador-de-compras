@@ -7,6 +7,7 @@ import model.entities.Product;
 import model.exception.BackButtonException;
 import model.exception.EntradaInvalidaException;
 import model.exception.OpcaoInvalidaException;
+import model.exception.ProductoException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
 import model.util.ProdutosUtil;
@@ -22,8 +23,8 @@ public class MenuProduto {
     @SuppressWarnings("resource")
     public static boolean menuEditarProduto(ProductService service) {
 	String opcaoEditarProduto;
+	Scanner scan = new Scanner(System.in);
 	while (true) {
-	    Scanner scan = new Scanner(System.in);
 	    try {
 		Product p = ProdutosUtil.selecionarProduto(service, "Editar");
 		ButtonUtil.botaoVoltar(p);
@@ -53,6 +54,8 @@ public class MenuProduto {
 	    } catch (BackButtonException e) {
 		return false;
 	    } catch (OpcaoInvalidaException e) {
+		System.out.println(e.getMessage());
+	    }catch (ProductoException e) {
 		System.out.println(e.getMessage());
 	    }
 	}

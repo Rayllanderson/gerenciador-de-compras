@@ -8,15 +8,15 @@ import java.sql.Statement;
 
 import db.DB;
 import db.DbException;
-import model.dao.TelaLoginDao;
+import model.dao.UserDao;
 import model.entities.User;
 import model.exception.MyLoginException;
 
-public class TelaLoginJDBC implements TelaLoginDao {
+public class UserDaoJDBC implements UserDao {
 
     private Connection conn;
 
-    public TelaLoginJDBC(Connection conn) {
+    public UserDaoJDBC(Connection conn) {
 	this.conn = conn;
     }
 
@@ -117,6 +117,26 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	    st.setString(2, user.getPassword());
 	    st.setInt(3, user.getId());
 	    st.executeUpdate();
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeStatement(st);
+	}
+    }
+    
+    @Override
+    public String getSenhaUser(User user) throws MyLoginException{
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = conn.prepareStatement("select senha from usuario where username = ?");
+	    st.setString(1, user.getUsername());
+	    rs = st.executeQuery();
+	    if (rs.next()) {
+		return rs.getString("senha");
+	    } else {
+		throw new MyLoginException("Usuário não cadastrado");
+	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
 	} finally {

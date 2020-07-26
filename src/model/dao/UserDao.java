@@ -3,7 +3,7 @@ package model.dao;
 
 import model.entities.User;
 
-public interface TelaLoginDao {
+public interface UserDao {
     /**
      * 
      * @param username that will be checked in database
@@ -22,4 +22,5 @@ public interface TelaLoginDao {
     
     void update(User user);
 
+    String getSenhaUser(User user);
 }
