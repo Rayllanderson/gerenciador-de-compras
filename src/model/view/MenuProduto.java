@@ -6,8 +6,7 @@ import java.util.Scanner;
 import model.entities.Categoria;
 import model.entities.Product;
 import model.exception.BackButtonException;
-import model.exception.ConfirmException;
-import model.exception.ProductoException;
+import model.exception.OpcaoInvalidaException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
 import model.util.ProdutosUtil;
@@ -42,15 +41,13 @@ public class MenuProduto {
 		case 6:
 		    return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p));
 		default:
-		    throw new NumberFormatException();
+		    throw new OpcaoInvalidaException("Opção inválida");
 		}
-	    } catch (InputMismatchException | NumberFormatException e) {
-		System.out.println("Entrada inválida! Tente novamente.");
+	    } catch (NumberFormatException e) {
+		System.out.println("Entrada inválida! Digite apenas números");
 	    } catch (BackButtonException e) {
 		return false;
-	    } catch (ConfirmException e) {
-		System.out.println(e.getMessage());
-	    } catch (ProductoException e) {
+	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
 	    }
 	}

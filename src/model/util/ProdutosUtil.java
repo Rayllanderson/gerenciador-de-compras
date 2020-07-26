@@ -17,12 +17,11 @@ public class ProdutosUtil {
     // ----------------------- MÉTODOS MENU PRINCIPAL ------------------------//
 
     /**
-     * @apiNote Exceptions tratadas neste método: BackButtonException,
-     *          EntradaInvalidaException
-     * 
+     * @apiNote Exceptions tratadas neste método: EntradaInvalidaException
      * @return TRUE caso dê tudo certo FALSE caso de algo errado
+     * @throws BackButtonException
      */
-    public static boolean adicionarProduto(ProductService service, Categoria cat) {
+    public static boolean adicionarProduto(ProductService service, Categoria cat) throws BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
@@ -35,9 +34,7 @@ public class ProdutosUtil {
 	    double valorReal = adicionarEditarValorReal(scan);
 	    Product p = new Product(null, nome, valorEstipulado, valorReal, false, cat.getUser(), cat);
 	    concluir(valorReal, service, p);
-	    service.inserir(p);
-	    return true;
-	} catch (BackButtonException e) {
+	    return service.inserir(p);
 	} catch (RuntimeException e) {
 	    System.out.println("Ocorreu um erro inesperado");
 	} catch (EntradaInvalidaException e) {
@@ -48,10 +45,12 @@ public class ProdutosUtil {
 
     /**
      * @param service
-     * @apiNote Exceptions tratadas neste método: ConfirmException, ProductoException, ListaVaziaException
+     * @apiNote Exceptions tratadas neste método: ConfirmException,
+     *          ProductoException, ListaVaziaException
      * @throws NumberFormatException terá que escolher produto nesse método, logo...
+     * @throws BackButtonException
      */
-    public static void deletarProduto(ProductService service) throws NumberFormatException {
+    public static void deletarProduto(ProductService service) throws NumberFormatException, BackButtonException {
 	try {
 	    Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
 	    ButtonUtil.confirmar("deletar");
@@ -68,11 +67,13 @@ public class ProdutosUtil {
     // ---------------------- MÉTODOS EDITAR PRODUTO -------------------------//
     /**
      * @apiNote Exceptions tratadas neste método: ConfirmException,
-     *          BackButtonException, EntradaInvalidaException
+     *          EntradaInvalidaException
      * @return TRUE caso dê tudo certo FALSE caso de algo errado
      * @throws NumberFormatException
+     * @throws BackButtonException
      */
-    public static boolean editarTudoProduto(ProductService service, Product p) throws NumberFormatException {
+    public static boolean editarTudoProduto(ProductService service, Product p)
+	    throws NumberFormatException, BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	try {
@@ -86,23 +87,24 @@ public class ProdutosUtil {
 		concluir(valorReal, service, p);
 		p.setNome(nome);
 		p.setPrecoEstipulado(valorEstipulado);
-		service.atualizar(p);
-		return true;
+		return service.atualizar(p);
 	    }
 	} catch (ConfirmException e) {
 	    System.out.println("Produto não alterado");
-	} catch (BackButtonException e) {
 	} catch (EntradaInvalidaException e) {
 	    System.out.println(e.getMessage());
 	}
 	return false;
     }
 
-    /**@apiNote Exceptions tratadas neste método: InputMismatchException, BackButtonException
+    /**
+     * @apiNote Exceptions tratadas neste método: InputMismatchException,
      * @return TRUE se tudo der certo FALSE se algo der errado
      * @throws NumberFormatException caso digite uma letra em vez de número
+     * @throws BackButtonException
      */
-    public static boolean marcarComoConcluido(ProductService service, Product p) throws NumberFormatException {
+    public static boolean marcarComoConcluido(ProductService service, Product p)
+	    throws NumberFormatException, BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	boolean sucess = true;
 	try {
@@ -116,15 +118,15 @@ public class ProdutosUtil {
 	    return sucess;
 	} catch (InputMismatchException e) {
 	    System.out.println("Valor inválido");
-	} catch (BackButtonException e) {
 	}
 	return false;
     }
 
-    /**@apiNote Exceptions tratadas neste método: Nenhuma
+    /**
+     * @apiNote Exceptions tratadas neste método: Nenhuma
      * @return TRUE se tudo der certo FALSE se algo der errado
      * @throws NumberFormatException caso digite uma letra em vez de número
-     * @throws BackButtonException como nao trato nada aqui, passo adiante
+     * @throws BackButtonException   como nao trato nada aqui, passo adiante
      */
     public static boolean marcarComoNaoConcluido(ProductService service, Product p)
 	    throws NumberFormatException, BackButtonException {
@@ -139,22 +141,24 @@ public class ProdutosUtil {
     /**
      * @return true se obtiver sucesso! false se algo der errado
      * @apiNote Exceptions tratadas nesse método: InputMismatchException,
-     *          BackButtonException, ConfirmException
+     *          ConfirmException
+     * @throws BackButtonException
      */
-    public static boolean editarValorReal(ProductService service, Product p) {
+    public static boolean editarValorReal(ProductService service, Product p) throws BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	try {
 	    System.out.println("Pressione -1 para cancelar");
 	    System.out.print("Valor real: R$");
 	    double valorReal = scan.nextDouble();
-	    ButtonUtil.botaoVoltar((int) valorReal);
+	    if (valorReal == (int) -1) {
+		ButtonUtil.botaoVoltar(0);
+	    }
 	    ButtonUtil.confirmar("alterar o valor real");
 	    service.editarPrecoReal(p, valorReal);
 	    return true;
 	} catch (InputMismatchException e) {
 	    System.out.println("Digite um valor válido.");
-	} catch (BackButtonException e) {
 	} catch (ConfirmException e) {
 	    System.out.println("Valor não alterado.");
 	}
@@ -164,9 +168,10 @@ public class ProdutosUtil {
     /**
      * @return true se obtiver sucesso! false se algo der errado
      * @apiNote Exceptions tratadas nesse método: InputMismatchException,
-     *          BackButtonException, ConfirmException
+     *          ConfirmException
+     * @throws BackButtonException
      */
-    public static boolean editarValorEstipulado(ProductService service, Product p) {
+    public static boolean editarValorEstipulado(ProductService service, Product p) throws BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	double valorEstipulado = 0;
@@ -174,7 +179,9 @@ public class ProdutosUtil {
 	    System.out.println("Pressione -1 para cancelar");
 	    System.out.print("Novo valor estipulado: R$");
 	    valorEstipulado = scan.nextDouble();
-	    ButtonUtil.botaoVoltar((int) valorEstipulado);
+	    if (valorEstipulado == (int) -1) {
+		ButtonUtil.botaoVoltar(0);
+	    }
 	    ButtonUtil.confirmar("alterar o valor real");
 	    service.editarPrecoEstipulado(p, valorEstipulado);
 	    return true;
@@ -293,7 +300,7 @@ public class ProdutosUtil {
 	    System.out.println("Todos os produtos da lista foram comprados :)");
 	}
     }
-    
+
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
@@ -318,9 +325,10 @@ public class ProdutosUtil {
      * @throws ProductoException     caso não exista nenhum produto com número
      *                               escolhido
      * @throws ListaVaziaException
+     * @throws BackButtonException
      */
     public static Product selecionarProduto(ProductService service, String acao)
-	    throws NumberFormatException, ProductoException, ListaVaziaException {
+	    throws NumberFormatException, ProductoException, ListaVaziaException, BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	service.listarPordutos();
@@ -333,7 +341,7 @@ public class ProdutosUtil {
     }
 
     // ------------------------- métodos privados -------------------------------//
-   
+
     /**
      * @apiNote Exceptions tratadas nesse método: InputMismatchException
      */
@@ -379,8 +387,8 @@ public class ProdutosUtil {
     }
 
     /**
-     * @apiNote Exceptions tratadas nesse método: Nenhuma
-     * pergunta se quer alterar o Valor caso a função seja verdadeira
+     * @apiNote Exceptions tratadas nesse método: Nenhuma pergunta se quer alterar o
+     *          Valor caso a função seja verdadeira
      * 
      * @param funcao caso a função seja verdadeira, pergunta se quer alterar o
      *               valorReal
@@ -401,7 +409,7 @@ public class ProdutosUtil {
 	}
 	return sucess;
     }
-    
+
     /**
      * @apiNote Exceptions tratadas nesse método: nenhuma
      */

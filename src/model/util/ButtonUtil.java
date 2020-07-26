@@ -10,7 +10,7 @@ public class ButtonUtil {
     private static Scanner scan = new Scanner (System.in);
     
     public static void botaoVoltar(Object opcao) throws BackButtonException{
-	if (opcao.equals("0") || opcao.equals(0) || opcao.equals(-1)) {
+	if (opcao.equals("0") || opcao.equals(0)) {
 	    throw new BackButtonException();
 	}
     }
