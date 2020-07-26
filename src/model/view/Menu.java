@@ -11,6 +11,7 @@ public class Menu {
 	System.out.println("[ 2 ] - Adicionar nova Lista");
 	System.out.println("[ 3 ] - Editar Lista");
 	System.out.println("[ 4 ] - Excluir Lista");
+	System.out.println("[ 5 ] - Configurações de Conta");
 	System.out.println("[ 0 ] - Sair");
     }
 
@@ -60,6 +61,12 @@ public class Menu {
 	System.out.println("[ 4 ] - Quanto disponível você ainda tem para gastar");
 	System.out.println("[ 5 ] - Quanto você economizou");
 	System.out.println("[ 0 ] - Voltar");
+    }
+    
+    public static void menuConfiguracoesConta() {
+	System.out.println("[ 1 ] - Editar nome");
+	System.out.println("[ 2 ] - Editar username");
+	System.out.println("[ 3 ] - Editar senha");
     }
 
 }

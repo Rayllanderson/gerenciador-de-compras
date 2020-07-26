@@ -21,7 +21,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public User login(String username, String password) {
+    public User login(String username, String password) throws MyLoginException {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
@@ -68,7 +68,10 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	st.setString(3, user.getPassword());
     }
 
-    private boolean usernameExistente(String username) {
+    /**
+     * @throws MyLoginException
+     */
+    private boolean usernameExistente(String username) throws MyLoginException {
 	Statement st = null;
 	ResultSet rs = null;
 	try {
@@ -89,15 +92,17 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public void alterarUsername(User user) {
+    public void alterarUsername(User user) throws MyLoginException {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set username = ? where id = ?");
-	    st.setString(1, user.getName());
-	    st.setInt(2, user.getId());
-	    st.executeUpdate();
+	    if (!(usernameExistente(user.getUsername()))) {
+		st = conn.prepareStatement("update usuario set username = ? where id = ?");
+		st.setString(1, user.getUsername());
+		st.setInt(2, user.getId());
+		st.executeUpdate();
+	    }
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    throw new DbException(e.getMessage());
 	} finally {
 	    DB.closeStatement(st);
 	}
@@ -112,7 +117,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	    st.setInt(2, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    throw new DbException(e.getMessage());
 	} finally {
 	    DB.closeStatement(st);
 	}
@@ -127,7 +132,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	    st.setInt(2, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    throw new DbException(e.getMessage());
 	} finally {
 	    DB.closeStatement(st);
 	}
