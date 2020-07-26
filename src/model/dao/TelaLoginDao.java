@@ -18,4 +18,9 @@ public interface TelaLoginDao {
      */
     boolean cadastrar(User user);
     
+    void alterarUsername(User user);
+    
+    void alterarSenha(User user);
+    
+    void aterarNome(User user); 
 }

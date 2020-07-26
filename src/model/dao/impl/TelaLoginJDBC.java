@@ -31,17 +31,16 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
-	    }else {
+	    } else {
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
-	}finally {
+	} finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
     }
-
 
     @Override
     public boolean cadastrar(User user) {
@@ -87,6 +86,51 @@ public class TelaLoginJDBC implements TelaLoginDao {
 	    DB.closeStatement(st);
 	}
 	return false;
+    }
+
+    @Override
+    public void alterarUsername(User user) {
+	PreparedStatement st = null;
+	try {
+	    st = conn.prepareStatement("update usuario set username = ? where id = ?");
+	    st.setString(1, user.getName());
+	    st.setInt(2, user.getId());
+	    st.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} finally {
+	    DB.closeStatement(st);
+	}
+    }
+
+    @Override
+    public void alterarSenha(User user) {
+	PreparedStatement st = null;
+	try {
+	    st = conn.prepareStatement("update usuario set senha = ? where id = ?");
+	    st.setString(1, user.getPassword());
+	    st.setInt(2, user.getId());
+	    st.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} finally {
+	    DB.closeStatement(st);
+	}
+    }
+
+    @Override
+    public void aterarNome(User user) {
+	PreparedStatement st = null;
+	try {
+	    st = conn.prepareStatement("update usuario set nome = ? where id = ?");
+	    st.setString(1, user.getName());
+	    st.setInt(2, user.getId());
+	    st.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} finally {
+	    DB.closeStatement(st);
+	}
     }
 
 }
