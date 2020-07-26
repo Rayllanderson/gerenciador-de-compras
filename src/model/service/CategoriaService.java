@@ -39,7 +39,12 @@ public class CategoriaService {
 	    throw new ListaVaziaException("Lista Vazia");
 	}
     }
-
+    /**
+     * 
+     * @param numero da categoria
+     * @return a categoria escolhida
+     * @throws CategoriaException se nao encontrar categoria com o número digitado
+     */
     public Categoria getCategoriaByNumber(int num) throws CategoriaException{
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();

@@ -13,9 +13,10 @@ import model.util.CategoriaUtil;
 import model.util.ProdutosUtil;
 
 public class MenuCategoria {
-    private static Scanner scan = new Scanner(System.in);
 
     public static void editarCategoria(CategoriaService service) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	try {
 	    System.out.println("Selecione a lista que deseja Editar: ");
@@ -51,6 +52,8 @@ public class MenuCategoria {
     }
 
     public static boolean createNewList(ProductService service, Categoria cat) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	System.out.println("Adicionar novo produto a essa lista?");
 	System.out.println("[ 1 ] - sim");
 	System.out.println("[ 2 ] - não");

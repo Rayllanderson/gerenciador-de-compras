@@ -40,7 +40,7 @@ public class ProductService {
 	}
     }
 
-    public Product getProdutoByNumer(int num) {
+    public Product getProdutoByNumer(int num) throws ProductoException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
@@ -85,7 +85,7 @@ public class ProductService {
 	dao.atualizar(p);
     }
 
-    public void marcarComoConcluido(Product p, double value) {
+    public void marcarComoConcluido(Product p, double value) throws ProductoException {
 	if (p.isCompraro()) {
 	    throw new ProductoException("Produto estava marcado como comprado.");
 	}
@@ -98,7 +98,7 @@ public class ProductService {
 	}
     }
 
-    public void marcarComoNaoConcluido(Product p, double value) {
+    public void marcarComoNaoConcluido(Product p, double value) throws ProductoException {
 	if (!(p.isCompraro())) {
 	    throw new ProductoException("Produto estava marcado como não comprado");
 	}

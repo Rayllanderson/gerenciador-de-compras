@@ -8,8 +8,10 @@ import model.dao.TelaLoginDao;
 import model.entities.Categoria;
 import model.entities.User;
 import model.exception.BackButtonException;
+import model.exception.CategoriaException;
 import model.exception.ListaVaziaException;
 import model.exception.MyLoginException;
+import model.exception.ProductoException;
 import model.service.CategoriaService;
 import model.service.ProductService;
 import model.util.ButtonUtil;
@@ -60,9 +62,11 @@ public class TelaPrincipal {
     }
 
     // -------------------- MENUS CATEGORIA -----------------------------
+    @SuppressWarnings("resource")
     public Categoria telaCategoria(User user) {
 	CategoriaService service = new CategoriaService(user);
 	do {
+	    Scanner scan = new Scanner(System.in);
 	    String opcao = null;
 	    System.out.println("O que deseja fazer, " + this.formatarNome(user.getName()) + "?");
 	    Menu.menuPrincipalCategorias();
@@ -70,6 +74,7 @@ public class TelaPrincipal {
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {
 		case 0:
+		    scan.close();
 		    System.exit(0);
 		case 1:
 		    System.out.println("Pressione 0 para cancelar");
@@ -94,6 +99,10 @@ public class TelaPrincipal {
 	    } catch (BackButtonException e) {
 	    } catch (NumberFormatException e) {
 		System.out.println("Opção inválida. Tente digitar apenas números");
+	    } catch (CategoriaException e) {
+		System.out.println(e.getMessage());
+	    } catch (ListaVaziaException e) {
+		System.out.println(e.getMessage());
 	    }
 	} while (true);
     }
@@ -104,6 +113,8 @@ public class TelaPrincipal {
 	String opcao = null;
 	while (true) {
 	    try {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
 		mostrarOrcamento(cat);
 		service.listarPordutos();
 		Menu.menuPrincipalProdutos();
@@ -140,6 +151,8 @@ public class TelaPrincipal {
 		return MenuCategoria.createNewList(service, cat);
 	    } catch (NumberFormatException e) {
 		System.out.println("Tente digitar apenas números");
+	    } catch (ProductoException e) {
+		System.out.println(e.getMessage());
 	    }
 	}
     }
@@ -160,19 +173,20 @@ public class TelaPrincipal {
 	System.out.print("Senha: ");
 	return scan.next();
     }
-    
+
     private void mostrarOrcamento(Categoria cat) {
 	System.out.println();
 	String complemento = ": ";
 	if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
 	    complemento += "Lista sem orçamento";
-	}else {
+	} else {
 	    complemento += "R$" + cat.getOrcamento();
-	} 
-	System.out.println("Orçamento para esta Lista" + complemento);	
+	}
+	System.out.println("Orçamento para esta Lista" + complemento);
 	System.out.println();
     }
-    
-    //TODO: CONFIRMAR EXLCUIR, ADICIONAR MUDAR ORÇAMETO NO MENU PRODUTO, FUÇAR OS BUGS RESTANTES E FIM!
+
+    // TODO: CONFIRMAR EXLCUIR, ADICIONAR MUDAR ORÇAMETO NO MENU PRODUTO, FUÇAR OS
+    // BUGS RESTANTES E FIM!
 
 }

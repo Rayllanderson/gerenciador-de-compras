@@ -7,18 +7,20 @@ import model.entities.Categoria;
 import model.entities.Product;
 import model.exception.BackButtonException;
 import model.exception.ConfirmException;
+import model.exception.ProductoException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
 import model.util.ProdutosUtil;
 
 public class MenuProduto {
 
-    private static Scanner scan = new Scanner(System.in);
 
     // --------------------- MENUS EDITAR PRODUTO ----------------------------
+    @SuppressWarnings("resource")
     public static boolean menuEditarProduto(ProductService service) {
 	String opcaoEditarProduto;
 	while (true) {
+	    Scanner scan = new Scanner(System.in);
 	    try {
 		Product p = ProdutosUtil.selecionarProduto(service, "Editar");
 		ButtonUtil.botaoVoltar(p);
@@ -36,19 +38,21 @@ public class MenuProduto {
 		case 3:
 		    return eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
 		case 4:
-		   return eliminarVerbose(ProdutosUtil.editarValorReal(service, p));
+		    return eliminarVerbose(ProdutosUtil.editarValorReal(service, p));
 		case 5:
-		    return eliminarVerbose(ProdutosUtil.marcarComoConcluido(service, p)); 
+		    return eliminarVerbose(ProdutosUtil.marcarComoConcluido(service, p));
 		case 6:
-		     return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p)); 
+		    return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p));
 		default:
 		    throw new NumberFormatException();
 		}
-	    } catch (NumberFormatException e) {
+	    } catch (InputMismatchException | NumberFormatException e) {
 		System.out.println("Entrada inválida! Tente novamente.");
 	    } catch (BackButtonException e) {
 		return false;
 	    } catch (ConfirmException e) {
+		System.out.println(e.getMessage());
+	    } catch (ProductoException e) {
 		System.out.println(e.getMessage());
 	    }
 	}
@@ -57,6 +61,8 @@ public class MenuProduto {
     // ------------------------- MENU FUNCOES UTEIS -------------------------
     public static boolean funcoesUteis(ProductService service, Categoria cat) {
 	String opcaoEditarProduto;
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	while (true) {
 	    try {
 		Menu.menuFinanceiro();
@@ -93,7 +99,6 @@ public class MenuProduto {
 	}
     }
 
-    
     private static boolean eliminarVerbose(boolean funcao) {
 	if (funcao) {
 	    return Menu.continuarEditando();

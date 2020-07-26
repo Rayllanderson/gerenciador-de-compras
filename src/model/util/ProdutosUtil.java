@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.Product;
+import model.exception.BackButtonException;
 import model.exception.ConfirmException;
 import model.exception.ListaVaziaException;
+import model.exception.ProductoException;
 import model.service.ProductService;
 
 public class ProdutosUtil {
-    private static Scanner scan = new Scanner(System.in);
 
     // ----------------------- MÉTODOS MENU PRINCIPAL ------------------------//
     /*
@@ -18,7 +19,10 @@ public class ProdutosUtil {
      * 
      */
 
-    public static void adicionarProduto(ProductService service, Categoria cat) throws InputMismatchException {
+    public static void adicionarProduto(ProductService service, Categoria cat)
+	    throws InputMismatchException, ProductoException, BackButtonException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
@@ -37,7 +41,7 @@ public class ProdutosUtil {
 	service.inserir(p);
     }
 
-    public static void deletarProduto(ProductService service) throws NumberFormatException {
+    public static void deletarProduto(ProductService service) throws NumberFormatException, ProductoException {
 	Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
 	if (ButtonUtil.confirmar("deletar")) {
 	    service.deletar(p);
@@ -48,6 +52,8 @@ public class ProdutosUtil {
 
     // ---------------------- MÉTODOS EDITAR PRODUTO -------------------------//
     public static boolean editarTudoProduto(ProductService service, Product p) throws ConfirmException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Nome: ");
@@ -62,6 +68,7 @@ public class ProdutosUtil {
 	    if (ButtonUtil.confirmar("confirmar as alterações")) {
 		if (!(valorReal == 0)) {
 		    service.marcarComoConcluido(p, valorReal);
+
 		} else {
 		    valorReal = null;
 		}
@@ -74,11 +81,16 @@ public class ProdutosUtil {
 	} catch (InputMismatchException e) {
 	    System.out.println("Valor inválido");
 	    return false;
+	} catch (ProductoException e) {
+	    System.out.println(e.getMessage());
+	    return false;
 	}
     }
 
     public static boolean marcarComoConcluido(ProductService service, Product p)
-	    throws NumberFormatException, ConfirmException {
+	    throws NumberFormatException, ConfirmException, ProductoException, BackButtonException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	boolean sucess = true;
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
@@ -105,7 +117,10 @@ public class ProdutosUtil {
 	return sucess;
     }
 
-    public static boolean marcarComoNaoConcluido(ProductService service, Product p) throws NumberFormatException {
+    public static boolean marcarComoNaoConcluido(ProductService service, Product p)
+	    throws NumberFormatException, ProductoException, BackButtonException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	boolean sucess = true;
 	if (p.getPrecoReal() != 0) {
 	    System.out.println("Pressione 0 para cancelar");
@@ -123,16 +138,11 @@ public class ProdutosUtil {
 	return sucess;
     }
 
-    /**
-     * @param service
-     * @param produto
-     * @throws InputMismatchException para pular a pergunta de confirmação assim que
-     *                                esse método termina
-     * @throws ConfirmException       para pular a pergunta também
-     */
     public static boolean editarValorReal(ProductService service, Product p) throws ConfirmException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	try {
-	    System.out.println("Pressione 0 para cancelar");
+	    System.out.println("Pressione -1 para cancelar");
 	    System.out.print("Valor real: R$");
 	    double valorReal = scan.nextDouble();
 	    ButtonUtil.botaoVoltar(valorReal);
@@ -144,17 +154,14 @@ public class ProdutosUtil {
 	} catch (InputMismatchException e) {
 	    System.out.println("Digite um valor válido.");
 	    return false;
+	}catch (BackButtonException e) {
+	    return false;
 	}
     }
 
-    /**
-     * @param service
-     * @param produto
-     * @throws InputMismatchException para pular a pergunta de confirmação assim que
-     *                                esse método termina
-     * @throws ConfirmException       para pular a pergunta também
-     */
-    public static boolean editarValorEstipulado(ProductService service, Product p) throws ConfirmException {
+    public static boolean editarValorEstipulado(ProductService service, Product p) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	double valorEstipulado = 0;
 	try {
 	    System.out.print("Novo valor estipulado: R$");
@@ -168,10 +175,16 @@ public class ProdutosUtil {
 	} catch (InputMismatchException e) {
 	    System.out.println("Digite um valor válido.");
 	    return false;
+	}catch (ConfirmException e) {
+	   System.out.println("Valor não alterado.");
+	   return false;
 	}
     }
 
     public static void editarNomeProduto(ProductService service, Product p) throws ConfirmException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
+	scan.useDelimiter(System.lineSeparator());
 	System.out.print("Novo nome: ");
 	String name = scan.next();
 	if (ButtonUtil.confirmar("renomear")) {
@@ -263,13 +276,14 @@ public class ProdutosUtil {
 
     // -----------------------------------------------------------------------------//
 
-    public static Product selecionarProduto(ProductService service, String acao) throws NumberFormatException {
+    public static Product selecionarProduto(ProductService service, String acao)
+	    throws NumberFormatException, ProductoException {
 	@SuppressWarnings("resource")
-	Scanner scan2 = new Scanner (System.in);
+	Scanner scan = new Scanner(System.in);
 	service.listarPordutos();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
-	String produtoEscolhido = scan2.next();
+	String produtoEscolhido = scan.next();
 	ButtonUtil.botaoVoltar(produtoEscolhido);
 	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
 	return p;

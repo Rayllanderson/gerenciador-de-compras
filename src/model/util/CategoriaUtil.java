@@ -5,12 +5,14 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.User;
+import model.exception.CategoriaException;
 import model.service.CategoriaService;
 
 public class CategoriaUtil {
-    private static Scanner scan = new Scanner(System.in);
 
     public static void adicionarCategoria(CategoriaService service, User user) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	try {
 	    Categoria novaCategoria = new Categoria();
@@ -36,7 +38,9 @@ public class CategoriaUtil {
 	}
     }
 
-    public static void deletarCategoria(CategoriaService service) throws NumberFormatException {
+    public static void deletarCategoria(CategoriaService service) throws NumberFormatException, CategoriaException {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Selecione a lista que deseja Excluir: ");
 	System.out.println("Pressione 0 para voltar");
@@ -50,16 +54,23 @@ public class CategoriaUtil {
 	} else {
 	    System.out.println("Lista não deletada.");
 	}
-
     }
 
-    private static void inserirOrcamento(CategoriaService service, Categoria cat) throws InputMismatchException {
-	System.out.print("Valor do orçamento para a lista " + cat.getName() + ": ");
-	double value = scan.nextDouble();
-	service.inserirOrcamento(cat, value);
+    private static void inserirOrcamento(CategoriaService service, Categoria cat) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
+	try {
+	    System.out.print("Valor do orçamento para a lista " + cat.getName() + ": ");
+	    double value = scan.nextDouble();
+	    service.inserirOrcamento(cat, value);
+	} catch (InputMismatchException e) {
+	    System.out.println("Digite um valor válido");
+	}
     }
 
     public static void editarTudoCategoria(CategoriaService service, String oqVaiSerEditado, Categoria cat) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
 	if (oqVaiSerEditado.equalsIgnoreCase("nome")) {
 	    String name;
 	    System.out.print("Novo nome: ");
@@ -70,14 +81,9 @@ public class CategoriaUtil {
 	    } else {
 		System.out.println("Lista não renomeada");
 	    }
-
 	}
 	if (oqVaiSerEditado.equalsIgnoreCase("orcamento")) {
-	    try {
-		inserirOrcamento(service, cat);
-	    } catch (InputMismatchException e) {
-		System.out.println("Digite um valor válido");
-	    }
+	    inserirOrcamento(service, cat);
 	}
 	if (oqVaiSerEditado.equalsIgnoreCase("tudo")) {
 	    String name;
@@ -95,6 +101,7 @@ public class CategoriaUtil {
 	    System.out.println("Lista editada com sucesso!");
 	else
 	    System.out.println("Ocorreu um erro ao editar. Tente novamente");
+
     }
 
     public static void adicionarOrcamento(CategoriaService service, Categoria cat) {
