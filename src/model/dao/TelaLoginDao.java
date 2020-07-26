@@ -22,5 +22,5 @@ public interface TelaLoginDao {
     
     void alterarSenha(User user);
     
-    void aterarNome(User user); 
+    void alterarNome(User user); 
 }

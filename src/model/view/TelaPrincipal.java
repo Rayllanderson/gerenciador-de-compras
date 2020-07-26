@@ -15,6 +15,7 @@ import model.service.CategoriaService;
 import model.service.ProductService;
 import model.util.CategoriaUtil;
 import model.util.ProdutosUtil;
+import model.util.UserUtil;
 
 public class TelaPrincipal {
 
@@ -35,25 +36,27 @@ public class TelaPrincipal {
 		System.out.println("|  [ 1 ] - Login      |");
 		System.out.println("|  [ 2 ] - Cadastrar  |");
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*");
-		String op = scan.next();
+		String op = scan.next().trim();
 		if (Integer.parseInt(op) == 1) {
-		    username = pedirUser();
-		    password = pedirSenha();
-		    return this.telaLogin.login(username, password);
+		    username = UserUtil.pedirUserOuSenha(scan, "Usuário");
+		    password = UserUtil.pedirUserOuSenha(scan, "Senha");
+		    return telaLogin.login(username, password);
 		} else if (Integer.parseInt(op) == 2) {
 		    System.out.print("Nome: ");
 		    String name = scan.next();
-		    username = pedirUser();
-		    password = pedirSenha();
+		    username = UserUtil.pedirUserOuSenha(scan, "Usuário");
+		    password = UserUtil.pedirUserOuSenha(scan, "Senha");
 		    if (this.telaLogin.cadastrar(new User(null, name, username, password))) {
 			System.out.println("Cadastro realizado com sucesso! Faça login para continuar");
 		    }
 		} else {
-		    throw new MyLoginException("Digite uma opção válida");
+		    throw new OpcaoInvalidaException("Digite uma opção válida");
 		}
 	    } catch (NumberFormatException e) {
 		System.out.println("Digite uma opcao válida");
 	    } catch (MyLoginException e) {
+		System.out.println(e.getMessage());
+	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
 	    }
 	}
@@ -66,7 +69,7 @@ public class TelaPrincipal {
 	do {
 	    Scanner scan = new Scanner(System.in);
 	    String opcao = null;
-	    System.out.println("O que deseja fazer, " + this.formatarNome(user.getName()) + "?");
+	    System.out.println("O que deseja fazer, " + UserUtil.formatarNome(user.getName()) + "?");
 	    Menu.menuPrincipalCategorias();
 	    try {
 		opcao = scan.next();
@@ -144,21 +147,6 @@ public class TelaPrincipal {
     }
 
     // ------------------------- MÉTODOS BÁSICOS --------------------------------
-
-    private String formatarNome(String nome) {
-	String[] name = nome.split(" ");
-	return name[0].substring(0, 1).toUpperCase().concat(name[0].substring(1).toLowerCase());
-    }
-
-    private String pedirUser() {
-	System.out.print("Usuario: ");
-	return scan.next();
-    }
-
-    private String pedirSenha() {
-	System.out.print("Senha: ");
-	return scan.next();
-    }
 
     private void mostrarOrcamento(Categoria cat) {
 	System.out.println();

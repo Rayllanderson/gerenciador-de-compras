@@ -124,7 +124,7 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public void aterarNome(User user) {
+    public void alterarNome(User user) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("update usuario set nome = ? where id = ?");
