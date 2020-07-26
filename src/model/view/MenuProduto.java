@@ -1,11 +1,11 @@
 package model.view;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.Product;
 import model.exception.BackButtonException;
+import model.exception.EntradaInvalidaException;
 import model.exception.OpcaoInvalidaException;
 import model.service.ProductService;
 import model.util.ButtonUtil;
@@ -84,10 +84,10 @@ public class MenuProduto {
 		    ProdutosUtil.valorEconomizado(service);
 		    break;
 		default:
-		    throw new InputMismatchException();
+		    throw new EntradaInvalidaException("Opção inválida! Tente novamente.");
 		}
-	    } catch (InputMismatchException e) {
-		System.out.println("Opção inválida! Tente novamente.");
+	    } catch (EntradaInvalidaException e) {
+		System.out.println(e.getMessage());
 	    } catch (NumberFormatException e) {
 		System.out.println("Digite apenas números");
 	    }
