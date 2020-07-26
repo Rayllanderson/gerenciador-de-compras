@@ -8,10 +8,9 @@ import model.dao.TelaLoginDao;
 import model.entities.Categoria;
 import model.entities.User;
 import model.exception.BackButtonException;
-import model.exception.ListaVaziaException;
+import model.exception.EntradaInvalidaException;
 import model.exception.MyLoginException;
 import model.exception.OpcaoInvalidaException;
-import model.exception.ProductoException;
 import model.service.CategoriaService;
 import model.service.ProductService;
 import model.util.CategoriaUtil;
@@ -133,18 +132,12 @@ public class TelaPrincipal {
 		    CategoriaUtil.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
 		    break;
 		default:
-		    throw new InputMismatchException();
+		    throw new EntradaInvalidaException("Opção inválida! Tente novamente.");
 		}
-	    } catch (InputMismatchException e) {
-		System.out.println("Opção inválida! Tente novamente.");
-		scan.next();
 	    } catch (BackButtonException e) {
-	    } catch (ListaVaziaException e) {
-		System.out.println(e.getMessage());
-		return MenuCategoria.createNewList(service, cat);
-	    } catch (NumberFormatException e) {
+	    }catch (NumberFormatException e) {
 		System.out.println("Tente digitar apenas números");
-	    } catch (ProductoException e) {
+	    } catch (EntradaInvalidaException e) {
 		System.out.println(e.getMessage());
 	    }
 	}
@@ -180,6 +173,6 @@ public class TelaPrincipal {
     }
 
     // TODO: CONFIRMAR EXLCUIR, ADICIONAR MUDAR ORÇAMETO NO MENU PRODUTO, FUÇAR OS
-    // BUGS RESTANTES E FIM!
+    // BUGS RESTANTES E FIM! BUGS ELIMINADOS COM SUCESSO!
 
 }

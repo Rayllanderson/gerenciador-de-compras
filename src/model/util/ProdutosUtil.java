@@ -268,7 +268,7 @@ public class ProdutosUtil {
 	    System.out.println(
 		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
 	} catch (ListaVaziaException e) {
-	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, não gastou nada");
+	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, ainda tem R$" + cat.getOrcamento() + " para gastar");
 	}
     }
 

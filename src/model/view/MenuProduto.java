@@ -14,6 +14,11 @@ import model.util.ProdutosUtil;
 public class MenuProduto {
 
     // --------------------- MENUS EDITAR PRODUTO ----------------------------
+    /**
+    /**
+     * Exceptions tratadas: EntradaInvalidaException, NumberFormatException, OpcaoInvalidaException
+     */
+    
     @SuppressWarnings("resource")
     public static boolean menuEditarProduto(ProductService service) {
 	String opcaoEditarProduto;
@@ -54,6 +59,9 @@ public class MenuProduto {
     }
 
     // ------------------------- MENU FUNCOES UTEIS -------------------------
+    /**
+     * Exceptions tratadas: EntradaInvalidaException, NumberFormatException
+     */
     public static boolean funcoesUteis(ProductService service, Categoria cat) {
 	String opcaoEditarProduto;
 	@SuppressWarnings("resource")
