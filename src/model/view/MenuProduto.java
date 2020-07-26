@@ -14,7 +14,6 @@ import model.util.ProdutosUtil;
 
 public class MenuProduto {
 
-
     // --------------------- MENUS EDITAR PRODUTO ----------------------------
     @SuppressWarnings("resource")
     public static boolean menuEditarProduto(ProductService service) {
@@ -31,10 +30,9 @@ public class MenuProduto {
 		    return false;
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    eliminarVerbose(ProdutosUtil.editarTudoProduto(service, p));
+		    return eliminarVerbose((ProdutosUtil.editarTudoProduto(service, p)));
 		case 2:
-		    ProdutosUtil.editarNomeProduto(service, p);
-		    return Menu.continuarEditando();
+		    return eliminarVerbose(ProdutosUtil.editarNomeProduto(service, p));
 		case 3:
 		    return eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
 		case 4:

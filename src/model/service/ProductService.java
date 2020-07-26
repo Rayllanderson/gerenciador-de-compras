@@ -28,7 +28,10 @@ public class ProductService {
 	}
     }
 
-    public void listarPordutos() {
+    /**
+     * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+     */
+    public void listarPordutos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
@@ -40,7 +43,11 @@ public class ProductService {
 	}
     }
 
-    public Product getProdutoByNumer(int num) throws ProductoException {
+    /**
+     * @throws ProductoException ( "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
+     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na lista.");
+     */
+    public Product getProdutoByNumer(int num) throws ProductoException, ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
@@ -85,10 +92,7 @@ public class ProductService {
 	dao.atualizar(p);
     }
 
-    public void marcarComoConcluido(Product p, double value) throws ProductoException {
-	if (p.isCompraro()) {
-	    throw new ProductoException("Produto estava marcado como comprado.");
-	}
+    public void marcarComoConcluido(Product p, double value) {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
 	    p.setCompraro(true);
@@ -98,10 +102,7 @@ public class ProductService {
 	}
     }
 
-    public void marcarComoNaoConcluido(Product p, double value) throws ProductoException {
-	if (!(p.isCompraro())) {
-	    throw new ProductoException("Produto estava marcado como não comprado");
-	}
+    public void marcarComoNaoConcluido(Product p, double value) {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
 	    p.setCompraro(false);
@@ -111,7 +112,7 @@ public class ProductService {
 	}
     }
 
-    public void listarNaoConcluidos() throws ListaVaziaException{
+    public void listarNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = this.produtosNaoConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
@@ -122,7 +123,7 @@ public class ProductService {
 	}
     }
 
-    public void listarConcluidos() throws ListaVaziaException{
+    public void listarConcluidos() throws ListaVaziaException {
 	List<Product> list = this.produtosConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
@@ -133,9 +134,9 @@ public class ProductService {
 	}
     }
 
-    public List<Product> produtosNaoConcluidos() {
+    public List<Product> produtosNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
-	for (int i = 0 ; i<list.size(); i++) {
+	for (int i = 0; i < list.size(); i++) {
 	    if (list.get(i).isCompraro()) {
 		list.remove(i);
 		i--;
@@ -147,7 +148,7 @@ public class ProductService {
 	return list;
     }
 
-    public List<Product> produtosConcluidos(){
+    public List<Product> produtosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
 	    if (!(list.get(i).isCompraro())) {
@@ -161,7 +162,7 @@ public class ProductService {
 	return list;
     }
 
-    public double quantidadeGasta() throws ListaVaziaException{
+    public double quantidadeGasta() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = this.produtosConcluidos();
 	for (Product p : list) {
