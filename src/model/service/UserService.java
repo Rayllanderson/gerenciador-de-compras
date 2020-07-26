@@ -7,17 +7,14 @@ public class UserService {
 
     private TelaLoginDao dao;
     
-    public void alterarNome(User user) {
-	dao.alterarNome(user);
+    public void updateSenhaOuNome(User user) {
+	dao.update(user);
     }
     
-    public void alterarUserName(User user) {
+    public void alterarUsername(User user) {
 	dao.alterarUsername(user);
     }
-    
-    public void alterarSenha(User user) {
-	dao.alterarSenha(user);
-    }
+
     
 
 }

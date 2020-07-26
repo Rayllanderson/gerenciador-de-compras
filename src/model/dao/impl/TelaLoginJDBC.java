@@ -109,27 +109,13 @@ public class TelaLoginJDBC implements TelaLoginDao {
     }
 
     @Override
-    public void alterarSenha(User user) {
+    public void update(User user) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set senha = ? where id = ?");
-	    st.setString(1, user.getPassword());
-	    st.setInt(2, user.getId());
-	    st.executeUpdate();
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeStatement(st);
-	}
-    }
-
-    @Override
-    public void alterarNome(User user) {
-	PreparedStatement st = null;
-	try {
-	    st = conn.prepareStatement("update usuario set nome = ? where id = ?");
+	    st = conn.prepareStatement("update usuario set nome = ?, senha = ? where id = ?");
 	    st.setString(1, user.getName());
-	    st.setInt(2, user.getId());
+	    st.setString(2, user.getPassword());
+	    st.setInt(3, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
