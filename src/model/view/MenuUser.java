@@ -16,7 +16,8 @@ public class MenuUser {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	while (true) {
-	    System.out.println("Atual username: " + user.getUsername());
+	    System.out.println("Seu atual username é: " + user.getUsername());
+	    System.out.println("Seu atual nome é: " + user.getName());
 	    try {
 		System.out.println("Deseja alterar algo? ");
 		Menu.menuConfiguracoesConta();

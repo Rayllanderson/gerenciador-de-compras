@@ -35,8 +35,6 @@ public class ProdutosUtil {
 	    Product p = new Product(null, nome, valorEstipulado, valorReal, false, cat.getUser(), cat);
 	    concluir(valorReal, service, p);
 	    return service.inserir(p);
-	} catch (RuntimeException e) {
-	    System.out.println("Ocorreu um erro inesperado");
 	} catch (EntradaInvalidaException e) {
 	    System.out.println(e.getMessage());
 	}
@@ -268,7 +266,8 @@ public class ProdutosUtil {
 	    System.out.println(
 		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
 	} catch (ListaVaziaException e) {
-	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, ainda tem R$" + cat.getOrcamento() + " para gastar");
+	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, ainda tem R$"
+		    + cat.getOrcamento() + " para gastar");
 	}
     }
 
@@ -279,7 +278,7 @@ public class ProdutosUtil {
 	try {
 	    double valorEconomizado = service.valorEconomizado();
 	    if (valorEconomizado < 0) {
-		System.out.println("Eita! Você não economizou nada! Valor gastou R$" + (-(valorEconomizado))
+		System.out.println("Eita! Você não economizou nada! Você gastou R$" + (-(valorEconomizado))
 			+ " a mais do que planejava");
 	    } else {
 		System.out.println("Você economizou R$" + valorEconomizado + ", Parabéns!");
@@ -420,9 +419,8 @@ public class ProdutosUtil {
 	System.out.println("[ 2 ] - nop");
 	return scan.next();
     }
-    
-    
+
     public static void mostrarSomaTotal() {
-	
+
     }
 }
