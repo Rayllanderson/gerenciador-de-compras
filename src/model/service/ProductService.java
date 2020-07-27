@@ -102,14 +102,14 @@ public class ProductService {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
 	}
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
-	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
+	FormatarTabela.printInvoiceHeader(maxLenName + 1, 6);
 	for (int i = 0; i < list.size(); i++) {
 	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	}
     }
     
     public void listarNaoConcluidos() throws ListaVaziaException {
-	List<Product> list = this.produtosNaoConcluidos();
+	List<Product> list = this.getProdutosNaoConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
 	for (int i = 0; i < list.size(); i++) {
@@ -120,7 +120,7 @@ public class ProductService {
     }
 
     public void listarConcluidos() throws ListaVaziaException {
-	List<Product> list = this.produtosConcluidos();
+	List<Product> list = this.getProdutosConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
 	for (int i = 0; i < list.size(); i++) {
@@ -130,7 +130,7 @@ public class ProductService {
 	}
     }
 
-    public List<Product> produtosNaoConcluidos() throws ListaVaziaException {
+    public List<Product> getProdutosNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
 	    if (list.get(i).isCompraro()) {
@@ -144,7 +144,7 @@ public class ProductService {
 	return list;
     }
 
-    public List<Product> produtosConcluidos() throws ListaVaziaException {
+    public List<Product> getProdutosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
 	    if (!(list.get(i).isCompraro())) {
@@ -159,16 +159,16 @@ public class ProductService {
     }
 
     // -----------------------------SOMAS--------------------------------------//
-    public double valorRealGasto() throws ListaVaziaException {
+    public double getValorRealGasto() throws ListaVaziaException {
 	double sum = 0;
-	List<Product> list = this.produtosConcluidos();
+	List<Product> list = this.getProdutosConcluidos();
 	for (Product p : list) {
 	    sum += p.getPrecoReal();
 	}
 	return sum;
     }
 
-    public double valorGastoEstipulado() throws ListaVaziaException {
+    public double getValorGastoEstipulado() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = dao.findAll();
 	for (Product p : list) {
@@ -177,7 +177,7 @@ public class ProductService {
 	return sum;
     }
 
-    public double valorTotalAtual() {
+    public double getValorTotalAtual() {
 	double sum = 0;
 	List<Product> list = dao.findAll();
 	for (Product p : list) {
@@ -192,19 +192,19 @@ public class ProductService {
 
     // ----------------------------úteis---------------------------------------//
 
-    public double valorEconomizado() throws ListaVaziaException {
+    public double getValorEconomizado() throws ListaVaziaException {
 	double total = 0;
-	List<Product> list = this.produtosConcluidos();
+	List<Product> list = this.getProdutosConcluidos();
 	for (Product p : list) {
 	    total += p.getPrecoEstipulado() - p.getPrecoReal();
 	}
 	return total;
     }
 
-    public double valorDisponivelParaCompra(Categoria cat) throws NullPointerException {
+    public double getValorDisponivelParaCompra(Categoria cat) throws NullPointerException {
 	double total = 0;
 	double orcamento = cat.getOrcamento();
-	total = orcamento - this.valorRealGasto();
+	total = orcamento - this.getValorRealGasto();
 	return total;
     }
 

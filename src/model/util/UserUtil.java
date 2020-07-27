@@ -1,5 +1,6 @@
 package model.util;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 import model.entities.User;
@@ -66,12 +67,13 @@ public class UserUtil {
     }
     
     public static void mostrarInfos(User user) {
+	NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 	CalculoTotalUtil ct = new CalculoTotalUtil(user);
 	System.out.println("Olá, " + UserUtil.formatarNome(user.getName()) + "!");
 	System.out.println("Você possui " + ct.numeroTotalCategorias() + " listas no total");
 	System.out.println("Você já comprou " + ct.numTotalProdutosComprados() + " produtos de um total de " + ct.numTotalProdutos());
-	System.out.println("Você já gastou R$" + ct.totalValorReal());
-	System.out.println("Você pretendia gastar R$" + ct.totalEstipulado());
+	System.out.println("Você já gastou "+ currencyFormatter.format(ct.totalValorReal()));
+	System.out.println("Você pretendia gastar " + currencyFormatter.format( ct.totalEstipulado()));
     }
 
 }

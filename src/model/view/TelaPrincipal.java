@@ -1,5 +1,6 @@
 package model.view;
 
+import java.text.NumberFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -156,11 +157,12 @@ public class TelaPrincipal {
     // ------------------------- MÉTODOS BÁSICOS --------------------------------
 
     private void mostrarOrcamento(Categoria cat) {
+	NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 	String complemento = ": ";
 	if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
 	    complemento += "Lista sem orçamento";
 	} else {
-	    complemento += "R$" + cat.getOrcamento();
+	    complemento += currencyFormatter.format(cat.getOrcamento());
 	}
 	System.out.println("Orçamento para esta Lista" + complemento);
 	System.out.println();
