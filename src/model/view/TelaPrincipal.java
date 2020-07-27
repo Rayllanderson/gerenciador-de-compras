@@ -114,6 +114,7 @@ public class TelaPrincipal {
 	    try {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
+		ProdutosUtil.mostrarSomaTotal(service);
 		mostrarOrcamento(cat);
 		service.listarPordutos();
 		Menu.menuPrincipalProdutos();
@@ -155,7 +156,6 @@ public class TelaPrincipal {
     // ------------------------- MÉTODOS BÁSICOS --------------------------------
 
     private void mostrarOrcamento(Categoria cat) {
-	System.out.println();
 	String complemento = ": ";
 	if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
 	    complemento += "Lista sem orçamento";
@@ -166,7 +166,6 @@ public class TelaPrincipal {
 	System.out.println();
     }
 
-    // TODO: CONFIRMAR EXLCUIR, ADICIONAR MUDAR ORÇAMETO NO MENU PRODUTO, FUÇAR OS
-    // BUGS RESTANTES E FIM! BUGS ELIMINADOS COM SUCESSO!
+    // TODO:FUÇAR OS BUGS RESTANTES, adicionar mudar categoria talvez...
 
 }

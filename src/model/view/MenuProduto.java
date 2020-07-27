@@ -69,6 +69,7 @@ public class MenuProduto {
 	String opcaoEditarProduto;
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
+	ProdutosUtil.mostrarInfosProdutos(cat.getUser(), service, cat.getOrcamento());
 	while (true) {
 	    try {
 		Menu.menuFinanceiro();

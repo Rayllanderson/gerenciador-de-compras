@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.entities.Categoria;
 import model.entities.Product;
+import model.entities.User;
 import model.exception.BackButtonException;
 import model.exception.ConfirmException;
 import model.exception.EntradaInvalidaException;
@@ -420,7 +421,35 @@ public class ProdutosUtil {
 	return scan.next();
     }
 
-    public static void mostrarSomaTotal() {
+    public static void mostrarSomaTotal(ProductService service) {
+	System.out.println("---------------------------------------");
+	System.out.println("Valor Total Estipulado: R$" + String.format("%.2f", service.valorGastoEstipulado()));
+	System.out.println("Valor Total: R$" + String.format("%.2f", service.valorTotalAtual()));
+    }
 
+    public static void mostrarInfosProdutos(User user, ProductService service, double orcamento) {
+	System.out.println(String.format("%s",
+		"----------------------------------------------------------------------------------------------------------------"));
+	System.out.println("Informações breves: ");
+	System.out.print("Você possui ");
+	System.err.print(service.findAllProduct().size());
+	System.out.println(" produtos na lista atual");
+
+	System.out.print("Você já comprou ");
+	System.err.print(service.produtosConcluidos().size());
+	System.out.print(" produtos de um total de ");
+	System.err.println(service.findAllProduct().size());
+
+	System.out.print("Você já gastou ");
+	System.err.println("R$" + service.valorRealGasto());
+	
+	System.out.print("O valor estipulado atual é de ");
+	System.err.println("R$" + service.valorGastoEstipulado());
+	
+	System.out.print("O valor total atual é de ");
+	System.err.println("R$" + service.valorTotalAtual());
+	
+	System.out.print("Orçamento ");
+	System.err.println("R$" + orcamento);
     }
 }

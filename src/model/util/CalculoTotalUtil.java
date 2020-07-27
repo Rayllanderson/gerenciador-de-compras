@@ -85,5 +85,4 @@ public class CalculoTotalUtil {
 	List<Categoria> list = this.cService.findAllCategorias();
 	return list.size();
     }
-
 }

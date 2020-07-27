@@ -21,6 +21,7 @@ public class ProductService {
 	this.dao = DaoFactory.createProductDao(cat);
     }
 
+    //---------------------"CRUD"-------------------------//
     public boolean inserir(Product p) {
 	try {
 	    dao.inserir(p);
@@ -29,45 +30,6 @@ public class ProductService {
 	} catch (DbException e) {
 	    return false;
 	}
-    }
-    
-    public List<Product> findAllProduct(){
-	return dao.findAll();
-    }
-    
-    /**
-     * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
-     *                                   lista.");
-     */
-    public void listarPordutos() throws ListaVaziaException {
-	List<Product> list = dao.findAll();
-	if (list.isEmpty()) {
-	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
-	}
-	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
-	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
-	for (int i = 0; i < list.size(); i++) {
-	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
-	}
-    }
-
-    /**
-     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
-     *                             + num + ". Verifique a tabela e tente
-     *                             novamente");
-     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
-     *                             lista.");
-     */
-    public Product getProdutoByNumer(int num) throws ProductoException, ListaVaziaException {
-	List<Product> list = dao.findAll();
-	if (list.isEmpty()) {
-	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
-	}
-	if (num > list.size()) {
-	    throw new ProductoException(
-		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
-	}
-	return list.get(num - 1);
     }
 
     public boolean atualizar(Product p) {
@@ -124,6 +86,28 @@ public class ProductService {
 	}
     }
 
+    // ---------------------------Listas-------------------------------//
+    
+    public List<Product> findAllProduct() {
+	return dao.findAll();
+    }
+    
+    /**
+     * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
+     *                                   lista.");
+     */
+    public void listarPordutos() throws ListaVaziaException {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+	}
+	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
+	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
+	for (int i = 0; i < list.size(); i++) {
+	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
+	}
+    }
+    
     public void listarNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = this.produtosNaoConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
@@ -174,6 +158,7 @@ public class ProductService {
 	return list;
     }
 
+    // -----------------------------SOMAS--------------------------------------//
     public double valorRealGasto() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = this.produtosConcluidos();
@@ -183,7 +168,16 @@ public class ProductService {
 	return sum;
     }
 
-    public double valorTotal() {
+    public double valorGastoEstipulado() throws ListaVaziaException {
+	double sum = 0;
+	List<Product> list = dao.findAll();
+	for (Product p : list) {
+	    sum += p.getPrecoEstipulado();
+	}
+	return sum;
+    }
+
+    public double valorTotalAtual() {
 	double sum = 0;
 	List<Product> list = dao.findAll();
 	for (Product p : list) {
@@ -195,6 +189,8 @@ public class ProductService {
 	}
 	return sum;
     }
+
+    // ----------------------------úteis---------------------------------------//
 
     public double valorEconomizado() throws ListaVaziaException {
 	double total = 0;
@@ -212,6 +208,26 @@ public class ProductService {
 	return total;
     }
 
-
+    //-------------------------------------------------------------------//
+    /**
+     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
+     *                             + num + ". Verifique a tabela e tente
+     *                             novamente");
+     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
+     *                             lista.");
+     */
+    public Product getProdutoByNumer(int num) throws ProductoException, ListaVaziaException {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+	}
+	if (num > list.size()) {
+	    throw new ProductoException(
+		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
+	}
+	return list.get(num - 1);
+    }
+    
+    
     // talvez editar categoria futuramente...
 }
