@@ -14,22 +14,30 @@ import model.util.FormatarTabela;
 public class ProductService {
 
     private ProductDao dao;
+    private Categoria cat;
 
     public ProductService(Categoria cat) {
+	this.cat = cat;
 	this.dao = DaoFactory.createProductDao(cat);
     }
 
     public boolean inserir(Product p) {
 	try {
 	    dao.inserir(p);
+	    cat.adicionarProduto(p);
 	    return true;
 	} catch (DbException e) {
 	    return false;
 	}
     }
-
+    
+    public List<Product> findAllProduct(){
+	return dao.findAll();
+    }
+    
     /**
-     * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+     * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
+     *                                   lista.");
      */
     public void listarPordutos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
@@ -44,8 +52,11 @@ public class ProductService {
     }
 
     /**
-     * @throws ProductoException ( "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
-     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na lista.");
+     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
+     *                             + num + ". Verifique a tabela e tente
+     *                             novamente");
+     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
+     *                             lista.");
      */
     public Product getProdutoByNumer(int num) throws ProductoException, ListaVaziaException {
 	List<Product> list = dao.findAll();
@@ -71,6 +82,7 @@ public class ProductService {
     public boolean deletar(Product p) {
 	try {
 	    dao.deletById(p.getId());
+	    cat.deletarProduto(p);
 	    return true;
 	} catch (DbException e) {
 	    return false;
@@ -162,11 +174,24 @@ public class ProductService {
 	return list;
     }
 
-    public double quantidadeGasta() throws ListaVaziaException {
+    public double valorRealGasto() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = this.produtosConcluidos();
 	for (Product p : list) {
 	    sum += p.getPrecoReal();
+	}
+	return sum;
+    }
+
+    public double valorTotal() {
+	double sum = 0;
+	List<Product> list = dao.findAll();
+	for (Product p : list) {
+	    if (p.getPrecoReal() != 0) {
+		sum += p.getPrecoReal();
+	    } else {
+		sum += p.getPrecoEstipulado();
+	    }
 	}
 	return sum;
     }
@@ -183,9 +208,10 @@ public class ProductService {
     public double valorDisponivelParaCompra(Categoria cat) throws NullPointerException {
 	double total = 0;
 	double orcamento = cat.getOrcamento();
-	total = orcamento - this.quantidadeGasta();
+	total = orcamento - this.valorRealGasto();
 	return total;
     }
+
 
     // talvez editar categoria futuramente...
 }

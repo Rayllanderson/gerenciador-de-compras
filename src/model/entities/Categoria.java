@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Categoria {
 
@@ -7,7 +9,12 @@ public class Categoria {
     private String name;
     private User user;
     private Double orcamento;
+    
+    private List <Product> productList = new ArrayList<>();
+    
+    
     public Categoria () {};
+    
     
     public Categoria(Integer id, String name, User user) {
 	this.id = id;
@@ -45,6 +52,18 @@ public class Categoria {
 
     public void setOrcamento(Double orcamento) {
 	this.orcamento = orcamento;
+    }
+    
+    public void adicionarProduto(Product p) {
+	this.productList.add(p);
+    }
+    
+    public void deletarProduto(Product p) {
+	this.productList.remove(p);
+    }
+
+    public List<Product> getProductList() {
+        return productList;
     }
 
     @Override

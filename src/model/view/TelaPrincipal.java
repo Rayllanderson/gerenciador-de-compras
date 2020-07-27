@@ -78,7 +78,7 @@ public class TelaPrincipal {
 		    scan.close();
 		    System.exit(0);
 		case 1:
-		   return CategoriaUtil.selecionarCategoria(service, scan);
+		    return CategoriaUtil.selecionarCategoria(service, scan);
 		case 2:
 		    CategoriaUtil.adicionarCategoria(service, user);
 		    break;
@@ -89,8 +89,9 @@ public class TelaPrincipal {
 		    CategoriaUtil.deletarCategoria(service);
 		    break;
 		case 5:
-		   MenuUser.opcoesAccount(user);
-		   break;
+		    UserUtil.mostrarInfos(user);
+		    MenuUser.opcoesAccount(user);
+		    break;
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida");
 		}
@@ -99,7 +100,7 @@ public class TelaPrincipal {
 	    } catch (BackButtonException e) {
 	    } catch (NumberFormatException e) {
 		System.out.println("Opção inválida. Tente digitar apenas números");
-	    }catch (OpcaoInvalidaException e) {
+	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
 	    }
 	} while (true);
@@ -141,11 +142,11 @@ public class TelaPrincipal {
 		    throw new OpcaoInvalidaException("Opção inválida! Tente novamente.");
 		}
 	    } catch (BackButtonException e) {
-	    }catch (NumberFormatException e) {
+	    } catch (NumberFormatException e) {
 		System.out.println("Tente digitar apenas números");
 	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
-	    }catch (ListaVaziaException e) {
+	    } catch (ListaVaziaException e) {
 		return MenuCategoria.createNewList(service, cat);
 	    }
 	}

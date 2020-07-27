@@ -223,7 +223,7 @@ public class ProdutosUtil {
     public static void quantidadeGasta(ProductService service, Categoria cat) {
 	try {
 	    double orcamento = cat.getOrcamento();
-	    double valorGasto = service.quantidadeGasta();
+	    double valorGasto = service.valorRealGasto();
 	    String complemento = ". ";
 	    if (orcamento == 0) {
 		complemento += "E você não tem um orcamento para essa lista";
@@ -419,5 +419,10 @@ public class ProdutosUtil {
 	System.out.println("[ 1 ] - sim");
 	System.out.println("[ 2 ] - nop");
 	return scan.next();
+    }
+    
+    
+    public static void mostrarSomaTotal() {
+	
     }
 }

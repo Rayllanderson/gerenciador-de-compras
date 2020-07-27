@@ -28,8 +28,10 @@ public class CategoriaService {
 	}
     }
 
+    public List <Categoria> findAllCategorias(){
+	return categoriaDao.findAll();
+    }
     /**
-     * 
      * @throws ListaVaziaException ja com mensagem
      */
     public void ListarCategorias() throws ListaVaziaException{
@@ -79,4 +81,5 @@ public class CategoriaService {
 	categoria.setOrcamento(value);
 	categoriaDao.atualizar(categoria);
     }
+    
 }

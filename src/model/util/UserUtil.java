@@ -64,5 +64,14 @@ public class UserUtil {
 	   return false;
 	}
     }
+    
+    public static void mostrarInfos(User user) {
+	CalculoTotalUtil ct = new CalculoTotalUtil(user);
+	System.out.println("Olá, " + UserUtil.formatarNome(user.getName()) + "!");
+	System.out.println("Você possui " + ct.numeroTotalCategorias() + " listas no total");
+	System.out.println("Você já comprou " + ct.numTotalProdutosComprados() + " produtos de um total de " + ct.numTotalProdutos());
+	System.out.println("Você já gastou R$" + ct.totalValorReal());
+	System.out.println("Você pretendia gastar R$" + ct.totalEstipulado());
+    }
 
 }

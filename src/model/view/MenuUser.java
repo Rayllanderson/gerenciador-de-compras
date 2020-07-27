@@ -18,7 +18,7 @@ public class MenuUser {
 	while (true) {
 	    System.out.println("Atual username: " + user.getUsername());
 	    try {
-		System.out.println("Escolha o que deseja alterar: ");
+		System.out.println("Deseja alterar algo? ");
 		Menu.menuConfiguracoesConta();
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {
