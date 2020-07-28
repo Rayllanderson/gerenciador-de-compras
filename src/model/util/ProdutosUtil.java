@@ -219,7 +219,8 @@ public class ProdutosUtil {
     }
 
     /***
-     * @apiNote Exceptions tratadas: CategoriaException, ConfirmException, NumberFormatException
+     * @apiNote Exceptions tratadas: CategoriaException, ConfirmException,
+     *          NumberFormatException
      * @return TRUE se tudo ocorrer bem, FALSE se der algo errado
      */
     public static boolean editarCategoria(Product p) {
@@ -282,7 +283,7 @@ public class ProdutosUtil {
 	try {
 	    double disponivel = service.getValorDisponivelParaCompra(cat);
 	    String complemento = "";
-	    if (cat.getOrcamento() == 0 || cat.getOrcamento() == null) {
+	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
 		throw new NullPointerException();
 	    }
 	    if (disponivel < 0) {
@@ -295,12 +296,16 @@ public class ProdutosUtil {
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
 	    }
 	    System.out.println(complemento);
-	} catch (NullPointerException e) {
-	    System.out.println(
-		    "Você não tem orçamento para esta lista, Portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
 	} catch (ListaVaziaException e) {
+	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
+		System.out.println(
+			"Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
+	    }else
 	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, ainda tem "
 		    + currencyFormatter.format(cat.getOrcamento()) + " para gastar");
+	} catch (NullPointerException e) {
+	    System.out.println(
+		    "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
 	}
     }
 

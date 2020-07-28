@@ -174,6 +174,5 @@ public class TelaPrincipal {
 	System.out.println();
     }
 
-    // TODO:FUÇAR OS BUGS RESTANTES, adicionar mudar categoria talvez...
-
+    // TODO:FUÇAR OS BUGS RESTANTES
 }
