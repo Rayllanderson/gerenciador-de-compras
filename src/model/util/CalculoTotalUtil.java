@@ -47,7 +47,7 @@ public class CalculoTotalUtil {
     public int numTotalProdutosComprados() {
 	int total = 0;
 	for (Product p : this.todosProdutos()) {
-	    if (p.isCompraro()) {
+	    if (p.isComprado()) {
 		total++;
 	    }
 	}

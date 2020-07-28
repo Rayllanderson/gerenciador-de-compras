@@ -73,17 +73,17 @@ public class ProductService {
     public void marcarComoConcluido(Product p, double value) {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
-	    p.setCompraro(true);
+	    p.setComprado(true);
 	    dao.atualizar(p);
 	} else {
-	    p.setCompraro(true);
+	    p.setComprado(true);
 	}
     }
 
     public void marcarComoNaoConcluido(Product p, double value) {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
-	    p.setCompraro(false);
+	    p.setComprado(false);
 	    dao.atualizar(p);
 	} else {
 	    p.setPrecoReal(value);
@@ -122,7 +122,7 @@ public class ProductService {
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
 	for (int i = 0; i < list.size(); i++) {
-	    if (!(list.get(i).isCompraro())) {
+	    if (!(list.get(i).isComprado())) {
 		FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	    }
 	}
@@ -133,7 +133,7 @@ public class ProductService {
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
 	FormatarTabela.printInvoiceHeader(maxLenName + 2, 5);
 	for (int i = 0; i < list.size(); i++) {
-	    if (list.get(i).isCompraro()) {
+	    if (list.get(i).isComprado()) {
 		FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	    }
 	}
@@ -142,7 +142,7 @@ public class ProductService {
     public List<Product> getProdutosNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
-	    if (list.get(i).isCompraro()) {
+	    if (list.get(i).isComprado()) {
 		list.remove(i);
 		i--;
 	    }
@@ -156,7 +156,7 @@ public class ProductService {
     public List<Product> getProdutosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	for (int i = 0; i < list.size(); i++) {
-	    if (!(list.get(i).isCompraro())) {
+	    if (!(list.get(i).isComprado())) {
 		list.remove(i);
 		i--;
 	    }

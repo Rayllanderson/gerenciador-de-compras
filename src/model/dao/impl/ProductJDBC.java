@@ -112,7 +112,7 @@ public class ProductJDBC implements ProductDao {
 	p.setPrecoReal(rs.getDouble("preco_real"));
 	p.setCategoria(this.categoria);
 	p.setUser(this.categoria.getUser());
-	p.setCompraro(rs.getBoolean("comprado"));
+	p.setComprado(rs.getBoolean("comprado"));
 	return p;
     }
 
@@ -122,6 +122,6 @@ public class ProductJDBC implements ProductDao {
 	st.setDouble(3, p.getPrecoReal());
 	st.setInt(4, this.categoria.getUser().getId());
 	st.setInt(5, this.categoria.getId());
-	st.setBoolean(6, p.isCompraro());
+	st.setBoolean(6, p.isComprado());
     }
 }

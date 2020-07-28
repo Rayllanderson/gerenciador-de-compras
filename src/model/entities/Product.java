@@ -72,12 +72,12 @@ public class Product {
         this.user = user;
     }
 
-    public boolean isCompraro() {
+    public boolean isComprado() {
 	return comprado;
     }
 
-    public void setCompraro(boolean compraro) {
-	this.comprado = compraro;
+    public void setComprado(boolean comprado) {
+	this.comprado = comprado;
     }
     
     @Override
