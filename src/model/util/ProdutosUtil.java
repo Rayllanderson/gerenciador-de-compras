@@ -8,10 +8,12 @@ import model.entities.Categoria;
 import model.entities.Product;
 import model.entities.User;
 import model.exception.BackButtonException;
+import model.exception.CategoriaException;
 import model.exception.ConfirmException;
 import model.exception.EntradaInvalidaException;
 import model.exception.ListaVaziaException;
 import model.exception.ProductoException;
+import model.service.CategoriaService;
 import model.service.ProductService;
 
 public class ProdutosUtil {
@@ -216,6 +218,34 @@ public class ProdutosUtil {
 	return false;
     }
 
+    /***
+     * @apiNote Exceptions tratadas: CategoriaException, ConfirmException, NumberFormatException
+     * @return TRUE se tudo ocorrer bem, FALSE se der algo errado
+     */
+    public static boolean editarCategoria(Product p) {
+	@SuppressWarnings("resource")
+	Scanner scan = new Scanner(System.in);
+	CategoriaService cService = new CategoriaService(p.getCategoria().getUser());
+	System.out.println("Mudar o produto " + p.getNome() + " para qual categoria?\nSelecione: ");
+	try {
+	    cService.ListarCategorias();
+	    String num = scan.next();
+	    Categoria newCat = cService.getCategoriaByNumber(Integer.parseInt(num));
+	    ButtonUtil.confirmar("mover o produto para a categoria " + newCat.getName());
+	    p.setCategoria(newCat);
+	    ProductService service = new ProductService(newCat);
+	    service.mudarCategoria(p, newCat);
+	    return true;
+	} catch (CategoriaException e) {
+	    System.out.println(e.getMessage());
+	} catch (ConfirmException e) {
+	    System.out.println("Produto não alterado.");
+	} catch (NumberFormatException e) {
+	    System.out.println("Opção inválida, não alterado.");
+	}
+	return false;
+    }
+
     // -------------------- MÉTODOS FUNÇÕES ÚTEIS ----------------------//
     /**
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
@@ -243,7 +273,7 @@ public class ProdutosUtil {
 	    System.out.println("Nenhum produto comprado até o momento, sendo assim, você não gastou nada.");
 	}
     }
-    
+
     /**
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException

@@ -170,7 +170,7 @@ public class TelaPrincipal {
 	} else {
 	    complemento += currencyFormatter.format(cat.getOrcamento());
 	}
-	System.out.println("Orçamento para esta Lista" + complemento);
+	System.out.println("Orçamento para esta Lista (" + cat.getName() + ")" + complemento);
 	System.out.println();
     }
 

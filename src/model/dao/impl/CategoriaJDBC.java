@@ -112,12 +112,6 @@ public class CategoriaJDBC implements CategoriaDao {
 	}
     }
 
-    @Override
-    public Categoria findByName(String name) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
     private void insetCategoria(PreparedStatement st, Categoria cat) throws SQLException {
 	st.setString(1, cat.getName());
 	st.setInt(2, cat.getUser().getId());
@@ -164,5 +158,4 @@ public class CategoriaJDBC implements CategoriaDao {
    	user.setPassword(rs.getString("usuario.senha"));
    	return user;
        }*/
-
 }

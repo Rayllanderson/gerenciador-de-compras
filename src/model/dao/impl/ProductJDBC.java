@@ -81,32 +81,6 @@ public class ProductJDBC implements ProductDao {
 	}
     }
 
-    // nao vou fazer agora, acho que não vou precisar
-    @Override
-    public Product findById(Integer id) {
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	Product product = null;
-
-	try {
-	    st = this.conn.prepareStatement("select * from produtos where id = " + id);
-	    rs = st.executeQuery();
-	    if (rs.next()) {
-		product = instanciarProduto(rs);
-	    } else {
-		throw new DbException("Ops.. produto não encontrado :(");
-	    }
-
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
-
-	return product;
-    }
-
     @Override
     public List<Product> findAll() {
 	List<Product> list = new ArrayList<>();

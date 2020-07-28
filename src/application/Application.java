@@ -1,13 +1,12 @@
 package application;
 
-
 import db.DbException;
 import model.entities.Categoria;
 import model.entities.User;
 import model.exception.ProductoException;
 import model.view.TelaPrincipal;
 
-public class Test {
+public class Application {
 
     public static void main(String[] args) {
 	

@@ -45,6 +45,8 @@ public class MenuProduto {
 		    return eliminarVerbose(ProdutosUtil.marcarComoConcluido(service, p));
 		case 6:
 		    return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p));
+		case 7:
+		    return eliminarVerbose(ProdutosUtil.editarCategoria(p));
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida");
 		}

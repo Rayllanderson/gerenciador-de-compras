@@ -20,6 +20,10 @@ public class ProductService {
 	this.cat = cat;
 	this.dao = DaoFactory.createProductDao(cat);
     }
+    
+    public Categoria getCat() {
+        return cat;
+    }
 
     //---------------------"CRUD"-------------------------//
     public boolean inserir(Product p) {
@@ -84,6 +88,11 @@ public class ProductService {
 	} else {
 	    p.setPrecoReal(value);
 	}
+    }
+    
+    public void mudarCategoria(Product p, Categoria cat){
+	p.setCategoria(cat);
+	dao.atualizar(p);
     }
 
     // ---------------------------Listas-------------------------------//
@@ -234,8 +243,5 @@ public class ProductService {
 		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
 	}
 	return list.get(num - 1);
-    }
-    
-    
-    // talvez editar categoria futuramente...
+    }    
 }

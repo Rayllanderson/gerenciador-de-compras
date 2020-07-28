@@ -9,7 +9,6 @@ public interface CategoriaDao {
     void inserir(Categoria categoria);  
     void deletById(Integer id);  
     void atualizar(Categoria categoria);
-    Categoria findByName(String name);
     
     /**
      * @return a list that contains the all Category of an User

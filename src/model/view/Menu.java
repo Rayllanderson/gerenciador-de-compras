@@ -33,6 +33,7 @@ public class Menu {
 	System.out.println("[ 4 ] - Editar Preço Real");
 	System.out.println("[ 5 ] - Marcar como comprado");
 	System.out.println("[ 6 ] - Marcar como não comprado");
+	System.out.println("[ 7 ] - Mudar categoria");
 	System.out.println("[ 0 ] - Voltar");
     }
     

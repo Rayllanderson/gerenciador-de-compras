@@ -50,7 +50,8 @@ public class MenuCategoria {
     public static boolean createNewList(ProductService service, Categoria cat) {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	System.out.println("Adicionar novo produto a essa lista?");
+	System.out.println("Opa! Parece que sua lista está vazia :(");
+	System.out.println("Deseja adicionar um novo produto a essa lista?");
 	System.out.println("[ 1 ] - sim");
 	System.out.println("[ 2 ] - não");
 	String n = null;
