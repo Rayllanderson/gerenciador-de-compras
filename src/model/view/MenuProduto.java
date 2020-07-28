@@ -16,7 +16,6 @@ public class MenuProduto {
 
     // --------------------- MENUS EDITAR PRODUTO ----------------------------
     /**
-    /**
      * Exceptions tratadas: EntradaInvalidaException, NumberFormatException, OpcaoInvalidaException
      */
     

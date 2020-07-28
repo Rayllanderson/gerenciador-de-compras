@@ -102,7 +102,7 @@ public class ProductService {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
 	}
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
-	FormatarTabela.printInvoiceHeader(maxLenName + 1, 6);
+	FormatarTabela.printInvoiceHeader(maxLenName + 2, 6);
 	for (int i = 0; i < list.size(); i++) {
 	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	}
@@ -186,6 +186,14 @@ public class ProductService {
 	    } else {
 		sum += p.getPrecoEstipulado();
 	    }
+	}
+	return sum;
+    }
+    
+    public double getValorEstipuladoRestante() {
+	double sum = 0;
+	for (Product p : this.getProdutosNaoConcluidos()) {
+	    sum += p.getPrecoEstipulado();
 	}
 	return sum;
     }

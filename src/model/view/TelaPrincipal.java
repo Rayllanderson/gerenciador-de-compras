@@ -59,6 +59,8 @@ public class TelaPrincipal {
 		System.out.println(e.getMessage());
 	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
+	    }catch (RuntimeException e) {
+		System.out.println("Ocorreu um erro inesperado");
 	    }
 	}
     }
@@ -103,6 +105,8 @@ public class TelaPrincipal {
 		System.out.println("Opção inválida. Tente digitar apenas números");
 	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
+	    }catch (RuntimeException e) {
+		System.out.println("Ocorreu um erro inesperado");
 	    }
 	} while (true);
     }
@@ -150,6 +154,8 @@ public class TelaPrincipal {
 		System.out.println(e.getMessage());
 	    } catch (ListaVaziaException e) {
 		return MenuCategoria.createNewList(service, cat);
+	    }catch (RuntimeException e) {
+		System.out.println("Ocorreu um erro inesperado");
 	    }
 	}
     }
