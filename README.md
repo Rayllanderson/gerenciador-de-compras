@@ -53,7 +53,20 @@ Confira outras imagens do programa:<br>
 <strong>Acho válido colocar novamente as explicações pra caso alguém não tenha lido</strong> <br>
 Valor estipulado - um valor que você acha que vai pagar em tal produto.<br>
 Valor real - Valor que você realmente pagou. Ou seja, (valor estipulado - valor real) = valor economizado <br>
-E o Orçamento? O orçamento é apenas uma base pra você ir se guiando. Como por exemplo, nesta pergunta: "Quanto eu tenho disponível para gastar?" para responder isso, você precisa ter uma noção de quanto tem pra se guiar e então poder realizar os cálculos. <br><br><br>
+E o Orçamento? O orçamento é apenas uma base pra você ir se guiando. Como por exemplo, nesta pergunta: "Quanto eu tenho disponível para gastar?" para responder isso, você precisa ter uma noção de quanto tem pra se guiar e então poder realizar os cálculos. <br>
+
+<strong>Prints do banco de dados</strong><br>
+
+Tabela sql do Usuário: <br>
+![usuario](https://i.imgur.com/2PfSVyS.png)
+
+Tabela sql da categoria (Lista): <br>
+![categoria](https://i.imgur.com/sYVAaX6.png)
+
+Tabela sql dos produtos: <br>
+![prod](https://i.imgur.com/MS3yOeC.png)
+
+Aqui está o download do dump do banco de dados -> https://drive.google.com/file/d/1B8g0JHdPnUM3xLu5DX6qjnoPRKowAYGT/view?usp=sharing <br><br><br>
 
 
 BONUS: ~(forget that)~<br>
