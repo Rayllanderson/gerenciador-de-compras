@@ -59,7 +59,7 @@ public class ProdutosUtil {
 	    ButtonUtil.confirmar("deletar");
 	    service.deletar(p);
 	} catch (ConfirmException e) {
-	    System.out.println("Produto não renomeado");
+	    System.out.println("Produto não deletado");
 	} catch (ProductoException e) {
 	    System.out.println(e.getMessage());
 	} catch (ListaVaziaException e) {
@@ -185,7 +185,7 @@ public class ProdutosUtil {
 	    if (valorEstipulado == (int) -1) {
 		ButtonUtil.botaoVoltar(0);
 	    }
-	    ButtonUtil.confirmar("alterar o valor real");
+	    ButtonUtil.confirmar("alterar o valor estipulado");
 	    service.editarPrecoEstipulado(p, valorEstipulado);
 	    return true;
 	} catch (InputMismatchException e) {
