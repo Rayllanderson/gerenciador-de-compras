@@ -56,7 +56,7 @@ public class ProdutosUtil {
     public static void deletarProduto(ProductService service) throws NumberFormatException, BackButtonException {
 	try {
 	    Product p = ProdutosUtil.selecionarProduto(service, "Excluir");
-	    ButtonUtil.confirmar("deletar");
+	    ButtonUtil.confirmar("deletar o produto " + p.getNome());
 	    service.deletar(p);
 	} catch (ConfirmException e) {
 	    System.out.println("Produto não deletado");
@@ -157,7 +157,18 @@ public class ProdutosUtil {
 	    if (valorReal == (int) -1) {
 		ButtonUtil.botaoVoltar(0);
 	    }
-	    ButtonUtil.confirmar("alterar o valor real");
+	    if (!p.isComprado()) {
+		System.out.println("Produto ainda não foi comprado. Deseja marcar como comprado?");
+		System.out.println("[ 1 ] - Sim");
+		System.out.println("[ 2 ] - Não");
+		String op = scan.next();
+		if (Integer.parseInt(op) == 1) {
+		    service.marcarComoConcluido(p, valorReal);
+		}else {
+		    
+		}
+	    }
+	    ButtonUtil.confirmar("alterar o valor real do produto "+ p.getNome() + " para " + currencyFormatter.format(valorReal));
 	    service.editarPrecoReal(p, valorReal);
 	    return true;
 	} catch (InputMismatchException e) {
@@ -185,7 +196,7 @@ public class ProdutosUtil {
 	    if (valorEstipulado == (int) -1) {
 		ButtonUtil.botaoVoltar(0);
 	    }
-	    ButtonUtil.confirmar("alterar o valor estipulado");
+	    ButtonUtil.confirmar("alterar o valor estipulado do produto " + p.getNome() + " para " + currencyFormatter.format(valorEstipulado));
 	    service.editarPrecoEstipulado(p, valorEstipulado);
 	    return true;
 	} catch (InputMismatchException e) {
@@ -209,7 +220,7 @@ public class ProdutosUtil {
 	System.out.print("Novo nome: ");
 	String name = scan.next();
 	try {
-	    ButtonUtil.confirmar("renomear");
+	    ButtonUtil.confirmar("renomear o produto " + p.getNome() + " para " + name);
 	    service.editarNome(p, name);
 	    return true;
 	} catch (ConfirmException e) {
