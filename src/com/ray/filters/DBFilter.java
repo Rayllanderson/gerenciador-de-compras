@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import com.ray.db.DB;
 
 @WebFilter(urlPatterns = { "/*" }) // toda requisição vai passar pelo filter
-public class Filter implements javax.servlet.Filter {
+public class DBFilter implements javax.servlet.Filter {
 //    private HttpServletRequest req; // convertendo o request
 //    private HttpSession session;
 

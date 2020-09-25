@@ -6,30 +6,10 @@
 
 	<filter>
 		<filter-name>filter</filter-name>
-		<filter-class>com.ray.filters.Filter</filter-class>
+		<filter-class>com.ray.filters.DBFilter</filter-class>
 	</filter>
 	<display-name>gerenciador-compra</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
-	<session-config>
-		<session-timeout>1</session-timeout>
-	</session-config>
-<!--  
-
-<filter>
-    <filter-name>Autenticacao</filter-name>
-    <filter-class>com.ray.filters.Autenticacao</filter-class>
-</filter>
-	<filter-mapping>
-		<filter-name>Autenticacao</filter-name>
-		<url-pattern>/categorias/*</url-pattern>
-		<url-pattern>/categorias.jsp</url-pattern>
-		<url-pattern>/home.jsp</url-pattern>
-		<url-pattern>/produtos/*</url-pattern>
-	</filter-mapping>
->
-
--->
 </web-app>

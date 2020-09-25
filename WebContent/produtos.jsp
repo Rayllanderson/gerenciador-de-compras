@@ -8,7 +8,7 @@
 <title>Suas Listas</title>
 </head>
 <body>
-<a href="categorias.jsp">Voltar</a>
+<a href="categorias?acao=voltar">Voltar</a>
 <h1>produtos</h1>
 	<c:forEach items="${produtos}" var="prod">
 	<table>

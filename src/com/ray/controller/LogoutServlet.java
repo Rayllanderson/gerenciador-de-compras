@@ -27,7 +27,6 @@ public class LogoutServlet extends HttpServlet {
         if(session != null){
             session.invalidate();
         }
-        System.out.println("caiu aqui?");
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

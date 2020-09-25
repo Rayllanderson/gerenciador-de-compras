@@ -20,6 +20,7 @@
 	</table>
 	</c:forEach>
 	
-	<script src="resource/javascript/esconderUrl.js"></script>
+
+	 <script src="resource/javascript/esconderUrl.js"></script>
 </body>
 </html>
