@@ -10,17 +10,17 @@
 <body>
 <a href="home.jsp">Voltar</a>
 <h1>Listas</h1>
+<a href="categorias?acao=newList" style="border: 1px solid black; text-decoration: none; color: black; background-color: white;">Nova Lista </a>
 	<c:forEach items="${categorias}" var="cat">
 	<table>
 	<tr>
 		<td>
 		<input type="button" onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});" value="${cat.name}"/>
+		<input type="button" onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});" value=<img src=/> />
 		</td>
 	</tr>
 	</table>
 	</c:forEach>
-	
-
 	 <script src="resource/javascript/esconderUrl.js"></script>
 </body>
 </html>
