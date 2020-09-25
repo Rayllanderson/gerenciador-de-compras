@@ -14,10 +14,12 @@
 	<table>
 	<tr>
 		<td>
-		 <input type="submit" value="${cat.name}" onclick="alert('${cat.id}')">
+		<input type="button" onclick="sendPost('categorias?acao=teste', {id: '${cat.id}'});" value="${cat.name}"/>
 		</td>
 	</tr>
 	</table>
 	</c:forEach>
+	
+	<script src="resource/javascript/esconderUrl.js"></script>
 </body>
 </html>

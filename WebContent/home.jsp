@@ -11,7 +11,7 @@
 <body>
 
 	<h1>Olá, ${user.name}, O que você quer fazer?!</h1>
-	<form action="categorias" method="post">
+	<form action="categorias?acao=listar" method="post">
 		<input type="submit" value="Acessar suas listas"> 
 	</form>
 

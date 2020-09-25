@@ -29,16 +29,26 @@ public class CategoriaServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	HttpServletRequest req = (HttpServletRequest) request; //convertendo o request 
-	HttpSession session = req.getSession(); //pegando a seção
-	User user = (User) session.getAttribute("user");
-	repository= DaoFactory.createCategoriaDao(user);
-	request.getSession().setAttribute("categorias", repository.findAll());
-	RequestDispatcher dispatcher = request.getRequestDispatcher("categorias.jsp");
-	dispatcher.forward(request, response);
+	String acao = request.getParameter("acao");
+	String id = request.getParameter("id");
+	System.out.println(id);
+	if(acao != null) {
+	    System.out.println(acao);
+	    if(acao.equals("listar")) {
+		HttpServletRequest req = (HttpServletRequest) request; //convertendo o request 
+		HttpSession session = req.getSession(); //pegando a seção
+		User user = (User) session.getAttribute("user");
+		repository= DaoFactory.createCategoriaDao(user);
+		request.getSession().setAttribute("categorias", repository.findAll());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("categorias.jsp");
+		dispatcher.forward(request, response);
+	    }
+	    
+	}
     }
 }
