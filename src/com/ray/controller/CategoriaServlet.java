@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
+import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 
 /**
@@ -39,16 +40,20 @@ public class CategoriaServlet extends HttpServlet {
 	System.out.println(id);
 	if(acao != null) {
 	    System.out.println(acao);
+	    RequestDispatcher dispatcher = null;
 	    if(acao.equals("listar")) {
 		HttpServletRequest req = (HttpServletRequest) request; //convertendo o request 
 		HttpSession session = req.getSession(); //pegando a seção
 		User user = (User) session.getAttribute("user");
 		repository= DaoFactory.createCategoriaDao(user);
 		request.getSession().setAttribute("categorias", repository.findAll());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("categorias.jsp");
-		dispatcher.forward(request, response);
+		dispatcher = request.getRequestDispatcher("categorias.jsp");
+	    }else if(acao.equals("selecionar")) {
+		Categoria cat = repository.findById(Integer.parseInt(id));
+		request.getSession().setAttribute("categoria", cat);
+		dispatcher = request.getRequestDispatcher("produtos");
 	    }
-	    
+	    dispatcher.forward(request, response);
 	}
     }
 }

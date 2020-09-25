@@ -8,13 +8,13 @@
 <title>Suas Listas</title>
 </head>
 <body>
-<a href="home.jsp">Voltar</a>
-<h1>Listas</h1>
-	<c:forEach items="${categorias}" var="cat">
+<a href="categorias.jsp">Voltar</a>
+<h1>produtos</h1>
+	<c:forEach items="${produtos}" var="prod">
 	<table>
 	<tr>
 		<td>
-		<input type="button" onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});" value="${cat.name}"/>
+			<p>${prod.nome}</p>
 		</td>
 	</tr>
 	</table>

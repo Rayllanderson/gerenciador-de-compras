@@ -127,7 +127,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	return cat;
     }
     
-    /*@Override
+    @Override
     public Categoria findById(Integer id) {
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -157,5 +157,5 @@ public class CategoriaJDBC implements CategoriaDao {
    	user.setUsername(rs.getString("usuario.username"));
    	user.setPassword(rs.getString("usuario.senha"));
    	return user;
-       }*/
+       }
 }
