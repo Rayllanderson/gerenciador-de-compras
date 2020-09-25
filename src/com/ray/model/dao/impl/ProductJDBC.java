@@ -124,4 +124,24 @@ public class ProductJDBC implements ProductDao {
 	st.setInt(5, this.categoria.getId());
 	st.setBoolean(6, p.isComprado());
     }
+
+    @Override
+    public Product findById(Integer id) {
+	String sql = "select * from produtos where id = " + id;
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = this.conn.prepareStatement(sql);
+	    rs = st.executeQuery();
+	    if (rs.next()) {
+		return instanciarProduto(rs);
+	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+	return null;
+    }
 }

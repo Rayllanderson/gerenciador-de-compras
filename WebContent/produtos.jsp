@@ -14,7 +14,7 @@
 	<table>
 	<tr>
 		<td>
-			<p>${prod.nome}</p>
+			<input type="button" value="${prod.nome}"  onclick="sendPost('produtos?acao=selecionar', {id: '${prod.id}'});" />
 		</td>
 	</tr>
 	</table>

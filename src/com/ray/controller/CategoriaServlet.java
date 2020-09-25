@@ -36,8 +36,6 @@ public class CategoriaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
-	String id = request.getParameter("id");
-	System.out.println(id);
 	if(acao != null) {
 	    System.out.println(acao);
 	    RequestDispatcher dispatcher = null;
@@ -49,9 +47,10 @@ public class CategoriaServlet extends HttpServlet {
 		request.getSession().setAttribute("categorias", repository.findAll());
 		dispatcher = request.getRequestDispatcher("categorias.jsp");
 	    }else if(acao.equals("selecionar")) {
+		String id = request.getParameter("id");
 		Categoria cat = repository.findById(Integer.parseInt(id));
 		request.getSession().setAttribute("categoria", cat);
-		dispatcher = request.getRequestDispatcher("produtos");
+		dispatcher = request.getRequestDispatcher("produtos?acao=listar");
 	    }
 	    dispatcher.forward(request, response);
 	}
