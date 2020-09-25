@@ -10,10 +10,11 @@
 </head>
 <body>
 
-	<h1>HEY, ${user.name}, this is a test!</h1>
-	<form action="categorias">
-		<input type="submit" value="Yeah, click here"> 
+	<h1>Olá, ${user.name}, O que você quer fazer?!</h1>
+	<form action="categorias" method="post">
+		<input type="submit" value="Acessar suas listas"> 
 	</form>
 
+	
 </body>
 </html>

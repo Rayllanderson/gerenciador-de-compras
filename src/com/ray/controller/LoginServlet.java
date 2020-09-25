@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private UserDao repository = DaoFactory.createUserDao();
-    
+
     public LoginServlet() {
 	super();
     }
@@ -30,13 +30,15 @@ public class LoginServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
-	try{
+	RequestDispatcher dispatcher = null;
+	try {
 	    request.getSession().setAttribute("user", repository.login(username, password));
-	    response.sendRedirect("home.jsp"); 
-	}catch (MyLoginException e) {
+	    dispatcher = request.getRequestDispatcher("home.jsp");
+	} catch (MyLoginException e) {
 	    request.setAttribute("error", e.getMessage());
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+	    dispatcher = request.getRequestDispatcher("index.jsp");
 	    request.setAttribute("username", username);
+	} finally {
 	    dispatcher.forward(request, response);
 	}
     }
