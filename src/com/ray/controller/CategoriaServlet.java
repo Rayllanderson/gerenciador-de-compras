@@ -62,8 +62,17 @@ public class CategoriaServlet extends HttpServlet {
 		salvarLista(request, response, user);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditPage(request, response);
+	    }else if (acao.equals("excluir")) {
+		deletarCategoria(request, response);
 	    }
 	}
+    }
+
+    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	String id = request.getParameter("id");
+	service.deleteById(Integer.parseInt(id));
+	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	response.sendRedirect("categorias?acao=listar");
     }
 
     private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)

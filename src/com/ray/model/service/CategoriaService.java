@@ -67,6 +67,15 @@ public class CategoriaService {
 	    return false;
 	}
     }
+    
+    public boolean deleteById(Integer id) {
+	try {
+	    categoriaDao.deletById(id);
+	    return true;
+	} catch (DbException e) {
+	    return false;
+	}
+    }
 
     public boolean update(Categoria cat) {
 	try {

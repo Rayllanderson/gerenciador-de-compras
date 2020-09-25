@@ -23,6 +23,12 @@
 					<input type="image"
 					onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});"
 					src="resource/img/edit.png" width="30px" height="30px" /> <!--  método POST pra redirecionar... KK azideia. mas foi o único jeito que eu achei de não passar o ID na URL, ok? -->
+					
+					<input type="image"
+					onclick="sendPost('categorias?acao=excluir', {id: '${cat.id}'});
+							return confirm('Você tem certeza que deseja excluir a lista ${cat.name}?');
+					"
+					src="resource/img/excluir.png" width="30px" height="30px" />
 				</td>
 			</tr>
 		</table>
