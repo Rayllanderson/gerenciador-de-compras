@@ -10,11 +10,11 @@
 <body>
 <h1>Listas</h1>
 	
-	<form action="categorias?acao=salvar" method="post">
-		
-		<input type="text" id="nomeLista" name="nomeLista" placeholder="Nome da Lista"/> 
+	<form action="categorias?acao=salvar" method="post"> 
+		<input type="hidden" id="id" name="id" value="${cat.id}">
+		<input type="text" id="nomeLista" name="nomeLista" placeholder="Nome da Lista" value="${cat.name}"/> 
 		<br>
-		<input type="text" id="orcamento" name="orcamento" placeholder="Orçamento"/> 
+		<input type="text" id="orcamento" name="orcamento" placeholder="Orçamento" value="${cat.orcamento}"/> 
 		<br>
 		<input type="submit" value="Salvar"/> 
 	</form>

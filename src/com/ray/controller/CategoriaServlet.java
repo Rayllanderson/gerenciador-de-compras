@@ -14,6 +14,7 @@ import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
+import com.ray.model.service.CategoriaService;
 
 /**
  * Servlet implementation class Login
@@ -23,6 +24,7 @@ public class CategoriaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private CategoriaDao repository;
+    private CategoriaService service;
 
     public CategoriaServlet() {
 	super();
@@ -34,6 +36,7 @@ public class CategoriaServlet extends HttpServlet {
 	if (acao != null) {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
+	    service = new CategoriaService(user);
 	    System.out.println(acao);
 	    if (acao.equals("voltar") || acao.equals("listar")) {
 		listarTodasCategorias(request, response);
@@ -49,20 +52,33 @@ public class CategoriaServlet extends HttpServlet {
 	if (acao != null) {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
+	    service = new CategoriaService(user);
 	    System.out.println(acao);
 	    if (acao.equals("listar")) {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("selecionar")) {
 		selecionarLista(request, response);
-	    } else if (acao.equals("saveList")) {
+	    } else if (acao.equals("salvar")) {
 		salvarLista(request, response, user);
+	    } else if (acao.equals("editar")) {
+		redirecionarEditPage(request, response);
 	    }
 	}
     }
 
+    private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	String id = request.getParameter("id");
+	Categoria cat = repository.findById(Integer.parseInt(id));
+	request.getSession().setAttribute("cat", cat);
+	RequestDispatcher dispatcher = request.getRequestDispatcher("edit-categoria.jsp");
+	dispatcher.forward(request, response);
+    }
+
     /**
      * 
-	Será a lista selecionada, então redirecionará para os produtos dessa lista selecionada
+     * Será a lista selecionada, então redirecionará para os produtos dessa lista
+     * selecionada
      */
     private void selecionarLista(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	String id = request.getParameter("id");
@@ -72,11 +88,18 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user) throws IOException {
+	String id = request.getParameter("id");
 	String nome = request.getParameter("nomeLista");
 	String orcamento = request.getParameter("orcamento");
-	Categoria cat = new Categoria(null, nome, user);
-	cat.setOrcamento(Double.valueOf(orcamento));
-	repository.inserir(cat);
+	Categoria cat = new Categoria(!(id == null) ? Integer.parseInt(id) : null, nome, user);
+	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(orcamento) : 0.0);
+	if (cat.getId() == null) {
+	    service.salvar(cat);
+	    response.setStatus(HttpServletResponse.SC_CREATED);
+	} else {
+	    service.update(cat);
+	    response.setStatus(HttpServletResponse.SC_OK);
+	}
 	response.sendRedirect("categorias?acao=listar");
     }
 

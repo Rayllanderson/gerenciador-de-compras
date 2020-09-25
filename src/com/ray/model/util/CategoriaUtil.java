@@ -54,7 +54,7 @@ public class CategoriaUtil {
 	    String nome = getNome(scan);
 	    novaCategoria.setName(nome);
 	    novaCategoria.setUser(user);
-	    if (service.criarCategoria(novaCategoria)) {
+	    if (service.salvar(novaCategoria)) {
 		System.out.println("Deseja adicionar um orçamento para essa Lista?");
 		System.out.println("[ 1 ] - sim");
 		System.out.println("[ 2 ] - não");
@@ -169,7 +169,7 @@ public class CategoriaUtil {
 		cat.setName(name);
 		inserirOrcamento(service, cat);
 	    }
-	    if (service.atualizarCategoria(cat))
+	    if (service.update(cat))
 		System.out.println("Lista editada com sucesso!");
 	    else
 		System.out.println("Ocorreu um erro ao editar. Tente novamente");

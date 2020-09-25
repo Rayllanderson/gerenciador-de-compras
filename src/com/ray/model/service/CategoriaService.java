@@ -19,7 +19,7 @@ public class CategoriaService {
 
     private CategoriaDao categoriaDao;
 
-    public boolean criarCategoria(Categoria cat) {
+    public boolean salvar(Categoria cat) {
 	try {
 	    categoriaDao.inserir(cat);
 	    return true;
@@ -28,7 +28,7 @@ public class CategoriaService {
 	}
     }
 
-    public List <Categoria> findAllCategorias(){
+    public List <Categoria> findAll(){
 	return categoriaDao.findAll();
     }
     /**
@@ -68,7 +68,7 @@ public class CategoriaService {
 	}
     }
 
-    public boolean atualizarCategoria(Categoria cat) {
+    public boolean update(Categoria cat) {
 	try {
 	    categoriaDao.atualizar(cat);
 	    return true;

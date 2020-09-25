@@ -31,7 +31,7 @@ public class CategoriaJDBC implements CategoriaDao {
     public void inserir(Categoria categoria) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("insert into categoria (nome, id_user) values (?, ?)",
+	    st = conn.prepareStatement("insert into categoria (nome, id_user, orcamento) values (?, ?, ?)",
 		    Statement.RETURN_GENERATED_KEYS);
 	    insetCategoria(st, categoria);
 	    int row = st.executeUpdate();
@@ -115,6 +115,7 @@ public class CategoriaJDBC implements CategoriaDao {
     private void insetCategoria(PreparedStatement st, Categoria cat) throws SQLException {
 	st.setString(1, cat.getName());
 	st.setInt(2, cat.getUser().getId());
+	st.setDouble(3, cat.getOrcamento());
     }
 
 

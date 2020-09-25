@@ -29,7 +29,7 @@ public class CalculoTotalUtil {
      * @return uma lista contendo todos os produtos de um usuário
      */
     private List<Product> todosProdutos() {
-	List<Categoria> listCategoria = cService.findAllCategorias();
+	List<Categoria> listCategoria = cService.findAll();
 	for (int i = 0; i < listCategoria.size(); i++) {
 	    instanciarTodosProdutos(listCategoria.get(i));
 	}
@@ -82,7 +82,7 @@ public class CalculoTotalUtil {
      * @throws ListaVaziaException("Você não possui listas no momento");
      */
     public int numeroTotalCategorias() throws ListaVaziaException {
-	List<Categoria> list = this.cService.findAllCategorias();
+	List<Categoria> list = this.cService.findAll();
 	return list.size();
     }
 }
