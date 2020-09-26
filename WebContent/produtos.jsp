@@ -6,12 +6,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Suas Listas</title>
+
+<link href="resource/css/popup.css" type="text/css" rel="stylesheet" />
+
 </head>
 <body>
 <a href="categorias?acao=voltar">Voltar</a>
 <h1>produtos</h1>
 	<h2 style="text-align: center">Você está na lista ${categoria.name} </h2>
 	<a href="add-produto.jsp">Novo produto</a>
+	
+	
+	
+	<a href="javascript: abrir()">Funções Úteis</a>
+    <a href="#" onmouseover="abrir()" onmouseout="fechar()">Efeitos com mouse</a>
+	
+	<div id="popup" class="popup">
+        <p>ola</p>
+        <a id="close" class="close" href="javascript: fechar()">×</a>
+    </div>
+    
+    
+    
 	<c:forEach items="${produtos}" var="prod">
 		<table>
 			<tr>
@@ -29,6 +45,7 @@
 		</table>
 	</c:forEach>
 	
+	<script src="resource/javascript/popup.js"></script>
 	<script src="resource/javascript/esconderUrl.js"></script>
 </body>
 </html>
