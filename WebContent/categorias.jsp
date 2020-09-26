@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Suas Listas</title>
+<link href="resource/css/table.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 	<a href="home.jsp">Voltar</a>
@@ -13,27 +14,45 @@
 	<a href="categorias?acao=newList"
 		style="border: 1px solid black; text-decoration: none; color: black; background-color: white;">Nova
 		Lista </a>
-	<c:forEach items="${categorias}" var="cat">
-		<table>
+		
+		
+		
+		
+		
+	<table>
+		<caption>Listas</caption>
+		<thead>
 			<tr>
-				<td><input type="button"
+				<th scope="col">Nome</th>
+				<th scope="col">Orçamento</th>
+				<th scope="col">Editar</th>
+				<th scope="col">Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${categorias}" var="cat">
+				<tr>
+					<td data-label="Nome"><input type="button"
 					onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});"
-					value="${cat.name}" />
+					value="${cat.name}" /></td>
 					
-					<input type="image"
+					<td data-label="Orçamento">${cat.orcamento}</td>
+					
+					<td data-label="Editar"><input type="image"
 					onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});"
-					src="resource/img/edit.png" width="30px" height="30px" /> <!--  método POST pra redirecionar... KK azideia. mas foi o único jeito que eu achei de não passar o ID na URL, ok? -->
-					
-					<input type="image"
+					src="resource/img/edit.png" width="30px" height="30px" /></td>
+
+					<td data-label="Excluir"><input type="image"
 					onclick="
-					
 					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
 					}" src="resource/img/excluir.png" width="30px" height="30px" />
-				</td>
-			</tr>
-		</table>
-	</c:forEach>
+					
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
 	<script src="resource/javascript/esconderUrl.js"></script>
 </body>
 </html>
