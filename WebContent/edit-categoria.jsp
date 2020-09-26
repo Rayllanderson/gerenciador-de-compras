@@ -12,10 +12,15 @@
 	
 	<form action="categorias?acao=salvar" method="post"> 
 		<input type="hidden" id="id" name="id" value="${cat.id}">
+		
+		<label>Nome da Lista</label>
 		<input type="text" id="nomeLista" name="nomeLista" placeholder="Nome da Lista" value="${cat.name}"/> 
 		<br>
+		
+		<label>Orçamento</label>
 		<input type="text" id="orcamento" name="orcamento" placeholder="Orçamento" value="${cat.orcamento}"/> 
 		<br>
+		
 		<input type="submit" value="Salvar"/> 
 		<button onclick="window.location.replace('categorias.jsp'); return false;">Cancelar</button>
 	</form>

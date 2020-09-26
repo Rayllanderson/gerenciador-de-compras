@@ -17,7 +17,6 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Login</title>
 
-<title>Login</title>
 </head>
 <body>
 
@@ -46,7 +45,7 @@
 							</div>
 								<label class="text-info">
 								<span id="msgLogin"
-									style="margin-left: 145px; margin-top:50%; color: red;">${error}
+									style="margin-left: 145px; color:red;">${error}
 									</span>
 									</label><br>
 

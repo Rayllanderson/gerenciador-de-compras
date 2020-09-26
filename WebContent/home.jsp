@@ -21,6 +21,7 @@ for(Cookie cookie : cookies){
 }
 }
 %>
+<!-- pôr um botao de procurar um produto ou categoria -->
 <h3>Login Success</h3>
 <h4><%=message%></h4>
 <h4>Session ID = <%=sessionID %></h4>

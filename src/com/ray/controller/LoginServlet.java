@@ -2,6 +2,7 @@ package com.ray.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -35,30 +36,24 @@ public class LoginServlet extends HttpServlet {
 	try {
 	    User user = repository.login(username, password);
 	    if (user != null) {
-//	    session.setAttribute("user", repository.login(username, password)); //logando. passou daqui, logou!
-//	    session.setMaxInactiveInterval(30*60); //30 minutos de inatividade
-	    
-	    //invalidando a ultima sessão
-	    HttpSession oldSession = request.getSession(false);
-            if (oldSession != null) {
-                oldSession.invalidate();
-            }
-            
-            //generate a new session
-            HttpSession newSession = request.getSession(true);
-            newSession.setMaxInactiveInterval(30*60);
-            
-            newSession.setAttribute("user", user);
-            
-            Cookie message = new Cookie("message", "Welcome");
-            response.addCookie(message);
-            response.sendRedirect("home.jsp");    
+		// invalidando a ultima sessão
+		HttpSession oldSession = request.getSession(false);
+		if (oldSession != null) {
+		    oldSession.invalidate();
+		}
+		// generate a new session
+		HttpSession newSession = request.getSession(true);
+		newSession.setMaxInactiveInterval(30 * 60);
+		newSession.setAttribute("user", user);
+		Cookie message = new Cookie("message", "Welcome");
+		response.addCookie(message);
+		response.sendRedirect("home.jsp");
 	    }
 	} catch (MyLoginException e) {
 	    request.setAttribute("error", e.getMessage());
 	    request.setAttribute("username", username);
-	    response.sendRedirect("home.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); ///qnd preciso mandar atributos, tem que ser dispatcher... got it!
+	    dispatcher.forward(request, response);
 	}
     }
 }
-

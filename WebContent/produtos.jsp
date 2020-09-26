@@ -12,13 +12,16 @@
 <h1>produtos</h1>
 	<a href="add-produto.jsp">Novo produto</a>
 	<c:forEach items="${produtos}" var="prod">
-	<table>
-	<tr>
-		<td>
-			<input type="button" value="${prod.nome}"  onclick="sendPost('produtos?acao=selecionar', {id: '${prod.id}'});" />
-		</td>
-	</tr>
-	</table>
+	
+	<form action=""></form>
+		<table>
+			<tr>
+				<td>
+					<label>${prod.nome}</label>
+					<input type="image" src="resource/img/edit.png" onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" width="30px" height="30px" />
+				</td>
+			</tr>
+		</table>
 	</c:forEach>
 	
 	<script src="resource/javascript/esconderUrl.js"></script>

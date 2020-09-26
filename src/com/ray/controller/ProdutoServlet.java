@@ -34,8 +34,17 @@ public class ProdutoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	System.out.println("método GET");
-	startServiceAndRepository(request, response);
-	listarTodosProdutos(request, response);
+	String acao = request.getParameter("acao");
+	if (acao != null) {
+	    startServiceAndRepository(request, response);
+	    if(acao.equals("listar")) {
+		listarTodosProdutos(request, response);
+	    }
+	}else {
+	    listarTodosProdutos(request, response);
+	}
+	
+	
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -50,31 +59,50 @@ public class ProdutoServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		Product p = repository.findById(Integer.parseInt(id));
 		System.out.println(p);
-	    }else if(acao.equals("salvar")) {
+	    } else if (acao.equals("salvar")) {
 		salvarProduto(request, response);
+	    }else if(acao.equals("editar")) {
+		redirecionarEditarProduto(request, response);
 	    }
 	}
     }
+    
+    private void redirecionarEditarProduto(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	String id = request.getParameter("id");
+	Product p = repository.findById(Integer.parseInt(id));
+	RequestDispatcher dispatcher = request.getRequestDispatcher("edit-produto.jsp");
+	request.setAttribute("produto", p);
+	dispatcher.forward(request, response);
+    }
 
-    private void salvarProduto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void salvarProduto(HttpServletRequest request, HttpServletResponse response)
+	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
-	String valorEstipulado = request.getParameter("estipulado");
-	String valorReal = request.getParameter("real");
-	String comprado = request.getParameter("comprado");
-	Categoria cat = instanciarCategoria(request);
-	Product p = new Product(id != null ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(), cat);
-	p.setPrecoEstipulado(Double.parseDouble(valorEstipulado)); 
-	p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
-	p.setComprado(comprado != null && comprado.equals("on") ? true : false);
-	if (p.getId() == null) {
-	    service.inserir(p);
-	}else {
-	    service.atualizar(p);
+	try {
+	    String valorEstipulado = request.getParameter("estipulado");
+	    String valorReal = request.getParameter("real");
+	    String comprado = request.getParameter("comprado");
+	    Categoria cat = instanciarCategoria(request);
+	    Product p = new Product(id != null ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
+		    cat);
+	    p.setPrecoEstipulado(Double.parseDouble(valorEstipulado));
+	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
+	    p.setComprado(comprado != null && comprado.equals("on") ? true : false);
+	    if (p.getId() == null) {
+		service.inserir(p);
+	    } else {
+		service.atualizar(p);
+	    }
+	    response.sendRedirect("produtos");
+	} catch (NumberFormatException e) {
+	    request.setAttribute("error", "Digite um número válido");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("add-produto.jsp");
+	    request.setAttribute("nome", nome);
+	    dispatcher.forward(request, response);
 	}
-	response.sendRedirect("produtos");
     }
-    
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
 	Categoria cat = instanciarCategoria(request);
