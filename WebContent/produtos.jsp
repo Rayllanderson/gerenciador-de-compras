@@ -10,6 +10,7 @@
 <body>
 <a href="categorias?acao=voltar">Voltar</a>
 <h1>produtos</h1>
+	<a href="add-produto.jsp">Novo produto</a>
 	<c:forEach items="${produtos}" var="prod">
 	<table>
 	<tr>

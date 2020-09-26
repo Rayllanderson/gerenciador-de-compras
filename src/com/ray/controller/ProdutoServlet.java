@@ -14,6 +14,7 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.service.ProductService;
 
 /**
  * Servlet implementation class Login
@@ -23,6 +24,7 @@ public class ProdutoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ProductDao repository = null;
+    private ProductService service = null;
 
     public ProdutoServlet() {
 	super();
@@ -32,7 +34,7 @@ public class ProdutoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	System.out.println("método GET");
-	iniciarRepository(request, response);
+	startServiceAndRepository(request, response);
 	listarTodosProdutos(request, response);
     }
 
@@ -41,22 +43,50 @@ public class ProdutoServlet extends HttpServlet {
 	String acao = request.getParameter("acao");
 	if (acao != null) {
 	    System.out.println(acao + " método POST");
-	    iniciarRepository(request, response);
+	    startServiceAndRepository(request, response);
 	    if (acao.equals("listar")) {
 		listarTodosProdutos(request, response);
 	    } else if (acao.equals("selecionar")) {
 		String id = request.getParameter("id");
 		Product p = repository.findById(Integer.parseInt(id));
 		System.out.println(p);
+	    }else if(acao.equals("salvar")) {
+		salvarProduto(request, response);
 	    }
 	}
     }
 
-    private void iniciarRepository(HttpServletRequest request, HttpServletResponse response) {
+    private void salvarProduto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	String id = request.getParameter("id");
+	String nome = request.getParameter("nome");
+	String valorEstipulado = request.getParameter("estipulado");
+	String valorReal = request.getParameter("real");
+	String comprado = request.getParameter("comprado");
+	Categoria cat = instanciarCategoria(request);
+	Product p = new Product(id != null ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(), cat);
+	p.setPrecoEstipulado(Double.parseDouble(valorEstipulado)); 
+	p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
+	p.setComprado(comprado != null && comprado.equals("on") ? true : false);
+	if (p.getId() == null) {
+	    service.inserir(p);
+	}else {
+	    service.atualizar(p);
+	}
+	response.sendRedirect("produtos");
+    }
+    
+
+    private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
+	Categoria cat = instanciarCategoria(request);
+	service = new ProductService(cat);
+	repository = DaoFactory.createProductDao(cat);
+    }
+
+    private Categoria instanciarCategoria(HttpServletRequest request) {
 	HttpServletRequest req = (HttpServletRequest) request;
 	HttpSession session = req.getSession();
 	Categoria cat = (Categoria) session.getAttribute("categoria");
-	repository = DaoFactory.createProductDao(cat);
+	return cat;
     }
 
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
