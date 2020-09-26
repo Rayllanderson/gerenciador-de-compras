@@ -63,6 +63,10 @@ public class ProdutoServlet extends HttpServlet {
 		salvarProduto(request, response);
 	    }else if(acao.equals("editar")) {
 		redirecionarEditarProduto(request, response);
+	    }else if(acao.equals("excluir")) {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		service.deleteById(id);
+		response.sendRedirect("produtos");
 	    }
 	}
     }

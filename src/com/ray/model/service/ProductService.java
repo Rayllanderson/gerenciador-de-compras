@@ -54,6 +54,13 @@ public class ProductService {
 	    return false;
 	}
     }
+    
+    public void deleteById(Integer id) {
+	try {
+	    dao.deletById(id);
+	} catch (DbException e) {
+	}
+    }
 
     public void editarNome(Product p, String nome) {
 	p.setNome(nome);
