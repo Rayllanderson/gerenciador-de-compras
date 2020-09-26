@@ -17,6 +17,7 @@
 		<input type="text" id="orcamento" name="orcamento" placeholder="Orçamento"/> 
 		<br>
 		<input type="submit" value="Salvar"/> 
+		<button onclick="window.location.replace('categorias.jsp'); return false;">Cancelar</button>
 	</form>
 
 	
