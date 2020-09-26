@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Suas Listas</title>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <h1>Listas</h1>
@@ -59,7 +60,7 @@
 		<button onclick="window.location.replace('produtos.jsp'); return false;">Cancelar</button>
 	</form>
 
-
+<script src="resource/javascript/apenasNumeros.js"></script>
 	
 <script>
 

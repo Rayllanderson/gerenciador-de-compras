@@ -7,6 +7,8 @@
 <meta charset="ISO-8859-1">
 <title>Suas Listas</title>
 <link href="resource/css/table.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/btn.css" type="text/css" rel="stylesheet" />
+
 </head>
 <body>
 	<a href="home.jsp">Voltar</a>
@@ -16,15 +18,14 @@
 		Lista </a>
 		
 		
-		
-		
+
 		
 	<table>
 		<caption>Listas</caption>
 		<thead>
 			<tr>
 				<th scope="col">Nome</th>
-				<th scope="col">Orçamento</th>
+				<th scope="col">OrÃ§amento</th>
 				<th scope="col">Editar</th>
 				<th scope="col">Excluir</th>
 			</tr>
@@ -32,11 +33,13 @@
 		<tbody>
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
-					<td data-label="Nome"><input type="button"
+					<td data-label="Nome">
+					<input type="button" class="btn-1"
 					onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});"
-					value="${cat.name}" /></td>
+					value="${cat.name}" />
+					</td>
 					
-					<td data-label="Orçamento">${cat.orcamento}</td>
+					<td data-label="OrÃ§amento">${cat.orcamento}</td>
 					
 					<td data-label="Editar"><input type="image"
 					onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});"
@@ -44,7 +47,7 @@
 
 					<td data-label="Excluir"><input type="image"
 					onclick="
-					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
+					if(confirm('VocÃª tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
 					}" src="resource/img/excluir.png" width="30px" height="30px" />
 					

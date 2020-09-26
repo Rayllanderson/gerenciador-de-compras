@@ -9,6 +9,8 @@
 <meta charset="ISO-8859-1">
 <title>Seus produtos</title>
 
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
 
@@ -31,7 +33,7 @@
 		<button
 			onclick="window.location.replace('produtos.jsp'); return false;">Cancelar</button>
 	</form>
-
+	<script src="resource/javascript/apenasNumeros.js"></script>
 	<script type="text/javascript">
 		const msg = "${error}"
 		console.log(msg)
