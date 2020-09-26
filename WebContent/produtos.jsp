@@ -10,9 +10,9 @@
 <body>
 <a href="categorias?acao=voltar">Voltar</a>
 <h1>produtos</h1>
+	<h2 style="text-align: center">Você está na lista ${categoria.name} </h2>
 	<a href="add-produto.jsp">Novo produto</a>
 	<c:forEach items="${produtos}" var="prod">
-	
 	<form action=""></form>
 		<table>
 			<tr>

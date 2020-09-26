@@ -90,10 +90,20 @@ public class ProdutoServlet extends HttpServlet {
 	    p.setPrecoEstipulado(Double.parseDouble(valorEstipulado));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
 	    p.setComprado(comprado != null && comprado.equals("on") ? true : false);
+	    //"cat_id
 	    if (p.getId() == null) {
 		service.inserir(p);
 	    } else {
-		service.atualizar(p);
+		Integer catId = Integer.parseInt(request.getParameter("cat_id"));
+		Integer catOriginal = cat.getId();
+		if(catOriginal != catId) {
+		    //movendo a categoria 
+		    cat.setId(catId);
+		}
+		service.atualizar(p);//moveu
+		
+		//voltando pra categoria atual
+		cat.setId(catOriginal);
 	    }
 	    response.sendRedirect("produtos");
 	} catch (NumberFormatException e) {

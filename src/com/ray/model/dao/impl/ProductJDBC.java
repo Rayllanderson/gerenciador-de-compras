@@ -25,7 +25,7 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public void inserir(Product obj) {
+    public void save(Product obj) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("\r\n" + 
@@ -48,7 +48,7 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public void atualizar(Product obj) {
+    public void update(Product obj) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("update produtos set nome = ?, preco_estipulado = ?, preco_real = ?, "

@@ -28,7 +28,7 @@ public class ProductService {
     //---------------------"CRUD"-------------------------//
     public boolean inserir(Product p) {
 	try {
-	    dao.inserir(p);
+	    dao.save(p);
 	    cat.adicionarProduto(p);
 	    return true;
 	} catch (DbException e) {
@@ -38,7 +38,7 @@ public class ProductService {
 
     public boolean atualizar(Product p) {
 	try {
-	    dao.atualizar(p);
+	    dao.update(p);
 	    return true;
 	} catch (DbException e) {
 	    return false;
@@ -57,24 +57,24 @@ public class ProductService {
 
     public void editarNome(Product p, String nome) {
 	p.setNome(nome);
-	dao.atualizar(p);
+	dao.update(p);
     }
 
     public void editarPrecoEstipulado(Product p, double value) {
 	p.setPrecoEstipulado(value);
-	dao.atualizar(p);
+	dao.update(p);
     }
 
     public void editarPrecoReal(Product p, double value) {
 	p.setPrecoReal(value);
-	dao.atualizar(p);
+	dao.update(p);
     }
 
     public void marcarComoConcluido(Product p, double value) {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
 	    p.setComprado(true);
-	    dao.atualizar(p);
+	    dao.update(p);
 	} else {
 	    p.setComprado(true);
 	}
@@ -84,7 +84,7 @@ public class ProductService {
 	p.setPrecoReal(value);
 	if (!(p.getId() == null)) {
 	    p.setComprado(false);
-	    dao.atualizar(p);
+	    dao.update(p);
 	} else {
 	    p.setPrecoReal(value);
 	}
@@ -92,7 +92,7 @@ public class ProductService {
     
     public void mudarCategoria(Product p, Categoria cat){
 	p.setCategoria(cat);
-	dao.atualizar(p);
+	dao.update(p);
     }
 
     // ---------------------------Listas-------------------------------//

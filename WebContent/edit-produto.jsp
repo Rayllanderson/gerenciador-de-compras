@@ -10,7 +10,6 @@
 </head>
 <body>
 <h1>Listas</h1>
-	
 	<form action="produtos?acao=salvar" method="post"> 
 		<input type="hidden" id="id" name="id" value="${produto.id}">
 		
@@ -27,12 +26,22 @@
 		<br>
 		
 		<label for="comprado">Produto já foi comprado?</label>
-		<input type="checkbox" id="comprado" name="comprado" onclick="myFunction()"/> 
+		<input type="checkbox" id="comprado" name="comprado" onclick="myFunction()"
+		
+		<%Product p = (Product) request.getAttribute("produto");
+		if (p != null) {
+			if (p.isComprado()) {
+				out.print(" ");
+				out.print("checked=\"checked\"");
+				out.print(" ");
+			}
+		}%>>
+		 
 		<span id="text"></span>
 		<br>
 		
 		<label for="categoria">Lista</label>
-		<select id="categoria">
+		<select id="categoria" name="cat_id">
 		<c:forEach items="${categorias}" var="cat"  >
  			 <option value="${cat.id}" id="${cat.id}" 
  			 <c:if test="${cat.id == produto.categoria.id}">
@@ -49,6 +58,7 @@
 		<input type="submit" value="Salvar"/> 
 		<button onclick="window.location.replace('produtos.jsp'); return false;">Cancelar</button>
 	</form>
+
 
 	
 <script>
