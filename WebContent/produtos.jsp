@@ -9,7 +9,7 @@
 
 <link href="resource/css/popup.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/table.css" type="text/css" rel="stylesheet" />
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
 	<a href="categorias?acao=voltar">Voltar</a>
@@ -64,7 +64,7 @@
 		</tbody>
 	</table>
 
-<script src="resource/javascript/apenasNumeros.js"></script>
+
 	<script src="resource/javascript/popup.js"></script>
 	<script src="resource/javascript/esconderUrl.js"></script>
 </body>
