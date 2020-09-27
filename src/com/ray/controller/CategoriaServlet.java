@@ -100,7 +100,10 @@ public class CategoriaServlet extends HttpServlet {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nomeLista");
 	String orcamento = request.getParameter("orcamento");
-	Categoria cat = new Categoria(!(id == null) ? Integer.parseInt(id) : null, nome, user);
+	System.out.println("orcamento= " +orcamento);
+	System.out.println("nome "+nome);
+	System.out.println("id = " +id);
+	Categoria cat = new Categoria(!(id.isEmpty()) ? Integer.parseInt(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(orcamento) : 0.0);
 	if (cat.getId() == null) {
 	    service.salvar(cat);
