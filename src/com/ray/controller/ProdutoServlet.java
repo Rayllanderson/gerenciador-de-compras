@@ -89,11 +89,13 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
 	    Categoria cat = instanciarCategoria(request);
-	    Product p = new Product(id != null ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
+	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome +"\nID=" +  id);
+	    System.out.println("C= "+comprado);
+	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
 		    cat);
 	    p.setPrecoEstipulado(Double.parseDouble(valorEstipulado));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
-	    p.setComprado(comprado != null && comprado.equals("on") ? true : false);
+	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
 	    //"cat_id
 	    if (p.getId() == null) {
 		service.inserir(p);
