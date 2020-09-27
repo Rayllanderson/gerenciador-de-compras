@@ -108,10 +108,6 @@ public class Product implements Serializable{
 	    return false;
 	return true;
     }
-
-    public Integer getCategoriaId() {
-	return categoria.getId();
-    }
     
     @Override
     public String toString() {

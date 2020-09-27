@@ -6,11 +6,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
 <title>Suas Listas</title>
 
 <link href="resource/css/popup.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/table.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
 	<a href="categorias?acao=voltar">Voltar</a>
@@ -19,7 +23,7 @@
 	
 	
 	<form action="produtos?acao=salvar"></form>
-	<button type="submit" data-toggle="modal" data-title="Novo Produto"data-target="#exampleModal"  class="btn btn-primary" onclick="disableCheckBox()">Novo Produto</button>
+	<button type="submit" data-toggle="modal" data-title="Novo Produto"data-target="#exampleModal"  class="btn btn-success" onclick="disableCheckBox()">Novo Produto</button>
 	
 
 
@@ -32,9 +36,11 @@
 		<a id="close" class="close" href="javascript: fechar()">×</a>
 	</div>
 
+<h3 style="text-align: center">${categoria.name}</h3>
 
-	<table>
-		<caption>${categoria.name}</caption>
+<div class="table-responsive-xl">
+  	<table class="table">
+		
 		<thead>
 			<tr>
 				<th scope="col">Nome</th>
@@ -86,7 +92,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 
 		<!-- Tela Modal -->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -103,12 +109,13 @@
 								</div>
 		<!-- Fim Tela Modal  -->
 	
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
+				 <h5 class="modal-title" id="exampleModalLabel"></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="exampleModalLabel"></h4>
+ 
 			  </div>
 			  <div class="modal-body">
 			  <form method="POST" action="produtos?acao=salvar">
@@ -131,9 +138,9 @@
 				  </div>
 				   
 
-	
-			<label for="categoria">Lista</label>
-				<select id="categoria" name="cat_id">
+			<div id="lista" class="form-group" style="display: none; width: 50%">
+			<label class="message-text" for="categoria">Lista</label>
+				<select id="categoria" name="cat_id" class="custom-select mr-sm-2">
 					<c:forEach items="${categorias}" var="cat"  >
  						 <option value="${cat.id}" id="${cat.id}" 
  							 <c:if test="${cat.name ==nomeCategoria}">
@@ -142,7 +149,7 @@
  						</option>
  				</c:forEach>
 				</select>
-				   
+			 </div> 
 				   
 				    <div class="form-group">
 				  <label for="comprado">Produto
@@ -166,9 +173,17 @@
 	<!-- ---------------------------------------------- -->
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="resource/javascript/bootstrap.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
 
 	<script src="resource/javascript/popup.js"></script>
 	<script src="resource/javascript/esconderUrl.js"></script>
@@ -222,6 +237,11 @@
 		  var real = button.data('real')
 		  var comprado = button.data('comprado')
 		  
+		  if(title == 'Editar'){
+			  const showList = document.getElementById("lista").style.display='block';
+		  }else{
+			  const showList = document.getElementById("lista").style.display='none';
+		  }
 		 
 		  var modal = $(this)
 		  modal.find('.modal-title').text(title)

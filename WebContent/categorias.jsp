@@ -1,29 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Suas Listas</title>
-<link href="resource/css/table.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/btn.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
 	<a href="home.jsp">Voltar</a>
 	<h1>Listas</h1>
 	
 	<form action="categorias?acao=newList"></form>
-	<button type="submit" data-toggle="modal" data-title="Nova Lista"data-target="#exampleModal">Nova
+	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal">Nova
 		Lista </button>
 		
-		
-	<table>
-		<caption>Listas</caption>
+	<h3 style="text-align: center">Listas</h3>
+	
+	<div class="table-responsive-lg">	
+	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Nome</th>
+				<th scope="col" style="text-align: center">Nome</th>
 				<th scope="col">Orçamento</th>
 				<th scope="col">Editar</th>
 				<th scope="col">Excluir</th>
@@ -33,9 +36,9 @@
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
-					<button class="btn btn-info"
+					<button class="btn btn-light"
 					onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});"
-					style="width: 50%; color: white;">${cat.name}</button>
+					style="width: 100%;">${cat.name}</button>
 					</td>
 					
 					<td data-label="Orçamento">${cat.orcamento}</td>
@@ -46,7 +49,7 @@
 					<td data-label="Editar">
 					
 					<input type="image"
-					src="resource/img/edit.png" width="30px" height="30px" class="btn btn-xs btn-warning" 
+					src="resource/img/edit.png" width="37px" height="30px" class="btn btn-outline-info"
 					data-toggle="modal" data-target="#exampleModal" 
 					data-title="Editar"
 					data-id="${cat.id}" 
@@ -54,7 +57,7 @@
 					data-orcamento="${cat.orcamento}" /></td>
 
 
-					<td data-label="Excluir"><input type="image"
+					<td data-label="Excluir"><input type="image" class="btn-outline-danger"
 					onclick="
 					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
@@ -64,6 +67,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 	
 	
 	
@@ -91,8 +95,8 @@
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="exampleModalLabel">Editar</h4>
 			  </div>
 			  <div class="modal-body">
 			  <form method="POST" action="categorias?acao=salvar">
@@ -116,9 +120,17 @@
 	
 	<script src="resource/javascript/esconderUrl.js"></script>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="resource/javascript/bootstrap.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 	<script type="text/javascript">
 		$('#exampleModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal

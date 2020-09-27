@@ -20,18 +20,19 @@ public class ProductService {
 	this.cat = cat;
 	this.dao = DaoFactory.createProductDao(cat);
     }
-    
+
     public Categoria getCat() {
-        return cat;
+	return cat;
     }
 
-    //---------------------"CRUD"-------------------------//
+    // ---------------------"CRUD"-------------------------//
     public boolean inserir(Product p) {
 	try {
 	    dao.save(p);
 	    cat.adicionarProduto(p);
 	    return true;
 	} catch (DbException e) {
+	    e.printStackTrace();
 	    return false;
 	}
     }
@@ -41,6 +42,7 @@ public class ProductService {
 	    dao.update(p);
 	    return true;
 	} catch (DbException e) {
+	    e.printStackTrace();
 	    return false;
 	}
     }
@@ -51,14 +53,16 @@ public class ProductService {
 	    cat.deletarProduto(p);
 	    return true;
 	} catch (DbException e) {
+	    e.printStackTrace();
 	    return false;
 	}
     }
-    
+
     public void deleteById(Integer id) {
 	try {
 	    dao.deletById(id);
 	} catch (DbException e) {
+	    e.printStackTrace();
 	}
     }
 
@@ -96,18 +100,18 @@ public class ProductService {
 	    p.setPrecoReal(value);
 	}
     }
-    
-    public void mudarCategoria(Product p, Categoria cat){
+
+    public void mudarCategoria(Product p, Categoria cat) {
 	p.setCategoria(cat);
 	dao.update(p);
     }
 
     // ---------------------------Listas-------------------------------//
-    
+
     public List<Product> findAllProduct() {
 	return dao.findAll();
     }
-    
+
     /**
      * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
      *                                   lista.");
@@ -123,7 +127,7 @@ public class ProductService {
 	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	}
     }
-    
+
     public void listarNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = this.getProdutosNaoConcluidos();
 	int maxLenName = FormatarTabela.maxLenghtName(list) + 2;
@@ -205,7 +209,7 @@ public class ProductService {
 	}
 	return sum;
     }
-    
+
     public double getValorEstipuladoRestante() {
 	double sum = 0;
 	for (Product p : this.getProdutosNaoConcluidos()) {
@@ -232,7 +236,7 @@ public class ProductService {
 	return total;
     }
 
-    //-------------------------------------------------------------------//
+    // -------------------------------------------------------------------//
     /**
      * @throws ProductoException   ( "Parece não existe nenhum produto com número "
      *                             + num + ". Verifique a tabela e tente
@@ -250,5 +254,5 @@ public class ProductService {
 		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
 	}
 	return list.get(num - 1);
-    }    
+    }
 }
