@@ -131,16 +131,7 @@
 				    <div class="form-group">
 				  <label for="comprado">Produto
 					já foi comprado?</label>
-				  <input type="checkbox" id="comprado" name="comprado" onclick="myFunction()" style="margin-left:3px;margin-top:5px; transform: scale(1.5);"
-				  
-				  		<%Product p = (Product) request.getAttribute("prod");
-							if (p != null) {
-								if (p.isComprado()) {
-									out.print(" ");
-									out.print("checked=\"checked\"");
-									out.print(" ");
-							}
-						}%>>
+				  <input type="checkbox" id="comprado" name="comprado" onclick="myFunction()" style="margin-left:3px;margin-top:5px; transform: scale(1.5);">
 		 
 				<span id="text"></span>
 
