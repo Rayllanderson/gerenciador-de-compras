@@ -33,9 +33,9 @@
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
-					<input type="button" class="btn-1"
+					<button class="btn btn-info"
 					onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});"
-					value="${cat.name}" />
+					style="width: 50%; color: white;">${cat.name}</button>
 					</td>
 					
 					<td data-label="Orçamento">${cat.orcamento}</td>
@@ -48,7 +48,7 @@
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
-					data-orcamento="${cat.orcamento}"/></td>
+					data-orcamento="${cat.orcamento}" /></td>
 
 
 					<td data-label="Excluir"><input type="image"
@@ -73,9 +73,6 @@
 												<h4 class="modal-title text-center" id="myModalLabel"> ${cat.id} </h4>
 											</div>
 											<div class="modal-body">
-												<p> ${cat.id} </p>
-												<p> ${cat.name}</p>
-												<p>${cat.orcamento}</p>
 											</div>
 										</div>
 									</div>
@@ -105,8 +102,8 @@
 					<input name="orcamento" type="text" class="form-control" id="orcamento">
 				  </div>
 				<input name="id" type="hidden" class="form-control" id="id" value="${cat.id}">
-				<button type="submit" class="btn btn-danger" >Alterar</button>
-				<button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+				<button type="submit" class="btn btn-success" >Salvar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			  </form>
 			  </div>
 			</div>
