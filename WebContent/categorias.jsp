@@ -15,15 +15,9 @@
 	<h1>Listas</h1>
 	
 	<form action="categorias?acao=newList"></form>
-	<button type="submit" data-toggle="modal" data-target="#exampleModal">Nova
+	<button type="submit" data-toggle="modal" data-title="Nova Lista"data-target="#exampleModal">Nova
 		Lista </button>
 		
-		
-	<input type="image" class="btn btn-xs btn-warning" data-toggle="modal" 
-data-target="#exampleModal" 
-data-whatever="${cat.name}" 
-data-whatevernome="${cat.orcamento}"
-data-whateverdetalhes=""/>
 		
 	<table>
 		<caption>Listas</caption>
@@ -51,9 +45,10 @@ data-whateverdetalhes=""/>
 					
 					<td data-label="Editar"><input type="image"
 					src="resource/img/edit.png" width="30px" height="30px" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#exampleModal" 
-					data-whatever="${cat.id}" 
-					data-whatevernome="${cat.name}"
-					data-whateverdetalhes="${cat.orcamento}"/></td>
+					data-title="Editar"
+					data-id="${cat.id}" 
+					data-nome="${cat.name}"
+					data-orcamento="${cat.orcamento}"/></td>
 
 
 					<td data-label="Excluir"><input type="image"
@@ -127,16 +122,17 @@ data-whateverdetalhes=""/>
 	<script type="text/javascript">
 		$('#exampleModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal
-		  var recipient = button.data('whatever') // Extract info from data-* attributes
-		  var recipientnome = button.data('whatevernome')
-		  var recipientdetalhes = button.data('whateverdetalhes')
+		  var title = button.data('title')
+		  var id = button.data('id') // Extract info from data-* attributes
+		  var recipientnome = button.data('nome')
+		  var recipientOrcamento = button.data('orcamento')
 		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 		  var modal = $(this)
-		  modal.find('.modal-title').text('Editar')
-		  modal.find('#id').val(recipient)
+		  modal.find('.modal-title').text(title)
+		  modal.find('#id').val(id)
 		  modal.find('#recipient-name').val(recipientnome)
-		  modal.find('#orcamento').val(recipientdetalhes)
+		  modal.find('#orcamento').val(recipientOrcamento)
 		})
 	</script>  
 	
