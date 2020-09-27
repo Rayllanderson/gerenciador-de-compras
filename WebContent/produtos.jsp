@@ -70,7 +70,9 @@
 					data-estipulado="${prod.precoEstipulado}"
 					data-real="${prod.precoReal}"
 					data-comprado="${prod.comprado}"
-					
+					data-catId="${prod.precoReal}"
+					<c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}"/>
+										
 					width="30px" height="30px" onclick="setCheckedIfTrue('${prod.isComprado()}')"/></td>
 					
 
@@ -110,6 +112,7 @@
 			  </div>
 			  <div class="modal-body">
 			  <form method="POST" action="produtos?acao=salvar">
+				 
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label" style="text-align: center">Nome:</label>
 					<input name="nome" type="text" class="form-control" id="recipient-name" value="${prod.name}">
@@ -126,6 +129,19 @@
 					<label for="message-text" class="control-label">Preço Real:</label>
 					<input name="real" type="text" class="form-control" id="real" style="width: 50%;">
 				  </div>
+				   
+
+	
+			<label for="categoria">Lista</label>
+				<select id="categoria" name="cat_id">
+					<c:forEach items="${categorias}" var="cat"  >
+ 						 <option value="${cat.id}" id="${cat.id}" 
+ 							 <c:if test="${cat.name ==nomeCategoria}">
+ 			 					<c:out value="selected=selected"/> </c:if>
+ 								 	>${cat.name}
+ 						</option>
+ 				</c:forEach>
+				</select>
 				   
 				   
 				    <div class="form-group">
@@ -196,12 +212,8 @@
 	</script>
 	
 	
-	
-	
 		<script type="text/javascript">
-		$('#exampleModal').on('show.bs.modal', function (event) {
-		  
-			
+		$('#exampleModal').on('show.bs.modal', function (event) {		
 		  var button = $(event.relatedTarget) 
 		  var title = button.data('title')
 		  var id = button.data('id')
@@ -209,15 +221,16 @@
 		  var estipulado = button.data('estipulado')
 		  var real = button.data('real')
 		  var comprado = button.data('comprado')
-		 
 		  
+		 
 		  var modal = $(this)
 		  modal.find('.modal-title').text(title)
 		  modal.find('#id').val(id)
 		  modal.find('#recipient-name').val(recipientnome)
 		  modal.find('#estipulado').val(estipulado)
 		  modal.find('#real').val(real)
-		  modal.find('#comprado').val(comprado)
+		 // modal.find('#comprado').val(comprado)
+		 // modal.find('#categoria').val(catId)
 		})
 	</script>  
 	

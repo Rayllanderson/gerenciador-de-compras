@@ -43,8 +43,11 @@
 					
 					<!-- onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});" -->
 					
-					<td data-label="Editar"><input type="image"
-					src="resource/img/edit.png" width="30px" height="30px" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#exampleModal" 
+					<td data-label="Editar">
+					
+					<input type="image"
+					src="resource/img/edit.png" width="30px" height="30px" class="btn btn-xs btn-warning" 
+					data-toggle="modal" data-target="#exampleModal" 
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"

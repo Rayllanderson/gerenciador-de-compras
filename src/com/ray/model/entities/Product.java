@@ -109,13 +109,16 @@ public class Product implements Serializable{
 	return true;
     }
 
+    public Integer getCategoriaId() {
+	return categoria.getId();
+    }
+    
     @Override
     public String toString() {
 	return nome;
     }
     
     public String comprado() {
-	if (comprado) return "Sim";
-	else return "Não";
+	return comprado ? "Sim" : "Não";
     }
 }
