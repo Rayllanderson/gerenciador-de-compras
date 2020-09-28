@@ -87,16 +87,15 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
-	    String comprado = request.getParameter("comprado");
+	    String comprado = request.getParameter("comprado");   
 	    Categoria cat = instanciarCategoria(request);
 	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome +"\nID=" +  id);
 	    System.out.println("C= "+comprado);
 	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
 		    cat);
-	    p.setPrecoEstipulado(Double.parseDouble(valorEstipulado));
-	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(valorReal) : 0.0);
+	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
+	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
-	    //"cat_id
 	    if (p.getId() == null) {
 		service.inserir(p);
 	    } else {
@@ -118,6 +117,11 @@ public class ProdutoServlet extends HttpServlet {
 	    request.setAttribute("nome", nome);
 	    dispatcher.forward(request, response);
 	}
+    }
+
+    private String parseNumber(String valorEstipulado) {
+	String valorEstipuladoParse = valorEstipulado.replaceAll("\\.", "");// retirando os pontos por nada
+	return valorEstipuladoParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
     }
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {

@@ -117,4 +117,12 @@ public class Product implements Serializable{
     public String comprado() {
 	return comprado ? "Sim" : "Não";
     }
+    
+    public String getValorRealEmReal() {
+	return Double.toString(this.precoReal).replace('.', ',');
+    }
+    
+    public String getValorEstipuladoEmReal() {
+	return Double.toString(this.precoEstipulado).replace('.', ',');
+    }
 }
