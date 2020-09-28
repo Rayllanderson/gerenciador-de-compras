@@ -18,6 +18,17 @@
 	<a href="home.jsp">Voltar</a>
 	<h1>Listas</h1>
 	
+	
+	
+	
+  	<div class="alert alert-success" id="success-alert">
+   		 <button type="button" class="close" data-dismiss="alert">x</button>
+   	 <strong>Sucesso! </strong> Nova Lista criada
+  	</div>
+	
+	
+	
+	
 	<form action="categorias?acao=newList"></form>
 	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal">Nova
 		Lista </button>
@@ -104,14 +115,14 @@
 			  <form method="POST" action="categorias?acao=salvar">
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label">Nome:</label>
-					<input name="nomeLista" type="text" class="form-control" id="recipient-name" value="${cat.name}">
+					<input name="nomeLista" type="text" class="form-control" id="recipient-name" required="required" value="${cat.name}">
 				  </div>
 				  <div class="form-group">
 					<label for="message-text" class="control-label">Orcamento:</label>
-					<input name="orcamento" type="text" class="form-control" id="orcamento">
+					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%">
 				  </div>
 				<input name="id" type="hidden" class="form-control" id="id" value="${cat.id}">
-				<button type="submit" class="btn btn-success" >Salvar</button>
+				<button type="submit" id="save1" class="btn btn-success" >Salvar</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			  </form>
 			  </div>
@@ -119,16 +130,14 @@
 		  </div>
 		  </div>
 	
-	
 <script src="resource/javascript/esconderUrl.js"></script>
 	
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="resource/javascript/jquery.mask.min.js"></script>
     
-	<script type="text/javascript">
+<script type="text/javascript">
 		$('#exampleModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal
 		  var title = button.data('title')
@@ -143,9 +152,30 @@
 		  modal.find('#recipient-name').val(recipientnome)
 		  modal.find('#orcamento').val(recipientOrcamento)
 		})
-	</script>  
+</script>  
+	
+<script type="text/javascript">
+
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 	
 </body>
+
+<script type="text/javascript">
+$(".alert").hide();
+
+$('#save1').click( function() { 
+  $(".alert").show();
+  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success-alert").slideUp(500);
+});
+});
+
+</script>
+
+
 
 <script>
 $(document).ready(function(){

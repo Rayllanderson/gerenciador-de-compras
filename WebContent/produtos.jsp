@@ -126,13 +126,13 @@
 				 
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label" style="text-align: center">Nome:</label>
-					<input name="nome" type="text" class="form-control" id="recipient-name" value="${prod.name}">
+					<input name="nome" type="text" class="form-control" id="recipient-name" required="required" value="${prod.name}">
 				  </div>
 				  
 				  
 				  <div class="form-group">
 					<label for="message-text" class="control-label">Preço Estipulado:</label>
-					<input name="estipulado" type="text" class="form-control" id="estipulado" style="width: 50%;">
+					<input name="estipulado" type="text" class="form-control" id="estipulado" required="required" style="width: 50%;">
 				  </div>
 				  
 				  
