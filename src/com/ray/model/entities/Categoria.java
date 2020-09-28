@@ -15,7 +15,6 @@ public class Categoria implements Serializable{
     
     private List <Product> productList = new ArrayList<>();
     
-    
     public Categoria () {};
     
     
@@ -94,11 +93,12 @@ public class Categoria implements Serializable{
 	return true;
     }
     
-
     @Override
     public String toString() {
 	return name;
     }
 
-
+    public String getOrcamentoEmReal() {
+ 	return Double.toString(this.orcamento).replace('.', ',');
+     }
 }

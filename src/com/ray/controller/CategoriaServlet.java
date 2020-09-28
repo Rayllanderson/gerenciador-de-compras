@@ -104,7 +104,7 @@ public class CategoriaServlet extends HttpServlet {
 	System.out.println("nome "+nome);
 	System.out.println("id = " +id);
 	Categoria cat = new Categoria(!(id.isEmpty()) ? Integer.parseInt(id) : null, nome, user);
-	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(orcamento) : 0.0);
+	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	if (cat.getId() == null) {
 	    service.salvar(cat);
 	    response.setStatus(HttpServletResponse.SC_CREATED);
@@ -129,4 +129,9 @@ public class CategoriaServlet extends HttpServlet {
 	User user = (User) session.getAttribute("user");
 	return user;
     }
+    
+    private String parseNumber(String value) {
+   	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
+   	return valorParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
+       }
 }

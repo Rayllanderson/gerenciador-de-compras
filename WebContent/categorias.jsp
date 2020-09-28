@@ -1,6 +1,7 @@
 <%@ page language="java" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,6 +11,7 @@
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
 </head>
 <body>
@@ -41,7 +43,7 @@
 					style="width: 100%;">${cat.name}</button>
 					</td>
 					
-					<td data-label="Orçamento">${cat.orcamento}</td>
+					<td data-label="Orçamento">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
 					
 					
 					<!-- onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});" -->
@@ -54,7 +56,7 @@
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
-					data-orcamento="${cat.orcamento}" /></td>
+					data-orcamento="${cat.getOrcamentoEmReal()}" /></td>
 
 
 					<td data-label="Excluir"><input type="image" class="btn-outline-danger"
@@ -118,19 +120,14 @@
 		  </div>
 	
 	
-	<script src="resource/javascript/esconderUrl.js"></script>
+<script src="resource/javascript/esconderUrl.js"></script>
 	
 
-<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+<script src="resource/javascript/jquery.mask.min.js"></script>
     
-    
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 	<script type="text/javascript">
 		$('#exampleModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal
@@ -149,4 +146,12 @@
 	</script>  
 	
 </body>
+
+<script>
+$(document).ready(function(){
+   $('#orcamento').mask('000.000.000.000.000,00', {reverse: true});
+});
+	
+</script>
+
 </html>

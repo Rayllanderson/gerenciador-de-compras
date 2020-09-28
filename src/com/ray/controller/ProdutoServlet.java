@@ -119,10 +119,10 @@ public class ProdutoServlet extends HttpServlet {
 	}
     }
 
-    private String parseNumber(String valorEstipulado) {
-	String valorEstipuladoParse = valorEstipulado.replaceAll("\\.", "");// retirando os pontos por nada
-	return valorEstipuladoParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
-    }
+    private String parseNumber(String value) {
+   	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
+   	return valorParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
+       }
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
 	Categoria cat = instanciarCategoria(request);
