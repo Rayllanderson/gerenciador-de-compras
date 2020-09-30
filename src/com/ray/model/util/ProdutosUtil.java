@@ -164,11 +164,12 @@ public class ProdutosUtil {
 		String op = scan.next();
 		if (Integer.parseInt(op) == 1) {
 		    service.marcarComoConcluido(p, valorReal);
-		}else {
-		    
+		} else {
+
 		}
 	    }
-	    ButtonUtil.confirmar("alterar o valor real do produto "+ p.getNome() + " para " + currencyFormatter.format(valorReal));
+	    ButtonUtil.confirmar(
+		    "alterar o valor real do produto " + p.getNome() + " para " + currencyFormatter.format(valorReal));
 	    service.editarPrecoReal(p, valorReal);
 	    return true;
 	} catch (InputMismatchException e) {
@@ -196,7 +197,8 @@ public class ProdutosUtil {
 	    if (valorEstipulado == (int) -1) {
 		ButtonUtil.botaoVoltar(0);
 	    }
-	    ButtonUtil.confirmar("alterar o valor estipulado do produto " + p.getNome() + " para " + currencyFormatter.format(valorEstipulado));
+	    ButtonUtil.confirmar("alterar o valor estipulado do produto " + p.getNome() + " para "
+		    + currencyFormatter.format(valorEstipulado));
 	    service.editarPrecoEstipulado(p, valorEstipulado);
 	    return true;
 	} catch (InputMismatchException e) {
@@ -263,7 +265,7 @@ public class ProdutosUtil {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static void quantidadeGasta(ProductService service, Categoria cat) {
+    public static String quantidadeGasta(ProductService service, Categoria cat) {
 	try {
 	    double orcamento = cat.getOrcamento();
 	    double valorGasto = service.getValorRealGasto();
@@ -278,11 +280,11 @@ public class ProdutosUtil {
 			    + " para gastar de acordo com seu orçamento de " + currencyFormatter.format(orcamento);
 		}
 	    }
-	    System.out.println("Você já gastou " + currencyFormatter.format(valorGasto) + complemento);
+	    return "Você já gastou " + currencyFormatter.format(valorGasto) + complemento;
 	} catch (NullPointerException e) {
-	    System.out.println("Você não tem orçamento para esta lista. Adicione um no menu principal");
+	    return "Você não tem orçamento para esta lista. Adicione um no menu principal";
 	} catch (ListaVaziaException e) {
-	    System.out.println("Nenhum produto comprado até o momento, sendo assim, você não gastou nada.");
+	    return "Nenhum produto comprado até o momento, sendo assim, você não gastou nada.";
 	}
     }
 
@@ -290,7 +292,7 @@ public class ProdutosUtil {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static void disponivelParaComprar(ProductService service, Categoria cat) {
+    public static String disponivelParaComprar(ProductService service, Categoria cat) {
 	try {
 	    double disponivel = service.getValorDisponivelParaCompra(cat);
 	    String complemento = "";
@@ -306,35 +308,32 @@ public class ProdutosUtil {
 		complemento = "Você tem disponível " + currencyFormatter.format(disponivel)
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
 	    }
-	    System.out.println(complemento);
+	    return complemento;
 	} catch (ListaVaziaException e) {
 	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
-		System.out.println(
-			"Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
-	    }else
-	    System.out.println("Você ainda não comprou nenhum produto da lista, portanto, ainda tem "
-		    + currencyFormatter.format(cat.getOrcamento()) + " para gastar");
+		return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
+	    } else
+		return "Você ainda não comprou nenhum produto da lista, portanto, ainda tem "
+			+ currencyFormatter.format(cat.getOrcamento()) + " para gastar";
 	} catch (NullPointerException e) {
-	    System.out.println(
-		    "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal");
+	    return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
 	}
     }
 
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
-    public static void valorEconomizado(ProductService service) {
+    public static String valorEconomizado(ProductService service) {
 	try {
 	    double valorEconomizado = service.getValorEconomizado();
 	    if (valorEconomizado < 0) {
-		System.out.println("Eita! Você não economizou nada! Você gastou "
-			+ currencyFormatter.format((-(valorEconomizado))) + " a mais do que planejava");
-	    } else {
-		System.out.println("Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns!");
+		return "Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
+			+ " a mais do que planejava";
 	    }
+	    return "Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns!";
+
 	} catch (ListaVaziaException e) {
-	    System.out.println(
-		    "Hmm, parece que você ainda não comprou nenhum produto da lista, portanto, impossível saber valor economizado :(");
+	    return "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(";
 	}
     }
 
@@ -479,7 +478,7 @@ public class ProdutosUtil {
     public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
 	double valorRealGasto = 0, valorEstipulado = service.getValorGastoEstipulado();
-	double valorEstipuladoRestante  = 0;
+	double valorEstipuladoRestante = 0;
 	try {
 	    qntProdutos = service.findAllProduct().size();
 	} catch (ListaVaziaException e) {
@@ -497,10 +496,10 @@ public class ProdutosUtil {
 	}
 	try {
 	    valorEstipuladoRestante = service.getValorEstipuladoRestante();
-	}catch (ListaVaziaException e) {
+	} catch (ListaVaziaException e) {
 	    valorEstipuladoRestante = 0;
 	}
-	
+
 	StringBuilder infos = new StringBuilder();
 	infos.append("Você possui " + qntProdutos + " produtos na lista atual");
 	infos.append("<br>");

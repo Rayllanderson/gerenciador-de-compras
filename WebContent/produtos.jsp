@@ -27,24 +27,51 @@
 </head>
 <body>
 	<a href="categorias?acao=voltar">Voltar</a>
-	<h1>produtos</h1>
+	<h1>Produtos</h1>
 
 
-	<div>
 
-		<button type="submit" data-toggle="modal" data-title="Novo Produto"
+<div> <!--  -->
+
+	<button type="submit" data-toggle="modal" data-title="Novo Produto"
 			data-target="#exampleModal" class="btn btn-success"
 			onclick="disableCheckBox()">Novo Produto</button>
 
-			<a class="btn btn-primary" data-toggle="collapse"
+	<a class="btn btn-primary" data-toggle="collapse"
 				href="#collapseExample" role="button" aria-expanded="false"
 				aria-controls="collapseExample"> Informações </a>
 	
-		<div class="collapse" id="collapseExample">
-			<div class="card card-body" > ${infos} </div>
+	<div class="collapse" id="collapseExample">
+		<div class="card card-body" > ${infos} </div>
+			
+		<div class="accordion" id="accordionExample" style="width: 50%; ">
+			<div class="card">
+			    <div class="card-header" id="headingOne">
+			      <h2 class="mb-0">
+			        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          Collapsible Group Item #1
+			        </button>
+			      </h2>
+			    </div>
+			    <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+			      <div class="card-body">
+			        editch  beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+			      </div>
+			    </div>
+			  </div>
 		</div>
 
 	</div>
+
+
+</div>
+
+	
+
+	
+	
+	
+	
 	<h3 style="text-align: center">${categoria.name}</h3>
 
 	<div class="table-responsive-xl">
@@ -145,7 +172,7 @@
 							<label for="message-text" class="control-label">Preço
 								Estipulado:</label> <input name="estipulado" type="text"
 								class="form-control" id="estipulado" required="required"
-								style="width: 50%;">
+								style="width: 50%;" inputmode="numeric">
 						</div>
 
 
@@ -153,7 +180,7 @@
 							<label for="message-text" class="control-label">Preço
 								Real:</label> <input name="real" type="text" class="form-control"
 								id="real" style="width: 50%;" data-thousands="."
-								data-decimal="," data-prefix="R$ ">
+								data-decimal="," data-prefix="R$ " inputmode="numeric">
 						</div>
 
 
