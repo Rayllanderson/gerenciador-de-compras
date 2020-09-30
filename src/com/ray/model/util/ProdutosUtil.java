@@ -331,7 +331,6 @@ public class ProdutosUtil {
 			+ " a mais do que planejava";
 	    }
 	    return "Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns!";
-
 	} catch (ListaVaziaException e) {
 	    return "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(";
 	}

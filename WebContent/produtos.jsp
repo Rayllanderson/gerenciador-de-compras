@@ -31,47 +31,135 @@
 
 
 
-<div> <!--  -->
+	<div>
+		<!--  -->
 
-	<button type="submit" data-toggle="modal" data-title="Novo Produto"
+		<button type="submit" data-toggle="modal" data-title="Novo Produto"
 			data-target="#exampleModal" class="btn btn-success"
 			onclick="disableCheckBox()">Novo Produto</button>
 
-	<a class="btn btn-primary" data-toggle="collapse"
-				href="#collapseExample" role="button" aria-expanded="false"
-				aria-controls="collapseExample"> Informações </a>
-	
-	<div class="collapse" id="collapseExample">
-		<div class="card card-body" > ${infos} </div>
-			
-		<div class="accordion" id="accordionExample" style="width: 50%; ">
-			<div class="card">
-			    <div class="card-header" id="headingOne">
-			      <h2 class="mb-0">
-			        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			          Collapsible Group Item #1
-			        </button>
-			      </h2>
-			    </div>
-			    <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
-			      <div class="card-body">
-			        editch  beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-			      </div>
-			    </div>
-			  </div>
+		<a class="btn btn-primary" data-toggle="collapse"
+			href="#collapseExample" role="button" aria-expanded="false"
+			aria-controls="collapseExample"> Informações </a>
+
+
+
+
+		<div class="collapse" id="collapseExample">
+
+
+			<div class="card card-body">
+
+				<div class="container" style=" display: flex; flex-flow: row wrap; justify-content: space-around;  padding: 0;
+  margin: 0;
+  list-style: none;">
+					<div class="row">
+
+
+						<div class="col-lg" style=" justify-content: space-around; display: flex; flex-flow: row wrap;">${infos}</div>
+
+
+						<div class="col-sm">
+							<div class="accordion" id="accordionExample"
+								style="display: flex; margin-top: -5$; margin-left: auto">
+								<div class="card">
+									<div class="card-header" id="headingOne">
+										<h2 class="mb-0">
+											<button class="btn btn-info" type="button"
+												data-toggle="collapse" data-target="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne">
+												Collapsible Group Item #1</button>
+										</h2>
+									</div>
+									<div id="collapseOne" class="collapse hide"
+										aria-labelledby="headingOne" data-parent="#accordionExample">
+										<div class="card-body">editch beer farm-to-table, raw
+											denim aesthetic synth nesciunt you probably haven't heard of
+											them accusamus labore sustainable VHS.</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- fim div coluna -->
+						
+						
+												<div class="col-sm">
+							<div class="accordion" id="accordionExample"
+								style="display: flex; margin-top: -5$; margin-left: auto">
+								<div class="card">
+									<div class="card-header" id="headingOne">
+										<h2 class="mb-0">
+											<button class="btn btn-info" type="button"
+												data-toggle="collapse" data-target="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne">
+												Collapsible Group Item #1</button>
+										</h2>
+									</div>
+									<div id="collapseOne" class="collapse hide"
+										aria-labelledby="headingOne" data-parent="#accordionExample">
+										<div class="card-body">editch beer farm-to-table, raw
+											denim aesthetic synth nesciunt you probably haven't heard of
+											them accusamus labore sustainable VHS.</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- fim div coluna -->
+						
+												<div class="col-sm">
+							<div class="accordion" id="accordionExample"
+								style="display: flex; margin-top: -5$; margin-left: auto">
+								<div class="card">
+									<div class="card-header" id="headingOne">
+										<h2 class="mb-0">
+											<button class="btn btn-info" type="button"
+												data-toggle="collapse" data-target="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne">
+												Collapsible Group Item #1</button>
+										</h2>
+									</div>
+									<div id="collapseOne" class="collapse hide"
+										aria-labelledby="headingOne" data-parent="#accordionExample">
+										<div class="card-body">editch beer farm-to-table, raw
+											denim aesthetic synth nesciunt you probably haven't heard of
+											them accusamus labore sustainable VHS.</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- fim div coluna -->
+
+					</div>
+				</div>
+
+			</div>
+			<!-- fim card -->
+
+
+
 		</div>
+		<!-- tela de infos -->
+
+
+
+
+
+
 
 	</div>
 
 
-</div>
 
-	
 
-	
-	
-	
-	
+
+
+
 	<h3 style="text-align: center">${categoria.name}</h3>
 
 	<div class="table-responsive-xl">
