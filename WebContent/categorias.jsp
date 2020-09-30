@@ -23,8 +23,7 @@
 	
   	<div class="alert alert-success" id="success-alert">
    		 <button type="button" class="close" data-dismiss="alert">x</button>
-   	 <strong>Sucesso! </strong> Nova Lista criada
-  	</div>
+   	 <strong>Sucesso! </strong> Sua lista foi salva!</div>
 	
 	
 	
@@ -154,17 +153,12 @@
 		})
 </script>  
 	
-<script type="text/javascript">
-
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-</script>
 	
 </body>
 
 <script type="text/javascript">
 $(".alert").hide();
+
 
 $('#save1').click( function() { 
   $(".alert").show();
@@ -172,6 +166,7 @@ $('#save1').click( function() {
     $("#success-alert").slideUp(500);
 });
 });
+
 
 </script>
 

@@ -476,9 +476,10 @@ public class ProdutosUtil {
 	System.out.println("Valor Total: " + currencyFormatter.format(service.getValorTotalAtual()));
     }
 
-    public static void mostrarInfosProdutos(User user, ProductService service, double orcamento) {
+    public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
 	double valorRealGasto = 0, valorEstipulado = service.getValorGastoEstipulado();
+	double valorEstipuladoRestante  = 0;
 	try {
 	    qntProdutos = service.findAllProduct().size();
 	} catch (ListaVaziaException e) {
@@ -494,16 +495,27 @@ public class ProdutosUtil {
 	} catch (ListaVaziaException e) {
 	    valorRealGasto = 0;
 	}
-
-	System.out.println(String.format("%s",
-		"----------------------------------------------------------------------------------------------------------------"));
-	System.out.println("Informações breves: ");
-	System.out.println("Você possui " + qntProdutos + " produtos na lista atual");
-	System.out.println("Você já comprou " + qntProdutosComprados + " produtos de um total de " + qntProdutos);
-	System.out.println("Você já gastou " + currencyFormatter.format(valorRealGasto));
-	System.out.println("Falta gastar " + currencyFormatter.format(service.getValorEstipuladoRestante()));
-	System.out.println("O valor estipulado atual é de " + currencyFormatter.format(valorEstipulado));
-	System.out.println("O valor total atual é de " + currencyFormatter.format(service.getValorTotalAtual()));
-	System.out.println("Orçamento: " + currencyFormatter.format(orcamento));
+	try {
+	    valorEstipuladoRestante = service.getValorEstipuladoRestante();
+	}catch (ListaVaziaException e) {
+	    valorEstipuladoRestante = 0;
+	}
+	
+	StringBuilder infos = new StringBuilder();
+	infos.append("Você possui " + qntProdutos + " produtos na lista atual");
+	infos.append("<br>");
+	infos.append("Você já comprou " + qntProdutosComprados + " produtos de um total de " + qntProdutos);
+	infos.append("<br>");
+	infos.append("Você já gastou " + currencyFormatter.format(valorRealGasto));
+	infos.append("<br>");
+	infos.append("Falta gastar " + currencyFormatter.format(valorEstipuladoRestante));
+	infos.append("<br>");
+	infos.append("O valor estipulado atual é de " + currencyFormatter.format(valorEstipulado));
+	infos.append("<br>");
+	infos.append("O valor total atual é de " + currencyFormatter.format(service.getValorTotalAtual()));
+	infos.append("<br>");
+	infos.append("Orçamento: " + currencyFormatter.format(orcamento));
+	infos.append("<br>");
+	return infos.toString();
     }
 }

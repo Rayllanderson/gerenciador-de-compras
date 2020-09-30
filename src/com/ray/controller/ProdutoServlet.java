@@ -15,6 +15,7 @@ import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.service.ProductService;
+import com.ray.model.util.ProdutosUtil;
 
 /**
  * Servlet implementation class Login
@@ -25,6 +26,7 @@ public class ProdutoServlet extends HttpServlet {
 
     private ProductDao repository = null;
     private ProductService service = null;
+    private Categoria cat = null;
 
     public ProdutoServlet() {
 	super();
@@ -35,21 +37,25 @@ public class ProdutoServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	System.out.println("método GET");
 	String acao = request.getParameter("acao");
+	startServiceAndRepository(request, response);
+	setFuncoesUteis(request);   
 	if (acao != null) {
-	    startServiceAndRepository(request, response);
 	    if(acao.equals("listar")) {
 		listarTodosProdutos(request, response);
 	    }
 	}else {
 	    listarTodosProdutos(request, response);
 	}
-	
-	
+    }
+    
+    private void setFuncoesUteis(HttpServletRequest request) {
+	request.setAttribute("infos", ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
+	setFuncoesUteis(request);   
 	if (acao != null) {
 	    System.out.println(acao + " método POST");
 	    startServiceAndRepository(request, response);
@@ -88,7 +94,6 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");   
-	    Categoria cat = instanciarCategoria(request);
 	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome +"\nID=" +  id);
 	    System.out.println("C= "+comprado);
 	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
@@ -125,7 +130,7 @@ public class ProdutoServlet extends HttpServlet {
        }
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
-	Categoria cat = instanciarCategoria(request);
+	this.cat = instanciarCategoria(request);
 	service = new ProductService(cat);
 	repository = DaoFactory.createProductDao(cat);
     }
@@ -133,7 +138,7 @@ public class ProdutoServlet extends HttpServlet {
     private Categoria instanciarCategoria(HttpServletRequest request) {
 	HttpServletRequest req = (HttpServletRequest) request;
 	HttpSession session = req.getSession();
-	Categoria cat = (Categoria) session.getAttribute("categoria");
+	this.cat = (Categoria) session.getAttribute("categoria");
 	return cat;
     }
 
