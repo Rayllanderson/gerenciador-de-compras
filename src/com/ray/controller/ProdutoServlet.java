@@ -14,6 +14,7 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
 
@@ -35,27 +36,34 @@ public class ProdutoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	System.out.println("método GET");
+	System.out.println("método GET...");
 	String acao = request.getParameter("acao");
+	System.out.println(acao);
 	startServiceAndRepository(request, response);
-	setFuncoesUteis(request);   
+	setInformacoes(request, response);
 	if (acao != null) {
-	    if(acao.equals("listar")) {
+	    if (acao.equals("listar")) {
 		listarTodosProdutos(request, response);
 	    }
-	}else {
+	} else {
 	    listarTodosProdutos(request, response);
 	}
     }
-    
-    private void setFuncoesUteis(HttpServletRequest request) {
-	request.setAttribute("infos", ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+
+    private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	try {request.setAttribute("gerais",
+		ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+	request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
+	request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
+	}catch (NullPointerException e) {
+	   response.sendRedirect("categorias.jsp");
+	}
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
-	setFuncoesUteis(request);   
+	setInformacoes(request, response);
 	if (acao != null) {
 	    System.out.println(acao + " método POST");
 	    startServiceAndRepository(request, response);
@@ -67,16 +75,20 @@ public class ProdutoServlet extends HttpServlet {
 		System.out.println(p);
 	    } else if (acao.equals("salvar")) {
 		salvarProduto(request, response);
-	    }else if(acao.equals("editar")) {
+	    } else if (acao.equals("editar")) {
 		redirecionarEditarProduto(request, response);
-	    }else if(acao.equals("excluir")) {
+	    } else if (acao.equals("excluir")) {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		service.deleteById(id);
 		response.sendRedirect("produtos");
+	    } else if (acao.equals("comprados")) {
+		listarComprados(request, response);
+	    } else if (acao.equals("nao_comprados")) {
+		listarNaoComprados(request, response);
 	    }
 	}
     }
-    
+
     private void redirecionarEditarProduto(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String id = request.getParameter("id");
@@ -93,9 +105,9 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
-	    String comprado = request.getParameter("comprado");   
-	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome +"\nID=" +  id);
-	    System.out.println("C= "+comprado);
+	    String comprado = request.getParameter("comprado");
+	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome + "\nID=" + id);
+	    System.out.println("C= " + comprado);
 	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
 		    cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
@@ -106,13 +118,13 @@ public class ProdutoServlet extends HttpServlet {
 	    } else {
 		Integer catId = Integer.parseInt(request.getParameter("cat_id"));
 		Integer catOriginal = cat.getId();
-		if(catOriginal != catId) {
-		    //movendo a categoria 
+		if (catOriginal != catId) {
+		    // movendo a categoria
 		    cat.setId(catId);
 		}
-		service.atualizar(p);//moveu
-		
-		//voltando pra categoria atual
+		service.atualizar(p);// moveu
+
+		// voltando pra categoria atual
 		cat.setId(catOriginal);
 	    }
 	    response.sendRedirect("produtos");
@@ -125,9 +137,9 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private String parseNumber(String value) {
-   	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
-   	return valorParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
-       }
+	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
+	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
+    }
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
 	this.cat = instanciarCategoria(request);
@@ -145,8 +157,39 @@ public class ProdutoServlet extends HttpServlet {
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	RequestDispatcher dispatcher = null;
-	request.getSession().setAttribute("produtos", repository.findAll());
+	try{
+	    request.getSession().setAttribute("produtos", service.findAll());
+	}catch (ListaVaziaException e) {
+	    request.getSession().setAttribute("error", e.getMessage());
+	}
 	dispatcher = request.getRequestDispatcher("produtos.jsp");
 	dispatcher.forward(request, response);
+    }
+
+    private void listarComprados(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	RequestDispatcher dispatcher = null;
+	try {
+	    request.getSession().setAttribute("produtos", service.getProdutosConcluidos());
+	} catch (ListaVaziaException e) {
+	    request.getSession().setAttribute("error", e.getMessage());
+	} finally {
+	    dispatcher = request.getRequestDispatcher("produtos.jsp");
+	    dispatcher.forward(request, response);
+	}
+    }
+
+    private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	RequestDispatcher dispatcher = null;
+	try {
+	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
+	} catch (ListaVaziaException e) {
+	    request.getSession().setAttribute("error", e.getMessage());
+	} finally {
+	    dispatcher = request.getRequestDispatcher("produtos.jsp");
+	    dispatcher.forward(request, response);
+	}
+
     }
 }

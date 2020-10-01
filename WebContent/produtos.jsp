@@ -26,6 +26,12 @@
 
 </head>
 <body>
+
+	<img data-toggle="tooltip" data-placement="right"
+		title="texto texto texto fjshfjbvbdjvdiav  ifhifhuhvdshvshvshvjshv"
+		src="resource/img/question.png" width="20px" height="20px">
+
+
 	<a href="categorias?acao=voltar">Voltar</a>
 	<h1>Produtos</h1>
 
@@ -49,90 +55,77 @@
 
 			<div class="card card-body">
 
-							<div class="accordion" id="accordionExample">
-									<div class="card">
-										<div class="card-header" id="headingOne">
-											<h2 class="mb-0">
-												<button class="btn btn-block text-center" type="button"
-													data-toggle="collapse" data-target="#collapseOne"
-													aria-expanded="true" aria-controls="collapseOne">Gerais</button>
-											</h2>
-										</div>
-										<div id="collapseOne" class="collapse show"
-											aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-											<div class="card-body" style=" display: inline-block; 
-	text-align: left;">${infos}</div>
-										</div>
-									</div>
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0">
+								<button class="btn btn-link btn-block text-center" type="button"
+									data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne">Gerais</button>
+							</h2>
+						</div>
+						<div id="collapseOne" class="collapse show"
+							aria-labelledby="headingOne" data-parent="#accordionExample"
+							style="text-align: center;">
+							<div class="card-body"
+								style="display: inline-block; text-align: left;">${gerais}</div>
+						</div>
+					</div>
+
+
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0">
+									<button class="btn btn-link btn-block text-center"
+										type="button" data-toggle="collapse" data-target="#collapse3"
+										aria-expanded="true" aria-controls="collapseOne">
+										Quanto você Já economizou</button>
+								</h2>
+							</div>
+							<div id="collapse3" class="collapse hide"
+								aria-labelledby="headingOne" data-parent="#accordionExample"
+								style="text-align: center;">
+								<div class="card-body"
+									style="display: inline-block; text-align: left;">${economizado}</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0">
+									<button class="btn btn-link btn-block text-center"
+										type="button" data-toggle="collapse"
+										data-target="#collapseTwo" aria-expanded="true"
+										aria-controls="collapseOne">Quanto disponível você
+										tem pra gastar</button>
+								</h2>
+							</div>
+							<div id="collapseTwo" class="collapse hide"
+								aria-labelledby="headingOne" data-parent="#accordionExample"
+								style="text-align: center;">
+								<div class="card-body"
+									style="display: inline-block; text-align: left;">${disponivel}</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
 				
-				
-				
-								<div class="accordion" id="accordionExample">
-									<div class="card">
-										<div class="card-header" id="headingOne">
-											<h2 class="mb-0">
-												<button class="btn btn-block text-center" type="button"
-													data-toggle="collapse" data-target="#collapseTwo"
-													aria-expanded="true" aria-controls="collapseOne">
-													Quanto disponível você tem pra gastar</button>
-											</h2>
-										</div>
-										<div id="collapseTwo" class="collapse hide"
-											aria-labelledby="headingOne" data-parent="#accordionExample">
-											<div class="card-body">editch beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</div>
-										</div>
-									</div>
-								</div>
-						
-						
-								<div class="accordion" id="accordionExample">
-									<div class="card">
-										<div class="card-header" id="headingOne">
-											<h2 class="mb-0">
-												<button class="btn btn-block text-center" type="button"
-													data-toggle="collapse" data-target="#collapse3"
-													aria-expanded="true" aria-controls="collapseOne">
-													Quanto você Já economizou</button>
-											</h2>
-										</div>
-										<div id="collapse3" class="collapse hide"
-											aria-labelledby="headingOne" data-parent="#accordionExample">
-											<div class="card-body">editch beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</div>
-										</div>
-									</div>
-								</div>
-						
-</div>
 
-
-
-
-
-
-						<!-- fim div coluna -->
 			</div>
 			<!-- fim card -->
-
-
 
 		</div>
 		<!-- tela de infos -->
 
-
-
-
-
-
-
 	</div>
-
-
-
-
 
 
 
@@ -188,7 +181,33 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		<form id="form2" method="POST">
+		<div class="text-center" style="margin-top: 1%">
+					<div class="btn-group" role="group" aria-label="Basic example" >
+							<button type="submit" class="btn btn-success" title="Lista todos os produtos comprados dessa lista"
+							onclick="document.getElementById('form2').action = 'produtos?acao=comprados'"
+							>Produtos
+								Comprados</button>
+
+							<button type="submit" id="todos" class="btn btn-info"
+								title="Lista todos os produtos dessa lista"
+								onclick="document.getElementById('form2').action = 'produtos?acao=listar'"
+								>Todos os
+								Produtos</button> 
+								
+							<button type="submit" id="n-comprados" class="btn btn-danger"
+								title="Lista todos os produtos não comprados dessa lista"
+								onclick="document.getElementById('form2').action = 'produtos?acao=nao_comprados'"
+								>Produtos
+								não Comprados</button>
+
+					</div>
+				</div>
+				</form>
 	</div>
+	<!-- fim tabela -->
+
 
 	<!-- Tela Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -284,12 +303,7 @@
 
 	<!-- ---------------------------------------------- -->
 
-
-
-	<script src="resource/javascript/popup.js"></script>
 	<script src="resource/javascript/esconderUrl.js"></script>
-
-
 
 	<script type="text/javascript">
 		const msg = "${error}"

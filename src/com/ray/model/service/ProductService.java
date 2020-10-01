@@ -127,6 +127,14 @@ public class ProductService {
 	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	}
     }
+    
+    public List<Product> findAll() throws ListaVaziaException {
+	List<Product> list = dao.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+	}
+	return list;
+    }
 
     public void listarNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = this.getProdutosNaoConcluidos();
@@ -159,7 +167,7 @@ public class ProductService {
 	    }
 	}
 	if (list.isEmpty()) {
-	    throw new ListaVaziaException();
+	    throw new ListaVaziaException("Todos os produtos da lista foram comprados :)");
 	}
 	return list;
     }
@@ -173,7 +181,7 @@ public class ProductService {
 	    }
 	}
 	if (list.isEmpty()) {
-	    throw new ListaVaziaException();
+	    throw new ListaVaziaException("Puxa, nenhum produto foi comprado até o momento :(");
 	}
 	return list;
     }
