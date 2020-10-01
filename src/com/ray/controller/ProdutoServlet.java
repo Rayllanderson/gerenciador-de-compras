@@ -51,12 +51,13 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	try {request.setAttribute("gerais",
-		ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
-	request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
-	request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	}catch (NullPointerException e) {
-	   response.sendRedirect("categorias.jsp");
+	try {
+	    request.setAttribute("gerais",
+		    ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+	    request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
+	    request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
+	} catch (NullPointerException e) {
+	    response.sendRedirect("categorias.jsp");
 	}
     }
 
@@ -157,13 +158,15 @@ public class ProdutoServlet extends HttpServlet {
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	RequestDispatcher dispatcher = null;
-	try{
+	try {
 	    request.getSession().setAttribute("produtos", service.findAll());
-	}catch (ListaVaziaException e) {
-	    request.getSession().setAttribute("error", e.getMessage());
+	} catch (ListaVaziaException e) {
+	    request.setAttribute("error", e.getMessage());
+	} finally {
+	    dispatcher = request.getRequestDispatcher("produtos.jsp");
+	    dispatcher.forward(request, response);
 	}
-	dispatcher = request.getRequestDispatcher("produtos.jsp");
-	dispatcher.forward(request, response);
+
     }
 
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
@@ -172,7 +175,7 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 	    request.getSession().setAttribute("produtos", service.getProdutosConcluidos());
 	} catch (ListaVaziaException e) {
-	    request.getSession().setAttribute("error", e.getMessage());
+	    request.setAttribute("error", e.getMessage());
 	} finally {
 	    dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    dispatcher.forward(request, response);
@@ -185,7 +188,7 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
 	} catch (ListaVaziaException e) {
-	    request.getSession().setAttribute("error", e.getMessage());
+	    request.setAttribute("error", e.getMessage());
 	} finally {
 	    dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    dispatcher.forward(request, response);
