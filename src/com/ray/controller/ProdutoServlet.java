@@ -1,6 +1,7 @@
 package com.ray.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -64,10 +65,10 @@ public class ProdutoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
-	setInformacoes(request, response);
 	if (acao != null) {
-	    System.out.println(acao + " método POST");
 	    startServiceAndRepository(request, response);
+	    setInformacoes(request, response);
+	    System.out.println(acao + " método POST");
 	    if (acao.equals("listar")) {
 		listarTodosProdutos(request, response);
 	    } else if (acao.equals("selecionar")) {
@@ -158,22 +159,17 @@ public class ProdutoServlet extends HttpServlet {
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	RequestDispatcher dispatcher = null;
-	try {
-	    request.getSession().setAttribute("produtos", service.findAll());
-	} catch (ListaVaziaException e) {
-	    request.setAttribute("error", e.getMessage());
-	} finally {
-	    dispatcher = request.getRequestDispatcher("produtos.jsp");
-	    dispatcher.forward(request, response);
-	}
-
+	request.getSession().setAttribute("produtos", repository.findAll());
+	dispatcher = request.getRequestDispatcher("produtos.jsp");
+	dispatcher.forward(request, response);
     }
 
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	RequestDispatcher dispatcher = null;
 	try {
-	    request.getSession().setAttribute("produtos", service.getProdutosConcluidos());
+	    List<Product> list = service.getProdutosConcluidos();
+	    request.getSession().setAttribute("produtos", list);
 	} catch (ListaVaziaException e) {
 	    request.setAttribute("error", e.getMessage());
 	} finally {

@@ -290,7 +290,6 @@
 
 						</div>
 
-
 						<input name="id" type="hidden" class="form-control" id="id"
 							value="${prod.id}">
 						<button type="submit" class="btn btn-success">Salvar</button>
