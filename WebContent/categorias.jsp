@@ -16,7 +16,6 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
   <a class="navbar-brand" href="home.jsp"><img src="resource/img/back.png" width="25px" height="20px"/></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

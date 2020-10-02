@@ -11,7 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=0.7">
 <title>Seus Produtos</title>
 
-<link href="resource/css/popup.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -59,10 +58,7 @@
 		src="resource/img/question.png" width="20px" height="20px">
 
 
-	
 	<h1>Produtos</h1>
-
-
 
 	<div>
 		<!--  -->
@@ -76,12 +72,8 @@
 			aria-controls="collapseExample"> Informações </a>
 
 
-
-
 		<div class="collapse" id="collapseExample">
-
 			<div class="card card-body">
-
 				<div class="accordion" id="accordionExample">
 					<div class="card">
 						<div class="card-header" id="headingOne">
@@ -139,19 +131,11 @@
 							</div>
 						</div>
 					</div>
-
-
 				</div>
-
-
-				
-
 			</div>
 			<!-- fim card -->
-
 		</div>
 		<!-- tela de infos -->
-
 	</div>
 
 
@@ -253,7 +237,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Fim Tela Modal  -->
+
 
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -326,6 +310,8 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Fim Tela Modal  -->
 
 	<!-- ---------------------------------------------- -->
 
