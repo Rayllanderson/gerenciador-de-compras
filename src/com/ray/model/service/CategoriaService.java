@@ -28,13 +28,22 @@ public class CategoriaService {
 	}
     }
 
-    public List <Categoria> findAll(){
+    public List<Categoria> findAll() {
 	return categoriaDao.findAll();
     }
+
+    public List<Categoria> getCategoriaByName(String name) throws ListaVaziaException {
+	List<Categoria> list = categoriaDao.findByName(name);
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Não existe nenhuma categoria com a(s) letra(s)" + name);
+	}
+	return list;
+    }
+
     /**
      * @throws ListaVaziaException ja com mensagem
      */
-    public void ListarCategorias() throws ListaVaziaException{
+    public void ListarCategorias() throws ListaVaziaException {
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();
 	if (!list.isEmpty()) {
@@ -45,12 +54,14 @@ public class CategoriaService {
 	    throw new ListaVaziaException("Lista Vazia");
 	}
     }
+
     /**
      * @param numero da categoria
      * @return a categoria escolhida
-     * @throws CategoriaException se nao encontrar categoria com o número digitado. Exception já contem mensagem
+     * @throws CategoriaException se nao encontrar categoria com o número digitado.
+     *                            Exception já contem mensagem
      */
-    public Categoria getCategoriaByNumber(int num) throws CategoriaException{
+    public Categoria getCategoriaByNumber(int num) throws CategoriaException {
 	List<Categoria> list = new ArrayList<>();
 	list = categoriaDao.findAll();
 	if (!list.isEmpty() && num <= list.size()) {
@@ -67,7 +78,7 @@ public class CategoriaService {
 	    return false;
 	}
     }
-    
+
     public boolean deleteById(Integer id) {
 	try {
 	    categoriaDao.deletById(id);
@@ -85,10 +96,10 @@ public class CategoriaService {
 	    return false;
 	}
     }
-    
+
     public void inserirOrcamento(Categoria categoria, double value) {
 	categoria.setOrcamento(value);
 	categoriaDao.atualizar(categoria);
     }
-    
+
 }

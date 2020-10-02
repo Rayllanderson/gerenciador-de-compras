@@ -14,6 +14,7 @@ import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
+import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 
 /**
@@ -44,7 +45,7 @@ public class CategoriaServlet extends HttpServlet {
 	    } else if (acao.equals("newList")) {
 		response.sendRedirect("add-categoria.jsp");
 	    }
-	}else {
+	} else {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
 	    service = new CategoriaService(user);
@@ -68,8 +69,10 @@ public class CategoriaServlet extends HttpServlet {
 		salvarLista(request, response, user);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditPage(request, response);
-	    }else if (acao.equals("excluir")) {
+	    } else if (acao.equals("excluir")) {
 		deletarCategoria(request, response);
+	    } else if (acao.equals("search")) {
+		search(request, response);
 	    }
 	}
     }
@@ -106,9 +109,9 @@ public class CategoriaServlet extends HttpServlet {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nomeLista");
 	String orcamento = request.getParameter("orcamento");
-	System.out.println("orcamento= " +orcamento);
-	System.out.println("nome "+nome);
-	System.out.println("id = " +id);
+	System.out.println("orcamento= " + orcamento);
+	System.out.println("nome " + nome);
+	System.out.println("id = " + id);
 	Categoria cat = new Categoria(!(id.isEmpty()) ? Integer.parseInt(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	if (cat.getId() == null) {
@@ -135,9 +138,22 @@ public class CategoriaServlet extends HttpServlet {
 	User user = (User) session.getAttribute("user");
 	return user;
     }
-    
+
     private String parseNumber(String value) {
-   	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
-   	return valorParse.replaceAll("\\,", "."); //agora só sobra a virgula, da só mudar pra .
-       }
+	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
+	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	String serch = request.getParameter("search");
+	RequestDispatcher dispatcher = null;
+	try {
+	    request.setAttribute("categorias", service.getCategoriaByName(serch));
+	} catch (ListaVaziaException e) {
+	    request.setAttribute("error", e.getMessage());
+	} finally {
+	    dispatcher = request.getRequestDispatcher("categorias.jsp");
+	    dispatcher.forward(request, response);
+	}
+    }
 }

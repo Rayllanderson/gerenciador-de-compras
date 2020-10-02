@@ -14,4 +14,5 @@ public interface CategoriaDao {
      * @return a list that contains the all Category of an User
      */
     List <Categoria> findAll();
+    List<Categoria> findByName(String name);
 }

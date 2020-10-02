@@ -159,4 +159,25 @@ public class CategoriaJDBC implements CategoriaDao {
    	user.setPassword(rs.getString("usuario.senha"));
    	return user;
        }
+    
+    @Override
+    public List<Categoria> findByName(String name) {
+	String sql = "select * from categoria where categoria.id_user =  " + this.user.getId()  + " and categoria.nome LIKE '%" + name + "%'";
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	List<Categoria> list = new ArrayList<>();
+	try {
+	    st = this.conn.prepareStatement(sql);
+	    rs = st.executeQuery();
+	    while (rs.next()) {
+		list.add(this.instaciarCategoria(rs, this.user));
+	    }
+	    return list;
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+    }
 }
