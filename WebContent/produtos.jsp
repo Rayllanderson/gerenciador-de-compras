@@ -193,29 +193,27 @@
 			</tbody>
 		</table>
 		
-		<form id="form2" method="POST">
 		<div class="text-center" style="margin-top: 1%">
 					<div class="btn-group" role="group" aria-label="Basic example" >
-							<button type="submit" class="btn btn-success" title="Lista todos os produtos comprados dessa lista"
-							onclick="document.getElementById('form2').action = 'produtos?acao=comprados'"
+							<a type="submit" class="btn btn-success" title="Lista todos os produtos comprados dessa lista"
+							href="produtos?acao=comprados"
 							>Produtos
-								Comprados</button>
+								Comprados</a>
 
-							<button type="submit" id="todos" class="btn btn-info"
+							<a type="submit" id="todos" class="btn btn-info"
 								title="Lista todos os produtos dessa lista"
-								onclick="document.getElementById('form2').action = 'produtos?acao=listar'"
+								href="produtos?acao=listar"
 								>Todos os
-								Produtos</button> 
+								Produtos</a> 
 								
-							<button type="submit" id="n-comprados" class="btn btn-danger"
+							<a type="submit" id="n-comprados" class="btn btn-danger"
 								title="Lista todos os produtos não comprados dessa lista"
-								onclick="document.getElementById('form2').action = 'produtos?acao=nao_comprados'"
+								href="produtos?acao=nao_comprados"
 								>Produtos
-								não Comprados</button>
+								não Comprados</a>
 
 					</div>
 				</div>
-				</form>
 	</div>
 	<!-- fim tabela -->
 

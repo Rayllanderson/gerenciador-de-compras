@@ -45,6 +45,10 @@ public class ProdutoServlet extends HttpServlet {
 	if (acao != null) {
 	    if (acao.equals("listar")) {
 		listarTodosProdutos(request, response);
+	    } else if (acao.equals("comprados")) {
+		listarComprados(request, response);
+	    } else if (acao.equals("nao_comprados")) {
+		listarNaoComprados(request, response);
 	    }
 	} else {
 	    listarTodosProdutos(request, response);
@@ -85,10 +89,6 @@ public class ProdutoServlet extends HttpServlet {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		service.deleteById(id);
 		response.sendRedirect("produtos");
-	    } else if (acao.equals("comprados")) {
-		listarComprados(request, response);
-	    } else if (acao.equals("nao_comprados")) {
-		listarNaoComprados(request, response);
 	    }else if(acao.equals("search")) {
 		search(request, response);
 	    }
