@@ -144,4 +144,25 @@ public class ProductJDBC implements ProductDao {
 	}
 	return null;
     }
+
+    @Override
+    public List<Product> findByName(String name) {
+	String sql = "select produtos.* from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%" + name + "%' and id_categoria = " + this.categoria.getId();
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	List<Product> list = new ArrayList<>();
+	try {
+	    st = this.conn.prepareStatement(sql);
+	    rs = st.executeQuery();
+	    while (rs.next()) {
+		list.add(instanciarProduto(rs));
+	    }
+	    return list;
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+    }
 }

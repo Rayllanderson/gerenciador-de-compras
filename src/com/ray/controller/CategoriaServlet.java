@@ -33,6 +33,7 @@ public class CategoriaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
+	System.out.println(acao);
 	if (acao != null) {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
@@ -43,6 +44,11 @@ public class CategoriaServlet extends HttpServlet {
 	    } else if (acao.equals("newList")) {
 		response.sendRedirect("add-categoria.jsp");
 	    }
+	}else {
+	    User user = instanciarUser(request);
+	    repository = DaoFactory.createCategoriaDao(user);
+	    service = new CategoriaService(user);
+	    listarTodasCategorias(request, response);
 	}
     }
 

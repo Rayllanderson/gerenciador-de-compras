@@ -50,7 +50,7 @@ public class ProdutoServlet extends HttpServlet {
 	    listarTodosProdutos(request, response);
 	}
     }
-
+    
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	try {
 	    request.setAttribute("gerais",
@@ -64,7 +64,9 @@ public class ProdutoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	System.out.println("método POST...");
 	String acao = request.getParameter("acao");
+	System.out.println(acao);
 	if (acao != null) {
 	    startServiceAndRepository(request, response);
 	    setInformacoes(request, response);
@@ -87,6 +89,8 @@ public class ProdutoServlet extends HttpServlet {
 		listarComprados(request, response);
 	    } else if (acao.equals("nao_comprados")) {
 		listarNaoComprados(request, response);
+	    }else if(acao.equals("search")) {
+		search(request, response);
 	    }
 	}
     }
@@ -189,6 +193,18 @@ public class ProdutoServlet extends HttpServlet {
 	    dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    dispatcher.forward(request, response);
 	}
-
+    }
+    
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	String serch = request.getParameter("search");
+	RequestDispatcher dispatcher = null;
+	try{
+	    request.setAttribute("produtos", service.getProdutosByName(serch));
+	} catch (ListaVaziaException e) {
+	    request.setAttribute("error", e.getMessage());
+	} finally {
+	    dispatcher = request.getRequestDispatcher("produtos.jsp");
+	    dispatcher.forward(request, response);
+	}
     }
 }

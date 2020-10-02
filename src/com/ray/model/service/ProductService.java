@@ -185,7 +185,15 @@ public class ProductService {
 	}
 	return list;
     }
-
+    
+    public List<Product> getProdutosByName(String name) throws ListaVaziaException {
+   	List<Product> list = dao.findByName(name);
+   	if (list.isEmpty()) {
+   	    throw new ListaVaziaException("Não existe nenhum produto com a(s) letra(s)" + name);
+   	}
+   	return list;
+       }
+    
     // -----------------------------SOMAS--------------------------------------//
     public double getValorRealGasto() throws ListaVaziaException {
 	double sum = 0;

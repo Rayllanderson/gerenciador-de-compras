@@ -40,15 +40,15 @@
         <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="categorias.jsp">Categorias</a>
+        <a class="nav-link" href="categorias">Categorias</a>
       </li>
        <li class="nav-item active">
         <a class="nav-link" href="#">Produtos</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    <form class="form-inline my-2 my-lg-0" action="produtos?acao=search" method="post">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button type="submit" class="btn btn-outline-light my-2 my-sm-0">Search</button>
     </form>
   </div>
 </nav>
@@ -143,7 +143,7 @@
 	<h3 style="text-align: center">${categoria.name}</h3>
 
 	<div class="table-responsive-xl">
-		<table class="table">
+		<table class="table" id="table">
 
 			<thead>
 				<tr>
@@ -314,6 +314,32 @@
 	<!-- Fim Tela Modal  -->
 
 	<!-- ---------------------------------------------- -->
+	
+	
+	
+	
+<script type="text/javascript">
+
+function buscaDeGrupoPorID(nome, categoria){	
+	jQuery.ajax({
+	    type:  'POST',
+	    url:   'produtos?acao=nao_comprados',
+	    data: {
+	    	nome: nome,
+	    	categoria : catId
+	    },
+	    success: function(data){	
+	    	alert(deu certo?)
+	    	$("#table").html(data);		    	
+	     }
+	});		
+}
+
+</script>	
+	
+	
+	
+
 
 	<script src="resource/javascript/esconderUrl.js"></script>
 

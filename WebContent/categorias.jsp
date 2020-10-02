@@ -57,7 +57,7 @@
 	<h3 style="text-align: center">Listas</h3>
 	
 	<div class="table-responsive-lg">	
-	<table class="table">
+	<table class="table" id="tabela">
 		<thead>
 			<tr>
 				<th scope="col" style="text-align: center">Nome</th>
@@ -66,7 +66,7 @@
 				<th scope="col">Excluir</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tabela">
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
@@ -151,6 +151,12 @@
 		  </div>
 		  </div>
 	
+	
+	
+	
+
+
+
 <script src="resource/javascript/esconderUrl.js"></script>
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
