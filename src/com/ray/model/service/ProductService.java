@@ -160,6 +160,9 @@ public class ProductService {
 
     public List<Product> getProdutosNaoConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
+	if (list.size() == 0) {
+	    throw new ListaVaziaException("Você não tem produtos na lista");
+	}
 	for (int i = 0; i < list.size(); i++) {
 	    if (list.get(i).isComprado()) {
 		list.remove(i);
@@ -174,6 +177,9 @@ public class ProductService {
 
     public List<Product> getProdutosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
+	if (list.size() == 0) {
+	    throw new ListaVaziaException("Você não tem produtos na lista");
+	}
 	for (int i = 0; i < list.size(); i++) {
 	    if (!(list.get(i).isComprado())) {
 		list.remove(i);
@@ -189,7 +195,7 @@ public class ProductService {
     public List<Product> getProdutosByName(String name) throws ListaVaziaException {
    	List<Product> list = dao.findByName(name);
    	if (list.isEmpty()) {
-   	    throw new ListaVaziaException("Não existe nenhum produto com a(s) letra(s)" + name);
+   	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhum produto com as letras " + name : "Não existe nenhum produto com a letra " + name);
    	}
    	return list;
        }

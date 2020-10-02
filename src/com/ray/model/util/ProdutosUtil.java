@@ -300,23 +300,25 @@ public class ProdutosUtil {
 		throw new NullPointerException();
 	    }
 	    if (disponivel < 0) {
-		complemento = "Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
+		complemento = "<font color=\"red\"> Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
 		complemento += ". Você não tem mais nada disponível para gastar";
 		complemento += ". Orçamento para lista " + cat.getName() + ": "
 			+ currencyFormatter.format(cat.getOrcamento());
+		complemento+="<font color=\"black\">";
 	    } else {
-		complemento = "Você tem disponível " + currencyFormatter.format(disponivel)
+		complemento = " <font color=#3CB371>Você tem disponível " + currencyFormatter.format(disponivel)
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
+		complemento+="<font color=\"black\">";
 	    }
 	    return complemento;
 	} catch (ListaVaziaException e) {
 	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
 		return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
-	    } else
-		return "Você ainda não comprou nenhum produto da lista, portanto, ainda tem "
-			+ currencyFormatter.format(cat.getOrcamento()) + " para gastar";
+	    } else 
+		return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. Então você ainda tem "
+			+ currencyFormatter.format(cat.getOrcamento()) + " disponível para gastar" : e.getMessage();
 	} catch (NullPointerException e) {
-	    return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
+	    return "Você não tem orçamento para esta lista. Por isso, infelizmente, não é possível saber o quanto você ainda tem disponível. Adicione um orçamento no menu principal.";
 	}
     }
 
@@ -327,12 +329,14 @@ public class ProdutosUtil {
 	try {
 	    double valorEconomizado = service.getValorEconomizado();
 	    if (valorEconomizado < 0) {
-		return "Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
-			+ " a mais do que planejava";
+		return "<font color=\"red\">Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
+			+ " a mais do que planejava <font color=\"black\">";
+	    }else if(valorEconomizado == 0) {
+		return "Até o momento, você está seguindo sua lista a risca! Não economizou nada e também não gastou mais do que deveria. Está indo bem!";
 	    }
-	    return "Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns!";
+	    return "<font color=#3CB371>Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns! <font color=\"black\">";
 	} catch (ListaVaziaException e) {
-	    return "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(";
+	    return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(" : e.getMessage();
 	}
     }
 
@@ -498,21 +502,21 @@ public class ProdutosUtil {
 	} catch (ListaVaziaException e) {
 	    valorEstipuladoRestante = 0;
 	}
-
+	
 	StringBuilder infos = new StringBuilder();
-	infos.append("Você possui " + qntProdutos + " produtos na lista atual");
+	infos.append(!(qntProdutos == 1) ? "Você possui <strong>" + qntProdutos + "</strong> produtos na lista atual" : "Você possui <strong>" + qntProdutos + "</strong> produto na lista atual");
 	infos.append("<br>");
-	infos.append("Você já comprou " + qntProdutosComprados + " produtos de um total de " + qntProdutos);
+	infos.append(!(qntProdutosComprados == 1) ? "Você já comprou <strong>" + qntProdutosComprados + "</strong> produtos de um total de <strong>" + qntProdutos + "</strong>" : "Você já comprou <strong>" + qntProdutosComprados + "</strong> produto de um total de <strong>" + qntProdutos + "</strong>" );
 	infos.append("<br>");
-	infos.append("Você já gastou " + currencyFormatter.format(valorRealGasto));
+	infos.append("Você já gastou <strong>" + currencyFormatter.format(valorRealGasto)+ "</strong>");
 	infos.append("<br>");
-	infos.append("Falta gastar " + currencyFormatter.format(valorEstipuladoRestante));
+	infos.append("Falta gastar <strong>" + currencyFormatter.format(valorEstipuladoRestante) + "</strong>");
 	infos.append("<br>");
-	infos.append("O valor estipulado atual é de " + currencyFormatter.format(valorEstipulado));
+	infos.append("O valor estipulado atual é de <strong>" + currencyFormatter.format(valorEstipulado) + "</strong>");
 	infos.append("<br>");
-	infos.append("O valor total atual é de " + currencyFormatter.format(service.getValorTotalAtual()));
+	infos.append("O valor total atual é de <strong>" + currencyFormatter.format(service.getValorTotalAtual()) + "</strong>");
 	infos.append("<br>");
-	infos.append("Orçamento: " + currencyFormatter.format(orcamento));
+	infos.append("Orçamento: <strong>" + currencyFormatter.format(orcamento) + "</strong>");
 	infos.append("<br>");
 	return infos.toString();
     }
