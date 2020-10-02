@@ -15,9 +15,35 @@
 
 </head>
 <body>
-	<a href="home.jsp">Voltar</a>
+
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="home.jsp"><img src="resource/img/back.png" width="25px" height="20px"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Categorias</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#">Produtos</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
 	<h1>Listas</h1>
-	
 	
 	
 	
@@ -26,9 +52,6 @@
    	 <strong>Sucesso! </strong> Sua lista foi salva!</div>
 	
 	
-	
-	
-	<form action="categorias?acao=newList"></form>
 	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal">Nova
 		Lista </button>
 		
