@@ -181,9 +181,14 @@
 </body>
 
 <script type="text/javascript">
+
+const msg = "${error}"
+	console.log(msg)
+	if (msg != null && msg != '') {
+		alert(msg)
+	}
+
 $(".alert").hide();
-
-
 $('#save1').click( function() { 
   $(".alert").show();
   $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){

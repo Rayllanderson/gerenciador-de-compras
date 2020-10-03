@@ -29,7 +29,7 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("\r\n" + 
-	    	"insert into produtos (nome, preco_estipulado, preco_real, id_usuario, id_categoria, comprado) values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+	    	"insert into produtos (nome, preco_estipulado, preco_real, id_categoria, comprado) values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 	    this.inserirProduto(st, obj);
 	    if (st.executeUpdate() > 0) {
 		ResultSet rs = st.getGeneratedKeys();
@@ -52,9 +52,9 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("update produtos set nome = ?, preco_estipulado = ?, preco_real = ?, "
-		    + "id_usuario = ?, id_categoria = ?, comprado = ? where id = ?");
+		    + "id_categoria = ?, comprado = ? where id = ?");
 	    this.inserirProduto(st, obj);
-	    st.setInt(7, obj.getId());
+	    st.setInt(6, obj.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -87,9 +87,7 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    st = this.conn.prepareStatement("select produtos.*, categoria.*, usuario.* from produtos inner join"
-		    + " categoria on id_categoria = categoria.id" + " inner join usuario on id_usuario ="
-		    + " usuario.id where id_usuario = "+ this.categoria.getUser().getId() + " and id_categoria = " + this.categoria.getId());
+	    st = this.conn.prepareStatement("select * from produtos where id_categoria = " + this.categoria.getId());
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		Product p = instanciarProduto(rs);
@@ -111,7 +109,6 @@ public class ProductJDBC implements ProductDao {
 	p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
 	p.setPrecoReal(rs.getDouble("preco_real"));
 	p.setCategoria(this.categoria);
-	p.setUser(this.categoria.getUser());
 	p.setComprado(rs.getBoolean("comprado"));
 	return p;
     }
@@ -120,9 +117,8 @@ public class ProductJDBC implements ProductDao {
 	st.setString(1, p.getNome());
 	st.setDouble(2, p.getPrecoEstipulado());
 	st.setDouble(3, p.getPrecoReal());
-	st.setInt(4, this.categoria.getUser().getId());
-	st.setInt(5, this.categoria.getId());
-	st.setBoolean(6, p.isComprado());
+	st.setInt(4, this.categoria.getId());
+	st.setBoolean(5, p.isComprado());
     }
 
     @Override

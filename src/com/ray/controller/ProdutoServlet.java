@@ -114,7 +114,7 @@ public class ProdutoServlet extends HttpServlet {
 	    String comprado = request.getParameter("comprado");
 	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome + "\nID=" + id);
 	    System.out.println("C= " + comprado);
-	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false, cat.getUser(),
+	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false,
 		    cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);

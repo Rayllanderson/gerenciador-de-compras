@@ -195,7 +195,7 @@ public class ProductService {
     public List<Product> getProdutosByName(String name) throws ListaVaziaException {
    	List<Product> list = dao.findByName(name);
    	if (list.isEmpty()) {
-   	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhum produto com as letras " + name : "Não existe nenhum produto com a letra " + name);
+   	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhum produto com as letras '" + name + "'": "Não existe nenhum produto com a letra '" + name + "'");
    	}
    	return list;
        }

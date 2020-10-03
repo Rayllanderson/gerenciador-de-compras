@@ -37,7 +37,7 @@ public class ProdutosUtil {
 	    double valorEstipulado = adicionarEditarValorEstiupulado(scan);
 	    ButtonUtil.botaoVoltar(valorEstipulado);
 	    double valorReal = adicionarEditarValorReal(scan);
-	    Product p = new Product(null, nome, valorEstipulado, valorReal, false, cat.getUser(), cat);
+	    Product p = new Product(null, nome, valorEstipulado, valorReal, false, cat);
 	    concluir(valorReal, service, p);
 	    return service.inserir(p);
 	} catch (EntradaInvalidaException e) {

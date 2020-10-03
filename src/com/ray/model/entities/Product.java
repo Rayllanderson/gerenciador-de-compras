@@ -11,16 +11,14 @@ public class Product implements Serializable{
     private Double precoEstipulado; //quanto que acho que vai ser tal produto
     private Double precoReal; //quanto que ele realmente foi
     private Categoria categoria;
-    private User user;
     private boolean comprado;
     
-    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, User user, Categoria categoria) {
+    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, Categoria categoria) {
 	this.id = id;
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
 	this.precoReal = precoReal;
 	this.comprado = comprado;
-	this.user = user;
 	this.categoria = categoria;
     }
 
@@ -66,14 +64,6 @@ public class Product implements Serializable{
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public boolean isComprado() {

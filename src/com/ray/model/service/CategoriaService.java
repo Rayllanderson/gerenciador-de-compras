@@ -35,7 +35,7 @@ public class CategoriaService {
     public List<Categoria> getCategoriaByName(String name) throws ListaVaziaException {
 	List<Categoria> list = categoriaDao.findByName(name);
 	if (list.isEmpty()) {
-	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhuma categoria com as letras " + name : "Não existe nenhuma categoria com a letra " + name);
+	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhuma lista com as letras '" + name +"'": "Não existe nenhuma lista com a letra '" + name + "'");
 	}
 	return list;
     }
