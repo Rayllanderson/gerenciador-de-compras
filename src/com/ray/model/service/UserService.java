@@ -15,7 +15,7 @@ public class UserService {
 	this.dao = DaoFactory.createUserDao();
     }
 
-    public boolean alterarUsername(Integer id, String newUsername) {
+    public boolean alterarUsername(Long id, String newUsername) {
 	User user = dao.findById(id);
 	List<String> usernames = dao.findAllUsernames();
 	if (user != null) {
@@ -54,10 +54,5 @@ public class UserService {
     public void update(User user) {
 	dao.update(user);
     }
-
-    /*
-     * private boolean usernameExistente(String username) { User user; return false;
-     * }
-     */
 
 }

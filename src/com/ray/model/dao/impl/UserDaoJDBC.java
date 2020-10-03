@@ -32,7 +32,7 @@ public class UserDaoJDBC implements UserDao {
 	    st.setString(2, password);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
-		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
+		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
 	    } else {
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
@@ -69,14 +69,14 @@ public class UserDaoJDBC implements UserDao {
     }
 
     @Override
-    public User findById(Integer id) throws MyLoginException {
+    public User findById(Long id) throws MyLoginException {
 	Statement st = null;
 	ResultSet rs = null;
 	try {
 	    st = this.conn.createStatement();
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
-		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
+		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
 	    } else {
 		return null;
 	    }
@@ -114,7 +114,7 @@ public class UserDaoJDBC implements UserDao {
 	    st.setString(1, user.getName());
 	    st.setString(2, user.getUsername());
 	    st.setString(3, user.getPassword());
-	    st.setInt(4, user.getId());
+	    st.setLong(4, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());

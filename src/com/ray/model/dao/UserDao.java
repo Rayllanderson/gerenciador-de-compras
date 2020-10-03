@@ -20,6 +20,6 @@ public interface UserDao {
      */
     boolean cadastrar(User user);
     void update(User user);
-    User findById(Integer id);
+    User findById(Long id);
     List<String> findAllUsernames();
 }

@@ -110,7 +110,7 @@ public class CategoriaJDBC implements CategoriaDao {
 
     private void insetCategoria(PreparedStatement st, Categoria cat) throws SQLException {
 	st.setString(1, cat.getName());
-	st.setInt(2, cat.getUser().getId());
+	st.setLong(2, user.getId());
 	st.setDouble(3, cat.getOrcamento());
     }
 
