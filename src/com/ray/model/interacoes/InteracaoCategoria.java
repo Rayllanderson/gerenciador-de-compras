@@ -1,4 +1,4 @@
-package com.ray.model.util;
+package com.ray.model.interacoes;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,8 +12,9 @@ import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.service.CategoriaService;
+import com.ray.model.util.ButtonUtil;
 
-public class CategoriaUtil {
+public class InteracaoCategoria {
     
     /**
      * @return categoria selecionada

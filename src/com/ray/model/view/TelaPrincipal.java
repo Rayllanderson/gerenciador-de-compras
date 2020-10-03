@@ -12,11 +12,13 @@ import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.exception.OpcaoInvalidaException;
+import com.ray.model.interacoes.InteracaoCategoria;
+import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
-import com.ray.model.util.CategoriaUtil;
 import com.ray.model.util.ProdutosUtil;
 import com.ray.model.util.UserUtil;
+import com.ray.model.interacoes.InteracaoUser;
 
 public class TelaPrincipal {
 
@@ -39,14 +41,14 @@ public class TelaPrincipal {
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*");
 		String op = scan.next().trim();
 		if (Integer.parseInt(op) == 1) {
-		    username = UserUtil.pedirAlgo(scan, "Usuário");
-		    password = UserUtil.pedirAlgo(scan, "Senha");
+		    username = InteracaoUser.pedirAlgo(scan, "Usuário");
+		    password = InteracaoUser.pedirAlgo(scan, "Senha");
 		    return telaLogin.login(username, password);
 		} else if (Integer.parseInt(op) == 2) {
 		    System.out.print("Nome: ");
 		    String name = scan.next();
-		    username = UserUtil.pedirAlgo(scan, "Usuário");
-		    password = UserUtil.pedirAlgo(scan, "Senha");
+		    username = InteracaoUser.pedirAlgo(scan, "Usuário");
+		    password = InteracaoUser.pedirAlgo(scan, "Senha");
 		    if (this.telaLogin.cadastrar(new User(null, name, username, password))) {
 			System.out.println("Cadastro realizado com sucesso! Faça login para continuar");
 		    }
@@ -82,15 +84,15 @@ public class TelaPrincipal {
 		    scan.close();
 		    System.exit(0);
 		case 1:
-		    return CategoriaUtil.selecionarCategoria(service, scan);
+		    return InteracaoCategoria.selecionarCategoria(service, scan);
 		case 2:
-		    CategoriaUtil.adicionarCategoria(service, user);
+		    InteracaoCategoria.adicionarCategoria(service, user);
 		    break;
 		case 3:
 		    MenuCategoria.editarCategoria(service);
 		    break;
 		case 4:
-		    CategoriaUtil.deletarCategoria(service);
+		    InteracaoCategoria.deletarCategoria(service);
 		    break;
 		case 5:
 		    UserUtil.mostrarInfos(user);
@@ -144,7 +146,7 @@ public class TelaPrincipal {
 		    InteracaoProduto.deletarProduto(service);
 		    break;
 		case 5:
-		    CategoriaUtil.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
+		    InteracaoCategoria.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
 		    break;
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida! Tente novamente.");

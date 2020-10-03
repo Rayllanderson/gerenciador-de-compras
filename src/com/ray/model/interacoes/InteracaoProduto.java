@@ -1,4 +1,4 @@
-package com.ray.model.view;
+package com.ray.model.interacoes;
 
 import java.text.NumberFormat;
 import java.util.InputMismatchException;

@@ -5,9 +5,10 @@ import java.util.Scanner;
 import com.ray.model.entities.Categoria;
 import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.OpcaoInvalidaException;
+import com.ray.model.interacoes.InteracaoCategoria;
+import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
-import com.ray.model.util.CategoriaUtil;
 
 public class MenuCategoria {
 
@@ -16,20 +17,20 @@ public class MenuCategoria {
 	scan.useDelimiter(System.lineSeparator());
 	try {
 	    System.out.println("Selecione a lista que deseja Editar: ");
-	    Categoria cat = CategoriaUtil.selecionarCategoria(service, scan);
+	    Categoria cat = InteracaoCategoria.selecionarCategoria(service, scan);
 	    Menu.menuEditarCategorias();
 	    String choose = scan.next();
 	    switch (Integer.parseInt(choose)) {
 	    case 0:
 		break;
 	    case 1:
-		CategoriaUtil.editarTudoCategoria(service, "tudo", cat);
+		InteracaoCategoria.editarTudoCategoria(service, "tudo", cat);
 		break;
 	    case 2:
-		CategoriaUtil.editarTudoCategoria(service, "nome", cat);
+		InteracaoCategoria.editarTudoCategoria(service, "nome", cat);
 		break;
 	    case 3:
-		CategoriaUtil.editarTudoCategoria(service, "orcamento", cat);
+		InteracaoCategoria.editarTudoCategoria(service, "orcamento", cat);
 		break;
 	    default:
 		throw new OpcaoInvalidaException("Não existe essa opção no momento");

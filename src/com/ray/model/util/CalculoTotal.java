@@ -10,10 +10,10 @@ import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
 
-public class CalculoTotalUtil {
+public class CalculoTotal {
     private CategoriaService cService;
 
-    public CalculoTotalUtil(User user) {
+    public CalculoTotal(User user) {
 	this.cService = new CategoriaService(user);
     }
 

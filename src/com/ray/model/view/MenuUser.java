@@ -6,7 +6,7 @@ import com.ray.model.entities.User;
 import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.service.UserService;
-import com.ray.model.util.UserUtil;
+import com.ray.model.interacoes.InteracaoUser;
 
 public class MenuUser {
 
@@ -26,11 +26,11 @@ public class MenuUser {
 		case 0:
 		    return false;
 		case 1:
-		    return encurtarVerbose(UserUtil.alterarNome(user, service, scan), "nome");
+		    return encurtarVerbose(InteracaoUser.alterarNome(user, service, scan), "nome");
 		case 2:
-		    return encurtarVerbose(UserUtil.alterarUsername(user, service, scan), "username");
+		    return encurtarVerbose(InteracaoUser.alterarUsername(user, service, scan), "username");
 		case 3:
-		    return encurtarVerbose(UserUtil.alterarSenha(user, service, scan), "senha");
+		    return encurtarVerbose(InteracaoUser.alterarSenha(user, service, scan), "senha");
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida");
 		}

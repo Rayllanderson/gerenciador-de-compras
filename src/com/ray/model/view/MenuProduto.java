@@ -8,6 +8,7 @@ import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.exception.ProductoException;
+import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ButtonUtil;
 import com.ray.model.util.ProdutosUtil;
