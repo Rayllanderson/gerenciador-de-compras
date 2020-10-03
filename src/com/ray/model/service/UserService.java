@@ -23,11 +23,8 @@ public class UserService {
     }
     
     public boolean verificarSenha(User user, String password) throws MyLoginException{
-	/*if (dao.getSenhaUser(user).equals(password)) {
-	    return true;
-	}else {
-	    throw new MyLoginException("Senha inválida.");
-	}*/
+	User usuario = dao.findByUsername(user.getUsername());
+//	if(usuario.getPassword())
 	return false;
     }
 

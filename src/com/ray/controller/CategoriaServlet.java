@@ -39,7 +39,6 @@ public class CategoriaServlet extends HttpServlet {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
 	    service = new CategoriaService(user);
-	    System.out.println(acao);
 	    if (acao.equals("voltar") || acao.equals("listar")) {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("newList")) {

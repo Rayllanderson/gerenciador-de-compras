@@ -130,7 +130,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	ResultSet rs = null;
 	Categoria cat = new Categoria();
 	try {
-	    st = conn.prepareStatement("select * from categoria where categoria.id_user = " + this.user.getId());
+	    st = conn.prepareStatement("select * from categoria where categoria.id_user = " + this.user.getId() + " and categoria.id = " + id);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		cat = instaciarCategoria(rs);

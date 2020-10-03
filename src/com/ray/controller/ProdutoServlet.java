@@ -68,9 +68,7 @@ public class ProdutoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	System.out.println("método POST...");
 	String acao = request.getParameter("acao");
-	System.out.println(acao);
 	if (acao != null) {
 	    startServiceAndRepository(request, response);
 	    setInformacoes(request, response);
@@ -112,8 +110,6 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
-	    System.out.println("E=" + valorEstipulado + "\nR=" + valorReal + "\nN=" + nome + "\nID=" + id);
-	    System.out.println("C= " + comprado);
 	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false,
 		    cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
