@@ -14,21 +14,27 @@ public class UserService {
     }
     
     public void updateSenhaOuNome(User user) {
+	
 	dao.update(user);
     }
     
     public void alterarUsername(User user) {
-	dao.alterarUsername(user);
+	//dao.alterarUsername(user);
     }
     
     public boolean verificarSenha(User user, String password) throws MyLoginException{
-	if (dao.getSenhaUser(user).equals(password)) {
+	/*if (dao.getSenhaUser(user).equals(password)) {
 	    return true;
 	}else {
 	    throw new MyLoginException("Senha inválida.");
-	}
+	}*/
+	return false;
     }
 
-    
+    /*private boolean usernameExistente(String username) {
+	User user;
+	return false;
+    }
+    */
 
 }

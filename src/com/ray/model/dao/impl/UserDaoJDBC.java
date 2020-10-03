@@ -46,12 +46,10 @@ public class UserDaoJDBC implements UserDao {
     public boolean cadastrar(User user) {
 	PreparedStatement st = null;
 	try {
-	    if (!(usernameExistente(user.getUsername()))) {
-		st = this.conn.prepareStatement("insert into usuario (nome, username, senha) values (?, ?, ?)");
-		cadastrarUser(st, user);
-		st.executeUpdate();
-		return true;
-	    }
+	    st = this.conn.prepareStatement("insert into usuario (nome, username, senha) values (?, ?, ?)");
+	    setUser(st, user);
+	    st.executeUpdate();
+	    return true;
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
 	} catch (MyLoginException e) {
@@ -62,48 +60,29 @@ public class UserDaoJDBC implements UserDao {
 	return false;
     }
 
-    private void cadastrarUser(PreparedStatement st, User user) throws SQLException {
+    private void setUser(PreparedStatement st, User user) throws SQLException {
 	st.setString(1, user.getName());
 	st.setString(2, user.getUsername());
 	st.setString(3, user.getPassword());
     }
 
-    /**
-     * @throws MyLoginException
-     */
-    private boolean usernameExistente(String username) throws MyLoginException {
+    
+    @Override
+    public User findByUsername(String username) throws MyLoginException {
 	Statement st = null;
 	ResultSet rs = null;
 	try {
 	    st = this.conn.createStatement();
-	    rs = st.executeQuery("select username from usuario");
-	    while (rs.next()) {
-		if (rs.getString("username").equals(username)) {
-		    throw new MyLoginException("Username já existente!");
-		}
+	    rs = st.executeQuery("select * from usuario where usarname = " + username);
+	    if (rs.next()) {
+		return new User(rs.getInt("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
+	    } else {
+		return null;
 	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
 	} finally {
 	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
-	return false;
-    }
-
-    @Override
-    public void alterarUsername(User user) throws MyLoginException {
-	PreparedStatement st = null;
-	try {
-	    if (!(usernameExistente(user.getUsername()))) {
-		st = conn.prepareStatement("update usuario set username = ? where id = ?");
-		st.setString(1, user.getUsername());
-		st.setInt(2, user.getId());
-		st.executeUpdate();
-	    }
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
 	    DB.closeStatement(st);
 	}
     }
@@ -117,26 +96,6 @@ public class UserDaoJDBC implements UserDao {
 	    st.setString(2, user.getPassword());
 	    st.setInt(3, user.getId());
 	    st.executeUpdate();
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeStatement(st);
-	}
-    }
-    
-    @Override
-    public String getSenhaUser(User user) throws MyLoginException{
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	try {
-	    st = conn.prepareStatement("select senha from usuario where username = ?");
-	    st.setString(1, user.getUsername());
-	    rs = st.executeQuery();
-	    if (rs.next()) {
-		return rs.getString("senha");
-	    } else {
-		throw new MyLoginException("Usuário não cadastrado");
-	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
 	} finally {

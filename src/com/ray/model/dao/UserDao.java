@@ -17,10 +17,6 @@ public interface UserDao {
      * @return return true if cadastre was sucefull
      */
     boolean cadastrar(User user);
-    
-    void alterarUsername(User user);
-    
     void update(User user);
-
-    String getSenhaUser(User user);
+    User findByUsername(String username);
 }
