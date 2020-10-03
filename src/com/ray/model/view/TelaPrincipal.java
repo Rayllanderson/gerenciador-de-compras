@@ -134,14 +134,14 @@ public class TelaPrincipal {
 			;
 		    break;
 		case 2:
-		    ProdutosUtil.adicionarProduto(service, cat);
+		    InteracaoProduto.adicionarProduto(service, cat);
 		    break;
 		case 3:
 		    while (MenuProduto.menuEditarProduto(service))
 			;
 		    break;
 		case 4:
-		    ProdutosUtil.deletarProduto(service);
+		    InteracaoProduto.deletarProduto(service);
 		    break;
 		case 5:
 		    CategoriaUtil.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);

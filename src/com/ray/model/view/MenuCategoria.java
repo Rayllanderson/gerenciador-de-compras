@@ -8,7 +8,6 @@ import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.CategoriaUtil;
-import com.ray.model.util.ProdutosUtil;
 
 public class MenuCategoria {
 
@@ -58,7 +57,7 @@ public class MenuCategoria {
 	try {
 	    n = scan.next();
 	    if (Integer.parseInt(n) == 1) {
-		ProdutosUtil.adicionarProduto(service, cat);
+		InteracaoProduto.adicionarProduto(service, cat);
 	    } else {
 		return true;
 	    }

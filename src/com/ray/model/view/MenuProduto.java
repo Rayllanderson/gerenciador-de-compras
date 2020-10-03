@@ -25,7 +25,7 @@ public class MenuProduto {
 	Scanner scan = new Scanner(System.in);
 	while (true) {
 	    try {
-		Product p = ProdutosUtil.selecionarProduto(service, "Editar");
+		Product p = InteracaoProduto.selecionarProduto(service, "Editar");
 		ButtonUtil.botaoVoltar(p);
 		System.out.println("Escolha o que deseja editar");
 		Menu.menuEditarProduto();
@@ -34,19 +34,19 @@ public class MenuProduto {
 		    return false;
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    return eliminarVerbose((ProdutosUtil.editarTudoProduto(service, p)));
+		    return eliminarVerbose((InteracaoProduto.editarTudoProduto(service, p)));
 		case 2:
-		    return eliminarVerbose(ProdutosUtil.editarNomeProduto(service, p));
+		    return eliminarVerbose(InteracaoProduto.editarNomeProduto(service, p));
 		case 3:
-		    return eliminarVerbose(ProdutosUtil.editarValorEstipulado(service, p));
+		    return eliminarVerbose(InteracaoProduto.editarValorEstipulado(service, p));
 		case 4:
-		    return eliminarVerbose(ProdutosUtil.editarValorReal(service, p));
+		    return eliminarVerbose(InteracaoProduto.editarValorReal(service, p));
 		case 5:
-		    return eliminarVerbose(ProdutosUtil.marcarComoConcluido(service, p));
+		    return eliminarVerbose(InteracaoProduto.marcarComoConcluido(service, p));
 		case 6:
-		    return eliminarVerbose(ProdutosUtil.marcarComoNaoConcluido(service, p));
+		    return eliminarVerbose(InteracaoProduto.marcarComoNaoConcluido(service, p));
 		case 7:
-		    return eliminarVerbose(ProdutosUtil.editarCategoria(p));
+		    return eliminarVerbose(InteracaoProduto.editarCategoria(p));
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida");
 		}
