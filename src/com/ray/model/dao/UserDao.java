@@ -1,6 +1,8 @@
 package com.ray.model.dao;
 
 
+import java.util.List;
+
 import com.ray.model.entities.User;
 
 public interface UserDao {
@@ -18,5 +20,6 @@ public interface UserDao {
      */
     boolean cadastrar(User user);
     void update(User user);
-    User findByUsername(String username);
+    User findById(Integer id);
+    List<String> findAllUsernames();
 }

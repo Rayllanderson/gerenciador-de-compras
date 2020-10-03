@@ -30,7 +30,7 @@ public class UserUtil {
 	String nome = pedirAlgo(scan, "novo nome");
 	ButtonUtil.botaoVoltar(nome);
 	user.setName(nome);
-	service.updateSenhaOuNome(user);
+	service.update(user);
 	return true;
     }
 
@@ -42,7 +42,7 @@ public class UserUtil {
 		password = pedirAlgo(scan, "Nova Senha");
 		ButtonUtil.botaoVoltar(password);
 		user.setPassword(password);
-		service.updateSenhaOuNome(user);
+		service.update(user);
 		return true;
 	    }
 	} catch (MyLoginException e) {
@@ -56,9 +56,9 @@ public class UserUtil {
 	String nome = null;
 	nome = pedirAlgo(scan, "novo username");
 	ButtonUtil.botaoVoltar(nome);
-	user.setUsername(nome);
 	try{
-	    service.alterarUsername(user);
+	    service.alterarUsername(user.getId(), nome);
+	    user.setUsername(nome);
 	    return true;
 	}catch (MyLoginException e) {
 	   System.out.println(e.getMessage());

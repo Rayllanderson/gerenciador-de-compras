@@ -108,6 +108,7 @@ public class TelaPrincipal {
 		System.out.println(e.getMessage());
 	    }catch (RuntimeException e) {
 		System.out.println("Ocorreu um erro inesperado");
+		e.printStackTrace();
 	    }
 	} while (true);
     }
