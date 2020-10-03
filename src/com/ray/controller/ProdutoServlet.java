@@ -77,14 +77,14 @@ public class ProdutoServlet extends HttpServlet {
 		listarTodosProdutos(request, response);
 	    } else if (acao.equals("selecionar")) {
 		String id = request.getParameter("id");
-		Product p = repository.findById(Integer.parseInt(id));
+		Product p = repository.findById(Long.parseLong(id));
 		System.out.println(p);
 	    } else if (acao.equals("salvar")) {
 		salvarProduto(request, response);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditarProduto(request, response);
 	    } else if (acao.equals("excluir")) {
-		Integer id = Integer.valueOf(request.getParameter("id"));
+		Long id = Long.valueOf(request.getParameter("id"));
 		service.deleteById(id);
 		response.sendRedirect("produtos");
 	    }else if(acao.equals("search")) {
@@ -96,7 +96,7 @@ public class ProdutoServlet extends HttpServlet {
     private void redirecionarEditarProduto(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String id = request.getParameter("id");
-	Product p = repository.findById(Integer.parseInt(id));
+	Product p = repository.findById(Long.parseLong(id));
 	RequestDispatcher dispatcher = request.getRequestDispatcher("edit-produto.jsp");
 	request.setAttribute("produto", p);
 	dispatcher.forward(request, response);
@@ -110,7 +110,7 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
-	    Product p = new Product(!id.isEmpty() ? Integer.parseInt(id) : null, nome, null, null, false,
+	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false,
 		    cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);

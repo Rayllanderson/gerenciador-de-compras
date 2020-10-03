@@ -6,14 +6,14 @@ public class Product implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private Long id;
     private String nome;
     private Double precoEstipulado; //quanto que acho que vai ser tal produto
     private Double precoReal; //quanto que ele realmente foi
     private Categoria categoria;
     private boolean comprado;
     
-    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, Categoria categoria) {
+    public Product(Long id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, Categoria categoria) {
 	this.id = id;
 	this.nome = nome;
 	this.precoEstipulado = precoEstipulado;
@@ -26,11 +26,11 @@ public class Product implements Serializable{
 	// TODO Auto-generated constructor stub
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

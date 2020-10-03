@@ -34,7 +34,7 @@ public class ProductJDBC implements ProductDao {
 	    if (st.executeUpdate() > 0) {
 		ResultSet rs = st.getGeneratedKeys();
 		if (rs.next()) {
-		    obj.setId(rs.getInt(1));
+		    obj.setId(rs.getLong(1));
 		}
 		DB.closeResultSet(rs);
 	    } else
@@ -54,7 +54,7 @@ public class ProductJDBC implements ProductDao {
 	    st = conn.prepareStatement("update produtos set nome = ?, preco_estipulado = ?, preco_real = ?, "
 		    + "id_categoria = ?, comprado = ? where id = ?");
 	    this.inserirProduto(st, obj);
-	    st.setInt(6, obj.getId());
+	    st.setLong(6, obj.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -65,11 +65,11 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public void deletById(Integer id) {
+    public void deletById(Long id) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("DELETE FROM produtos " + "WHERE Id = ?");
-	    st.setInt(1, id);
+	    st.setLong(1, id);
 	    int row = st.executeUpdate();
 	    if (row == 0) {
 		throw new DbException("Ops, id não existe ou ocorreu um erro inesperado");
@@ -104,7 +104,7 @@ public class ProductJDBC implements ProductDao {
 
     private Product instanciarProduto(ResultSet rs) throws SQLException {
 	Product p = new Product();
-	p.setId(rs.getInt("id"));
+	p.setId(rs.getLong("id"));
 	p.setNome(rs.getString("nome"));
 	p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
 	p.setPrecoReal(rs.getDouble("preco_real"));
@@ -122,7 +122,7 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public Product findById(Integer id) {
+    public Product findById(Long id) {
 	String sql = "select * from produtos where id = " + id;
 	PreparedStatement st = null;
 	ResultSet rs = null;

@@ -8,8 +8,8 @@ public interface ProductDao {
 
     void save(Product obj);
     void update(Product obj);
-    void deletById(Integer id);
-    Product findById(Integer id);
+    void deletById(Long id);
+    Product findById(Long id);
     List<Product> findAll();
     List<Product> findByName(String name);
 }

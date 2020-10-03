@@ -58,7 +58,7 @@ public class ProductService {
 	}
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
 	try {
 	    dao.deletById(id);
 	} catch (DbException e) {
