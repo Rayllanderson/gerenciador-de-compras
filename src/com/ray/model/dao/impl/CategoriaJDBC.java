@@ -39,7 +39,7 @@ public class CategoriaJDBC implements CategoriaDao {
 		ResultSet rs = st.getGeneratedKeys();
 		if (rs.next()) {
 		    int id = rs.getInt(1);
-		    categoria.setId(id);
+		    categoria.setId((long) id);
 		    DB.closeResultSet(rs);
 		} else {
 		    throw new DbException("Erro ao inserir.");
@@ -54,7 +54,7 @@ public class CategoriaJDBC implements CategoriaDao {
     }
 
     @Override
-    public void deletById(Integer id) {
+    public void deletById(Long id) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("DELETE FROM CATEGORIA where id = " + id);
@@ -77,7 +77,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	    st = conn.prepareStatement("update categoria set nome = ?, orcamento = ? where id = ?");
 	    st.setString(1, categoria.getName());
 	    st.setDouble(2, categoria.getOrcamento());
-	    st.setInt(3, categoria.getId());
+	    st.setLong(3, categoria.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -117,7 +117,7 @@ public class CategoriaJDBC implements CategoriaDao {
 
     private Categoria instaciarCategoria(ResultSet rs) throws SQLException {
 	Categoria cat = new Categoria();
-	cat.setId(rs.getInt("categoria.id"));
+	cat.setId(rs.getLong("categoria.id"));
 	cat.setName(rs.getString("categoria.nome"));
 	cat.setUser(this.user);
 	cat.setOrcamento(rs.getDouble("categoria.orcamento"));
@@ -125,7 +125,7 @@ public class CategoriaJDBC implements CategoriaDao {
     }
     
     @Override
-    public Categoria findById(Integer id) {
+    public Categoria findById(Long id) {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	Categoria cat = new Categoria();

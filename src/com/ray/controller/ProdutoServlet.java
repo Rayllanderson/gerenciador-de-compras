@@ -118,8 +118,8 @@ public class ProdutoServlet extends HttpServlet {
 	    if (p.getId() == null) {
 		service.inserir(p);
 	    } else {
-		Integer catId = Integer.parseInt(request.getParameter("cat_id"));
-		Integer catOriginal = cat.getId();
+		Long catId = Long.parseLong(request.getParameter("cat_id"));
+		Long catOriginal = cat.getId();
 		if (catOriginal != catId) {
 		    // movendo a categoria
 		    cat.setId(catId);

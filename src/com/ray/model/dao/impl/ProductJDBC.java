@@ -117,7 +117,7 @@ public class ProductJDBC implements ProductDao {
 	st.setString(1, p.getNome());
 	st.setDouble(2, p.getPrecoEstipulado());
 	st.setDouble(3, p.getPrecoReal());
-	st.setInt(4, this.categoria.getId());
+	st.setLong(4, this.categoria.getId());
 	st.setBoolean(5, p.isComprado());
     }
 

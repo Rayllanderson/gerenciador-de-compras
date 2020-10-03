@@ -78,7 +78,7 @@ public class CategoriaServlet extends HttpServlet {
 
     private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	String id = request.getParameter("id");
-	service.deleteById(Integer.parseInt(id));
+	service.deleteById(Long.parseLong(id));
 	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	response.sendRedirect("categorias?acao=listar");
     }
@@ -86,7 +86,7 @@ public class CategoriaServlet extends HttpServlet {
     private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String id = request.getParameter("id");
-	Categoria cat = repository.findById(Integer.parseInt(id));
+	Categoria cat = repository.findById(Long.parseLong(id));
 	request.getSession().setAttribute("cat", cat);
 	RequestDispatcher dispatcher = request.getRequestDispatcher("edit-categoria.jsp");
 	dispatcher.forward(request, response);
@@ -99,7 +99,7 @@ public class CategoriaServlet extends HttpServlet {
      */
     private void selecionarLista(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	String id = request.getParameter("id");
-	Categoria cat = repository.findById(Integer.parseInt(id));
+	Categoria cat = repository.findById(Long.parseLong(id));
 	request.getSession().setAttribute("categoria", cat);
 	response.sendRedirect("produtos?acao=listar");
     }
@@ -111,7 +111,7 @@ public class CategoriaServlet extends HttpServlet {
 	System.out.println("orcamento= " + orcamento);
 	System.out.println("nome " + nome);
 	System.out.println("id = " + id);
-	Categoria cat = new Categoria(!(id.isEmpty()) ? Integer.parseInt(id) : null, nome, user);
+	Categoria cat = new Categoria(!(id.isEmpty()) ? Long.parseLong(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	if (cat.getId() == null) {
 	    service.salvar(cat);

@@ -79,7 +79,7 @@ public class CategoriaService {
 	}
     }
 
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
 	try {
 	    categoriaDao.deletById(id);
 	    return true;
