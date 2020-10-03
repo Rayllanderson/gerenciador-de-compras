@@ -6,9 +6,9 @@ import com.ray.model.entities.Categoria;
 
 public interface CategoriaDao {
     
-    void inserir(Categoria categoria);  
+    void save(Categoria categoria);  
     void deletById(Integer id);  
-    void atualizar(Categoria categoria);
+    void update(Categoria categoria);
     Categoria findById(Integer id);
     /**
      * @return a list that contains the all Category of an User

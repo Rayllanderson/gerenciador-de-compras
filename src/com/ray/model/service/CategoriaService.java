@@ -21,7 +21,7 @@ public class CategoriaService {
 
     public boolean salvar(Categoria cat) {
 	try {
-	    categoriaDao.inserir(cat);
+	    categoriaDao.save(cat);
 	    return true;
 	} catch (DbException e) {
 	    return false;
@@ -90,7 +90,10 @@ public class CategoriaService {
 
     public boolean update(Categoria cat) {
 	try {
-	    categoriaDao.atualizar(cat);
+	    if (cat.getOrcamento() == null) {
+		cat.setOrcamento(0.0);
+	    }
+	    categoriaDao.update(cat);
 	    return true;
 	} catch (DbException e) {
 	    return false;
@@ -99,7 +102,7 @@ public class CategoriaService {
 
     public void inserirOrcamento(Categoria categoria, double value) {
 	categoria.setOrcamento(value);
-	categoriaDao.atualizar(categoria);
+	categoriaDao.update(categoria);
     }
 
 }

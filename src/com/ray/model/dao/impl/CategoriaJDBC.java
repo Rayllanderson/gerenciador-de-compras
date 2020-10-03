@@ -28,7 +28,7 @@ public class CategoriaJDBC implements CategoriaDao {
     }
 
     @Override
-    public void inserir(Categoria categoria) {
+    public void save(Categoria categoria) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("insert into categoria (nome, id_user, orcamento) values (?, ?, ?)",
@@ -42,7 +42,7 @@ public class CategoriaJDBC implements CategoriaDao {
 		    categoria.setId(id);
 		    DB.closeResultSet(rs);
 		} else {
-		    throw new DbException("Ops, parece que algo deu errado. :(");
+		    throw new DbException("Erro ao inserir.");
 		}
 	    }
 	} catch (SQLException e) {
@@ -59,7 +59,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	try {
 	    st = conn.prepareStatement("DELETE FROM CATEGORIA where id = " + id);
 	    if (!(st.executeUpdate() > 0)) {
-		throw new DbException("Ops, id não existe");
+		throw new DbException("Erro ao deletar: id não existe");
 	    }
 	    ;
 	} catch (SQLException e) {
@@ -71,14 +71,11 @@ public class CategoriaJDBC implements CategoriaDao {
     }
 
     @Override
-    public void atualizar(Categoria categoria) {
+    public void update(Categoria categoria) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("update categoria set nome = ?, orcamento = ? where id = ?");
 	    st.setString(1, categoria.getName());
-	    if (categoria.getOrcamento() == null) {
-		categoria.setOrcamento(0.0);
-	    }
 	    st.setDouble(2, categoria.getOrcamento());
 	    st.setInt(3, categoria.getId());
 	    st.executeUpdate();
@@ -100,8 +97,7 @@ public class CategoriaJDBC implements CategoriaDao {
 		    "select * from categoria where categoria.id_user = " + this.user.getId());
 	    rs = st.executeQuery();
 	    while (rs.next()) {
-		Categoria cat = instaciarCategoria(rs, user);
-		list.add(cat);
+		list.add(instaciarCategoria(rs));
 	    }
 	    return list;
 	} catch (SQLException e) {
@@ -119,11 +115,11 @@ public class CategoriaJDBC implements CategoriaDao {
     }
 
 
-    private Categoria instaciarCategoria(ResultSet rs, User user) throws SQLException {
+    private Categoria instaciarCategoria(ResultSet rs) throws SQLException {
 	Categoria cat = new Categoria();
 	cat.setId(rs.getInt("categoria.id"));
 	cat.setName(rs.getString("categoria.nome"));
-	cat.setUser(user);
+	cat.setUser(this.user);
 	cat.setOrcamento(rs.getDouble("categoria.orcamento"));
 	return cat;
     }
@@ -134,13 +130,10 @@ public class CategoriaJDBC implements CategoriaDao {
 	ResultSet rs = null;
 	Categoria cat = new Categoria();
 	try {
-	    st = conn.prepareStatement("select categoria.*, usuario.*"
-		    + " from categoria inner join usuario on categoria.id_user = usuario.id where categoria.id = "
-		    + id);
+	    st = conn.prepareStatement("select * from categoria where categoria.id_user = " + this.user.getId());
 	    rs = st.executeQuery();
 	    if (rs.next()) {
-		User user = instaciarUsuario(rs);
-		cat = instaciarCategoria(rs, user);
+		cat = instaciarCategoria(rs);
 		return cat;
 	    } else {
 		throw new DbException("Não encontrado");
@@ -151,14 +144,6 @@ public class CategoriaJDBC implements CategoriaDao {
 	    DB.closeStatement(st);
 	}
     }
-    private User instaciarUsuario(ResultSet rs) throws SQLException {
-   	User user = new User();
-   	user.setId(rs.getInt("usuario.id"));
-   	user.setName(rs.getString("usuario.nome"));
-   	user.setUsername(rs.getString("usuario.username"));
-   	user.setPassword(rs.getString("usuario.senha"));
-   	return user;
-       }
     
     @Override
     public List<Categoria> findByName(String name) {
@@ -170,7 +155,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	    st = this.conn.prepareStatement(sql);
 	    rs = st.executeQuery();
 	    while (rs.next()) {
-		list.add(this.instaciarCategoria(rs, this.user));
+		list.add(this.instaciarCategoria(rs));
 	    }
 	    return list;
 	} catch (SQLException e) {
