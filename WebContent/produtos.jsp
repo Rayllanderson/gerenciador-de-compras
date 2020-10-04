@@ -4,7 +4,7 @@
 <%@page import="com.ray.model.entities.Product"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta charset="ISO-8859-1">
 
@@ -149,7 +149,7 @@
 					<th scope="col">Nome</th>
 					<th scope="col">Preço Estipulado</th>
 					<th scope="col">Preço Real</th>
-					<th scope="col">Comprado</th>
+					<th scope="col" style="text-align: center">Comprado</th>
 					<th scope="col">Editar</th>
 					<th scope="col">Excluir</th>
 				</tr>
@@ -164,29 +164,28 @@
 								value="${prod.precoEstipulado}" /></td>
 						<td data-label="Preço Real">R$ <fmt:formatNumber
 								type="number" maxFractionDigits="2" value="${prod.precoReal}" /></td>
-						<td data-label="Comprado">${prod.comprado()}</td>
+						<td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
 
 
 						<!-- onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" -->
 
-						<td data-label="Editar"><input type="image"
-							src="resource/img/edit.png" data-toggle="modal"
+						<td data-label="Editar"><button class="btn btn-info"
+							data-toggle="modal"
 							data-target="#exampleModal" data-title="Editar"
 							data-id="${prod.id}" data-nome="${prod.nome}"
 							data-estipulado="${prod.getValorEstipuladoEmReal()}"
 							data-real="${prod.getValorRealEmReal()}"
 							data-comprado="${prod.comprado}"
 							<c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}"/>
-							width="30px" height="30px"
-							onclick="setCheckedIfTrue('${prod.isComprado()}')" /></td>
+							onclick="setCheckedIfTrue('${prod.isComprado()}')">Editar</button> </td>
 
 
-						<td data-label="Excluir"><input type="image"
+						<td data-label="Excluir"><button class="btn btn-danger"
 							onclick="
 					if(confirm('Você tem certeza que deseja excluir o produto ${prod.nome}?')){
 						sendPost('produtos?acao=excluir', {id: '${prod.id}'});
 					}"
-							src="resource/img/excluir.png" width="30px" height="30px" /></td>
+						>Excluir</button> </td>
 					</tr>
 				</c:forEach>
 			</tbody>

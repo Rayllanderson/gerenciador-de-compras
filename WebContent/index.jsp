@@ -2,66 +2,53 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="pt-br">
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
 
-<link href="resource/css/style3.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="resource/css/login.css" type="text/css" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <title>Login</title>
 
 </head>
 <body>
 
-	<div id="login">
-		<div class="container">
-			<div id="login-row"
-				class="row justify-content-center align-items-center">
-				<div id="login-column" class="col-md-6">
-					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="home" method="post"
-							novalidate>
-							<h3 class="text-center text-info">Login</h3>
-							<div class="form-group">
-								<label for="username" class="text-info">Username:</label><br>
-								<input type="text" name="username" id="username"
-									class="form-control" value="${username}">
-							</div>
-							<div class="form-group">
-								<label for="password" class="text-info">Password:</label><br>
-								<input type="password" name="password" id="password"
-									class="form-control">
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" class="btn btn-info btn-md"
-									value="submit" onclick="return validarDados()">
-							</div>
-								<label class="text-info">
-								<span id="msgLogin"
-									style="margin-left: 145px; color:red;">${error}
-									</span>
-									</label><br>
-
-							<div id="register-link" class="text-right">
-								<a href="#" class="text-info">Register here</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<body>
+  <div class="container" >
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <form class="form-signin" action="home" method="post">
+              <div class="form-label-group">
+               <input type="text" name="username" id="username" value="${username}" class="form-control" placeholder="Username" required autofocus>
+                <label for="username">Username</label>
+              </div>
+              <div class="form-label-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="password">Password</label>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onclick="return validarDados()">Sign in</button>
+              </form>
+              <hr class="my-4">
+              <div class="form-footer">
+          <p>   Não tem uma conta? <a href="#">Cadastre-se</a></p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 
 
-	<script src="resource/javascript/index.js"></script>
-
+<script src="resource/javascript/index.js"></script>
 
 </body>
 </html>

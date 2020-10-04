@@ -6,7 +6,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 <title>Suas Listas</title>
 
 
@@ -56,6 +56,7 @@
 		
 	<h3 style="text-align: center">Listas</h3>
 	
+	
 	<div class="table-responsive-lg">	
 	<table class="table" id="tabela">
 		<thead>
@@ -82,20 +83,20 @@
 					
 					<td data-label="Editar">
 					
-					<input type="image"
-					src="resource/img/edit.png" width="37px" height="30px" class="btn btn-outline-info"
+					<button
+					class="btn btn-info"
 					data-toggle="modal" data-target="#exampleModal" 
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
-					data-orcamento="${cat.getOrcamentoEmReal()}" /></td>
+					data-orcamento="${cat.getOrcamentoEmReal()}" >Editar</button> </td>
 
 
-					<td data-label="Excluir"><input type="image" class="btn-outline-danger"
+					<td data-label="Excluir"><button type="submit"class="btn btn-danger"
 					onclick="
 					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
-					}" src="resource/img/excluir.png" width="30px" height="30px" />
+					}">Excluir</button>
 					
 				</tr>
 			</c:forEach>
