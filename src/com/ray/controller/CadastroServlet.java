@@ -55,6 +55,9 @@ public class CadastroServlet extends HttpServlet {
 	}
     }
 
+    /**
+     * @return true caso os campos estejam válidos
+     */
     private boolean validarCampos(HttpServletRequest request, HttpServletResponse response, String name,
 	    String username, String password, String password2) throws ServletException, IOException {
 	if(name.isEmpty()) {
