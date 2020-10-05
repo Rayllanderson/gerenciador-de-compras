@@ -142,20 +142,39 @@
 		</div>
 		<!-- tela de infos -->
 
+<div class="box" style=" display: flex;
+            justify-content: space-between;
+            margin-top: 10%;
+            margin-bottom: 1%;
+            ">
+            <div></div>
+<div>
+    <form class="form-inline my-2 my-lg-0" action="produtos?acao=search" method="post">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar">
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+      
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+</svg>
+      
+      </button>
+    </form>
+</div>
 
-
+<div class="btn-group dropleft">
 <div class="dropdown">
-	<div class="d-flex justify-content-end" style="margin-bottom: 0.5%">
 	<button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
 </svg>
 </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
     <a class="dropdown-item" href="produtos?acao=listar">Todos os Produtos</a>
     <a class="dropdown-item" href="produtos?acao=comprados">Produtos Comprados</a>
     <a class="dropdown-item" href="produtos?acao=nao_comprados">Produtos Não Comprados</a>
   </div>
+</div>
 </div>
 </div>
 
