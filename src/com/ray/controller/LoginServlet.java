@@ -48,9 +48,14 @@ public class LoginServlet extends HttpServlet {
 		Cookie message = new Cookie("message", "Welcome");
 		response.addCookie(message);
 		response.sendRedirect("home.jsp");
+	    }else {
+		 request.setAttribute("msg", "Usuário não cadastrado");
+		 request.setAttribute("username", username);
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); 
+		 dispatcher.forward(request, response);
 	    }
 	} catch (MyLoginException e) {
-	    request.setAttribute("error", e.getMessage());
+	    request.setAttribute("msg", e.getMessage());
 	    request.setAttribute("username", username);
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); ///qnd preciso mandar atributos, tem que ser dispatcher... got it!
 	    dispatcher.forward(request, response);

@@ -15,26 +15,61 @@ public class UserService {
 	this.dao = DaoFactory.createUserDao();
     }
 
+    /**
+     * Verifica se o username já existe
+     * @param newUsername
+     * @throws MyLoginException com mensagem
+     */
+    private void verificarUsernameExistente(String newUsername) throws MyLoginException{
+	List<String> usernames = dao.findAllUsernames();
+	for (String name : usernames) {
+	    if (name.equals(newUsername)) {
+		throw new MyLoginException("Username já existente!");
+	    }
+	}
+    }
+
     public boolean alterarUsername(Long id, String newUsername) {
 	User user = dao.findById(id);
-	List<String> usernames = dao.findAllUsernames();
 	if (user != null) {
 	    // Verificando se o username atual não é igual ao username dele mesmo
 	    if (!newUsername.equals(user.getUsername())) {
-		for (String name : usernames) {
-		    if (name.equals(newUsername)) {
-			throw new MyLoginException("Username já existente!");
-		    }
+		// se nao for, verificar se o username já existe
+		try {
+		    verificarUsernameExistente(newUsername);
+		    user.setUsername(newUsername);
+		    dao.update(user);
+		    return true;
+		} catch (MyLoginException e) {
+		    return false;
 		}
-		user.setUsername(newUsername);
-		dao.update(user);
-		return true;
 	    }
+	    return true; //caso o username for igual o atual não fazer nada, apenas retorna mensagem de sucesso
 	}
-	return false;
+	return false; //usuário não existe
     }
 
-    public boolean alterarSenha(User user, String senhaAtual, String newPassword) {
+    /**
+     * 
+     * @param user novo usuário a se cadastrar
+     * @return true caso ocorra tudo ok
+     * @throws MyLoginException caso username já exista (throws já possui mensagem)
+     */
+    public boolean cadastrar(User user) throws MyLoginException{
+	verificarUsernameExistente(user.getUsername()); //caso username já exista, throw MyLoginException;
+	dao.cadastrar(user);
+	return true;
+    }
+
+    /**
+     * 
+     * @param user
+     * @param senhaAtual
+     * @param newPassword
+     * @return true caso ocorra tudo ok
+     * @throws MyLoginException caso a senha não corresponda
+     */
+    public boolean alterarSenha(User user, String senhaAtual, String newPassword) throws MyLoginException{
 	if (verificarSenha(user, senhaAtual)) { // verificar senha antes de poder alterar
 	    user.setPassword(newPassword);
 	    dao.update(user);

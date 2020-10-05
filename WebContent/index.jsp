@@ -20,6 +20,7 @@
 
 <body>
   <div class="container" >
+
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
@@ -38,7 +39,7 @@
               </form>
               <hr class="my-4">
               <div class="form-footer">
-          <p>   Não tem uma conta? <a href="#">Cadastre-se</a></p>
+          <p>   Não tem uma conta? <a href="cadastro.jsp">Cadastre-se</a></p>
           </div>
           </div>
         </div>
@@ -47,6 +48,13 @@
   </div>
 </body>
 
+<script type="text/javascript">
+const msg = "${msg}"
+	if (msg != null && msg != '') {
+		console.log(msg)
+		alert(msg)
+	}	
+</script>
 
 <script src="resource/javascript/index.js"></script>
 

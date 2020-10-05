@@ -32,8 +32,9 @@ public class UserDaoJDBC implements UserDao {
 	    st.setString(2, password);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
-		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
-	    } else {
+		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
+			rs.getString("senha"));
+	    } else if (checkIfUserExists(username)){
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
 	} catch (SQLException e) {
@@ -42,8 +43,33 @@ public class UserDaoJDBC implements UserDao {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
+	return null;
     }
 
+    /**
+     * 
+     * @param username
+     * @return true if username exist else <br> throw MyLoginException - Usuário não cadastrado
+     */
+    private boolean checkIfUserExists(String username) {
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = conn.prepareStatement("select username from usuario where username = '" + username + "'");
+	    rs = st.executeQuery();
+	    if(rs.next()) {
+		return true;
+	    }else {
+		throw new MyLoginException("Usuário não cadastrado");
+	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+    }
+    
     @Override
     public boolean cadastrar(User user) {
 	PreparedStatement st = null;
@@ -76,7 +102,8 @@ public class UserDaoJDBC implements UserDao {
 	    st = this.conn.createStatement();
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
-		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"), rs.getString("senha"));
+		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
+			rs.getString("senha"));
 	    } else {
 		return null;
 	    }

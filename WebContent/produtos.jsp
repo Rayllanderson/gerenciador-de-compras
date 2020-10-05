@@ -310,31 +310,6 @@
 	<!-- Fim Tela Modal  -->
 
 	<!-- ---------------------------------------------- -->
-	
-	
-	
-	
-<script type="text/javascript">
-
-function buscaDeGrupoPorID(nome, categoria){	
-	jQuery.ajax({
-	    type:  'POST',
-	    url:   'produtos?acao=nao_comprados',
-	    data: {
-	    	nome: nome,
-	    	categoria : catId
-	    },
-	    success: function(data){	
-	    	alert(deu certo?)
-	    	$("#table").html(data);		    	
-	     }
-	});		
-}
-
-</script>	
-	
-	
-	
 
 
 	<script src="resource/javascript/esconderUrl.js"></script>
