@@ -23,9 +23,11 @@
 <script src="resource/javascript/jquery.mask.min.js"></script>
 
 
-</head>
 
+</head>
 <body>
+
+<header>
 
 <nav class="navbar navbar-expand navbar-dark bg-primary">
       <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px"/></a>
@@ -61,10 +63,12 @@
     <a class="dropdown-item" href="#">Another action</a>
     <a class="dropdown-item" href="#">Something else here</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Separated link</a>
+    <a class="dropdown-item"  href="logout">Logout</a>
   </div>
+</nav>
 
-    </nav>
+</header>
+
     
    
     
