@@ -31,7 +31,7 @@
         <a class="nav-link" href="#">Categorias</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="#">Produtos</a>
+        <a class="nav-link" href="produtos">Produtos</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="categorias?acao=search" method="post">
@@ -41,22 +41,27 @@
   </div>
 </nav>
 
+	
+	<div>
 
-	<h1>Listas</h1>
+	<div style="margin-top: 2%">
+	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal"> 
+		Nova Lista
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+</svg>
+		 </button>
+	</div>
 	
 	
 	
-  	<div class="alert alert-success" id="success-alert">
-   		 <button type="button" class="close" data-dismiss="alert">x</button>
-   	 <strong>Sucesso! </strong> Sua lista foi salva!</div>
-	
-	
-	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal">Nova
-		Lista </button>
-		
+	<div>
 	<h3 style="text-align: center">Listas</h3>
+	</div>
 	
 	
+	
+	</div>
 	<div class="table-responsive-lg">	
 	<table class="table" id="tabela">
 		<thead>
@@ -84,19 +89,29 @@
 					<td data-label="Editar">
 					
 					<button
-					class="btn btn-info"
+					class="btn btn-outline-info"
 					data-toggle="modal" data-target="#exampleModal" 
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
-					data-orcamento="${cat.getOrcamentoEmReal()}" >Editar</button> </td>
+					data-orcamento="${cat.getOrcamentoEmReal()}" >
+					
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+</svg>
+					</button> </td>
 
 
-					<td data-label="Excluir"><button type="submit"class="btn btn-danger"
+					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger"
 					onclick="
 					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
-					}">Excluir</button>
+					}">
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+</svg>
+					
+					</button>
 					
 				</tr>
 			</c:forEach>
@@ -183,21 +198,15 @@
 
 <script type="text/javascript">
 
+if ( window.history.replaceState ) {
+	  window.history.replaceState( null, null, window.location.href );
+	}
+
 const msg = "${error}"
 	console.log(msg)
 	if (msg != null && msg != '') {
 		alert(msg)
 	}
-
-$(".alert").hide();
-$('#save1').click( function() { 
-  $(".alert").show();
-  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-    $("#success-alert").slideUp(500);
-});
-});
-
-
 </script>
 
 

@@ -52,25 +52,31 @@
    </div>
 </nav>
 
-	<img data-toggle="tooltip" data-placement="right"
-		title="texto texto texto fjshfjbvbdjvdiav  ifhifhuhvdshvshvshvjshv"
-		src="resource/img/question.png" width="20px" height="20px">
+		<h3 style="text-align: center">${categoria.name}</h3>
 
-
-	<h1>Produtos</h1>
-
-	<div>
 		<!--  -->
+
+<div style="padding: 5px;">
 
 		<button type="submit" data-toggle="modal" data-title="Novo Produto"
 			data-target="#exampleModal" class="btn btn-success"
-			onclick="disableCheckBox()">Novo Produto</button>
+			onclick="disableCheckBox()">Novo Produto
+			
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+</svg>
+			</button>
 
 		<a class="btn btn-primary" data-toggle="collapse"
 			href="#collapseExample" role="button" aria-expanded="false"
-			aria-controls="collapseExample"> Informações </a>
-
-
+			aria-controls="collapseExample"> Informações 
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+</svg>
+</a>
+			
+</div>
+	
 		<div class="collapse" id="collapseExample">
 			<div class="card card-body">
 				<div class="accordion" id="accordionExample">
@@ -135,12 +141,25 @@
 			<!-- fim card -->
 		</div>
 		<!-- tela de infos -->
-	</div>
 
 
 
-	<h3 style="text-align: center">${categoria.name}</h3>
+<div class="dropdown">
+	<div class="d-flex justify-content-end" style="margin-bottom: 0.5%">
+	<button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+</svg>
+</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="produtos?acao=listar">Todos os Produtos</a>
+    <a class="dropdown-item" href="produtos?acao=comprados">Produtos Comprados</a>
+    <a class="dropdown-item" href="produtos?acao=nao_comprados">Produtos Não Comprados</a>
+  </div>
+</div>
+</div>
 
+	
 	<div class="table-responsive-xl">
 		<table class="table" id="table">
 
@@ -169,7 +188,7 @@
 
 						<!-- onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" -->
 
-						<td data-label="Editar"><button class="btn btn-info"
+						<td data-label="Editar"><button class="btn btn-outline-info"
 							data-toggle="modal"
 							data-target="#exampleModal" data-title="Editar"
 							data-id="${prod.id}" data-nome="${prod.nome}"
@@ -177,20 +196,34 @@
 							data-real="${prod.getValorRealEmReal()}"
 							data-comprado="${prod.comprado}"
 							<c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}"/>
-							onclick="setCheckedIfTrue('${prod.isComprado()}')">Editar</button> </td>
+							onclick="setCheckedIfTrue('${prod.isComprado()}')">
+							
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+</svg>
+							
+							</button> </td>
 
 
-						<td data-label="Excluir"><button class="btn btn-danger"
+						<td data-label="Excluir"><button class="btn btn-outline-danger"
 							onclick="
 					if(confirm('Você tem certeza que deseja excluir o produto ${prod.nome}?')){
 						sendPost('produtos?acao=excluir', {id: '${prod.id}'});
 					}"
-						>Excluir</button> </td>
+						>
+						
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+</svg>
+						
+						</button> </td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
+</div>
+<!-- 
+	
 		<div class="text-center" style="margin-top: 1%">
 					<div class="btn-group" role="group" aria-label="Basic example" >
 							<a type="submit" class="btn btn-success" title="Lista todos os produtos comprados dessa lista"
@@ -206,14 +239,15 @@
 								
 							<a type="submit" id="n-comprados" class="btn btn-danger"
 								title="Lista todos os produtos não comprados dessa lista"
-								href="produtos?acao=nao_comprados"
+								
 								>Produtos
 								não Comprados</a>
 
 					</div>
 				</div>
-	</div>
+	</div> -->
 	<!-- fim tabela -->
+
 
 
 	<!-- Tela Modal -->

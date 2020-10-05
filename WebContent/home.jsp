@@ -24,7 +24,6 @@
 
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -34,7 +33,7 @@
         <a class="nav-link" href="categorias">Categorias</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="#">Produtos</a>
+        <a class="nav-link" href="produtos">Produtos</a>
       </li>
     </ul>
   </div>

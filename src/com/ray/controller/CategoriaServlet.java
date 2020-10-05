@@ -43,6 +43,8 @@ public class CategoriaServlet extends HttpServlet {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("newList")) {
 		response.sendRedirect("add-categoria.jsp");
+	    }else {
+		listarTodasCategorias(request, response);
 	    }
 	} else {
 	    User user = instanciarUser(request);

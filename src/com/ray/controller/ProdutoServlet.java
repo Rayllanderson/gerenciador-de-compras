@@ -38,33 +38,35 @@ public class ProdutoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	System.out.println("método GET...");
-	String acao = request.getParameter("acao");
-	System.out.println(acao);
-	startServiceAndRepository(request, response);
-	setInformacoes(request, response);
-	if (acao != null) {
-	    if (acao.equals("listar")) {
+	try {
+	    System.out.println("método GET...");
+	    String acao = request.getParameter("acao");
+	    System.out.println(acao);
+	    startServiceAndRepository(request, response);
+	    setInformacoes(request, response);
+	    if (acao != null) {
+		if (acao.equals("listar")) {
+		    listarTodosProdutos(request, response);
+		} else if (acao.equals("comprados")) {
+		    listarComprados(request, response);
+		} else if (acao.equals("nao_comprados")) {
+		    listarNaoComprados(request, response);
+		}
+	    } else {
 		listarTodosProdutos(request, response);
-	    } else if (acao.equals("comprados")) {
-		listarComprados(request, response);
-	    } else if (acao.equals("nao_comprados")) {
-		listarNaoComprados(request, response);
 	    }
-	} else {
-	    listarTodosProdutos(request, response);
+	} catch (NullPointerException e) {
+	    request.setAttribute("error", "Você deve selecionar uma lista primeiro");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
+	    dispatcher.forward(request, response);
 	}
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	try {
 	    request.setAttribute("gerais",
 		    ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
 	    request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
 	    request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	} catch (NullPointerException e) {
-	    response.sendRedirect("categorias.jsp");
-	}
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -120,12 +122,12 @@ public class ProdutoServlet extends HttpServlet {
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
 		Long catOriginal = cat.getId();
-		if (catOriginal != catId) { //verificando para ver se o user mudou a categoria
+		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
 		}
 		service.update(p);// moveu
-		
+
 		// voltando pra categoria atual para nao ser redirecionado para nova categoria
 		cat.setId(catOriginal);
 	    }
@@ -135,7 +137,8 @@ public class ProdutoServlet extends HttpServlet {
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    request.setAttribute("nome", nome);
 	    dispatcher.forward(request, response);
-	}catch (ProductoException e) { //existe a chance da pessoa editar o html e mudar o id, então não vamos permitir caso a lista nao pertencer a ele
+	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
+					// permitir caso a lista nao pertencer a ele
 	    request.setAttribute("error", e.getMessage());
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    dispatcher.forward(request, response);
