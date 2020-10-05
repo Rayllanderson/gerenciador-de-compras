@@ -279,8 +279,8 @@
 							<label class="message-text" for="categoria">Lista</label> <select
 								id="categoria" name="cat_id" class="custom-select mr-sm-2">
 								<c:forEach items="${categorias}" var="cat">
-									<option value="${cat.id}" id="${cat.id}"
-										<c:if test="${cat.name ==nomeCategoria}">
+									<option value="${cat.id}"  
+										<c:if test="${cat.name == nomeCategoria}">
  			 					<c:out value="selected=selected"/> </c:if>>${cat.name}
 									</option>
 								</c:forEach>

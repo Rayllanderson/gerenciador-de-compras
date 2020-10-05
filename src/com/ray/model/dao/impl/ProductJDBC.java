@@ -123,14 +123,23 @@ public class ProductJDBC implements ProductDao {
 
     @Override
     public Product findById(Long id) {
-	String sql = "select * from produtos where id = " + id;
+	String sql = "select produtos.*, categoria.*, usuario.* from produtos "
+		+ "inner join categoria on id_categoria = categoria.id inner join usuario "
+		+ "on categoria.id_user = usuario.id where categoria.id_user = "+ this.categoria.getUser().getId() + " and id_categoria = " + this.categoria.getId();
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
 	    st = this.conn.prepareStatement(sql);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
-		return instanciarProduto(rs);
+		Product p = new Product();
+		p.setId(rs.getLong("id"));
+		p.setNome(rs.getString("nome"));
+		p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
+		p.setPrecoReal(rs.getDouble("preco_real"));
+		p.setCategoria(this.categoria);
+		p.setComprado(rs.getBoolean("comprado"));
+		return p;
 	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
@@ -161,4 +170,6 @@ public class ProductJDBC implements ProductDao {
 	    DB.closeStatement(st);
 	}
     }
+    
+   
 }

@@ -37,10 +37,17 @@ public class ProductService {
 	}
     }
 
-    public boolean atualizar(Product p) {
+    public boolean update(Product p) {
 	try {
-	    dao.update(p);
-	    return true;
+	    //Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de atualizar,
+	    //procura no banco de dados para verificar se o usuário é mesmo o dono da categoria, se nao for, retorna nulo. 
+	    Product newProduct = dao.findById(p.getId());
+	    if (newProduct != null) {
+		dao.update(p);
+		return true;
+	    } else {
+		throw new ProductoException("Essa categoria não existe.");
+	    }
 	} catch (DbException e) {
 	    e.printStackTrace();
 	    return false;
@@ -127,7 +134,7 @@ public class ProductService {
 	    FormatarTabela.printInvoice(list.get(i), maxLenName + 2, 5, (i + 1));
 	}
     }
-    
+
     public List<Product> findAll() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
@@ -191,15 +198,17 @@ public class ProductService {
 	}
 	return list;
     }
-    
+
     public List<Product> getProdutosByName(String name) throws ListaVaziaException {
-   	List<Product> list = dao.findByName(name);
-   	if (list.isEmpty()) {
-   	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhum produto com as letras '" + name + "'": "Não existe nenhum produto com a letra '" + name + "'");
-   	}
-   	return list;
-       }
-    
+	List<Product> list = dao.findByName(name);
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException(
+		    !(name.length() == 1) ? "Não existe nenhum produto com as letras '" + name + "'"
+			    : "Não existe nenhum produto com a letra '" + name + "'");
+	}
+	return list;
+    }
+
     // -----------------------------SOMAS--------------------------------------//
     public double getValorRealGasto() throws ListaVaziaException {
 	double sum = 0;

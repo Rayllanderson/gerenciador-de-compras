@@ -91,7 +91,7 @@ public class InteracaoProduto {
 		concluir(valorReal, service, p);
 		p.setNome(nome);
 		p.setPrecoEstipulado(valorEstipulado);
-		return service.atualizar(p);
+		return service.update(p);
 	    }
 	} catch (ConfirmException e) {
 	    System.out.println("Produto não alterado");

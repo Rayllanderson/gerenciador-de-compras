@@ -16,6 +16,7 @@ import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.exception.ListaVaziaException;
+import com.ray.model.exception.ProductoException;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
 
@@ -54,7 +55,7 @@ public class ProdutoServlet extends HttpServlet {
 	    listarTodosProdutos(request, response);
 	}
     }
-    
+
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	try {
 	    request.setAttribute("gerais",
@@ -87,7 +88,7 @@ public class ProdutoServlet extends HttpServlet {
 		Long id = Long.valueOf(request.getParameter("id"));
 		service.deleteById(id);
 		response.sendRedirect("produtos");
-	    }else if(acao.equals("search")) {
+	    } else if (acao.equals("search")) {
 		search(request, response);
 	    }
 	}
@@ -110,8 +111,7 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
-	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false,
-		    cat);
+	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
@@ -120,20 +120,24 @@ public class ProdutoServlet extends HttpServlet {
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
 		Long catOriginal = cat.getId();
-		if (catOriginal != catId) {
+		if (catOriginal != catId) { //verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
 		}
-		service.atualizar(p);// moveu
-
-		// voltando pra categoria atual
+		service.update(p);// moveu
+		
+		// voltando pra categoria atual para nao ser redirecionado para nova categoria
 		cat.setId(catOriginal);
 	    }
 	    response.sendRedirect("produtos");
 	} catch (NumberFormatException e) {
 	    request.setAttribute("error", "Digite um número válido");
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("add-produto.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    request.setAttribute("nome", nome);
+	    dispatcher.forward(request, response);
+	}catch (ProductoException e) { //existe a chance da pessoa editar o html e mudar o id, então não vamos permitir caso a lista nao pertencer a ele
+	    request.setAttribute("error", e.getMessage());
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    dispatcher.forward(request, response);
 	}
     }
@@ -190,11 +194,11 @@ public class ProdutoServlet extends HttpServlet {
 	    dispatcher.forward(request, response);
 	}
     }
-    
+
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String serch = request.getParameter("search");
 	RequestDispatcher dispatcher = null;
-	try{
+	try {
 	    request.setAttribute("produtos", service.getProdutosByName(serch));
 	} catch (ListaVaziaException e) {
 	    request.setAttribute("error", e.getMessage());
