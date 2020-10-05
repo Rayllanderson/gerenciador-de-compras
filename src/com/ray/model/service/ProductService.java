@@ -3,6 +3,7 @@ package com.ray.model.service;
 import java.util.List;
 
 import com.ray.db.DbException;
+import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
@@ -39,15 +40,9 @@ public class ProductService {
 
     public boolean update(Product p) {
 	try {
-	    //Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de atualizar,
-	    //procura no banco de dados para verificar se o usuário é mesmo o dono da categoria, se nao for, retorna nulo. 
-	    Product newProduct = dao.findById(p.getId());
-	    if (newProduct != null) {
 		dao.update(p);
 		return true;
-	    } else {
-		throw new ProductoException("Essa categoria não existe.");
-	    }
+
 	} catch (DbException e) {
 	    e.printStackTrace();
 	    return false;
@@ -108,9 +103,23 @@ public class ProductService {
 	}
     }
 
-    public void mudarCategoria(Product p, Categoria cat) {
+    public void mudarCategoria(Product p, Categoria cat) throws ProductoException{
 	p.setCategoria(cat);
 	dao.update(p);
+   }
+    
+    /**
+     * método para verifica se a categoria atual percente ao usuário
+     * @throws ProductoException caso a categoria escolhida não exista para o usuário atual
+     */
+    public void validarCategoria(Categoria cat) throws ProductoException{
+	 //Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de atualizar,
+	//procura no banco de dados para verificar se o usuário é mesmo o dono da categoria, se nao for, retorna nulo. 
+	CategoriaDao catRespotitory = DaoFactory.createCategoriaDao(this.cat.getUser());
+	List<Categoria> list = catRespotitory.findAll();
+	if(!list.contains(cat)) {
+	    throw new ProductoException("Essa categoria não existe.");
+	}
     }
 
     // ---------------------------Listas-------------------------------//

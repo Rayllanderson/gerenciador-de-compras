@@ -28,8 +28,9 @@ public class ProductJDBC implements ProductDao {
     public void save(Product obj) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("\r\n" + 
-	    	"insert into produtos (nome, preco_estipulado, preco_real, id_categoria, comprado) values (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+	    st = conn.prepareStatement("\r\n"
+		    + "insert into produtos (nome, preco_estipulado, preco_real, id_categoria, comprado) values (?, ?, ?, ?, ?)",
+		    Statement.RETURN_GENERATED_KEYS);
 	    this.inserirProduto(st, obj);
 	    if (st.executeUpdate() > 0) {
 		ResultSet rs = st.getGeneratedKeys();
@@ -76,7 +77,7 @@ public class ProductJDBC implements ProductDao {
 	    }
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
-	}finally {
+	} finally {
 	    DB.closeStatement(st);
 	}
     }
@@ -123,9 +124,7 @@ public class ProductJDBC implements ProductDao {
 
     @Override
     public Product findById(Long id) {
-	String sql = "select produtos.*, categoria.*, usuario.* from produtos "
-		+ "inner join categoria on id_categoria = categoria.id inner join usuario "
-		+ "on categoria.id_user = usuario.id where categoria.id_user = "+ this.categoria.getUser().getId() + " and id_categoria = " + this.categoria.getId();
+	String sql = "select * from produtos where produtos.id = " + id;
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
@@ -152,7 +151,8 @@ public class ProductJDBC implements ProductDao {
 
     @Override
     public List<Product> findByName(String name) {
-	String sql = "select produtos.* from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%" + name + "%' and id_categoria = " + this.categoria.getId();
+	String sql = "select produtos.* from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%"
+		+ name + "%' and id_categoria = " + this.categoria.getId();
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	List<Product> list = new ArrayList<>();
@@ -170,6 +170,5 @@ public class ProductJDBC implements ProductDao {
 	    DB.closeStatement(st);
 	}
     }
-    
-   
+
 }

@@ -125,6 +125,7 @@ public class ProdutoServlet extends HttpServlet {
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
+		    service.validarCategoria(cat); 
 		}
 		service.update(p);// moveu
 
