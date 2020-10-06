@@ -39,9 +39,9 @@ public class ProdutoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    System.out.println("método GET...");
+//	    System.out.println("método GET...");
 	    String acao = request.getParameter("acao");
-	    System.out.println(acao);
+//	    System.out.println(acao);
 	    startServiceAndRepository(request, response);
 	    setInformacoes(request, response);
 	    if (acao != null) {
@@ -67,6 +67,7 @@ public class ProdutoServlet extends HttpServlet {
 		    ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
 	    request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
 	    request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
+	    request.setAttribute("somaGeral", ProdutosUtil.mostrarSomaTotal(service));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,7 +76,7 @@ public class ProdutoServlet extends HttpServlet {
 	if (acao != null) {
 	    startServiceAndRepository(request, response);
 	    setInformacoes(request, response);
-	    System.out.println(acao + " método POST");
+//	    System.out.println(acao + " método POST");
 	    if (acao.equals("listar")) {
 		listarTodosProdutos(request, response);
 	    } else if (acao.equals("selecionar")) {

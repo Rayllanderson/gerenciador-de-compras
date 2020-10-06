@@ -211,7 +211,7 @@
 					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
 				  </div>
 				<input name="id" type="hidden" class="form-control" id="id" value="${cat.id}">
-				<button type="submit" id="save1" class="btn btn-success" >Salvar</button>
+				<button type="submit" id="save1" class="btn btn-success" >&nbsp; Salvar &nbsp;</button> 
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			  </form>
 			  </div>

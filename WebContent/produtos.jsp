@@ -22,7 +22,12 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="resource/javascript/jquery.mask.min.js"></script>
 
+<style type="text/css">
 
+body {
+	background-color: #f8f9fa;
+}
+</style>
 
 </head>
 <body>
@@ -49,15 +54,14 @@
       	  </li>
         </ul>
         </div>
-       
-     
-  <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
   <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
   <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
 </svg>
   </button>
+ 
   <div class="dropdown-menu dropdown-menu-right">
     <a class="dropdown-item" href="#">Action</a>
     <a class="dropdown-item" href="#">Another action</a>
@@ -69,32 +73,60 @@
 
 </header>
 
+<div class="card card-signin" style="height: 5%">
+<ul class="nav justify-content-end">
+  
+	
+  
+  <li class="nav-item">
+<div class="container" style="height: 50px;">
+  
+    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%"
+			data-target="#exampleModal" class="btn btn-success"
+			onclick="disableCheckBox()" title="Adicionar Novo Produto">
+			<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+</svg> Add
+</button>
 
-		<h4 style="text-align: center">${categoria.name}</h4>
 
-		<!--  -->
+<a class="btn btn-primary" data-toggle="collapse" style="margin-top: 3%"
+			href="#collapseExample" role="button" aria-expanded="false"
+			aria-controls="collapseExample">
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+</svg>  Infos
+</a>
+</div>
+</li>       
+</ul>
+</div>
+
+
+
+
+
+
+  <div class="container">
+			<div class="card card-signin my-5">
+				<article class="card-body mx-auto" style="max-width: 400px;">
+					<h4 class="card-title mt-3 text-center">${categoria.name}</h4>
+					
+					<p class="text-center"> ${somaGeral} </p>
+					</article>
+				</div>
+</div>
+
 
 <div style="padding: 5px;">
 
-		<button type="submit" data-toggle="modal" data-title="Novo Produto"
-			data-target="#exampleModal" class="btn btn-success"
-			onclick="disableCheckBox()">Novo Produto
-			
-			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
-</svg>
-			</button>
-
-		<a class="btn btn-primary" data-toggle="collapse"
-			href="#collapseExample" role="button" aria-expanded="false"
-			aria-controls="collapseExample"> Informações 
-			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-</svg>
-</a>
+	<!-- INFORMAÇÕES -->
+		
 			
 </div>
 	
+	<!-- INÍCIO CARD INFOS -->
+	<div class="container">
 		<div class="collapse" id="collapseExample">
 			<div class="card card-body">
 				<div class="accordion" id="accordionExample">
@@ -157,13 +189,10 @@
 				</div>
 			</div>
 			<!-- fim card -->
+			</div>
 		</div>
-		<!-- tela de infos -->
-
-
-
-
-
+		
+		<!-- FIM INFORMAÇÕES -->
 	
 <div class="container-xl">
 <main role="main" class="">
@@ -172,7 +201,7 @@
 
 <div class="box" style=" display: flex;
             justify-content: space-between;
-             margin-top: 10%;
+             margin-top: 5%;
            	 margin-bottom: 1%;
             ">
             <div></div>
@@ -273,31 +302,7 @@
 
 </main>
 </div>
-<!-- FIM TABLE 
-	
-		<div class="text-center" style="margin-top: 1%">
-					<div class="btn-group" role="group" aria-label="Basic example" >
-							<a type="submit" class="btn btn-success" title="Lista todos os produtos comprados dessa lista"
-							href="produtos?acao=comprados"
-							>Produtos
-								Comprados</a>
-
-							<a type="submit" id="todos" class="btn btn-info"
-								title="Lista todos os produtos dessa lista"
-								href="produtos?acao=listar"
-								>Todos os
-								Produtos</a> 
-								
-							<a type="submit" id="n-comprados" class="btn btn-danger"
-								title="Lista todos os produtos não comprados dessa lista"
-								
-								>Produtos
-								não Comprados</a>
-
-					</div>
-				</div>
-	</div> -->
-	<!-- fim tabela -->
+<!-- FIM TABLE -->
 
 
 
@@ -384,7 +389,7 @@
 
 						<input name="id" type="hidden" class="form-control" id="id"
 							value="${prod.id}">
-						<button type="submit" class="btn btn-success">Salvar</button>
+						<button type="submit" class="btn btn-success">&nbsp; Salvar &nbsp;</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 					</form>
 				</div>

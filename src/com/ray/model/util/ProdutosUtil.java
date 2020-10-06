@@ -58,19 +58,19 @@ public class ProdutosUtil {
 	    }
 	    disponivel = orcamento - service.getValorRealGasto();
 	    if (disponivel < 0) {
-		complemento = "<font color=" + HtmlColors.RED +"> Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
+		complemento = HtmlColors.RED +" Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
 		complemento += ". Você não tem mais nada disponível para gastar";
 		complemento += ". Orçamento para lista " + cat.getName() + ": "
 			+ currencyFormatter.format(orcamento);
 	    } else {
 		if(disponivel >0) {
-		complemento = "<font color=" + HtmlColors.GREEN +"> Você tem disponível " + currencyFormatter.format(disponivel)
+		complemento = HtmlColors.GREEN +" Você tem disponível " + currencyFormatter.format(disponivel)
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
 		double valorTotalNaoConcluidos = disponivel - somaTotalNaoConcluidos;
 		if(valorTotalNaoConcluidos != 0) {
 		   
 		    if (valorTotalNaoConcluidos < 0) {
-			complemento += "<br> <font color=" + HtmlColors.RED +"> Se comprar todos os produtos da lista, passará em " + currencyFormatter.format(-(valorTotalNaoConcluidos)) + " do seu orcamento";
+			complemento += HtmlColors.RED + "<br> Se comprar todos os produtos da lista, passará em " + currencyFormatter.format(-(valorTotalNaoConcluidos)) + " do seu orcamento";
 		    }else {
 			complemento += "<br> Se comprar todos os produtos da lista, ficará com " + currencyFormatter.format(valorTotalNaoConcluidos);
 		    }
@@ -79,10 +79,10 @@ public class ProdutosUtil {
 		complemento += "Nada! Você atingiu sua meta e comprou todos os produtos exatamente de acordo com seu orçamento! Seguiu a lista risca, Parabéns!";
 		}else {
 		complemento += "Você antigiu seu orçamento e a partir de agora, tudo passará de seu orcamento"
-			+ "	<br>Comprando tudo, ao final, passará em <font color=" + HtmlColors.RED +">" + currencyFormatter.format(-somaTotalNaoConcluidos) + " do seu orçamento.";
+			+ "	<br>Comprando tudo, ao final, passará em " + HtmlColors.RED + currencyFormatter.format(-somaTotalNaoConcluidos) + " do seu orçamento.";
 		}
 	    }
-	    complemento+="<font color=\"black\">";
+	    complemento+=HtmlColors.BLACK;
 	    return complemento;
 	} catch (ListaVaziaException e) {
 	    if (orcamento == 0.0 || orcamento == null) {
@@ -104,12 +104,12 @@ public class ProdutosUtil {
 	try {
 	    double valorEconomizado = service.getValorEconomizado();
 	    if (valorEconomizado < 0) {
-		return "<font color=" + HtmlColors.RED +">Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
-			+ " a mais do que planejava <font color=\"black\">";
+		return HtmlColors.RED +"Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
+			+ " a mais do que planejava" + HtmlColors.BLACK;
 	    }else if(valorEconomizado == 0) {
 		return "Até o momento, você está seguindo sua lista a risca! Não economizou nada e também não gastou mais do que deveria. Está indo bem!";
 	    }
-	    return "<font color=" + HtmlColors.GREEN +">Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns! <font color=\"black\">";
+	    return HtmlColors.GREEN + "Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns!" + HtmlColors.BLACK;
 	} catch (ListaVaziaException e) {
 	    return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(" : e.getMessage();
 	}
@@ -138,10 +138,10 @@ public class ProdutosUtil {
     }
 
   
-    public static void mostrarSomaTotal(ProductService service) {
-	System.out.println("---------------------------------------");
-	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(service.getValorTotalEstipulado()));
-	System.out.println("Valor Total: " + currencyFormatter.format(service.getValorTotalAtual()));
+    public static String mostrarSomaTotal(ProductService service) {
+	String retorno = "Valor Total Estipulado: " + HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalEstipulado()) + HtmlColors.BLACK;
+	retorno += "<br>Valor Total: " + HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalAtual()) + HtmlColors.BLACK;
+	return retorno;
     }
 
     public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {

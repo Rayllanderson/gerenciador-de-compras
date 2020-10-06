@@ -2,6 +2,8 @@ package com.ray.model.entities;
 
 import java.io.Serializable;
 
+import com.ray.model.util.HtmlColors;
+
 public class Product implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -105,7 +107,7 @@ public class Product implements Serializable{
     }
     
     public String comprado() {
-	return comprado ? "Sim" : "Não";
+	return comprado ? HtmlColors.GREEN +"Sim" + HtmlColors.BLACK : HtmlColors.RED +"Não" + HtmlColors.BLACK;
     }
     
     public String getValorRealEmReal() {

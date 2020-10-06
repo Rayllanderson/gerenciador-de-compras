@@ -70,10 +70,7 @@
 <h3>Login Success</h3>
 <br><br>
 	<h1>Olá, ${user.name}, O que você quer fazer?!</h1>
-	<form action="categorias?acao=listar" method="post">
-		<input type="submit" value="Acessar suas listas"> 
-	</form>
+		<a class="btn btn-primary" type="submit" href="categorias?acao=listar">Acessar suas listas</a>
 
-	<form action="logout" method="post"> <input type="submit" value="Logout"/></form>
 </body>
 </html>
