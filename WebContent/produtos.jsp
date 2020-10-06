@@ -69,35 +69,8 @@
 
 </header>
 
-    
-   
-    
-<!-- 
-<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
- 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-       
-      </li>
-      <li class="nav-item">
-       
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" href="#">Produtos</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" action="produtos?acao=search" method="post">
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar">
-      <button type="submit" class="btn btn-outline-light my-2 my-sm-0">Search</button>
-    </form>
-   </div>
-</nav> -->
 
-		<h3 style="text-align: center">${categoria.name}</h3>
+		<h4 style="text-align: center">${categoria.name}</h4>
 
 		<!--  -->
 
@@ -187,15 +160,25 @@
 		</div>
 		<!-- tela de infos -->
 
+
+
+
+
+	
+<div class="container-xl">
+<main role="main" class="">
+
+<!-- TELA DE  -->
+
 <div class="box" style=" display: flex;
             justify-content: space-between;
-            margin-top: 10%;
-            margin-bottom: 1%;
+             margin-top: 10%;
+           	 margin-bottom: 1%;
             ">
             <div></div>
 <div>
-    <form class="form-inline my-2 my-lg-0" action="produtos?acao=search" method="post">
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar">
+    <form class="form-inline" action="produtos?acao=search" method="post" >
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" >
       <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
       
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -223,9 +206,10 @@
 </div>
 </div>
 
-	
+
+	<!--  INICIO TABELA  -->
 	<div class="table-responsive-xl">
-		<table class="table" id="table">
+		<table class="table" id="tabela" style="border: 1px solid #ddd !important;">
 
 			<thead>
 				<tr>
@@ -286,7 +270,10 @@
 			</tbody>
 		</table>
 </div>
-<!-- 
+
+</main>
+</div>
+<!-- FIM TABLE 
 	
 		<div class="text-center" style="margin-top: 1%">
 					<div class="btn-group" role="group" aria-label="Basic example" >

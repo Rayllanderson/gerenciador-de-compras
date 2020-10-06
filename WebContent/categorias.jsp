@@ -6,7 +6,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=0.9">
+<meta name="viewport" content="width=device-width, initial-scale=0.8">
 <title>Suas Listas</title>
 
 
@@ -60,27 +60,58 @@
 </header>
 
 
+	<h4 style="text-align: center">Listas</h4>
 	
+	
+	<!-- INICIO NOVA LISTA -->
 	<div>
-
 	<div style="margin-top: 2%">
 	<button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal"> 
-		Nova Lista
+		
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
 </svg>
 		 </button>
 	</div>
-	
 	</div>
-	
 	<div>
-	<h3 style="text-align: center">Listas</h3>
+	<!-- FIM NOVA LISTA -->
+	
+	
+	
+	
+	
 	</div>
 	
 	
-<div class="container-fluid">
+	
+	
+	
+<div class="container-xl">
 <main role="main" class="">
+
+<div class="box" style=" display: flex;
+            justify-content: space-between;
+             margin-top: 10%;
+           	 margin-bottom: 1%;
+            ">
+            <div></div>
+<div>
+    <form class="form-inline" action="categorias?acao=search" method="post" >
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="width: 80%">
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+      
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+</svg>
+      
+      </button>
+    </form>
+</div>
+<div></div>
+</div>
+
 
      <div class="table-responsive-lg">	
 	<table class="table" id="tabela"  style="border: 1px solid #ddd !important;">
