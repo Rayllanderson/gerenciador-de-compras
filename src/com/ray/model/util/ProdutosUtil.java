@@ -44,35 +44,59 @@ public class ProdutosUtil {
      *          ListaVaziaException
      */
     public static String disponivelParaComprar(ProductService service, Categoria cat) {
+	 Double orcamento = 0.0;
+	 double somaTotalNaoConcluidos = service.getValorEstipuladoRestante();
+	 if(somaTotalNaoConcluidos == 0 && !service.listIsEmpty()) {
+	     return "Todos os produtos foram comprados :)";
+	 }
 	try {
-	    double disponivel = service.getValorDisponivelParaCompra(cat);
+	    double disponivel = 0;
 	    String complemento = "";
-	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
+	    orcamento = cat.getOrcamento();
+	    if (orcamento == 0.0 || orcamento == null) {
 		throw new NullPointerException();
 	    }
+	    disponivel = orcamento - service.getValorRealGasto();
 	    if (disponivel < 0) {
-		complemento = "<font color=\"red\"> Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
+		complemento = "<font color=" + HtmlColors.RED +"> Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
 		complemento += ". Você não tem mais nada disponível para gastar";
 		complemento += ". Orçamento para lista " + cat.getName() + ": "
-			+ currencyFormatter.format(cat.getOrcamento());
-		complemento+="<font color=\"black\">";
+			+ currencyFormatter.format(orcamento);
 	    } else {
-		complemento = " <font color=#3CB371>Você tem disponível " + currencyFormatter.format(disponivel)
+		if(disponivel >0) {
+		complemento = "<font color=" + HtmlColors.GREEN +"> Você tem disponível " + currencyFormatter.format(disponivel)
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
-		complemento+="<font color=\"black\">";
+		double valorTotalNaoConcluidos = disponivel - somaTotalNaoConcluidos;
+		if(valorTotalNaoConcluidos != 0) {
+		   
+		    if (valorTotalNaoConcluidos < 0) {
+			complemento += "<br> <font color=" + HtmlColors.RED +"> Se comprar todos os produtos da lista, passará em " + currencyFormatter.format(-(valorTotalNaoConcluidos)) + " do seu orcamento";
+		    }else {
+			complemento += "<br> Se comprar todos os produtos da lista, ficará com " + currencyFormatter.format(valorTotalNaoConcluidos);
+		    }
+		}
+		}else if (disponivel == 0 && somaTotalNaoConcluidos == 0){
+		complemento += "Nada! Você atingiu sua meta e comprou todos os produtos exatamente de acordo com seu orçamento! Seguiu a lista risca, Parabéns!";
+		}else {
+		complemento += "Você antigiu seu orçamento e a partir de agora, tudo passará de seu orcamento"
+			+ "	<br>Comprando tudo, ao final, passará em <font color=" + HtmlColors.RED +">" + currencyFormatter.format(-somaTotalNaoConcluidos) + " do seu orçamento.";
+		}
 	    }
+	    complemento+="<font color=\"black\">";
 	    return complemento;
 	} catch (ListaVaziaException e) {
-	    if (cat.getOrcamento() == 0.0 || cat.getOrcamento() == null) {
+	    if (orcamento == 0.0 || orcamento == null) {
 		return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
 	    } else 
 		return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. Então você ainda tem "
-			+ currencyFormatter.format(cat.getOrcamento()) + " disponível para gastar" : e.getMessage();
+			+ currencyFormatter.format(orcamento) + " disponível para gastar" : e.getMessage();
 	} catch (NullPointerException e) {
 	    return "Você não tem orçamento para esta lista. Por isso, infelizmente, não é possível saber o quanto você ainda tem disponível. Adicione um orçamento no menu principal.";
 	}
     }
 
+
+    
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
@@ -80,12 +104,12 @@ public class ProdutosUtil {
 	try {
 	    double valorEconomizado = service.getValorEconomizado();
 	    if (valorEconomizado < 0) {
-		return "<font color=\"red\">Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
+		return "<font color=" + HtmlColors.RED +">Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
 			+ " a mais do que planejava <font color=\"black\">";
 	    }else if(valorEconomizado == 0) {
 		return "Até o momento, você está seguindo sua lista a risca! Não economizou nada e também não gastou mais do que deveria. Está indo bem!";
 	    }
-	    return "<font color=#3CB371>Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns! <font color=\"black\">";
+	    return "<font color=" + HtmlColors.GREEN +">Você economizou " + currencyFormatter.format(valorEconomizado) + " Parabéns! <font color=\"black\">";
 	} catch (ListaVaziaException e) {
 	    return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(" : e.getMessage();
 	}
@@ -116,13 +140,13 @@ public class ProdutosUtil {
   
     public static void mostrarSomaTotal(ProductService service) {
 	System.out.println("---------------------------------------");
-	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(service.getValorGastoEstipulado()));
+	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(service.getValorTotalEstipulado()));
 	System.out.println("Valor Total: " + currencyFormatter.format(service.getValorTotalAtual()));
     }
 
     public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
-	double valorRealGasto = 0, valorEstipulado = service.getValorGastoEstipulado();
+	double valorRealGasto = 0, valorEstipulado = service.getValorTotalEstipulado();
 	double valorEstipuladoRestante = 0;
 	try {
 	    qntProdutos = service.findAllProduct().size();

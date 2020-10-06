@@ -2,6 +2,7 @@ package com.ray.model.interacoes;
 
 import java.text.NumberFormat;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ray.model.entities.Categoria;
@@ -285,7 +286,7 @@ public class InteracaoProduto {
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
 	String produtoEscolhido = scan.next();
 	ButtonUtil.botaoVoltar(produtoEscolhido);
-	Product p = service.getProdutoByNumer(Integer.parseInt(produtoEscolhido));
+	Product p = getProdutoByNumer(Integer.parseInt(produtoEscolhido), service);
 	return p;
     }
 
@@ -371,5 +372,25 @@ public class InteracaoProduto {
 	return scan.next();
     }
 
+    /**
+     * @apiNote método para selecionar o produto no console 
+     * 
+     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
+     *                             + num + ". Verifique a tabela e tente
+     *                             novamente");
+     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
+     *                             lista.");
+     */
+    public static Product getProdutoByNumer(int num, ProductService service) throws ProductoException, ListaVaziaException {
+	List<Product> list = service.findAll();
+	if (list.isEmpty()) {
+	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
+	}
+	if (num > list.size()) {
+	    throw new ProductoException(
+		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
+	}
+	return list.get(num - 1);
+    }
 
 }

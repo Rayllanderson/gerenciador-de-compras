@@ -20,7 +20,7 @@
 <link href="resource/css/login.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/cadastro.css" type="text/css" rel="stylesheet" />
 
-<title>Cadastrar</title>
+<title>My Account</title>
 </head>
 <body>
 

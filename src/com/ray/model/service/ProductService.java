@@ -127,7 +127,15 @@ public class ProductService {
     public List<Product> findAllProduct() {
 	return dao.findAll();
     }
-
+    
+    /**
+     * verifica se a lista de produtos está vazia
+     * @return true caso esteja vazia <br>false caso não esteja
+     */
+    public boolean listIsEmpty() {
+	return dao.findAll().isEmpty() ? true : false;
+    }
+   
     /**
      * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
      *                                   lista.");
@@ -191,6 +199,13 @@ public class ProductService {
 	return list;
     }
 
+    /**
+     * 
+     * @return uma lista de todos os produtos que foram concluídos
+     * @throws ListaVaziaException caso não possua nenhum produto na lista ou caso nenhum produto da lista tenha sido comprado <br>
+     * ListaVaziaException("Você não tem produtos na lista"); <br>
+     * ListaVaziaException("Puxa, nenhum produto foi comprado até o momento :(");
+     */
     public List<Product> getProdutosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.size() == 0) {
@@ -219,6 +234,12 @@ public class ProductService {
     }
 
     // -----------------------------SOMAS--------------------------------------//
+    
+    /**
+     * 
+     * @return valor total real dos produtos (mesmo que não estejam marcados como comprado)
+     * @throws ListaVaziaException caso não tenha nenhum produto na lista
+     */
     public double getValorRealGasto() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = this.getProdutosConcluidos();
@@ -228,7 +249,12 @@ public class ProductService {
 	return sum;
     }
 
-    public double getValorGastoEstipulado() throws ListaVaziaException {
+    /**
+     * 
+     * @return valor estipulado total de todos os produtos
+     * @throws ListaVaziaException caso não tenha nenhum produto na lista
+     */
+    public double getValorTotalEstipulado() throws ListaVaziaException {
 	double sum = 0;
 	List<Product> list = dao.findAll();
 	for (Product p : list) {
@@ -237,6 +263,11 @@ public class ProductService {
 	return sum;
     }
 
+    /**
+     * 
+     * @return valor total. Soma dos produtos comprados. Se um produto não tiver sido comprado, considera o valor estipulado<br>
+     *  valorReal + valorEstipulado (if !comprado)
+     */
     public double getValorTotalAtual() {
 	double sum = 0;
 	List<Product> list = dao.findAll();
@@ -250,16 +281,29 @@ public class ProductService {
 	return sum;
     }
 
+    
+    /**
+     * 
+     * @param service
+     * @return a soma total do valor estipulado para os produtos que não foram comprados
+     * Se todos os produtos forem comprados, retorna 0
+     */
     public double getValorEstipuladoRestante() {
-	double sum = 0;
-	for (Product p : this.getProdutosNaoConcluidos()) {
-	    sum += p.getPrecoEstipulado();
+	try {
+	    List<Product> list = getProdutosNaoConcluidos();
+	    return list.stream().mapToDouble(Product::getPrecoEstipulado).sum();
+	}catch (ListaVaziaException e) {
+	    return 0.0;
 	}
-	return sum;
     }
 
     // ----------------------------úteis---------------------------------------//
 
+    /**
+     * 
+     * @return PrecoEstipulado - PrecoReal;
+     * @throws ListaVaziaException caso não tenha nenhum produto comprado
+     */
     public double getValorEconomizado() throws ListaVaziaException {
 	double total = 0;
 	List<Product> list = this.getProdutosConcluidos();
@@ -269,30 +313,22 @@ public class ProductService {
 	return total;
     }
 
-    public double getValorDisponivelParaCompra(Categoria cat) throws NullPointerException {
+    /**
+     * 
+     * @param cat
+     * @return total = orcamento - this.getValorRealGasto();
+     * @throws NullPointerException
+     * @throws ListaVaziaException quando não há produtos na lista
+     */
+    public double getValorDisponivelParaCompra(Categoria cat) throws NullPointerException, ListaVaziaException{
 	double total = 0;
 	double orcamento = cat.getOrcamento();
-	total = orcamento - this.getValorRealGasto();
+	try{
+	    total = orcamento - this.getValorRealGasto();
+	}catch (ListaVaziaException e) {
+	    
+	}
 	return total;
     }
 
-    // -------------------------------------------------------------------//
-    /**
-     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
-     *                             + num + ". Verifique a tabela e tente
-     *                             novamente");
-     * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
-     *                             lista.");
-     */
-    public Product getProdutoByNumer(int num) throws ProductoException, ListaVaziaException {
-	List<Product> list = dao.findAll();
-	if (list.isEmpty()) {
-	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
-	}
-	if (num > list.size()) {
-	    throw new ProductoException(
-		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
-	}
-	return list.get(num - 1);
-    }
 }
