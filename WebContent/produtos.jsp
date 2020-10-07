@@ -52,7 +52,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
   <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -82,17 +82,17 @@
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%" data-target="#exampleModal" class="btn btn-success" onclick="disableCheckBox()" title="Adicionar Novo Produto">
+                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" data-target="#exampleModal" class="btn btn-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
 			<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
 </svg> Add
-</button>
+</button><!-- botao add novo produto -->
 
 									
-                                    <a class="btn btn-primary" data-toggle="collapse" style="margin-top: 3%" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <a class="btn btn-primary" data-toggle="collapse" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <svg width="1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-</svg> Infos
+</svg> Infos <!-- botao infos -->
                                     </a>
                                 </div>
                             </li>
@@ -104,7 +104,9 @@
 
 
                     <div class="container">
-                        <div class="card card-signin my-5">
+                        <div class="card card-signin my-5" style=" border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                             <article class="card-body mx-auto" style="max-width: 400px;">
                                 <h4 class="card-title mt-3 text-center">${categoria.name}</h4>
 
@@ -126,7 +128,9 @@
                     <!-- INÍCIO CARD INFOS -->
                     <div class="container">
                         <div class="collapse" id="collapseExample">
-                            <div class="card card-body">
+                            <div class="card card-body" style=" border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-header" id="headingOne">
@@ -189,8 +193,13 @@
                                 <div></div>
                                 <div>
                                     <form class="form-inline" action="produtos?acao=search" method="post">
-                                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar">
-                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+                                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="
+  border-radius: 0.9rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style=" border: 0;
+  border-radius: 0.9rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  ">
       
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
@@ -203,12 +212,15 @@
 
                                 <div class="btn-group dropleft">
                                     <div class="dropdown">
-                                        <button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+  border-radius: 0.9rem;">
 		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
 </svg>
 </button>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" style="
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                                             <a class="dropdown-item" href="produtos?acao=listar">Todos os Produtos</a>
                                             <a class="dropdown-item" href="produtos?acao=comprados">Produtos Comprados</a>
                                             <a class="dropdown-item" href="produtos?acao=nao_comprados">Produtos Não Comprados</a>
@@ -220,7 +232,10 @@
 
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive-xl">
-                                <table class="table" id="tabela" style="border: 1px solid #ddd !important;">
+                                <table class="table" id="tabela" style="
+                                 border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" >
 
                                     <thead>
                                         <tr>
@@ -248,7 +263,10 @@
 
                                                 <!-- onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" -->
 
-                                                <td data-label="Editar"><button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" data-title="Editar" data-id="${prod.id}" data-nome="${prod.nome}" data-estipulado="${prod.getValorEstipuladoEmReal()}"
+                                                <td data-label="Editar"><button class="btn btn-outline-info" 
+                                                style="
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
+                                                data-toggle="modal" data-target="#exampleModal" data-title="Editar" data-id="${prod.id}" data-nome="${prod.nome}" data-estipulado="${prod.getValorEstipuladoEmReal()}"
                                                         data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}" <c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}" /> onclick="setCheckedIfTrue('${prod.isComprado()}')">
 
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -262,7 +280,9 @@
                                                 <td data-label="Excluir"><button class="btn btn-outline-danger" onclick="
 					if(confirm('Você tem certeza que deseja excluir o produto ${prod.nome}?')){
 						sendPost('produtos?acao=excluir', {id: '${prod.id}'});
-					}">
+					}"
+					style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
+					>
 						
 											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
@@ -279,6 +299,7 @@
                     </div>
                     <!-- FIM TABLE -->
 
+<hr>
 
 
                     <!-- Tela Modal -->
