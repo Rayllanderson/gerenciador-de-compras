@@ -29,8 +29,7 @@
 		<hr>
 
 		<div class="card card-signin my-5">
-			<article class="card-body mx-auto" style="max-width: 400px;"
-				style="background-color: black">
+			<article class="card-body mx-auto" style="max-width: 400px;">
 				<h4 class="card-title mt-3 text-center">Criar Conta</h4>
 				<p class="text-center">Comece com sua conta gratuita</p>
 				<form action="cadastro" method="POST">

@@ -67,7 +67,8 @@ public class ProdutoServlet extends HttpServlet {
 		    ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
 	    request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
 	    request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	    request.setAttribute("somaGeral", ProdutosUtil.mostrarSomaTotal(service));
+	    request.setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
+	    request.setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -138,12 +138,20 @@ public class ProdutosUtil {
     }
 
   
-    public static String mostrarSomaTotal(ProductService service) {
-	String retorno = "Valor Total Estipulado: " + HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalEstipulado()) + HtmlColors.BLACK;
-	retorno += "<br>Valor Total: " + HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalAtual()) + HtmlColors.BLACK;
-	return retorno;
+    public static void mostrarSomaTotal(ProductService service) {
+	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(service.getValorTotalEstipulado()));
+	System.out.println("Valor Total: " + currencyFormatter.format(service.getValorTotalAtual()));
     }
-
+    
+    public static String getTotalEstipuladoHtml(ProductService service) {
+	return HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalEstipulado()) + HtmlColors.BLACK;
+    }
+    
+    public static String getValorTotalHtml(ProductService service) {
+   	return HtmlColors.BLUE + currencyFormatter.format(service.getValorTotalAtual()) + HtmlColors.BLACK;
+    }
+    
+    
     public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
 	double valorRealGasto = 0, valorEstipulado = service.getValorTotalEstipulado();
