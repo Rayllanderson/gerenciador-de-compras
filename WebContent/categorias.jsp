@@ -73,7 +73,8 @@
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal"  style="margin-top: 3%" > 
+                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal"  style="margin-top: 3%;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" > 
 		
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
@@ -86,21 +87,9 @@
                     
                     
 
-	<h4 style="text-align: center">Listas</h4>
-	
-	
-	<!-- INICIO NOVA LISTA -->
-	
-	<!-- FIM NOVA LISTA -->
-	
-	
-	
-	
+	<h4 style="text-align: center; margin-top: 2%">Listas</h4>
 	
 
-	
-	
-	
 	
 	
 <div class="container-xl">
@@ -114,8 +103,11 @@
             <div></div>
 <div>
     <form class="form-inline" action="categorias?acao=search" method="post" >
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="width: 80%">
-      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="width: 80%;
+  border-radius: 0.9rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="border: 0.5px solid; border-radius: 0.9rem; 
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
       
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
@@ -125,14 +117,14 @@
       </button>
     </form>
 </div>
-<div></div>
+<div>&nbsp;</div>
 </div>
 
 
      <div class="table-responsive-lg">	
-	<table class="table" id="tabela"  style="border: 1px solid #ddd !important;">
+	<table class="table" id="tabela" style="border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
 		<thead>
-			<tr>
+			<tr class="text-primary">
 				<th scope="col" style="text-align: center">Nome</th>
 				<th scope="col">Orçamento</th>
 				<th scope="col">Editar</th>
@@ -143,12 +135,12 @@
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
-					<button class="btn btn-light"
+					<button class="btn btn-light" 
 					onclick="sendPost('categorias?acao=selecionar', {id: '${cat.id}'});"
-					style="width: 100%;">${cat.name}</button>
+					style="width: 100%; color: dodgerblue; border-radius: 1rem;">${cat.name}</button>
 					</td>
 					
-					<td data-label="Orçamento">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
+					<td data-label="Orçamento" style="color: deeppink">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
 					
 					
 					<!-- onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});" -->
@@ -161,7 +153,8 @@
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
-					data-orcamento="${cat.getOrcamentoEmReal()}" >
+					data-orcamento="${cat.getOrcamentoEmReal()}" style="
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
 					
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -169,7 +162,8 @@
 					</button> </td>
 
 
-					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger"
+					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger" style="
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
 					onclick="
 					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
 						sendPost('categorias?acao=excluir', {id: '${cat.id}'});

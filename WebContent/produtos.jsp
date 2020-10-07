@@ -196,7 +196,7 @@
                                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style=" border: 0;
+                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style=" border: 0.5px solid;
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   ">
@@ -238,7 +238,7 @@
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" >
 
                                     <thead>
-                                        <tr>
+                                        <tr class="text-primary">
                                             <th scope="col">Nome</th>
                                             <th scope="col">Preço Estipulado</th>
                                             <th scope="col">Preço Real</th>
@@ -251,11 +251,11 @@
                                     <tbody>
                                         <c:forEach items="${produtos}" var="prod">
                                             <tr>
-                                                <td data-label="Nome">${prod.nome}</td>
-                                                <td data-label="Preço Estipulado">R$
+                                                <td data-label="Nome" >${prod.nome}</td>
+                                                <td data-label="Preço Estipulado" style="color: deeppink">R$
                                                     <fmt:formatNumber type="number" maxFractionDigits="3" value="${prod.precoEstipulado}" />
                                                 </td>
-                                                <td data-label="Preço Real">R$
+                                                <td data-label="Preço Real" class="text-primary">R$
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
                                                 </td>
                                                 <td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
