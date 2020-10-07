@@ -42,7 +42,7 @@
             <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Categorias</a>
+            <a class="nav-link" href="categorias">Categorias</a>
           </li>
           <li class="nav-item ">
       		<a class="nav-link" href="produtos" >Produtos</a>
@@ -82,22 +82,25 @@
   <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 </svg>
 				</div>
+			<form action="my-account?action=editar" method="POST">
 				<span class="input-text"> Nome </span>
 					<div class="form-group input-group">
-						
-						<input name="nome" class="form-control" placeholder="Nome" readonly="readonly"
-							type="text" value="${user.name}">
+						<input name="nome" class="form-control" placeholder="Nome"
+							type="text" value="${user.name}" name="nome">
 					</div>
 					<!-- form-group// -->
+					<input value="${user.id}" hidden="true">
 					<span class="input-text"> Username</span>
 					<div class="form-group input-group">
 						<input name="username" class="form-control" placeholder="Username"
-							type="text" value="${user.username}" required="required" readonly="readonly">
+							type="text" value="${user.username}" required="required" name="username">
 					</div>
 					
 					<div style="display: flex; justify-content: space-between;">
 						<div class="text-left">
-							<a href="index.jsp">Editar</a>
+						
+							<button class="btn btn-primary" type="submit"				
+							>Editar</button>
 						</div>
 					
 						<div class="text-right">
@@ -105,25 +108,52 @@
 						</div>
 					
 					</div>
+			</form>
 			</article>
 		</div>
 		<!-- card.// -->
 	</div>
+
 
 <hr>
 <div class="container">
 	
 		<div class="card card-signin my-5">
 			<article class="card-body mx-auto" style="max-width: 400px;">
-			A
+				${infos}
 			</article>
 			</div>
 			</div>
+			
+			
+			
 	<script type="text/javascript">
 		const msg = "${msg}"
 		if (msg != null && msg != '') {
 			alert(msg)
 		}
 	</script>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+<script src="resource/javascript/jquery.mask.min.js"></script>
+    
+<script type="text/javascript">
+		$('#exampleModal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var title = button.data('title')
+		  var id = button.data('id')
+		  var recipientnome = button.data('nome')
+		  var username = button.data('username')
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  var modal = $(this)
+		  modal.find('.modal-title').text(title)
+		  modal.find('#recipient-name').val(recipientnome)
+		  modal.find('#username').val(username)
+		  modal.find('#id').val(id)
+		})
+</script>
 </body>
 </html>

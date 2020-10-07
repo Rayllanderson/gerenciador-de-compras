@@ -40,7 +40,7 @@ public class CadastroServlet extends HttpServlet {
 		request.setAttribute("msg", "Cadastro realizado com sucesso! Faça login para continuar");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
-	    } catch (MyLoginException e) {
+	    } catch (MyLoginException e) { //username ja em uso
 		request.setAttribute("msg", e.getMessage());
 		request.setAttribute("nome", name);
 		request.setAttribute("username", username);

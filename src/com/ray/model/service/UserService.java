@@ -48,7 +48,30 @@ public class UserService {
 	}
 	return false; //usuário não existe
     }
-
+    /**
+     * update name e username (verifica se o username ja existe)
+     * @param id 
+     * @param newName
+     * @param newUsername
+     * @return true caso dê tudo ok, false se o usuário com id passado não exista
+     * @throws MyLoginException caso login já exista
+     */
+    public boolean update(Long id, String newName, String newUsername) throws MyLoginException{
+   	User user = dao.findById(id);
+   	if (user != null) {
+   	    // Verificando se o username atual não é igual ao username dele mesmo
+   	    if (!newUsername.equals(user.getUsername())) {
+   		// se nao for, verificar se o username já existe
+   		    verificarUsernameExistente(newUsername);
+   		    user.setUsername(newUsername);
+   	    }
+   	    user.setName(newName);
+   	    dao.update(user);
+   	    return true; 
+   	}
+   	return false; //usuário não existe
+       }
+    
     /**
      * 
      * @param user novo usuário a se cadastrar
@@ -62,7 +85,7 @@ public class UserService {
     }
 
     /**
-     * 
+     * método verifica a senha antes de alterar
      * @param user
      * @param senhaAtual
      * @param newPassword
@@ -89,5 +112,7 @@ public class UserService {
     public void update(User user) {
 	dao.update(user);
     }
+    
+
 
 }
