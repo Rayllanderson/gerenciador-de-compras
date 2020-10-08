@@ -55,7 +55,7 @@
 </svg>
   </button>
   <div class="dropdown-menu dropdown-menu-right">
-    <a class="dropdown-item" href="account.jsp">Minha Conta</a>
+    <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
     <a class="dropdown-item" href="#">Another action</a>
     <a class="dropdown-item" href="#">Something else here</a>
     <div class="dropdown-divider"></div>

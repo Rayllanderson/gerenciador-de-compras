@@ -82,25 +82,24 @@
   <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 </svg>
 				</div>
-			<form action="my-account?action=editar" method="POST">
+			<input value="${user.id}" name="id" hidden="true" id="id">
 				<span class="input-text"> Nome </span>
 					<div class="form-group input-group">
 						<input name="nome" class="form-control" placeholder="Nome"
-							type="text" value="${user.name}" name="nome">
+							type="text" value="${user.name}" name="nome" id="nome">
 					</div>
 					<!-- form-group// -->
-					<input value="${user.id}" hidden="true">
 					<span class="input-text"> Username</span>
 					<div class="form-group input-group">
 						<input name="username" class="form-control" placeholder="Username"
-							type="text" value="${user.username}" required="required" name="username">
+							type="text" value="${user.username}" required="required" name="username" id="username">
 					</div>
 					
 					<div style="display: flex; justify-content: space-between;">
 						<div class="text-left">
 						
-							<button class="btn btn-primary" type="submit"				
-							>Editar</button>
+							<input class="btn btn-primary" type="button" onclick="ajax()"				
+							value="Editar" />
 						</div>
 					
 						<div class="text-right">
@@ -108,7 +107,6 @@
 						</div>
 					
 					</div>
-			</form>
 			</article>
 		</div>
 		<!-- card.// -->
@@ -119,8 +117,12 @@
 <div class="container">
 	
 		<div class="card card-signin my-5">
-			<article class="card-body mx-auto" style="max-width: 400px;">
-				${infos}
+			<article class="card-body mx-auto">
+			<p>Olá, ${user.name} </p>
+			<p>Você possui ${tListas} listas no total </p>
+			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
+			<p>Você já gastou ${tGasto} </p>
+			<p>Você pretende gastar ${tEstipulado} </p>
 			</article>
 			</div>
 			</div>
@@ -134,26 +136,34 @@
 		}
 	</script>
 	
+
+
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="resource/javascript/jquery.mask.min.js"></script>
     
 <script type="text/javascript">
-		$('#exampleModal').on('show.bs.modal', function (event) {
-		  var button = $(event.relatedTarget) // Button that triggered the modal
-		  var title = button.data('title')
-		  var id = button.data('id')
-		  var recipientnome = button.data('nome')
-		  var username = button.data('username')
-		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		  var modal = $(this)
-		  modal.find('.modal-title').text(title)
-		  modal.find('#recipient-name').val(recipientnome)
-		  modal.find('#username').val(username)
-		  modal.find('#id').val(id)
-		})
+
+function ajax(){
+	let nome = $('#nome').val();
+	let id =  $('#id').val();
+	let username =  $('#username').val();
+	
+	$.ajax({
+	    method: "POST",
+    	    url: "my-account?action=editar",
+	    data: { nome : nome,
+	    		username : username,
+	    		id : id}
+	}).done(function(response){
+		alert(response)
+	}).fail(function(xhr, status, errorThrown) {
+	    alert(xhr.responseText);
+	});
+}
+
 </script>
 </body>
 </html>
