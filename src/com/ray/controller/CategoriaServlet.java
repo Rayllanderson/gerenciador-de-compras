@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
@@ -114,14 +113,14 @@ public class CategoriaServlet extends HttpServlet {
 	System.out.println("orcamento= " + orcamento);
 	System.out.println("nome " + nome);
 	System.out.println("id = " + id);
-	Categoria cat = new Categoria(id != null ? Long.parseLong(id) : null, nome, user);
+	Categoria cat = new Categoria(! id.isEmpty() ? Long.parseLong(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	if (cat.getId() == null) {
 	    cat = service.salvar(cat);
+	    response.setStatus(HttpServletResponse.SC_CREATED);
 //	    String json = new Gson().toJson(cat);
 //	    System.out.println(json);
 //	    response.setContentType("application/json");
-//	    response.setStatus(HttpServletResponse.SC_CREATED);
 //	    response.getWriter().write(json);
 	} else {
 	    service.update(cat);

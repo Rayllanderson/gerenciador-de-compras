@@ -85,14 +85,23 @@
                         </ul>
                     </div>
                     
-                    
+
+
+
+
 
 	<h4 style="text-align: center; margin-top: 2%">Listas</h4>
 	
-
-	
+ 
 	
 <div class="container-xl">
+
+
+	  	<div class="alert alert-success" id="success-alert" style="margin-top: 1%">
+   		 <button type="button" class="close" data-dismiss="alert">x</button>
+   	<h4 id="titulo"></h4> <p id="alertMsg"></p>
+  	</div>
+
 <main role="main" class="">
 
 <div class="box" style=" display: flex;
@@ -184,6 +193,7 @@
  </main>
 </div>
 	
+ 
 	
 	<!-- Tela Modal -->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -272,33 +282,7 @@ const msg = "${error}"
 </script>
 
 
-
-	<script type="text/javascript">
-	
-	 function saveAjax(){
-			let nome = $('#recipient-name').val();
-			let orcamento =  $('#orcamento').val();
-			let id =  $('#id').val();
-			
-			$.ajax({
-			    method: "POST",
-		    	    url: "categorias?acao=salvar",
-			    data: { nome : nome,
-			    		orcamento : orcamento,
-			    		id : id}
-			}).done(function(response){
-				alert('sucesso!') //TODO setar na tabela o novo bicho e o modal cair fora
-				$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
-			        $("#divtable").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
-			});
-				
-			}).fail(function(xhr, status, errorThrown) {
-				alert('fail')
-			});
-		}
-	  
-	
-	</script>
+<script src="resource/javascript/categoriaAjax.js" ></script>
 
 
 
