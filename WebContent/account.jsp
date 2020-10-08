@@ -118,7 +118,7 @@
 	
 		<div class="card card-signin my-5">
 			<article class="card-body mx-auto">
-			<p>Olá, ${user.name} </p>
+			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
 			<p>Você possui ${tListas} listas no total </p>
 			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
 			<p>Você já gastou ${tGasto} </p>
@@ -151,6 +151,7 @@ function ajax(){
 	let id =  $('#id').val();
 	let username =  $('#username').val();
 	
+	
 	$.ajax({
 	    method: "POST",
     	    url: "my-account?action=editar",
@@ -159,6 +160,7 @@ function ajax(){
 	    		id : id}
 	}).done(function(response){
 		alert(response)
+		document.getElementById('pName').innerHTML = 'Olá, <strong>' +  nome  + '</strong>!';
 	}).fail(function(xhr, status, errorThrown) {
 	    alert(xhr.responseText);
 	});
