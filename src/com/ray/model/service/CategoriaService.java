@@ -19,12 +19,12 @@ public class CategoriaService {
 
     private CategoriaDao categoriaDao;
 
-    public boolean salvar(Categoria cat) {
+    public Categoria salvar(Categoria cat) {
 	try {
-	    categoriaDao.save(cat);
-	    return true;
+	   return categoriaDao.save(cat);
+	   
 	} catch (DbException e) {
-	    return false;
+	    return null;
 	}
     }
 

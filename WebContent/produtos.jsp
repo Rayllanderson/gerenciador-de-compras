@@ -118,15 +118,9 @@
                     </div>
 
 
-                    <div style="padding: 5px;">
-
-                        <!-- INFORMAÇÕES -->
-
-
-                    </div>
 
                     <!-- INÍCIO CARD INFOS -->
-                    <div class="container">
+                    <div class="container" style="margin-bottom: 6%">
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body" style=" border: 0;
   border-radius: 1rem;">

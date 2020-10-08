@@ -6,7 +6,7 @@ import com.ray.model.entities.Categoria;
 
 public interface CategoriaDao {
     
-    void save(Categoria categoria);  
+    Categoria save(Categoria categoria);  
     void deletById(Long id);  
     void update(Categoria categoria);
     Categoria findById(Long id);

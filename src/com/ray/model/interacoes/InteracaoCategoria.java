@@ -55,7 +55,7 @@ public class InteracaoCategoria {
 	    String nome = getNome(scan);
 	    novaCategoria.setName(nome);
 	    novaCategoria.setUser(user);
-	    if (service.salvar(novaCategoria)) {
+	    if (service.salvar(novaCategoria) != null) {
 		System.out.println("Deseja adicionar um orçamento para essa Lista?");
 		System.out.println("[ 1 ] - sim");
 		System.out.println("[ 2 ] - não");

@@ -28,7 +28,7 @@ public class CategoriaJDBC implements CategoriaDao {
     }
 
     @Override
-    public void save(Categoria categoria) {
+    public Categoria save(Categoria categoria) {
 	PreparedStatement st = null;
 	try {
 	    st = conn.prepareStatement("insert into categoria (nome, id_user, orcamento) values (?, ?, ?)",
@@ -41,6 +41,7 @@ public class CategoriaJDBC implements CategoriaDao {
 		    int id = rs.getInt(1);
 		    categoria.setId((long) id);
 		    DB.closeResultSet(rs);
+		    return categoria;
 		} else {
 		    throw new DbException("Erro ao inserir.");
 		}
@@ -50,7 +51,7 @@ public class CategoriaJDBC implements CategoriaDao {
 	} finally {
 	    DB.closeStatement(st);
 	}
-
+	return null;
     }
 
     @Override

@@ -211,7 +211,6 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  </div>
 			  <div class="modal-body">
-			  <form method="POST" action="categorias?acao=salvar">
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label">Nome:</label>
 					<input name="nomeLista" type="text" class="form-control" id="recipient-name" required="required" value="${cat.name}">
@@ -221,9 +220,8 @@
 					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
 				  </div>
 				<input name="id" type="hidden" class="form-control" id="id" value="${cat.id}">
-				<button type="submit" id="save1" class="btn btn-success" >&nbsp; Salvar &nbsp;</button> 
+				<button type="button" id="save1" class="btn btn-success" onclick="saveAjax();" >&nbsp; Salvar &nbsp;</button> 
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-			  </form>
 			  </div>
 			</div>
 		  </div>
@@ -270,6 +268,29 @@ const msg = "${error}"
 		alert(msg)
 	}
 </script>
+
+
+
+	<script type="text/javascript">
+	
+	 function saveAjax(){
+			let nome = $('#recipient-name').val();
+			let orcamento =  $('#orcamento').val();
+			
+			$.ajax({
+			    method: "POST",
+		    	    url: "categorias?acao=salvar",
+			    data: { nome : nome,
+			    		orcamento : orcamento}
+			}).done(function(response){
+				alert('sucesso!') //setar na tabela o novo bicho
+			}).fail(function(xhr, status, errorThrown) {
+				alert('fail')
+			});
+		}
+	  
+	
+	</script>
 
 
 

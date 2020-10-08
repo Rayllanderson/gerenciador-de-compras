@@ -63,7 +63,7 @@ public class ProdutosUtil {
 		complemento += ". Orçamento para lista " + cat.getName() + ": "
 			+ currencyFormatter.format(orcamento);
 	    } else {
-		if(disponivel >0) {
+		if(disponivel > 0) {
 		complemento = HtmlColors.GREEN +" Você tem disponível " + currencyFormatter.format(disponivel)
 			+ ", de acordo com seu orçamento para lista " + cat.getName();
 		double valorTotalNaoConcluidos = disponivel - somaTotalNaoConcluidos;
@@ -79,10 +79,11 @@ public class ProdutosUtil {
 		complemento += "Nada! Você atingiu sua meta e comprou todos os produtos exatamente de acordo com seu orçamento! Seguiu a lista risca, Parabéns!";
 		}else {
 		complemento += "Você antigiu seu orçamento e a partir de agora, tudo passará de seu orcamento"
-			+ "	<br>Comprando tudo, ao final, passará em " + HtmlColors.RED + currencyFormatter.format(-somaTotalNaoConcluidos) + " do seu orçamento.";
+			+ HtmlColors.RED + "<br>Comprando tudo, ao final, passará em " + currencyFormatter.format(somaTotalNaoConcluidos) + " do seu orçamento."
+				+ "<br>Totalizando " + currencyFormatter.format(somaTotalNaoConcluidos + service.getValorRealGasto());
 		}
 	    }
-	    complemento+=HtmlColors.BLACK;
+	    complemento += HtmlColors.BLACK;
 	    return complemento;
 	} catch (ListaVaziaException e) {
 	    if (orcamento == 0.0 || orcamento == null) {
