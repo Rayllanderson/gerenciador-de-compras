@@ -120,8 +120,8 @@
 <div>&nbsp;</div>
 </div>
 
-
-     <div class="table-responsive-lg">	
+<data>
+     <div class="table-responsive-lg" id="divtable">	
 	<table class="table" id="tabela" style="border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
 		<thead>
 			<tr class="text-primary">
@@ -179,6 +179,8 @@
 		</tbody>
 	</table>
 	</div>
+</data>
+	
  </main>
 </div>
 	
@@ -276,22 +278,20 @@ const msg = "${error}"
 	 function saveAjax(){
 			let nome = $('#recipient-name').val();
 			let orcamento =  $('#orcamento').val();
+			let id =  $('#id').val();
 			
 			$.ajax({
 			    method: "POST",
 		    	    url: "categorias?acao=salvar",
 			    data: { nome : nome,
-			    		orcamento : orcamento}
+			    		orcamento : orcamento,
+			    		id : id}
 			}).done(function(response){
 				alert('sucesso!') //TODO setar na tabela o novo bicho e o modal cair fora
-				var table = document.getElementById('tabela');	
-				console.log(response)
-				var table = document.getElementById('tabela');
-				$("<tr>").appendTo(table).text(response.catId)
-				$("<tr>").appendTo(table).text(response.catName)
-				$("<tr>").appendTo(table).text(response.catOrcamento)
+				$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
+			        $("#divtable").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
+			});
 				
-			
 			}).fail(function(xhr, status, errorThrown) {
 				alert('fail')
 			});

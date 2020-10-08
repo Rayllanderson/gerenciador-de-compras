@@ -107,7 +107,7 @@ public class CategoriaServlet extends HttpServlet {
 	response.sendRedirect("produtos?acao=listar");
     }
 
-    private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user) throws IOException {
+    private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user) throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
 	String orcamento = request.getParameter("orcamento");
@@ -118,15 +118,16 @@ public class CategoriaServlet extends HttpServlet {
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	if (cat.getId() == null) {
 	    cat = service.salvar(cat);
-	    String json = new Gson().toJson(cat);
-	    System.out.println(json);
-	    response.setContentType("application/json");
-	    response.setStatus(HttpServletResponse.SC_CREATED);
-	    response.getWriter().write(json);
+//	    String json = new Gson().toJson(cat);
+//	    System.out.println(json);
+//	    response.setContentType("application/json");
+//	    response.setStatus(HttpServletResponse.SC_CREATED);
+//	    response.getWriter().write(json);
 	} else {
 	    service.update(cat);
 	    response.setStatus(HttpServletResponse.SC_OK);
 	}
+	request.getRequestDispatcher("categorias?acao=listar").forward(request, response);
     }
 
     private void listarTodasCategorias(HttpServletRequest request, HttpServletResponse response)
