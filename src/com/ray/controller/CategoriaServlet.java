@@ -43,7 +43,7 @@ public class CategoriaServlet extends HttpServlet {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("newList")) {
 		response.sendRedirect("add-categoria.jsp");
-	    }else {
+	    } else {
 		listarTodasCategorias(request, response);
 	    }
 	} else {
@@ -149,7 +149,9 @@ public class CategoriaServlet extends HttpServlet {
 	String serch = request.getParameter("search");
 	RequestDispatcher dispatcher = null;
 	try {
-	    request.setAttribute("categorias", service.getCategoriaByName(serch));
+	    if (!serch.isEmpty()) {
+		request.setAttribute("categorias", service.getCategoriaByName(serch));
+	    }
 	} catch (ListaVaziaException e) {
 	    request.setAttribute("error", e.getMessage());
 	} finally {

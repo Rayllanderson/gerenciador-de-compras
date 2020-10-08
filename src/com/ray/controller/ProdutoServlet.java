@@ -63,12 +63,12 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	    request.setAttribute("gerais",
-		    ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
-	    request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
-	    request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	    request.setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
-	    request.setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
+	request.setAttribute("gerais",
+		ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+	request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
+	request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
+	request.setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
+	request.setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -127,7 +127,7 @@ public class ProdutoServlet extends HttpServlet {
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
-		    service.validarCategoria(cat); 
+		    service.validarCategoria(cat);
 		}
 		service.update(p);// moveu
 
@@ -205,7 +205,9 @@ public class ProdutoServlet extends HttpServlet {
 	String serch = request.getParameter("search");
 	RequestDispatcher dispatcher = null;
 	try {
-	    request.setAttribute("produtos", service.getProdutosByName(serch));
+	    if (!serch.isEmpty()) {
+		request.setAttribute("produtos", service.getProdutosByName(serch));
+	    }
 	} catch (ListaVaziaException e) {
 	    request.setAttribute("error", e.getMessage());
 	} finally {
