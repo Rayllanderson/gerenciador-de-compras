@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -72,7 +72,11 @@
 
 
 	<div class="container">
-	
+	  	<div class="alert alert-success" id="success-alert" style="margin-top: 1%">
+   		 <button type="button" class="close" data-dismiss="alert">x</button>
+   	 <strong>Sucesso! </strong> <p id="alertMsg"></p>
+  	</div>
+  	
 		<div class="card card-signin my-5">
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Sua Conta</h4>
@@ -98,7 +102,7 @@
 					<div style="display: flex; justify-content: space-between;">
 						<div class="text-left">
 						
-							<input class="btn btn-primary" type="button" onclick="ajax()"				
+							<input id="" class="btn btn-primary" type="button" onclick="ajax()"				
 							value="Editar" />
 						</div>
 					
@@ -146,11 +150,12 @@
     
 <script type="text/javascript">
 
+$(".alert").hide();
+
 function ajax(){
 	let nome = $('#nome').val();
 	let id =  $('#id').val();
 	let username =  $('#username').val();
-	
 	
 	$.ajax({
 	    method: "POST",
@@ -159,12 +164,31 @@ function ajax(){
 	    		username : username,
 	    		id : id}
 	}).done(function(response){
-		alert(response)
+		console.log(response)
+		setColorAlert(response);
 		document.getElementById('pName').innerHTML = 'Olá, <strong>' +  nome  + '</strong>!';
 	}).fail(function(xhr, status, errorThrown) {
-	    alert(xhr.responseText);
+		alertBoostrap(xhr.responseText, 'alert alert-danger');
 	});
 }
+
+function alertBoostrap(msg, classe){
+  $(".alert").show();
+  document.getElementById('alertMsg').innerHTML = msg;
+  document.getElementById("success-alert").className = classe;
+  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success-alert").slideUp(500);
+});
+}
+
+function setColorAlert(response){
+	if (response == 'Nenhuma alteração foi detectada.'){
+		alertBoostrap(response, 'alert alert-warning')
+	}else{
+		alertBoostrap(response, 'alert alert-success')
+	}
+}
+
 
 </script>
 </body>

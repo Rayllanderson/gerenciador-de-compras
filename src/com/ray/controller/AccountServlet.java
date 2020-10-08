@@ -47,6 +47,8 @@ public class AccountServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	String action = request.getParameter("action");
 	if (action != null) {
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
 	    Long id = Long.valueOf(request.getParameter("id"));
 	    String name = request.getParameter("nome");
 	    String username = request.getParameter("username");
@@ -71,7 +73,7 @@ public class AccountServlet extends HttpServlet {
 			    response.getWriter().write("O username escolhido já está em uso. Tente usar outro");
 			}
 		    } else {
-			response.setStatus(200);
+			response.setStatus(202);
 			response.getWriter().write("Nenhuma alteração foi detectada.");
 		    }
 		}
