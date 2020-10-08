@@ -283,7 +283,15 @@ const msg = "${error}"
 			    data: { nome : nome,
 			    		orcamento : orcamento}
 			}).done(function(response){
-				alert('sucesso!') //setar na tabela o novo bicho
+				alert('sucesso!') //TODO setar na tabela o novo bicho e o modal cair fora
+				var table = document.getElementById('tabela');	
+				console.log(response)
+				var table = document.getElementById('tabela');
+				$("<tr>").appendTo(table).text(response.catId)
+				$("<tr>").appendTo(table).text(response.catName)
+				$("<tr>").appendTo(table).text(response.catOrcamento)
+				
+			
 			}).fail(function(xhr, status, errorThrown) {
 				alert('fail')
 			});

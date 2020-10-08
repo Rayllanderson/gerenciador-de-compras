@@ -22,7 +22,6 @@ public class CategoriaService {
     public Categoria salvar(Categoria cat) {
 	try {
 	   return categoriaDao.save(cat);
-	   
 	} catch (DbException e) {
 	    return null;
 	}
