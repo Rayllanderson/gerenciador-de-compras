@@ -156,6 +156,8 @@
 					
 					<td data-label="Editar">
 					
+					
+					
 					<button
 					class="btn btn-outline-info"
 					data-toggle="modal" data-target="#exampleModal" 
@@ -172,11 +174,9 @@
 
 
 					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger" style="
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
-					onclick="
-					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
-						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
-					}">
+ 					 box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
+					 data-toggle="modal" data-target="#exampleModalCenter" data-id="${cat.id}" 
+					data-nome="${cat.name}">
 											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
 </svg>
@@ -194,8 +194,35 @@
 </div>
 	
  
+ <!-- 					onclick="
+					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
+						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
+					}" -->
+ 
+ 
+ <!-- Modal confirmar excluir -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Atenção</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	Você tem certeza que deseja excluir a lista <strong><span id="nomeCat"></span></strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 	
-	<!-- Tela Modal -->
+	<!-- Tela Modal EDITAR/SALVAR-->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -208,7 +235,7 @@
 										</div>
 									</div>
 								</div>
-		<!-- Fim Tela Modal 
+		<!--
 		
 		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
 		-->
@@ -240,6 +267,8 @@
 		  </div>
 	
 	
+	<!-- Fim Tela Modal -->
+	
 
 <script src="resource/javascript/esconderUrl.js"></script>
 	
@@ -265,6 +294,18 @@
 		})
 </script>  
 	
+	
+<script type="text/javascript">
+		$('#exampleModalCenter').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var id = button.data('id') // Extract info from data-* attributes
+		var nome = button.data('nome')
+		console.log(id)
+		var modal = $(this)
+ 		modal.find('#nomeCat').text(nome)
+		});
+
+</script>
 	
 </body>
 
