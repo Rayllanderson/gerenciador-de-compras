@@ -21,6 +21,10 @@ function saveAjax() {
 	} else {
 		message = "Sua lista foi editada com sucesso!"
 	}
+	
+
+if (nome != ''){
+		
 	$.ajax({
 		method: "POST",
 		url: "categorias?acao=salvar",
@@ -45,6 +49,11 @@ function saveAjax() {
 			$("#divtable").html($(responseXml).find("data").html());
 		});
 	});
+}else{
+	document.getElementById('titulo').innerHTML = "Error!"
+	alertBoostrap("Um ou mais campos estão vazios", 'alert alert-danger')
+	$('#exampleModal').modal('hide')
+}
 }
 
 

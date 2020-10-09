@@ -248,7 +248,7 @@
 			  <div class="modal-body">
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label">Nome:</label>
-					<input name="nomeLista" type="text" class="form-control" id="recipient-name" required="required" value="${cat.name}">
+					<input name="nomeLista" type="text" class="form-control" id="recipient-name" value="${cat.name}" required/>
 				  </div>
 				  <div class="form-group">
 					<label for="message-text" class="control-label">Orcamento:</label>
