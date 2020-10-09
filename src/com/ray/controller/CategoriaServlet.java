@@ -43,6 +43,8 @@ public class CategoriaServlet extends HttpServlet {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("newList")) {
 		response.sendRedirect("add-categoria.jsp");
+	    } else if (acao.equals("excluir")) {
+		deletarCategoria(request, response);
 	    } else {
 		listarTodasCategorias(request, response);
 	    }
@@ -70,19 +72,17 @@ public class CategoriaServlet extends HttpServlet {
 		salvarLista(request, response, user);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditPage(request, response);
-	    } else if (acao.equals("excluir")) {
-		deletarCategoria(request, response);
 	    } else if (acao.equals("search")) {
 		search(request, response);
 	    }
 	}
     }
 
-    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	String id = request.getParameter("id");
 	service.deleteById(Long.parseLong(id));
 	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	response.sendRedirect("categorias?acao=listar");
+	request.getRequestDispatcher("categorias.jsp").forward(request, response);
     }
 
     private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)
@@ -126,7 +126,7 @@ public class CategoriaServlet extends HttpServlet {
 	    service.update(cat);
 	    response.setStatus(HttpServletResponse.SC_OK);
 	}
-	request.getRequestDispatcher("categorias?acao=listar").forward(request, response);
+	request.getRequestDispatcher("categorias.jsp").forward(request, response);
     }
 
     private void listarTodasCategorias(HttpServletRequest request, HttpServletResponse response)
@@ -163,4 +163,5 @@ public class CategoriaServlet extends HttpServlet {
 	    dispatcher.forward(request, response);
 	}
     }
+    
 }

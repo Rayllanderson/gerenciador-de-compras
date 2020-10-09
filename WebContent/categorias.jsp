@@ -215,7 +215,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger">Excluir</button>
+        <button type="button" class="btn btn-danger" id="excluir" >Excluir</button>
       </div>
     </div>
   </div>
@@ -235,13 +235,9 @@
 										</div>
 									</div>
 								</div>
-		<!--
-		
+		<!--		
 		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
-		-->
-		
-		
-		
+		-->		
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -296,14 +292,7 @@
 	
 	
 <script type="text/javascript">
-		$('#exampleModalCenter').on('show.bs.modal', function (event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var id = button.data('id') // Extract info from data-* attributes
-		var nome = button.data('nome')
-		console.log(id)
-		var modal = $(this)
- 		modal.find('#nomeCat').text(nome)
-		});
+
 
 </script>
 	
@@ -324,6 +313,7 @@ const msg = "${error}"
 
 
 <script src="resource/javascript/categoriaAjax.js" ></script>
+<script src="resource/javascript/excluirCategoriaAjax.js" ></script>
 
 
 

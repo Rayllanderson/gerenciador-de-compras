@@ -21,13 +21,14 @@ function saveAjax(){
 				document.getElementById('titulo').innerHTML="Sucesso!"
 				alertBoostrap(message, 'alert alert-success')
 				$('#exampleModal').modal('hide')
-				
 				$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
 			        $("#divtable").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
 			});
 				
 			}).fail(function(xhr, status, errorThrown) {
-				alert('fail')
+				document.getElementById('titulo').innerHTML="Error!"
+				alertBoostrap("Ocorreu um erro inesperado. " + erroThrown, 'alert alert-danger')
+				$('#exampleModal').modal('hide')
 			});
 		}
 	  
@@ -39,4 +40,4 @@ function alertBoostrap(msg, classe){
     $("#success-alert").slideUp(500);
 });
 }
-	
+
