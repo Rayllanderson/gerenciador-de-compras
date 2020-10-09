@@ -14,6 +14,7 @@ import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
+import com.ray.model.exception.CategoriaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 
@@ -78,10 +79,14 @@ public class CategoriaServlet extends HttpServlet {
 	}
     }
 
-    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
+	    throws IOException, ServletException {
 	String id = request.getParameter("id");
-	service.deleteById(Long.parseLong(id));
-	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	if (service.deleteById(Long.parseLong(id))) {
+	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	} else {
+	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+	}
 	request.getRequestDispatcher("categorias.jsp").forward(request, response);
     }
 
@@ -106,27 +111,36 @@ public class CategoriaServlet extends HttpServlet {
 	response.sendRedirect("produtos?acao=listar");
     }
 
-    private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user) throws IOException, ServletException {
+    private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user)
+	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
 	String orcamento = request.getParameter("orcamento");
 	System.out.println("orcamento= " + orcamento);
 	System.out.println("nome " + nome);
 	System.out.println("id = " + id);
-	Categoria cat = new Categoria(! id.isEmpty() ? Long.parseLong(id) : null, nome, user);
+	Categoria cat = new Categoria(!id.isEmpty() ? Long.parseLong(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
-	if (cat.getId() == null) {
-	    cat = service.salvar(cat);
-	    response.setStatus(HttpServletResponse.SC_CREATED);
+	try {
+	    if (cat.getId() == null) {
+		cat = service.salvar(cat);
+		response.setStatus(HttpServletResponse.SC_CREATED);
 //	    String json = new Gson().toJson(cat);
 //	    System.out.println(json);
 //	    response.setContentType("application/json");
 //	    response.getWriter().write(json);
-	} else {
-	    service.update(cat);
-	    response.setStatus(HttpServletResponse.SC_OK);
-	}
-	request.getRequestDispatcher("categorias.jsp").forward(request, response);
+	    } else {
+		service.update(cat);
+		response.setStatus(HttpServletResponse.SC_OK);
+	    }
+	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
+	} catch (CategoriaException e) {
+	    response.setContentType("text/plain"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	    response.getWriter().println(e.getMessage());
+	} 
+
     }
 
     private void listarTodasCategorias(HttpServletRequest request, HttpServletResponse response)
@@ -163,5 +177,5 @@ public class CategoriaServlet extends HttpServlet {
 	    dispatcher.forward(request, response);
 	}
     }
-    
+
 }

@@ -19,14 +19,28 @@ public class CategoriaService {
 
     private CategoriaDao categoriaDao;
 
-    public Categoria salvar(Categoria cat) {
+    /**
+     * 
+     * @param cat
+     * @return a categoria salva no banco de dados, com id
+     * @throws CategoriaException caso o nome da categoria esteja vazio
+     */
+    public Categoria salvar(Categoria cat) throws CategoriaException {
 	try {
+	   validarNome(cat);
 	   return categoriaDao.save(cat);
 	} catch (DbException e) {
 	    return null;
 	}
     }
 
+    private void validarNome(Categoria cat) throws CategoriaException {
+	String nome = cat.getName();
+	if (nome.isEmpty() || nome == null) {
+	    throw new CategoriaException("Um ou mais campos estão vazios");
+	}
+    }
+    
     public List<Categoria> findAll() {
 	return categoriaDao.findAll();
     }
@@ -87,11 +101,18 @@ public class CategoriaService {
 	}
     }
 
-    public boolean update(Categoria cat) {
+    /**
+     * 
+     * @param cat
+     * @return true caso dê tudo ok
+     * @throws CategoriaException caso o nome da categoria esteja nulo
+     */
+    public boolean update(Categoria cat) throws CategoriaException {
 	try {
 	    if (cat.getOrcamento() == null) {
 		cat.setOrcamento(0.0);
 	    }
+	    validarNome(cat);
 	    categoriaDao.update(cat);
 	    return true;
 	} catch (DbException e) {
