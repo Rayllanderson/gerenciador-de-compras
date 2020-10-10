@@ -111,11 +111,13 @@
             ">
             <div></div>
 <div>
-    <form class="form-inline" action="categorias?acao=search" method="post" >
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="width: 80%;
+
+	<!-- SEARCH -->
+    <div class="form-inline" id="searchForm">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="search" title="procure algum produto que queira encontrar" style="width: 80%;
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="border: 0.5px solid; border-radius: 0.9rem; 
+      <button type="button" onclick="search()" class="btn btn-outline-primary my-2 my-sm-0" style="border: 0.5px solid; border-radius: 0.9rem; 
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
       
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +126,7 @@
 </svg>
       
       </button>
-    </form>
+    </div>
 </div>
 <div>&nbsp;</div>
 </div>
@@ -308,6 +310,7 @@ if ( window.history.replaceState ) {
 <script src="resource/javascript/esconderUrl.js"></script>
 <script src="resource/javascript/categoriaAjax.js" ></script>
 <script src="resource/javascript/excluirCategoriaAjax.js" ></script>
+<script src="resource/javascript/searchCategoriaAjax.js" ></script>
 
 
 

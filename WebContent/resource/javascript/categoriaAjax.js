@@ -1,7 +1,15 @@
 $(".alert").hide();
 
-function alertBoostrap(msg, classe) {
+function alertBoostrap(msg, classe, titulo) {
 	$(".alert").show();
+	
+	const title = document.getElementById('titulo');
+
+	if(titulo != undefined){
+		title.innerHTML = titulo
+	}else{
+		title.innerHTML = ''
+	}
 	document.getElementById('alertMsg').innerHTML = msg;
 	document.getElementById("success-alert").className = classe;
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
@@ -23,38 +31,35 @@ function saveAjax() {
 	}
 	
 
-if (nome != ''){
+	if (nome != ''){
 		
-	$.ajax({
-		method: "POST",
-		url: "categorias?acao=salvar",
-		data: {
-			nome: nome,
-			orcamento: orcamento,
-			id: id
-		}
-	}).done(function(response) {
-		document.getElementById('titulo').innerHTML = "Sucesso!"
-		alertBoostrap(message, 'alert alert-success')
-		$('#exampleModal').modal('hide')
-		$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
-			$("#divtable").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
+		$.ajax({
+			method: "POST",
+			url: "categorias?acao=salvar",
+			data: {
+				nome: nome,
+				orcamento: orcamento,
+				id: id
+			}
+		}).done(function(response) {	
+			alertBoostrap(message, 'alert alert-success', "Sucesso")
+			$('#exampleModal').modal('hide')
+			$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
+				$("#divtable").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
+			});
+	
+		}).fail(function(xhr, status, errorThrown) {
+			alertBoostrap("Erro " + xhr.status + ": " + xhr.responseText, 'alert alert-danger', "Erro")
+			$('#exampleModal').modal('hide')
+			$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
+				$("#divtable").html($(responseXml).find("data").html());
+			});
 		});
-
-	}).fail(function(xhr, status, errorThrown) {
-		document.getElementById('titulo').innerHTML = "Error!"
-		alertBoostrap("Erro " + xhr.status + ": " + xhr.responseText, 'alert alert-danger')
+	}else{
+		alertBoostrap("O campo Nome não pode ser nulo", 'alert alert-danger', "Erro")
 		$('#exampleModal').modal('hide')
-		$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
-			$("#divtable").html($(responseXml).find("data").html());
-		});
-	});
-}else{
-	document.getElementById('titulo').innerHTML = "Error!"
-	alertBoostrap("Um ou mais campos estão vazios", 'alert alert-danger')
-	$('#exampleModal').modal('hide')
-}
-}
+	}
+	}
 
 
 

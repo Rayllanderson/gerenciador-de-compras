@@ -27,6 +27,7 @@ public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDao repository;
     private CategoriaService service;
+    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas uma vez
 
     public CategoriaServlet() {
 	super();
@@ -35,7 +36,7 @@ public class CategoriaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
-	System.out.println(acao);
+	System.out.println(flag);
 	if (acao != null) {
 	    User user = instanciarUser(request);
 	    repository = DaoFactory.createCategoriaDao(user);
@@ -46,6 +47,8 @@ public class CategoriaServlet extends HttpServlet {
 		response.sendRedirect("add-categoria.jsp");
 	    } else if (acao.equals("excluir")) {
 		deletarCategoria(request, response);
+	    } else if (acao.equals("search")) {
+		search(request, response);
 	    } else {
 		listarTodasCategorias(request, response);
 	    }
@@ -73,8 +76,6 @@ public class CategoriaServlet extends HttpServlet {
 		salvarLista(request, response, user);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditPage(request, response);
-	    } else if (acao.equals("search")) {
-		search(request, response);
 	    }
 	}
     }
@@ -167,17 +168,24 @@ public class CategoriaServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String serch = request.getParameter("search");
-	RequestDispatcher dispatcher = null;
+	System.out.println(serch);
 	try {
 	    if (!serch.isEmpty()) {
-		request.setAttribute("categorias", service.getCategoriaByName(serch));
+		response.setStatus(HttpServletResponse.SC_OK);
+		request.getSession().setAttribute("categorias", service.getCategoriaByName(serch));
+		flag = true; //pode pesquisar com campo nulo que vai listar todas as categorias
+	    }else if(flag){
+		listarTodasCategorias(request, response);
+		System.out.println("entrou aqui haha");
+		flag = false; //desativando a funcao para evitar listar sem necessidade
 	    }
 	} catch (ListaVaziaException e) {
-	    request.setAttribute("error", e.getMessage());
-	} finally {
-	    dispatcher = request.getRequestDispatcher("categorias.jsp");
-	    dispatcher.forward(request, response);
-	}
+	    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(e.getMessage());
+	} 
     }
-
+    
 }
+
