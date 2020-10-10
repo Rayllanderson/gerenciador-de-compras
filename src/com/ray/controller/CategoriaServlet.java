@@ -81,13 +81,15 @@ public class CategoriaServlet extends HttpServlet {
 
     private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
-	String id = request.getParameter("id");
+	String id = request.getParameter("id1");
+	System.out.println("cara... id chegou aqui foi esse..: " + id);
 	if (service.deleteById(Long.parseLong(id))) {
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	    request.getRequestDispatcher("categorias.jsp").forward(request, response); 	
 	} else {
 	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
 	}
-	request.getRequestDispatcher("categorias.jsp").forward(request, response);
+	
     }
 
     private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)
