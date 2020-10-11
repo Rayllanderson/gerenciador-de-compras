@@ -3,8 +3,10 @@ function alertBoostrap(msg, classe, titulo) {
 
 	const title = document.getElementById('titulo');
 
-	if(titulo != undefined){
+	if(titulo != undefined){	
+		if(title != null){
 		title.innerHTML = titulo
+		}
 	}else{
 		title.innerHTML = ''
 	}

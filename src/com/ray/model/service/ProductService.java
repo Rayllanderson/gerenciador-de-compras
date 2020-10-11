@@ -60,11 +60,13 @@ public class ProductService {
 	}
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
 	try {
 	    dao.deletById(id);
+	    return true;
 	} catch (DbException e) {
 	    e.printStackTrace();
+	    return false;
 	}
     }
 

@@ -70,6 +70,15 @@
   </div>
 </nav>
 
+
+                    	<!-- ALERT -->
+				 	 <div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close" data-dismiss="alert">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
+
 </header>
 
 
@@ -104,13 +113,6 @@
 	
 <div class="container">
 
-<!-- ALERT -->
- 	 <div class="fixed-top">
- 	 	 <div class="alert alert-success" id="success-alert">
-   			 <button type="button" class="close" data-dismiss="alert">x</button>
-   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
-  		 </div>
-	</div>
 	  	
 
 <main role="main" class="">

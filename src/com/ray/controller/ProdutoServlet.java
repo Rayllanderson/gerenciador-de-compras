@@ -51,6 +51,10 @@ public class ProdutoServlet extends HttpServlet {
 		    listarComprados(request, response);
 		} else if (acao.equals("nao_comprados")) {
 		    listarNaoComprados(request, response);
+		} else if (acao.equals("excluir")) {
+		    excluir(request, response);
+		} else if (acao.equals("search")) {
+		    search(request, response);
 		}
 	    } else {
 		listarTodosProdutos(request, response);
@@ -88,14 +92,18 @@ public class ProdutoServlet extends HttpServlet {
 		salvarProduto(request, response);
 	    } else if (acao.equals("editar")) {
 		redirecionarEditarProduto(request, response);
-	    } else if (acao.equals("excluir")) {
-		Long id = Long.valueOf(request.getParameter("id"));
-		service.deleteById(id);
-		response.sendRedirect("produtos");
-	    } else if (acao.equals("search")) {
-		search(request, response);
 	    }
 	}
+    }
+
+    private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	Long id = Long.valueOf(request.getParameter("id1"));
+	if (service.deleteById(id)) {
+	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	} else {
+	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+	}
+
     }
 
     private void redirecionarEditarProduto(HttpServletRequest request, HttpServletResponse response)
@@ -115,17 +123,12 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
-	    
-//	    System.out.println("id " + id);
-//	    System.out.println("estip " + valorEstipulado);
-//	    System.out.println("real " + valorReal);
-//	    System.out.println("comprado " + comprado);
-//	    
-	    
+
 	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
+
 	    if (p.getId() == null) {
 		service.inserir(p);
 		response.setStatus(HttpServletResponse.SC_CREATED);
@@ -150,7 +153,7 @@ public class ProdutoServlet extends HttpServlet {
 	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
 					// permitir caso a lista nao pertencer a ele
 	    request.setAttribute("error", e.getMessage());
-	    response.setStatus(422); //dados foram compreendidos, mas não são válidos.
+	    response.setStatus(422); // dados foram compreendidos, mas não são válidos.
 	}
     }
 
