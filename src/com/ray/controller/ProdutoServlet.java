@@ -60,7 +60,7 @@ public class ProdutoServlet extends HttpServlet {
 		listarTodosProdutos(request, response);
 	    }
 	} catch (NullPointerException e) {
-	    request.setAttribute("error", "Você deve selecionar uma lista primeiro");
+	    request.setAttribute("error", "Antes você deve selecionar uma lista primeiro");
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
 	    dispatcher.forward(request, response);
 	}
@@ -147,13 +147,17 @@ public class ProdutoServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 	    }
 	} catch (NumberFormatException e) {
-	    request.setAttribute("error", "Digite um número válido");
 	    request.setAttribute("nome", nome);
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
 	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	    response.getWriter().println("Digite um número válido");
 	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
 					// permitir caso a lista nao pertencer a ele
-	    request.setAttribute("error", e.getMessage());
 	    response.setStatus(422); // dados foram compreendidos, mas não são válidos.
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().println(e.getMessage());
 	}
     }
 

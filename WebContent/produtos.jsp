@@ -18,7 +18,7 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
-					<script src="resource/javascript/alert.js"></script>
+					
 
                     <style type="text/css">
                         body {
@@ -118,6 +118,8 @@
 
  <!-- FIM 2NAV -->
 
+
+<data>
 
 
 <div class="container">
@@ -241,7 +243,7 @@
                             </div>
 
 
-<data>
+
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive-xl" id="tabela-produtos">
                                 <table class="table" id="tabela" style="
@@ -417,13 +419,13 @@
 					<script src="resource/javascript/excluirProdutoAjax.js"></script>
 					<script src="resource/javascript/produtosAjax.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
-
+					<script src="resource/javascript/alert.js"></script>
 
                     <script type="text/javascript">
                         const msg = "${error}"
                         console.log(msg)
                         if (msg != null && msg != '') {
-                            alert(msg)
+                        	alertBoostrap("Erro " + msg + ": " + xhr.responseText, 'alert alert-danger', "Erro")
                         }
 
                         function setCheckedIfTrue(funcao) {                	

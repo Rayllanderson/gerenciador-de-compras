@@ -314,9 +314,22 @@
 
 <script type="text/javascript">
 
+
 if ( window.history.replaceState ) {
 	  window.history.replaceState( null, null, window.location.href );
 	}
+
+
+const msg = "${error}"
+    console.log(msg)
+    if (msg != null && msg != '') {
+    	$(document).ready(function() {  	
+    	$.getScript("resource/javascript/alert.js", function() {
+    		alertBoostrap(msg, 'alert alert-warning', "Ei...")
+    	});
+    });
+    }
+
 
 </script>
 
@@ -325,8 +338,6 @@ if ( window.history.replaceState ) {
 <script src="resource/javascript/excluirCategoriaAjax.js" ></script>
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
 <script src="resource/javascript/alert.js"></script>
-
-
 
 
 <script>

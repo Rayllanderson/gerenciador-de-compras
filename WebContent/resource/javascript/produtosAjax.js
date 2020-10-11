@@ -14,13 +14,6 @@ function setMessageAlert(id, nome) {
 
 function saveProduct() {
 	
-	let id = $('#id').val();
-	let nome = $('#recipient-name').val();
-	let estipulado = $('#estipulado').val();
-	let real = $('#real').val();
-	var comprado = $('#comprado').is(':checked');
-	let cat_id = $('#categoria').val();
-	
 	//passando de obj pra string
 	if(comprado == true){
 		comprado = 'true'
@@ -55,12 +48,12 @@ function saveProduct() {
 				}); 
 	
 			}).fail(function(xhr, status, errorThrown) {
-				alert('fail')
-				/*$('#exampleModal').modal('hide')
-				$.get("categorias?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
-					$("#divtable").html($(responseXml).find("data").html());
-				});*/
+				alertBoostrap("Erro " + xhr.status + ": " + xhr.responseText, 'alert alert-danger', "Erro")
+				$('#exampleModal').modal('hide')
+					$.get("produtos?acao=listar", function(responseXml) {          
+					$("#tabela-produtos").html($(responseXml).find("data").html());
 			});
+		});
 		} else {
 			alertBoostrap("O campo Nome não pode ser nulo", 'alert alert-danger', "Erro")
 			$('#exampleModal').modal('hide')
