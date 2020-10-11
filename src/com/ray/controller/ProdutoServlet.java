@@ -15,6 +15,7 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProductoException;
 import com.ray.model.service.ProductService;
@@ -120,6 +121,8 @@ public class ProdutoServlet extends HttpServlet {
 	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
+	
+	Long catOriginal = cat.getId();
 	try {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
@@ -136,7 +139,6 @@ public class ProdutoServlet extends HttpServlet {
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
 //		System.out.println("ci " + catId);
-		Long catOriginal = cat.getId();
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
@@ -148,18 +150,27 @@ public class ProdutoServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 	    }
 	} catch (NumberFormatException e) {
-	    request.setAttribute("nome", nome);
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-	    response.getWriter().println("Digite um número válido");
+	    setResponseBody(request, response, "Valor inválido para o campo 'Valor Estipulado'", HttpServletResponse.SC_BAD_REQUEST);
 	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
-					// permitir caso a lista nao pertencer a ele
-	    response.setStatus(422); // dados foram compreendidos, mas não são válidos.
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().println(e.getMessage());
+					// permitir caso a lista nao pertencer a ele	
+	    cat.setId(catOriginal);
+	    setResponseBody(request, response, e.getMessage(), 422);// dados foram compreendidos, mas não são válidos.
+	} catch (EntradaInvalidaException e) {
+	    setResponseBody(request, response, e.getMessage(), 400);
 	}
+    }
+
+    /**
+     * Apenas pra diminuir codigo. <br>
+     * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o Ajax
+     * @param mensagem - mensagem que será enviada como resposta 
+     * @param codigo - codigo que será enviado
+     */
+    private void setResponseBody(HttpServletRequest request, HttpServletResponse response, String mensagem, int codigo) throws IOException {
+	response.setContentType("text/plain");
+	response.setCharacterEncoding("UTF-8");
+	response.setStatus(codigo);
+	response.getWriter().write(mensagem);
     }
 
     private String parseNumber(String value) {
@@ -197,11 +208,7 @@ public class ProdutoServlet extends HttpServlet {
 	    request.getSession().setAttribute("produtos", list);
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
-	    response.setStatus(200);
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    System.out.println(e.getMessage().length());
-	    response.getWriter().println(e.getMessage());
+	    setResponseBody(request, response, e.getMessage(), 200);
 	}
     }
 
@@ -211,10 +218,7 @@ public class ProdutoServlet extends HttpServlet {
 	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
-	    response.setStatus(200);
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().println(e.getMessage());
+	    setResponseBody(request, response, e.getMessage(), 200);
 	}
     }
 
@@ -230,11 +234,7 @@ public class ProdutoServlet extends HttpServlet {
 		flag = false;
 	    }
 	} catch (ListaVaziaException e) {
-	    response.setStatus(404);
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().println(e.getMessage());
-
+	    setResponseBody(request, response, e.getMessage(), 400);
 	}
     }
 }

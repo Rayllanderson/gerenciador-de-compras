@@ -8,6 +8,8 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.entities.User;
+import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProductoException;
 import com.ray.model.util.FormatarTabela;
@@ -27,8 +29,15 @@ public class ProductService {
     }
 
     // ---------------------"CRUD"-------------------------//
-    public boolean inserir(Product p) {
+    /**
+     * @param p
+     * @return
+     * @throws EntradaInvalidaException - caso os campos valor estipalo e nome
+     *                                  estejam vazios ou nulos
+     */
+    public boolean inserir(Product p) throws EntradaInvalidaException {
 	try {
+	    validarCampos(p);
 	    dao.save(p);
 	    cat.adicionarProduto(p);
 	    return true;
@@ -38,22 +47,52 @@ public class ProductService {
 	}
     }
 
-    public boolean update(Product p) {
+    /**
+     * 
+     * @param p
+     * @return
+     * @throws EntradaInvalidaException - caso os campos valor estipalo e nome
+     *                                  estejam vazios ou nulos
+     */
+    public boolean update(Product p) throws EntradaInvalidaException {
 	try {
+	    System.out.println(p.getId());
+	    if (dao.validar(p.getId())) {
+		validarCampos(p);
 		dao.update(p);
 		return true;
-
+	    } else {
+		throw new ProductoException("Ocorreu um inesperado");
+	    }
 	} catch (DbException e) {
 	    e.printStackTrace();
 	    return false;
 	}
     }
 
+    /**
+     * Valida os campos Nome e preço estipulado
+     * 
+     * @param p
+     * @throws EntradaInvalidaException lançada quando os campos nome e preço
+     *                                  estipulado estiverem em branco ou nulos
+     */
+    private void validarCampos(Product p) throws EntradaInvalidaException {
+	if (p.getNome().trim().isEmpty() || p.getPrecoEstipulado() == null) {
+	    throw new EntradaInvalidaException("um ou mais campos estão vazios.");
+	}
+    }
+
     public boolean deletar(Product p) {
 	try {
-	    dao.deletById(p.getId());
-	    cat.deletarProduto(p);
-	    return true;
+	    if (dao.validar(p.getId())) {
+		dao.deletById(p.getId());
+		cat.deletarProduto(p);
+		return true;
+	    } else {
+		throw new ProductoException("Ocorreu um inesperado");
+	    }
+
 	} catch (DbException e) {
 	    e.printStackTrace();
 	    return false;
@@ -105,23 +144,33 @@ public class ProductService {
 	}
     }
 
-    public void mudarCategoria(Product p, Categoria cat) throws ProductoException{
+    public void mudarCategoria(Product p, Categoria cat) throws ProductoException {
 	p.setCategoria(cat);
 	dao.update(p);
-   }
-    
+    }
+
     /**
      * método para verifica se a categoria atual percente ao usuário
-     * @throws ProductoException caso a categoria escolhida não exista para o usuário atual
+     * 
+     * @throws ProductoException caso a categoria escolhida não exista para o
+     *                           usuário atual
      */
-    public void validarCategoria(Categoria cat) throws ProductoException{
-	 //Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de atualizar,
-	//procura no banco de dados para verificar se o usuário é mesmo o dono da categoria, se nao for, retorna nulo. 
+    public void validarCategoria(Categoria cat) throws ProductoException {
+	// Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de
+	// atualizar,
+	// procura no banco de dados para verificar se o usuário é mesmo o dono da
+	// categoria, se nao for, retorna nulo.
 	CategoriaDao catRespotitory = DaoFactory.createCategoriaDao(this.cat.getUser());
 	List<Categoria> list = catRespotitory.findAll();
-	if(!list.contains(cat)) {
+	if (!list.contains(cat)) {
 	    throw new ProductoException("Essa categoria não existe.");
 	}
+    }
+
+    private User getUser(Long id) {
+	Product p = dao.findById(id);
+	Categoria c = p.getCategoria();
+	return c.getUser();
     }
 
     // ---------------------------Listas-------------------------------//
@@ -129,15 +178,17 @@ public class ProductService {
     public List<Product> findAllProduct() {
 	return dao.findAll();
     }
-    
+
     /**
      * verifica se a lista de produtos está vazia
-     * @return true caso esteja vazia <br>false caso não esteja
+     * 
+     * @return true caso esteja vazia <br>
+     *         false caso não esteja
      */
     public boolean listIsEmpty() {
 	return dao.findAll().isEmpty() ? true : false;
     }
-   
+
     /**
      * @throws ListaVaziaException("Ops, parece que você não tem nenhum produto na
      *                                   lista.");
@@ -204,9 +255,12 @@ public class ProductService {
     /**
      * 
      * @return uma lista de todos os produtos que foram concluídos
-     * @throws ListaVaziaException caso não possua nenhum produto na lista ou caso nenhum produto da lista tenha sido comprado <br>
-     * ListaVaziaException("Você não tem produtos na lista"); <br>
-     * ListaVaziaException("Puxa, nenhum produto foi comprado até o momento :(");
+     * @throws ListaVaziaException caso não possua nenhum produto na lista ou caso
+     *                             nenhum produto da lista tenha sido comprado <br>
+     *                             ListaVaziaException("Você não tem produtos na
+     *                             lista"); <br>
+     *                             ListaVaziaException("Puxa, nenhum produto foi
+     *                             comprado até o momento :(");
      */
     public List<Product> getProdutosConcluidos() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
@@ -236,10 +290,11 @@ public class ProductService {
     }
 
     // -----------------------------SOMAS--------------------------------------//
-    
+
     /**
      * 
-     * @return valor total real dos produtos (mesmo que não estejam marcados como comprado)
+     * @return valor total real dos produtos (mesmo que não estejam marcados como
+     *         comprado)
      * @throws ListaVaziaException caso não tenha nenhum produto na lista
      */
     public double getValorRealGasto() throws ListaVaziaException {
@@ -267,8 +322,9 @@ public class ProductService {
 
     /**
      * 
-     * @return valor total. Soma dos produtos comprados. Se um produto não tiver sido comprado, considera o valor estipulado<br>
-     *  valorReal + valorEstipulado (if !comprado)
+     * @return valor total. Soma dos produtos comprados. Se um produto não tiver
+     *         sido comprado, considera o valor estipulado<br>
+     *         valorReal + valorEstipulado (if !comprado)
      */
     public double getValorTotalAtual() {
 	double sum = 0;
@@ -283,18 +339,17 @@ public class ProductService {
 	return sum;
     }
 
-    
     /**
      * 
      * @param service
-     * @return a soma total do valor estipulado para os produtos que não foram comprados
-     * Se todos os produtos forem comprados, retorna 0
+     * @return a soma total do valor estipulado para os produtos que não foram
+     *         comprados Se todos os produtos forem comprados, retorna 0
      */
     public double getValorEstipuladoRestante() {
 	try {
 	    List<Product> list = getProdutosNaoConcluidos();
 	    return list.stream().mapToDouble(Product::getPrecoEstipulado).sum();
-	}catch (ListaVaziaException e) {
+	} catch (ListaVaziaException e) {
 	    return 0.0;
 	}
     }
@@ -320,15 +375,15 @@ public class ProductService {
      * @param cat
      * @return total = orcamento - this.getValorRealGasto();
      * @throws NullPointerException
-     * @throws ListaVaziaException quando não há produtos na lista
+     * @throws ListaVaziaException  quando não há produtos na lista
      */
-    public double getValorDisponivelParaCompra(Categoria cat) throws NullPointerException, ListaVaziaException{
+    public double getValorDisponivelParaCompra(Categoria cat) throws NullPointerException, ListaVaziaException {
 	double total = 0;
 	double orcamento = cat.getOrcamento();
-	try{
+	try {
 	    total = orcamento - this.getValorRealGasto();
-	}catch (ListaVaziaException e) {
-	    
+	} catch (ListaVaziaException e) {
+
 	}
 	return total;
     }

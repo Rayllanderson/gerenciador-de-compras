@@ -14,7 +14,7 @@ function saveAjax() {
 	}
 	
 
-	if (nome != ''){
+	if (nome.trim() != ''){
 		
 		$.ajax({
 			method: "POST",

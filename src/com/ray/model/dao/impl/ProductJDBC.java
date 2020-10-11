@@ -171,4 +171,27 @@ public class ProductJDBC implements ProductDao {
 	}
     }
 
+    @Override
+    public boolean validar(Long id) {
+	String sql = "select produtos.id, categoria.id, usuario.id from"
+		+ " produtos inner join categoria on id_categoria"
+		+ " = categoria.id inner join usuario on categoria.id_user"
+		+ " = usuario.id where categoria.id_user = ? and produtos.id = ?";
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = this.conn.prepareStatement(sql);
+	    Product p = this.findById(id);
+	    st.setLong(1, p.getCategoria().getUser().getId());
+	    st.setLong(2, id);
+	    rs = st.executeQuery();
+	    if (rs.next()) {
+		return true;
+	    }
+	}catch (SQLException e) {
+	   e.printStackTrace();
+	}
+	return false;
+    }
+
 }

@@ -12,4 +12,10 @@ public interface ProductDao {
     Product findById(Long id);
     List<Product> findAll();
     List<Product> findByName(String name);
+    /**
+     * Verifica no banco de dados se o produto pertence de fato ao usuário atual
+     * @param id do produto
+     * @return true se o produto pertencer ao usuario, false se nao
+     */
+    boolean validar(Long id);
 }

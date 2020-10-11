@@ -36,8 +36,8 @@ public class CategoriaService {
 
     private void validarNome(Categoria cat) throws CategoriaException {
 	String nome = cat.getName();
-	if (nome.isEmpty() || nome == null) {
-	    throw new CategoriaException("Um ou mais campos estão vazios");
+	if (nome.trim().isEmpty() || nome == null) {
+	    throw new CategoriaException("O campo 'Nome' não pode ser nulo");
 	}
     }
     
