@@ -46,6 +46,11 @@ function saveProduct() {
 				$('#exampleModal').modal('hide')
 				$.get("produtos?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
 					$("#tabela-produtos").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
+					$('#disponivel').load('resource/jsp/disponivel.jsp').html;
+					$('#economizado').load('resource/jsp/economizado.jsp').html;
+					$('#gerais').load('resource/jsp/gerais.jsp').html;
+					$('#total').load('resource/jsp/total.jsp').html;
+					$('#vtEstipulado').load('resource/jsp/vtEstipulado.jsp').html;
 				}); 
 	
 			}).fail(function(xhr, status, errorThrown) {
@@ -53,6 +58,7 @@ function saveProduct() {
 				$('#exampleModal').modal('hide')
 					$.get("produtos?acao=listar", function(responseXml) {          
 					$("#tabela-produtos").html($(responseXml).find("data").html());
+					
 			});
 		});
 		} else {
@@ -60,6 +66,9 @@ function saveProduct() {
 			$('#exampleModal').modal('hide')
 		}
 }
+
+
+
 
 
 

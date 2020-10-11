@@ -67,8 +67,7 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.setAttribute("gerais",
-		ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+	request.getSession().setAttribute("gerais", ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
 	request.getSession().setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
 	request.getSession().setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
 	request.getSession().setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
@@ -196,6 +195,7 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 	    List<Product> list = service.getProdutosConcluidos();
 	    request.getSession().setAttribute("produtos", list);
+	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
 	    response.setStatus(200);
 	    response.setContentType("text/plain");
@@ -209,6 +209,7 @@ public class ProdutoServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	try {
 	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
+	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
 	    response.setStatus(200);
 	    response.setContentType("text/plain");

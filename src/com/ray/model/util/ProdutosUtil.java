@@ -195,4 +195,17 @@ public class ProdutosUtil {
 	infos.append("<br>");
 	return infos.toString();
     }
+    
+  /*  public static String quantidadeProdutos(ProductService service, double orcamento) {
+	int qntProdutos = (int) tratarErro(service.findAllProduct().size());
+	return (!(qntProdutos == 1) ? "Você possui <strong>" + qntProdutos + "</strong> produtos na lista atual" : "Você possui <strong>" + qntProdutos + "</strong> produto na lista atual");
+    }
+    
+    private static Number tratarErro(Number someFunction) {
+	try {
+	   return someFunction;
+	} catch (ListaVaziaException e) {
+	    return 0;
+	}
+    }*/
 }

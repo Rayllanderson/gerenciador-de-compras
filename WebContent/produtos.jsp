@@ -119,8 +119,8 @@
  <!-- FIM 2NAV -->
 
 
-
-
+<infos>
+<div  id="info">
 
 <div class="container">
                     
@@ -130,8 +130,8 @@
                             <article class="card-body mx-auto" style="max-width: 400px;">
                                 <h4 class="card-title mt-3 text-center">${categoria.name}</h4>
 
-                                <p class="text-center" title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
-                                <p class="text-center" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
+                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
+                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
 
                             </article>
                         </div>
@@ -152,7 +152,7 @@
                                             </h2>
                                         </div>
                                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                            <div class="card-body" style="display: inline-block; text-align: left; font-size: 19px">${gerais}</div>
+                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px">${gerais}</div>
                                         </div>
                                     </div>
 
@@ -166,7 +166,7 @@
                                                 </h2>
                                             </div>
                                             <div id="collapse3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                                <div class="card-body" style="display: inline-block; text-align: left; font-size: 17px">${economizado}</div>
+                                                <div class="card-body" id="economizado" style="display: inline-block; text-align: left; font-size: 17px">${economizado}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                                 </h2>
                                             </div>
                                             <div id="collapseTwo" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                                <div class="card-body" style="display: inline-block; text-align: left; font-size: 17px">${disponivel}</div>
+                                                <div class="card-body" id="disponivel" style="display: inline-block; text-align: left; font-size: 17px">${disponivel}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,8 +190,10 @@
                             <!-- fim card -->
                         </div>
                     </div>
-
                     <!-- FIM INFORMAÇÕES -->
+                    </div>
+</infos>
+
 
                     <div class="container-xl">
                         <main role="main" class="">
@@ -242,7 +244,7 @@
                                 </div>
                             </div>
 
-<data>
+  <data>
 
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive-xl" id="tabela-produtos">
@@ -308,7 +310,7 @@
                                     </tbody>
                                 </table>
                             </div>
-    </data>         
+          </data> 
                         </main>
                     </div>
                    <!-- FIM TABLE -->

@@ -1,0 +1,1 @@
+Valor Total: ${tTotal}
