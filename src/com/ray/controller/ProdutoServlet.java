@@ -44,7 +44,6 @@ public class ProdutoServlet extends HttpServlet {
 	    String acao = request.getParameter("acao");
 //	    System.out.println(acao);
 	    startServiceAndRepository(request, response);
-	    setInformacoes(request, response);
 	    if (acao != null) {
 		if (acao.equals("listar")) {
 		    listarTodosProdutos(request, response);
@@ -70,10 +69,10 @@ public class ProdutoServlet extends HttpServlet {
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	request.setAttribute("gerais",
 		ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
-	request.setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
-	request.setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	request.setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
-	request.setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
+	request.getSession().setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
+	request.getSession().setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
+	request.getSession().setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
+	request.getSession().setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -94,6 +93,8 @@ public class ProdutoServlet extends HttpServlet {
 	    } else if (acao.equals("editar")) {
 		redirecionarEditarProduto(request, response);
 	    }
+	} else {
+	    listarTodosProdutos(request, response);
 	}
     }
 
@@ -182,6 +183,7 @@ public class ProdutoServlet extends HttpServlet {
 
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	setInformacoes(request, response);
 	RequestDispatcher dispatcher = null;
 	request.getSession().setAttribute("produtos", repository.findAll());
 	dispatcher = request.getRequestDispatcher("produtos.jsp");
@@ -200,11 +202,9 @@ public class ProdutoServlet extends HttpServlet {
 	    response.setCharacterEncoding("UTF-8");
 	    System.out.println(e.getMessage().length());
 	    response.getWriter().println(e.getMessage());
-	} 
+	}
     }
 
-    
-    
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
@@ -214,7 +214,7 @@ public class ProdutoServlet extends HttpServlet {
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().println(e.getMessage());
-	} 
+	}
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -224,7 +224,7 @@ public class ProdutoServlet extends HttpServlet {
 		request.getSession().setAttribute("produtos", service.getProdutosByName(serch));
 		response.setStatus(200);
 		flag = true;
-	    }else if(flag) {
+	    } else if (flag) {
 		listarTodosProdutos(request, response);
 		flag = false;
 	    }
@@ -233,7 +233,7 @@ public class ProdutoServlet extends HttpServlet {
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().println(e.getMessage());
-	    
+
 	}
     }
 }

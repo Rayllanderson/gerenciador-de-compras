@@ -11,5 +11,4 @@ function search(){
 		}).fail(function(xhr) {
 			alertBoostrap(xhr.responseText, 'alert alert-danger')
 		});
-
 }

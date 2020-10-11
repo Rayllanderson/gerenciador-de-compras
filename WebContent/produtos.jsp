@@ -81,7 +81,7 @@
                     	<!-- ALERT -->
 				 	 <div class="fixed-top">
 				 		<div class="alert alert-success" id="success-alert">
-				   			 <button type="button" class="close" data-dismiss="alert">x</button>
+				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
 				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
 				  		</div>
 					</div>

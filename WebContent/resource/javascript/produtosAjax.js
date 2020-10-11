@@ -27,12 +27,6 @@ function saveProduct() {
 	}else{
 		comprado = 'false'
 	}
-
-	console.log(nome)
-	console.log(estipulado)
-	console.log(real)
-	console.log(comprado)
-	console.log(cat_id)
 	
 		// AJAX
 		if (nome != '') {
