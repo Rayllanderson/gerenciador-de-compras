@@ -14,6 +14,13 @@ function setMessageAlert(id, nome) {
 
 function saveProduct() {
 	
+	let id = $('#id').val();
+	let nome = $('#recipient-name').val();
+	let estipulado = $('#estipulado').val();
+	let real = $('#real').val();
+	var comprado = $('#comprado').is(':checked');
+	let cat_id = $('#categoria').val();
+	
 	//passando de obj pra string
 	if(comprado == true){
 		comprado = 'true'
