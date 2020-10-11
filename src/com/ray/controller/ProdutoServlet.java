@@ -60,7 +60,7 @@ public class ProdutoServlet extends HttpServlet {
 		listarTodosProdutos(request, response);
 	    }
 	} catch (NullPointerException e) {
-	    request.setAttribute("error", "Antes você deve selecionar uma lista primeiro");
+	    request.setAttribute("catNula", "Antes você deve selecionar uma lista primeiro");
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
 	    dispatcher.forward(request, response);
 	}
@@ -184,34 +184,36 @@ public class ProdutoServlet extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	request.getSession().setAttribute("produtos", repository.findAll());
 	dispatcher = request.getRequestDispatcher("produtos.jsp");
+	response.setStatus(200);
 	dispatcher.forward(request, response);
     }
 
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	RequestDispatcher dispatcher = null;
 	try {
 	    List<Product> list = service.getProdutosConcluidos();
 	    request.getSession().setAttribute("produtos", list);
 	} catch (ListaVaziaException e) {
-	    request.setAttribute("error", e.getMessage());
-	} finally {
-	    dispatcher = request.getRequestDispatcher("produtos.jsp");
-	    dispatcher.forward(request, response);
-	}
+	    response.setStatus(200);
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    System.out.println(e.getMessage().length());
+	    response.getWriter().println(e.getMessage());
+	} 
     }
 
+    
+    
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	RequestDispatcher dispatcher = null;
 	try {
 	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
 	} catch (ListaVaziaException e) {
-	    request.setAttribute("error", e.getMessage());
-	} finally {
-	    dispatcher = request.getRequestDispatcher("produtos.jsp");
-	    dispatcher.forward(request, response);
-	}
+	    response.setStatus(200);
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().println(e.getMessage());
+	} 
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

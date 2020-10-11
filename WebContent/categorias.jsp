@@ -320,7 +320,7 @@ if ( window.history.replaceState ) {
 	}
 
 
-const msg = "${error}"
+const msg = "${catNula}"
     console.log(msg)
     if (msg != null && msg != '') {
     	$(document).ready(function() {  	

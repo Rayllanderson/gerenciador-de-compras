@@ -4,6 +4,11 @@ function listar(url){
 			method: "GET",
 			url: url,
 		}).done(function(response) {
+
+			if(response != '' && response.length < 60){
+				alertBoostrap(response, 'alert alert-info')
+			}
+			
 			$.get("produtos.jsp", function(responseXml) {          
 				$("#tabela-produtos").html($(responseXml).find("data").html());
 			});

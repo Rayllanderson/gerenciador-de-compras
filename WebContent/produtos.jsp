@@ -234,9 +234,9 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" style="
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-                                            <a class="dropdown-item" onclick="listar('produtos?acao=listar')">Todos os Produtos</a>
-                                            <a class="dropdown-item" onclick="listar('produtos?acao=comprados')">Produtos Comprados</a>
-                                            <a class="dropdown-item" onclick="listar('produtos?acao=nao_comprados')">Produtos Não Comprados</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=listar')">Todos os Produtos</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=comprados')">Produtos Comprados</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=nao_comprados')">Produtos Não Comprados</a>
                                         </div>
                                     </div>
                                 </div>
@@ -422,20 +422,13 @@
 					<script src="resource/javascript/alert.js"></script>
 					<script src="resource/javascript/listarProdutos.js"></script>
 
+
 <script type="text/javascript">
-const msg = "${error}"
-    console.log(msg)
-    if (msg != null && msg != '') {
-    	$(document).ready(function() {  	
-    	$.getScript("resource/javascript/alert.js", function() {
-    		alertBoostrap(msg, 'alert alert-warning', "Ops")
-    	});
-    });
-    }
+
 </script>
 
                     <script type="text/javascript">
-
+                    
                         function setCheckedIfTrue(funcao) {                	
                         	
                             if (funcao == 'true') {
