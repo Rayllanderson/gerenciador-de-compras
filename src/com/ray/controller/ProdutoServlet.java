@@ -30,6 +30,7 @@ public class ProdutoServlet extends HttpServlet {
     private ProductDao repository = null;
     private ProductService service = null;
     private Categoria cat = null;
+    private boolean flag = false;
 
     public ProdutoServlet() {
 	super();
@@ -218,16 +219,21 @@ public class ProdutoServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String serch = request.getParameter("search");
-	RequestDispatcher dispatcher = null;
 	try {
 	    if (!serch.isEmpty()) {
-		request.setAttribute("produtos", service.getProdutosByName(serch));
+		request.getSession().setAttribute("produtos", service.getProdutosByName(serch));
+		response.setStatus(200);
+		flag = true;
+	    }else if(flag) {
+		listarTodosProdutos(request, response);
+		flag = false;
 	    }
 	} catch (ListaVaziaException e) {
-	    request.setAttribute("error", e.getMessage());
-	} finally {
-	    dispatcher = request.getRequestDispatcher("produtos.jsp");
-	    dispatcher.forward(request, response);
+	    response.setStatus(404);
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().println(e.getMessage());
+	    
 	}
     }
 }

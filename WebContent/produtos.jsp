@@ -205,11 +205,11 @@
             ">
                                 <div></div>
                                 <div>
-                                    <form class="form-inline" action="produtos?acao=search" method="post">
-                                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="
+                                    <div class="form-inline">
+                                        <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" style=" border: 0.5px solid;
+                                        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" onclick="search()" style=" border: 0.5px solid;
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   ">
@@ -220,7 +220,7 @@
 </svg>
       
       </button>
-                                    </form>
+                                    </div>
                                 </div>
 
                                 <div class="btn-group dropleft">
@@ -421,6 +421,7 @@
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
 					<script src="resource/javascript/listarProdutos.js"></script>
+					<script src="resource/javascript/searchProdutosAjax.js"></script>
 
 
 <script type="text/javascript">
