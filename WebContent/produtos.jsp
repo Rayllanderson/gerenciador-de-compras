@@ -22,6 +22,14 @@
                     <style type="text/css">
                         body {
                             background-color: #f8f9fa;
+						}
+						
+                        #success-alert{
+                       	 margin-top: 1%;
+                         top: 0px; 
+						 margin-left: 0;
+						 margin-right: 0;
+						 text-align: center;
                         }
                     </style>
 
@@ -103,7 +111,17 @@
 
 
 
-                    <div class="container">
+<div class="container">
+
+                    	<!-- ALERT -->
+ 	 <div class="fixed-top">
+ 		<div class="alert alert-success" id="success-alert">
+   			 <button type="button" class="close" data-dismiss="alert">x</button>
+   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+  		</div>
+	</div>
+	  	  
+                    
                         <div class="card card-signin my-5" style=" border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
@@ -176,7 +194,7 @@
                     <div class="container-xl">
                         <main role="main" class="">
 
-                            <!-- TELA DE  -->
+                            <!-- TELA DE FILTRO DE PRODUTOS -->
 
                             <div class="box" style=" display: flex;
             justify-content: space-between;
@@ -223,8 +241,9 @@
                             </div>
 
 
+<data>
                             <!--  INICIO TABELA  -->
-                            <div class="table-responsive-xl">
+                            <div class="table-responsive-xl" id="tabela-produtos">
                                 <table class="table" id="tabela" style="
                                  border: 0;
   border-radius: 1rem;
@@ -287,10 +306,10 @@
                                     </tbody>
                                 </table>
                             </div>
-
+             </data>
                         </main>
                     </div>
-                    <!-- FIM TABLE -->
+                   <!-- FIM TABLE -->
 
 <hr>
 
@@ -323,7 +342,6 @@
 
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="produtos?acao=salvar">
 
                                         <div class="form-group">
                                             <label for="recipient-name" class="control-label" style="text-align: center">Nome:</label> <input name="nome" type="text" class="form-control" id="recipient-name" required="required" value="${prod.name}">
@@ -345,7 +363,7 @@
                                         <div id="lista" class="form-group" style="display: none; width: 50%">
                                             <label class="message-text" for="categoria">Lista</label> <select id="categoria" name="cat_id" class="custom-select mr-sm-2">
 								<c:forEach items="${categorias}" var="cat">
-									<option value="${cat.id}"  
+									<option id="cat_id" value="${cat.id}"  
 										<c:if test="${cat.name == nomeCategoria}">
  			 					<c:out value="selected=selected"/> </c:if>>${cat.name}
 									</option>
@@ -361,9 +379,8 @@
                                         </div>
 
                                         <input name="id" type="hidden" class="form-control" id="id" value="${prod.id}">
-                                        <button type="submit" class="btn btn-success">&nbsp; Salvar &nbsp;</button>
+                                        <button type="submit" class="btn btn-success" onclick="saveProduct()">&nbsp; Salvar &nbsp;</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -373,8 +390,9 @@
 
                     <!-- ---------------------------------------------- -->
 
-
+					<script src="resource/javascript/produtosAjax.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
+                    <script src="resource/javascript/alert.js"></script>
 
                     <script type="text/javascript">
                         const msg = "${error}"
@@ -383,7 +401,8 @@
                             alert(msg)
                         }
 
-                        function setCheckedIfTrue(funcao) {
+                        function setCheckedIfTrue(funcao) {                	
+                        	
                             if (funcao == 'true') {
                                 document.getElementById("comprado").checked = true;
                                 myFunction();
@@ -398,9 +417,9 @@
                         function myFunction() {
                             var checkBox = document.getElementById("comprado");
                             var text = document.getElementById("text");
-                            if (checkBox.checked == true) {
+                            if (checkBox.checked == true) {                           	
                                 text.innerHTML = 'Sim'
-                            } else {
+                            } else {      
                                 text.innerHTML = 'Não'
                             }
                         }

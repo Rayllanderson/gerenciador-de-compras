@@ -115,14 +115,23 @@ public class ProdutoServlet extends HttpServlet {
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
+	    
+//	    System.out.println("id " + id);
+//	    System.out.println("estip " + valorEstipulado);
+//	    System.out.println("real " + valorReal);
+//	    System.out.println("comprado " + comprado);
+//	    
+	    
 	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
 	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
 	    if (p.getId() == null) {
 		service.inserir(p);
+		response.setStatus(HttpServletResponse.SC_CREATED);
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
+//		System.out.println("ci " + catId);
 		Long catOriginal = cat.getId();
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
@@ -130,21 +139,18 @@ public class ProdutoServlet extends HttpServlet {
 		    service.validarCategoria(cat);
 		}
 		service.update(p);// moveu
-
 		// voltando pra categoria atual para nao ser redirecionado para nova categoria
 		cat.setId(catOriginal);
+		response.setStatus(HttpServletResponse.SC_OK);
 	    }
-	    response.sendRedirect("produtos");
 	} catch (NumberFormatException e) {
 	    request.setAttribute("error", "Digite um número válido");
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
 	    request.setAttribute("nome", nome);
-	    dispatcher.forward(request, response);
+	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
 					// permitir caso a lista nao pertencer a ele
 	    request.setAttribute("error", e.getMessage());
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("produtos.jsp");
-	    dispatcher.forward(request, response);
+	    response.setStatus(422); //dados foram compreendidos, mas não são válidos.
 	}
     }
 

@@ -16,6 +16,15 @@
                         body {
                             background-color: #f8f9fa;
                         }
+                        
+                        #success-alert{
+                       	 margin-top: 1%;
+                         top: 0px; 
+						 margin-left: 0;
+						 margin-right: 0;
+						 text-align: center;
+                        }
+                        
                     </style>
 </head>
 <body>
@@ -92,15 +101,17 @@
 
 	<h4 style="text-align: center; margin-top: 2%">Listas</h4>
 	
- 
 	
-<div class="container-xl">
+<div class="container">
 
-
-	  	<div class="alert alert-success" id="success-alert" style="margin-top: 1%">
-   		 <button type="button" class="close" data-dismiss="alert">x</button>
-   	<h4 id="titulo"></h4> <p id="alertMsg"></p>
-  	</div>
+<!-- ALERT -->
+ 	 <div class="fixed-top">
+ 	 	 <div class="alert alert-success" id="success-alert">
+   			 <button type="button" class="close" data-dismiss="alert">x</button>
+   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+  		 </div>
+	</div>
+	  	
 
 <main role="main" class="">
 
@@ -311,6 +322,7 @@ if ( window.history.replaceState ) {
 <script src="resource/javascript/categoriaAjax.js" ></script>
 <script src="resource/javascript/excluirCategoriaAjax.js" ></script>
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
+<script src="resource/javascript/alert.js"></script>
 
 
 

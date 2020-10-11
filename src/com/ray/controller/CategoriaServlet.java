@@ -27,7 +27,8 @@ public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDao repository;
     private CategoriaService service;
-    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas uma vez
+    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas
+			  // uma vez
 
     public CategoriaServlet() {
 	super();
@@ -36,11 +37,10 @@ public class CategoriaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String acao = request.getParameter("acao");
-	System.out.println(flag);
+	User user = instanciarUser(request);
+	repository = DaoFactory.createCategoriaDao(user);
+	service = new CategoriaService(user);
 	if (acao != null) {
-	    User user = instanciarUser(request);
-	    repository = DaoFactory.createCategoriaDao(user);
-	    service = new CategoriaService(user);
 	    if (acao.equals("voltar") || acao.equals("listar")) {
 		listarTodasCategorias(request, response);
 	    } else if (acao.equals("newList")) {
@@ -53,9 +53,6 @@ public class CategoriaServlet extends HttpServlet {
 		listarTodasCategorias(request, response);
 	    }
 	} else {
-	    User user = instanciarUser(request);
-	    repository = DaoFactory.createCategoriaDao(user);
-	    service = new CategoriaService(user);
 	    listarTodasCategorias(request, response);
 	}
     }
@@ -86,11 +83,11 @@ public class CategoriaServlet extends HttpServlet {
 	System.out.println("cara... id chegou aqui foi esse..: " + id);
 	if (service.deleteById(Long.parseLong(id))) {
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	    request.getRequestDispatcher("categorias.jsp").forward(request, response); 	
+	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
 	} else {
 	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
 	}
-	
+
     }
 
     private void redirecionarEditPage(HttpServletRequest request, HttpServletResponse response)
@@ -138,11 +135,11 @@ public class CategoriaServlet extends HttpServlet {
 	    }
 	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
 	} catch (CategoriaException e) {
-	    response.setContentType("text/plain"); 
-	    response.setCharacterEncoding("UTF-8"); 
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
 	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	    response.getWriter().println(e.getMessage());
-	} 
+	}
 
     }
 
@@ -168,24 +165,22 @@ public class CategoriaServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String serch = request.getParameter("search");
-	System.out.println(serch);
 	try {
 	    if (!serch.isEmpty()) {
 		response.setStatus(HttpServletResponse.SC_OK);
 		request.getSession().setAttribute("categorias", service.getCategoriaByName(serch));
-		flag = true; //pode pesquisar com campo nulo que vai listar todas as categorias
-	    }else if(flag){
+		flag = true; // pode pesquisar com campo nulo que vai listar todas as categorias
+	    } else if (flag) {
 		listarTodasCategorias(request, response);
 		System.out.println("entrou aqui haha");
-		flag = false; //desativando a funcao para evitar listar sem necessidade
+		flag = false; // desativando a funcao para evitar listar sem necessidade
 	    }
 	} catch (ListaVaziaException e) {
 	    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(e.getMessage());
-	} 
+	}
     }
-    
-}
 
+}
