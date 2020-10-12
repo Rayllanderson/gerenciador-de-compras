@@ -2,6 +2,7 @@ package com.ray.model.view;
 
 import java.util.Scanner;
 
+import com.ray.informacoes.InformacoesProdutos;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.exception.BackButtonException;
@@ -9,7 +10,7 @@ import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.exception.ProductoException;
 import com.ray.model.interacoes.InteracaoProduto;
-import com.ray.model.service.ProductService;
+import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
 import com.ray.model.util.ProdutosUtil;
 
@@ -21,7 +22,7 @@ public class MenuProduto {
      */
     
     @SuppressWarnings("resource")
-    public static boolean menuEditarProduto(ProductService service) {
+    public static boolean menuEditarProduto(ProductServiceConsole service) {
 	String opcaoEditarProduto;
 	Scanner scan = new Scanner(System.in);
 	while (true) {
@@ -67,11 +68,11 @@ public class MenuProduto {
     /**
      * Exceptions tratadas: EntradaInvalidaException, NumberFormatException
      */
-    public static boolean funcoesUteis(ProductService service, Categoria cat) {
+    public static boolean funcoesUteis(ProductServiceConsole service, Categoria cat) {
 	String opcaoEditarProduto;
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	ProdutosUtil.mostrarInfosProdutos(cat.getUser(), service, cat.getOrcamento());
+	InformacoesProdutos.mostrarInfosProdutos(cat.getUser(), service, cat.getOrcamento());
 	while (true) {
 	    try {
 		Menu.menuFinanceiro();
@@ -81,7 +82,7 @@ public class MenuProduto {
 		}
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    ProdutosUtil.quantidadeGasta(service, cat);
+		    InformacoesProdutos.quantidadeGasta(service, cat);
 		    break;
 		case 2:
 		    System.out.println("Produtos comprados: ");
@@ -89,13 +90,13 @@ public class MenuProduto {
 		    break;
 		case 3:
 		    System.out.println("Produdos que você ainda não comprou: ");
-		    ProdutosUtil.listarNaoConcluidos(service);
+		    InformacoesProdutos.listarNaoConcluidos(service);
 		    break;
 		case 4:
-		    ProdutosUtil.disponivelParaComprar(service, cat);
+		    InformacoesProdutos.disponivelParaComprar(service, cat);
 		    break;
 		case 5:
-		    ProdutosUtil.valorEconomizado(service);
+		    InformacoesProdutos.valorEconomizado(service);
 		    break;
 		default:
 		    throw new EntradaInvalidaException("Opção inválida! Tente novamente.");

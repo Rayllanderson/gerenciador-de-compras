@@ -14,11 +14,11 @@ import com.ray.model.exception.MyLoginException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.interacoes.InteracaoCategoria;
 import com.ray.model.interacoes.InteracaoProduto;
+import com.ray.model.interacoes.InteracaoUser;
 import com.ray.model.service.CategoriaService;
-import com.ray.model.service.ProductService;
+import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ProdutosUtil;
 import com.ray.model.util.UserUtil;
-import com.ray.model.interacoes.InteracaoUser;
 
 public class TelaPrincipal {
 
@@ -117,15 +117,15 @@ public class TelaPrincipal {
 
     // --------------------------- MENUS PRODUTO ----------------------------------
     public boolean telaProduto(Categoria cat) {
-	ProductService service = new ProductService(cat);
+	ProductServiceConsole service = new ProductServiceConsole(cat);
 	String opcao = null;
 	while (true) {
 	    try {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		ProdutosUtil.mostrarSomaTotal(service);
+		InteracaoProduto.somaTotalConsole(service);
 		mostrarOrcamento(cat);
-		service.listarPordutos();
+		service.listarPordutosConsole();
 		Menu.menuPrincipalProdutos();
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {

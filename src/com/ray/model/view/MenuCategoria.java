@@ -8,7 +8,7 @@ import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.interacoes.InteracaoCategoria;
 import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.CategoriaService;
-import com.ray.model.service.ProductService;
+import com.ray.model.service.ProductServiceConsole;
 
 public class MenuCategoria {
 
@@ -47,7 +47,7 @@ public class MenuCategoria {
      * @return TRUE se nao quiser adicionar um produto, False se quiser adicionar
      * @apiNote Exceptions tratadas nesse método: NumberFormatException(af, nem precisa, mas whatever) BackButtonException
      */
-    public static boolean createNewList(ProductService service, Categoria cat) {
+    public static boolean createNewList(ProductServiceConsole service, Categoria cat) {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	System.out.println("Opa! Parece que sua lista está vazia :(");

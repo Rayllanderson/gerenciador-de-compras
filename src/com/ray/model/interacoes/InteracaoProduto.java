@@ -14,7 +14,7 @@ import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProductoException;
 import com.ray.model.service.CategoriaService;
-import com.ray.model.service.ProductService;
+import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
 
 public class InteracaoProduto {
@@ -28,7 +28,7 @@ public class InteracaoProduto {
      * @return TRUE caso dê tudo certo FALSE caso de algo errado
      * @throws BackButtonException
      */
-    public static boolean adicionarProduto(ProductService service, Categoria cat) throws BackButtonException {
+    public static boolean adicionarProduto(ProductServiceConsole service, Categoria cat) throws BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	System.out.println("Pressione 0 para cancelar");
@@ -55,7 +55,7 @@ public class InteracaoProduto {
      * @throws NumberFormatException terá que escolher produto nesse método, logo...
      * @throws BackButtonException
      */
-    public static void deletarProduto(ProductService service) throws NumberFormatException, BackButtonException {
+    public static void deletarProduto(ProductServiceConsole service) throws NumberFormatException, BackButtonException {
 	try {
 	    Product p = selecionarProduto(service, "Excluir");
 	    ButtonUtil.confirmar("deletar o produto " + p.getNome());
@@ -77,7 +77,7 @@ public class InteracaoProduto {
      * @throws NumberFormatException
      * @throws BackButtonException
      */
-    public static boolean editarTudoProduto(ProductService service, Product p)
+    public static boolean editarTudoProduto(ProductServiceConsole service, Product p)
 	    throws NumberFormatException, BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
@@ -108,7 +108,7 @@ public class InteracaoProduto {
      * @throws NumberFormatException caso digite uma letra em vez de número
      * @throws BackButtonException
      */
-    public static boolean marcarComoConcluido(ProductService service, Product p)
+    public static boolean marcarComoConcluido(ProductServiceConsole service, Product p)
 	    throws NumberFormatException, BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	boolean sucess = true;
@@ -133,7 +133,7 @@ public class InteracaoProduto {
      * @throws NumberFormatException caso digite uma letra em vez de número
      * @throws BackButtonException   como nao trato nada aqui, passo adiante
      */
-    public static boolean marcarComoNaoConcluido(ProductService service, Product p)
+    public static boolean marcarComoNaoConcluido(ProductServiceConsole service, Product p)
 	    throws NumberFormatException, BackButtonException {
 	Scanner scan = new Scanner(System.in);
 	boolean sucess = true;
@@ -149,7 +149,7 @@ public class InteracaoProduto {
      *          ConfirmException
      * @throws BackButtonException
      */
-    public static boolean editarValorReal(ProductService service, Product p) throws BackButtonException {
+    public static boolean editarValorReal(ProductServiceConsole service, Product p) throws BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	try {
@@ -188,7 +188,7 @@ public class InteracaoProduto {
      *          ConfirmException
      * @throws BackButtonException
      */
-    public static boolean editarValorEstipulado(ProductService service, Product p) throws BackButtonException {
+    public static boolean editarValorEstipulado(ProductServiceConsole service, Product p) throws BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	double valorEstipulado = 0;
@@ -217,7 +217,7 @@ public class InteracaoProduto {
      * @return FALSE caso não deseje renomear
      * @apiNote Exceptions tratadas: _ConfirmException_
      */
-    public static boolean editarNomeProduto(ProductService service, Product p) {
+    public static boolean editarNomeProduto(ProductServiceConsole service, Product p) {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
@@ -244,12 +244,12 @@ public class InteracaoProduto {
 	CategoriaService cService = new CategoriaService(p.getCategoria().getUser());
 	System.out.println("Mudar o produto " + p.getNome() + " para qual categoria?\nSelecione: ");
 	try {
-	    cService.ListarCategorias();
+	    cService.listarCategoriasConsole();
 	    String num = scan.next();
 	    Categoria newCat = cService.getCategoriaByNumber(Integer.parseInt(num));
 	    ButtonUtil.confirmar("mover o produto para a categoria " + newCat.getName());
 	    p.setCategoria(newCat);
-	    ProductService service = new ProductService(newCat);
+	    ProductServiceConsole service = new ProductServiceConsole(newCat);
 	    service.mudarCategoria(p, newCat);
 	    return true;
 	} catch (CategoriaException e) {
@@ -277,11 +277,11 @@ public class InteracaoProduto {
      * @throws ListaVaziaException
      * @throws BackButtonException
      */
-    public static Product selecionarProduto(ProductService service, String acao)
+    public static Product selecionarProduto(ProductServiceConsole service, String acao)
 	    throws NumberFormatException, ProductoException, ListaVaziaException, BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	service.listarPordutos();
+	service.listarPordutosConsole();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
 	String produtoEscolhido = scan.next();
@@ -328,7 +328,7 @@ public class InteracaoProduto {
      * 
      * @param p         - Product p
      */
-    private static void concluir(Double valorReal, ProductService service, Product p) {
+    private static void concluir(Double valorReal, ProductServiceConsole service, Product p) {
 	if (!(valorReal == 0)) {
 	    service.marcarComoConcluido(p, valorReal);
 	} else {
@@ -347,7 +347,7 @@ public class InteracaoProduto {
      * @return TRUE CASO QUEIRA ALTERAR O VALOR OU ESCOLHA QUE NÃO, FALSE SE ALGO
      *         DER ERRADO
      */
-    private static boolean alterarValor(boolean funcao, Scanner scan, Product p, ProductService service)
+    private static boolean alterarValor(boolean funcao, Scanner scan, Product p, ProductServiceConsole service)
 	    throws NumberFormatException, BackButtonException {
 	boolean sucess = true;
 	if (funcao) {
@@ -381,7 +381,7 @@ public class InteracaoProduto {
      * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
      *                             lista.");
      */
-    public static Product getProdutoByNumer(int num, ProductService service) throws ProductoException, ListaVaziaException {
+    public static Product getProdutoByNumer(int num, ProductServiceConsole service) throws ProductoException, ListaVaziaException {
 	List<Product> list = service.findAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");

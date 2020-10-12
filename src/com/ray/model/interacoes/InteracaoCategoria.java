@@ -7,6 +7,7 @@ import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.CategoriaException;
+import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.ConfirmException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
@@ -28,7 +29,7 @@ public class InteracaoCategoria {
 	    throws BackButtonException, NumberFormatException, OpcaoInvalidaException {
 	System.out.println("Pressione 0 para voltar");
 	try {
-	    service.ListarCategorias();
+	    service.listarCategoriasConsole();
 	    String num = scan.next();
 	    ButtonUtil.botaoVoltar(num);
 	    return service.getCategoriaByNumber(Integer.parseInt(num));
@@ -103,7 +104,7 @@ public class InteracaoCategoria {
 	try {
 	    System.out.println("Selecione a lista que deseja Excluir: ");
 	    System.out.println("Pressione 0 para voltar");
-	    service.ListarCategorias();
+	    service.listarCategoriasConsole();
 	    String num = scan.next();
 	    ButtonUtil.botaoVoltar(num);
 	    Categoria cat1 = service.getCategoriaByNumber(Integer.parseInt(num));
@@ -183,6 +184,8 @@ public class InteracaoCategoria {
 	    System.out.println(e.getMessage());
 	} catch (CategoriaException e) {
 	    System.out.println(e.getMessage());
+	    e.printStackTrace();
+	} catch (CategoriaInexistenteException e) {
 	    e.printStackTrace();
 	}
     }

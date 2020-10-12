@@ -11,15 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ray.informacoes.InformacoesProdutos;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
-import com.ray.model.util.ProdutosUtil;
 
 /**
  * Servlet implementation class Login
@@ -68,11 +69,11 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.getSession().setAttribute("gerais", ProdutosUtil.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
-	request.getSession().setAttribute("disponivel", ProdutosUtil.disponivelParaComprar(service, cat));
-	request.getSession().setAttribute("economizado", ProdutosUtil.valorEconomizado(service));
-	request.getSession().setAttribute("tEstipulado", ProdutosUtil.getTotalEstipuladoHtml(service));
-	request.getSession().setAttribute("tTotal", ProdutosUtil.getValorTotalHtml(service));
+	request.getSession().setAttribute("gerais", InformacoesProdutos.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
+	request.getSession().setAttribute("disponivel", InformacoesProdutos.disponivelParaComprar(service, cat));
+	request.getSession().setAttribute("economizado", InformacoesProdutos.valorEconomizado(service));
+	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(service));
+	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(service));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -142,7 +143,7 @@ public class ProdutoServlet extends HttpServlet {
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
-		    service.validarCategoria(cat);
+		    CategoriaService.validarCategoria(cat); //verificando se a categoria que ele vai mudar pertence a ele mesmo
 		}
 		service.update(p);// moveu
 		// voltando pra categoria atual para nao ser redirecionado para nova categoria
@@ -151,13 +152,13 @@ public class ProdutoServlet extends HttpServlet {
 	    }
 	} catch (NumberFormatException e) {
 	    setResponseBody(request, response, "Valor inválido para o campo 'Valor Estipulado'", HttpServletResponse.SC_BAD_REQUEST);
-	} catch (ProductoException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
+	} catch (CategoriaInexistenteException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
 					// permitir caso a lista nao pertencer a ele	
 	    cat.setId(catOriginal);
 	    setResponseBody(request, response, e.getMessage(), 422);// dados foram compreendidos, mas não são válidos.
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(request, response, e.getMessage(), 400);
-	}
+	} 
     }
 
     /**
@@ -204,7 +205,7 @@ public class ProdutoServlet extends HttpServlet {
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    List<Product> list = service.getProdutosConcluidos();
+	    List<Product> list = service.getConcluidos();
 	    request.getSession().setAttribute("produtos", list);
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
@@ -215,7 +216,7 @@ public class ProdutoServlet extends HttpServlet {
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    request.getSession().setAttribute("produtos", service.getProdutosNaoConcluidos());
+	    request.getSession().setAttribute("produtos", service.getNaoConcluidos());
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
 	    setResponseBody(request, response, e.getMessage(), 200);
@@ -226,7 +227,7 @@ public class ProdutoServlet extends HttpServlet {
 	String serch = request.getParameter("search");
 	try {
 	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", service.getProdutosByName(serch));
+		request.getSession().setAttribute("produtos", service.searchProductByName(serch));
 		response.setStatus(200);
 		flag = true;
 	    } else if (flag) {
