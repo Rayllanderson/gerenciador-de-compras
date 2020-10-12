@@ -12,7 +12,7 @@ import com.ray.model.exception.CategoriaException;
 import com.ray.model.exception.ConfirmException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.exception.ProdutoException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
@@ -42,7 +42,7 @@ public class InteracaoProduto {
 	    double valorReal = adicionarEditarValorReal(scan);
 	    Product p = new Product(null, nome, valorEstipulado, valorReal, false, cat);
 	    concluir(valorReal, service, p);
-	    return service.inserir(p);
+	    return service.save(p);
 	} catch (EntradaInvalidaException e) {
 	    System.out.println(e.getMessage());
 	}
@@ -64,7 +64,7 @@ public class InteracaoProduto {
 	    service.deletar(p);
 	} catch (ConfirmException e) {
 	    System.out.println("Produto não deletado");
-	} catch (ProductoException e) {
+	} catch (ProdutoException e) {
 	    System.out.println(e.getMessage());
 	} catch (ListaVaziaException e) {
 	    System.out.println(e.getMessage());
@@ -274,13 +274,13 @@ public class InteracaoProduto {
      * @throws Observação            TODAS AS EXCEPTIONS JÁ POSSUIEM MENSAGEM,
      *                               APENAS USE O e.getMessage();
      * @throws NumberFormatException caso digite uma letra em vez de número
-     * @throws ProductoException     caso não exista nenhum produto com número
+     * @throws ProdutoException     caso não exista nenhum produto com número
      *                               escolhido
      * @throws ListaVaziaException
      * @throws BackButtonException
      */
     public static Product selecionarProduto(ProductServiceConsole service, ProdutosUtilConsole util, String acao)
-	    throws NumberFormatException, ProductoException, ListaVaziaException, BackButtonException {
+	    throws NumberFormatException, ProdutoException, ListaVaziaException, BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	util.listarPordutosConsole();
@@ -377,19 +377,19 @@ public class InteracaoProduto {
     /**
      * @apiNote método para selecionar o produto no console 
      * 
-     * @throws ProductoException   ( "Parece não existe nenhum produto com número "
+     * @throws ProdutoException   ( "Parece não existe nenhum produto com número "
      *                             + num + ". Verifique a tabela e tente
      *                             novamente");
      * @throws ListaVaziaException ("Ops, parece que você não tem nenhum produto na
      *                             lista.");
      */
-    public static Product getProdutoByNumer(int num, ProductServiceConsole service) throws ProductoException, ListaVaziaException {
+    public static Product getProdutoByNumer(int num, ProductServiceConsole service) throws ProdutoException, ListaVaziaException {
 	List<Product> list = service.findAllWithException();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
 	}
 	if (num > list.size()) {
-	    throw new ProductoException(
+	    throw new ProdutoException(
 		    "Parece não existe nenhum produto com número " + num + ". Verifique a tabela e tente novamente");
 	}
 	return list.get(num - 1);

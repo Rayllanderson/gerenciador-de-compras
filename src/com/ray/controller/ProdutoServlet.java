@@ -19,6 +19,7 @@ import com.ray.model.entities.Product;
 import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
+import com.ray.model.exception.ProdutoException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
@@ -67,37 +68,46 @@ public class ProdutoServlet extends HttpServlet {
 	    request.setAttribute("catNula", "Antes você deve selecionar uma lista primeiro");
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
 	    dispatcher.forward(request, response);
+	} catch (RuntimeException e) {
+	    e.printStackTrace();
+	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
 	}
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.getSession().setAttribute("gerais", InformacoesProdutos.mostrarInfosProdutos(this.cat.getUser(), util, this.cat.getOrcamento()));
-	request.getSession().setAttribute("disponivel", InformacoesProdutos.disponivelParaComprar(util, cat));
-	request.getSession().setAttribute("economizado", InformacoesProdutos.valorEconomizado(util));
+	request.getSession().setAttribute("gerais",
+		InformacoesProdutos.infosGerais(this.cat.getUser(), util, this.cat.getOrcamento()));
+	request.getSession().setAttribute("disponivel", InformacoesProdutos.getDisponivel(util, cat));
+	request.getSession().setAttribute("economizado", InformacoesProdutos.getValorEconomizado(util));
 	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
 	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String acao = request.getParameter("acao");
-	if (acao != null) {
-	    startServiceAndRepository(request, response);
-	    setInformacoes(request, response);
+	try {
+	    String acao = request.getParameter("acao");
+	    if (acao != null) {
+		startServiceAndRepository(request, response);
+		setInformacoes(request, response);
 //	    System.out.println(acao + " método POST");
-	    if (acao.equals("listar")) {
+		if (acao.equals("listar")) {
+		    listarTodosProdutos(request, response);
+		} else if (acao.equals("selecionar")) {
+		    String id = request.getParameter("id");
+		    Product p = repository.findById(Long.parseLong(id));
+		    System.out.println(p);
+		} else if (acao.equals("salvar")) {
+		    salvarProduto(request, response);
+		} else if (acao.equals("editar")) {
+		    redirecionarEditarProduto(request, response);
+		}
+	    } else {
 		listarTodosProdutos(request, response);
-	    } else if (acao.equals("selecionar")) {
-		String id = request.getParameter("id");
-		Product p = repository.findById(Long.parseLong(id));
-		System.out.println(p);
-	    } else if (acao.equals("salvar")) {
-		salvarProduto(request, response);
-	    } else if (acao.equals("editar")) {
-		redirecionarEditarProduto(request, response);
 	    }
-	} else {
-	    listarTodosProdutos(request, response);
+	} catch (RuntimeException e) {
+	    e.printStackTrace();
+	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
 	}
     }
 
@@ -124,7 +134,7 @@ public class ProdutoServlet extends HttpServlet {
 	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
-	
+
 	Long catOriginal = cat.getId();
 	try {
 	    String valorEstipulado = request.getParameter("estipulado");
@@ -132,12 +142,12 @@ public class ProdutoServlet extends HttpServlet {
 	    String comprado = request.getParameter("comprado");
 
 	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
-	    p.setPrecoEstipulado(Double.parseDouble(parseNumber(valorEstipulado)));
+	    p.setPrecoEstipulado(!valorEstipulado.isEmpty() ? Double.parseDouble(parseNumber(valorEstipulado)) : 0.0);
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
 
 	    if (p.getId() == null) {
-		service.inserir(p);
+		service.save(p);
 		response.setStatus(HttpServletResponse.SC_CREATED);
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
@@ -145,7 +155,8 @@ public class ProdutoServlet extends HttpServlet {
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
-		    CategoriaService.validarCategoria(cat); //verificando se a categoria que ele vai mudar pertence a ele mesmo
+		    CategoriaService.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence a
+							    // ele mesmo
 		}
 		service.update(p);// moveu
 		// voltando pra categoria atual para nao ser redirecionado para nova categoria
@@ -153,23 +164,33 @@ public class ProdutoServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 	    }
 	} catch (NumberFormatException e) {
-	    setResponseBody(request, response, "Valor inválido para o campo 'Valor Estipulado'", HttpServletResponse.SC_BAD_REQUEST);
-	} catch (CategoriaInexistenteException e) { // existe a chance da pessoa editar o html e mudar o id, então não vamos
-					// permitir caso a lista nao pertencer a ele	
-	    cat.setId(catOriginal);
+	    setResponseBody(request, response,
+		    "Um ou mais campos de preço estão inválidos. Tente digitar apenas números",
+		    HttpServletResponse.SC_BAD_REQUEST);
+	} catch (CategoriaInexistenteException e) { // existe a chance da pessoa editar o html e mudar o id, então não
+						    // vamos
+	    // permitir caso a lista nao pertencer a ele
+	    cat.setId(catOriginal);// setando a cat original para evitar o redirecionamento para outra categoria
 	    setResponseBody(request, response, e.getMessage(), 422);// dados foram compreendidos, mas não são válidos.
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(request, response, e.getMessage(), 400);
-	} 
+	} catch (ProdutoException e) {
+	    setResponseBody(request, response, e.getMessage(), 400);
+	} catch (NullPointerException e) {
+	    setResponseBody(request, response, "Ocorreu um erro", 400);
+	}
     }
 
     /**
      * Apenas pra diminuir codigo. <br>
-     * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o Ajax
-     * @param mensagem - mensagem que será enviada como resposta 
-     * @param codigo - codigo que será enviado
+     * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o
+     * Ajax
+     * 
+     * @param mensagem - mensagem que será enviada como resposta
+     * @param codigo   - codigo que será enviado
      */
-    private void setResponseBody(HttpServletRequest request, HttpServletResponse response, String mensagem, int codigo) throws IOException {
+    private void setResponseBody(HttpServletRequest request, HttpServletResponse response, String mensagem, int codigo)
+	    throws IOException {
 	response.setContentType("text/plain");
 	response.setCharacterEncoding("UTF-8");
 	response.setStatus(codigo);

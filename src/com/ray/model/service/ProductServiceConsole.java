@@ -3,7 +3,7 @@ package com.ray.model.service;
 import com.ray.db.DbException;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.exception.ProdutoException;
 
 public class ProductServiceConsole extends ProductService{
     
@@ -14,12 +14,12 @@ public class ProductServiceConsole extends ProductService{
 
     public boolean deletar(Product p) {
    	try {
-   	    if (dao.validar(p.getId())) {
+   	    if (dao.productIsValid(p.getId())) {
    		dao.deletById(p.getId());
    		cat.deletarProduto(p);
    		return true;
    	    } else {
-   		throw new ProductoException("Ocorreu um inesperado");
+   		throw new ProdutoException("Ocorreu um inesperado");
    	    }
 
    	} catch (DbException e) {
@@ -63,7 +63,7 @@ public class ProductServiceConsole extends ProductService{
    	}
        }
 
-       public void mudarCategoria(Product p, Categoria cat) throws ProductoException {
+       public void mudarCategoria(Product p, Categoria cat) throws ProdutoException {
    	p.setCategoria(cat);
    	dao.update(p);
        }

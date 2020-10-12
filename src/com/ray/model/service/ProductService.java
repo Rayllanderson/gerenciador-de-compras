@@ -9,10 +9,11 @@ import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.exception.ProdutoException;
+import com.ray.model.validacoes.ValidacaoProduto;
 
 public class ProductService {
-    
+
     protected ProductDao dao;
     protected Categoria cat;
 
@@ -27,14 +28,19 @@ public class ProductService {
 
     // ---------------------"CRUD"-------------------------//
     /**
-     * @param p
+     * Salva o produto. Passa por 2 verificações. Nome nulo e preço nulo. Caso nome
+     * seja nulo, throw exception. Caso o preço seja nulo, será setado para 0.0
+     * 
+     * @param
      * @return
      * @throws EntradaInvalidaException - caso os campos valor estipalo e nome
      *                                  estejam vazios ou nulos
      */
-    public boolean inserir(Product p) throws EntradaInvalidaException {
+    public boolean save(Product p) throws EntradaInvalidaException {
 	try {
-	    validarCampos(p);
+	    ValidacaoProduto.validarNome(p.getNome());
+	    ValidacaoProduto.validarPreco(p.getPrecoEstipulado());
+	    ValidacaoProduto.validarPreco(p.getPrecoReal());
 	    dao.save(p);
 	    cat.adicionarProduto(p);
 	    return true;
@@ -45,21 +51,26 @@ public class ProductService {
     }
 
     /**
+     * Atualiza o produto. Passa por 3 verificações. Primeiro checa se o produto de
+     * fato pertence ao usuário atual, caso seja, verifica se o nome não é nulo, se
+     * for throw exception. E os preços, se forem nulos, seta para 0.0
      * 
      * @param p
      * @return
-     * @throws EntradaInvalidaException - caso os campos valor estipalo e nome
-     *                                  estejam vazios ou nulos
+     * @throws EntradaInvalidaException - caso o campo nome esteja nulo
+     * @throws ProdutoException         - caso o produto não pertenca ao usuário
      */
-    public boolean update(Product p) throws EntradaInvalidaException {
+    public boolean update(Product p) throws EntradaInvalidaException, ProdutoException {
 	try {
 	    System.out.println(p.getId());
-	    if (dao.validar(p.getId())) {
-		validarCampos(p);
+	    if (dao.productIsValid(p.getId())) {
+		ValidacaoProduto.validarNome(p.getNome());
+		ValidacaoProduto.validarPreco(p.getPrecoEstipulado());
+		ValidacaoProduto.validarPreco(p.getPrecoReal());
 		dao.update(p);
 		return true;
 	    } else {
-		throw new ProductoException("Ocorreu um inesperado");
+		throw new ProdutoException("Ocorreu um inesperado");
 	    }
 	} catch (DbException e) {
 	    e.printStackTrace();
@@ -67,24 +78,37 @@ public class ProductService {
 	}
     }
 
-    public boolean deleteById(Long id) {
-   	try {
-   	    dao.deletById(id);
-   	    return true;
-   	} catch (DbException e) {
-   	    e.printStackTrace();
-   	    return false;
-   	}
-       }
-    
+    /**
+     * Deleta o produto pelo ID. Verifica se o produto pertence ao usuário, senao
+     * throw exception
+     * 
+     * @param id
+     * @return
+     * @throws ProdutoException - caso o produto não pertenca ao usuário
+     */
+    public boolean deleteById(Long id) throws ProdutoException {
+	try {
+	    if (dao.productIsValid(id)) {
+		dao.deletById(id);
+		return true;
+	    } else {
+		throw new ProdutoException("Ocorreu um inesperado");
+	    }
+	} catch (DbException e) {
+	    e.printStackTrace();
+	}
+	return false;
+    }
+
     /**
      * 
-     * @return
+     * @return lista contendo todos os produtos. Não trata e nem lança nenhuma
+     *         exception.
      */
     public List<Product> findAll() {
 	return dao.findAll();
     }
-    
+
     public List<Product> findAllWithException() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
@@ -92,8 +116,13 @@ public class ProductService {
 	}
 	return list;
     }
-    
 
+    /**
+     * Procura o produto na lista atual. <br> SQL: where produtos.nome LIKE '%name%' <br> Ou seja, todos os produtos que conter o "nome" em qualquer lugar
+     * @param name
+     * @return
+     * @throws ListaVaziaException
+     */
     public List<Product> searchProductByName(String name) throws ListaVaziaException {
 	List<Product> list = dao.findByName(name);
 	if (list.isEmpty()) {
@@ -103,11 +132,10 @@ public class ProductService {
 	}
 	return list;
     }
-    
-    
+
     // ---------------------------Listas-------------------------------//
     /**
-     * verifica se o usuario tem protudos. 
+     * verifica se o usuario tem protudos.
      * 
      * @return true caso esteja vazia <br>
      *         false contenha um ou mais produtos
@@ -115,26 +143,7 @@ public class ProductService {
     public boolean listIsEmpty() {
 	return dao.findAll().isEmpty() ? true : false;
     }
-    
-   
-    
+
     // --------------------------- validações -----------------------------------//
-    
-    /**
-     * Valida os campos Nome e preço estipulado
-     * 
-     * @param p
-     * @throws EntradaInvalidaException lançada quando os campos nome e preço
-     *                                  estipulado estiverem em branco ou nulos
-     */
-    private void validarCampos(Product p) throws EntradaInvalidaException {
-	if (p.getNome().trim().isEmpty() || p.getPrecoEstipulado() == null) {
-	    throw new EntradaInvalidaException("um ou mais campos estão vazios.");
-	}
-    }
-
-    
-    // ----------------------------úteis---------------------------------------//
-
 
 }

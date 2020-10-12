@@ -7,7 +7,6 @@ import com.ray.model.entities.User;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.util.HtmlColors;
 import com.ray.model.util.ProdutosUtil;
-import com.ray.model.util.ProdutosUtilConsole;
 
 
 public class InformacoesProdutos {
@@ -20,7 +19,7 @@ public class InformacoesProdutos {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static String quantidadeGasta(ProdutosUtil util, Categoria cat) {
+    public static String getQuantidadeGasta(ProdutosUtil util, Categoria cat) {
 	try {
 	    double orcamento = cat.getOrcamento();
 	    double valorGasto = util.getTotalGasto();
@@ -47,7 +46,7 @@ public class InformacoesProdutos {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static String disponivelParaComprar(ProdutosUtil util, Categoria cat) {
+    public static String getDisponivel(ProdutosUtil util, Categoria cat) {
 	 Double orcamento = 0.0;
 	 double somaTotalNaoConcluidos = util.getEstipuladoRestante();
 	 if(somaTotalNaoConcluidos == 0 && ! util.getList().isEmpty()) {
@@ -105,7 +104,7 @@ public class InformacoesProdutos {
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
-    public static String valorEconomizado(ProdutosUtil util) {
+    public static String getValorEconomizado(ProdutosUtil util) {
 	try {
 	    double valorEconomizado = util.getValorEconomizado();
 	    if (valorEconomizado < 0) {
@@ -119,28 +118,6 @@ public class InformacoesProdutos {
 	    return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. No momento, impossível saber valor economizado :(" : e.getMessage();
 	}
     }
-
-    /**
-     * @apiNote Exceptions tratadas nesse método: ListaVaziaException
-     */
-    public static void listarNaoConcluidosConsole(ProdutosUtilConsole util) {
-	try {
-	    util.listarNaoConcluidosConsole();
-	} catch (ListaVaziaException e) {
-	    System.out.println("Todos os produtos da lista foram comprados :)");
-	}
-    }
-    
-    /**
-     * @apiNote Exceptions tratadas nesse método: ListaVaziaException
-     */
-    public static void listarConcluidosConsole(ProdutosUtilConsole util) {
-	try {
-	    util.listarNaoConcluidosConsole();
-	} catch (ListaVaziaException e) {
-	    System.out.println("Todos os produtos da lista foram comprados :)");
-	}
-    }
     
     public static String getTotalEstipuladoHtml(ProdutosUtil util) {
 	return HtmlColors.BLUE + currencyFormatter.format(util.getTotalEstipulado()) + HtmlColors.BLACK;
@@ -151,7 +128,7 @@ public class InformacoesProdutos {
     }
     
     
-    public static String mostrarInfosProdutos(User user, ProdutosUtil util, double orcamento) {
+    public static String infosGerais(User user, ProdutosUtil util, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
 	double valorRealGasto = 0, valorEstipulado = 0, valorEstipuladoRestante = 0, totalAtual = 0;
 	try {
@@ -196,7 +173,6 @@ public class InformacoesProdutos {
 	infos.append("<br>");
 	infos.append("O valor estipulado atual é de <strong>" + currencyFormatter.format(valorEstipulado) + "</strong>");
 	infos.append("<br>");
-	
 	infos.append("O valor total atual é de <strong>" + currencyFormatter.format(totalAtual) + "</strong>");
 	infos.append("<br>");
 	infos.append("Orçamento: <strong>" + currencyFormatter.format(orcamento) + "</strong>");
@@ -204,7 +180,8 @@ public class InformacoesProdutos {
 	return infos.toString();
     }
     
-  
+    // ----------------------- console --------------------------------//
+    
     public static void somaTotalConsole(ProdutosUtil util) {
 	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(util.getTotalEstipulado()));
 	System.out.println("Valor Total: " + currencyFormatter.format(util.getTotalAtual()));

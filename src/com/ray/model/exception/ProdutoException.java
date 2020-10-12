@@ -1,10 +1,10 @@
 package com.ray.model.exception;
 
-public class ProductoException extends RuntimeException{
+public class ProdutoException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
     
-    public ProductoException (String msg) {
+    public ProdutoException (String msg) {
 	super(msg);
     }
 

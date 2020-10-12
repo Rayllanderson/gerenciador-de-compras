@@ -8,7 +8,7 @@ import com.ray.model.entities.Product;
 import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.OpcaoInvalidaException;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.exception.ProdutoException;
 import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
@@ -58,7 +58,7 @@ public class MenuProduto {
 		return false;
 	    } catch (OpcaoInvalidaException e) {
 		System.out.println(e.getMessage());
-	    }catch (ProductoException e) {
+	    }catch (ProdutoException e) {
 		System.out.println(e.getMessage());
 	    }
 	}
@@ -68,11 +68,11 @@ public class MenuProduto {
     /**
      * Exceptions tratadas: EntradaInvalidaException, NumberFormatException
      */
-    public static boolean funcoesUteis(ProdutosUtilConsole service, Categoria cat) {
+    public static boolean funcoesUteis(ProdutosUtilConsole util, Categoria cat) {
 	String opcaoEditarProduto;
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	InformacoesProdutos.mostrarInfosProdutos(cat.getUser(), service, cat.getOrcamento());
+	InformacoesProdutos.infosGerais(cat.getUser(), util, cat.getOrcamento());
 	while (true) {
 	    try {
 		Menu.menuFinanceiro();
@@ -82,21 +82,21 @@ public class MenuProduto {
 		}
 		switch (Integer.parseInt(opcaoEditarProduto)) {
 		case 1:
-		    InformacoesProdutos.quantidadeGasta(service, cat);
+		    InformacoesProdutos.getQuantidadeGasta(util, cat);
 		    break;
 		case 2:
 		    System.out.println("Produtos comprados: ");
-		    InformacoesProdutos.listarConcluidosConsole(service);
+		    util.listarConcluidosConsole();
 		    break;
 		case 3:
 		    System.out.println("Produdos que você ainda não comprou: ");
-		    InformacoesProdutos.listarNaoConcluidosConsole(service);
+		    util.listarNaoConcluidosConsole();
 		    break;
 		case 4:
-		    InformacoesProdutos.disponivelParaComprar(service, cat);
+		    InformacoesProdutos.getDisponivel(util, cat);
 		    break;
 		case 5:
-		    InformacoesProdutos.valorEconomizado(service);
+		    InformacoesProdutos.getValorEconomizado(util);
 		    break;
 		default:
 		    throw new EntradaInvalidaException("Opção inválida! Tente novamente.");

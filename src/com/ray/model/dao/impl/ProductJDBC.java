@@ -172,7 +172,7 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public boolean validar(Long id) {
+    public boolean productIsValid(Long id) { //escolhe rnome melhor pra esse método
 	String sql = "select produtos.id, categoria.id, usuario.id from"
 		+ " produtos inner join categoria on id_categoria"
 		+ " = categoria.id inner join usuario on categoria.id_user"

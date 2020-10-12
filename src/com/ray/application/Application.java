@@ -3,7 +3,7 @@ package com.ray.application;
 import com.ray.db.DbException;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
-import com.ray.model.exception.ProductoException;
+import com.ray.model.exception.ProdutoException;
 import com.ray.model.view.TelaPrincipal;
 
 public class Application {
@@ -21,7 +21,7 @@ public class Application {
 		try {
 		    cat = telaPrincipal.telaCategoria(user);
 		    telaPrincipal.telaProduto(cat);
-		} catch (ProductoException e) {
+		} catch (ProdutoException e) {
 		    System.out.println(e.getMessage());
 		}
 	    }

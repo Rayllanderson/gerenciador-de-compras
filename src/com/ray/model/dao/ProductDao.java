@@ -17,5 +17,5 @@ public interface ProductDao {
      * @param id do produto
      * @return true se o produto pertencer ao usuario, false se nao
      */
-    boolean validar(Long id);
+    boolean productIsValid(Long id);
 }
