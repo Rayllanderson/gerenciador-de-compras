@@ -13,8 +13,8 @@ import com.ray.model.exception.ProductoException;
 
 public class ProductService {
     
-    public ProductDao dao;
-    public Categoria cat;
+    protected ProductDao dao;
+    protected Categoria cat;
 
     public ProductService(Categoria cat) {
 	this.cat = cat;

@@ -16,6 +16,7 @@ import com.ray.model.exception.ProductoException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
+import com.ray.model.util.ProdutosUtilConsole;
 
 public class InteracaoProduto {
     
@@ -57,7 +58,8 @@ public class InteracaoProduto {
      */
     public static void deletarProduto(ProductServiceConsole service) throws NumberFormatException, BackButtonException {
 	try {
-	    Product p = selecionarProduto(service, "Excluir");
+	    ProdutosUtilConsole util = new ProdutosUtilConsole(service.getCat());
+	    Product p = selecionarProduto(service, util , "Excluir");
 	    ButtonUtil.confirmar("deletar o produto " + p.getNome());
 	    service.deletar(p);
 	} catch (ConfirmException e) {
@@ -277,11 +279,11 @@ public class InteracaoProduto {
      * @throws ListaVaziaException
      * @throws BackButtonException
      */
-    public static Product selecionarProduto(ProductServiceConsole service, String acao)
+    public static Product selecionarProduto(ProductServiceConsole service, ProdutosUtilConsole util, String acao)
 	    throws NumberFormatException, ProductoException, ListaVaziaException, BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	service.listarPordutosConsole();
+	util.listarPordutosConsole();
 	System.out.println("Pressione 0 para cancelar");
 	System.out.print("Esolha qual produto deseja " + acao + ": ");
 	String produtoEscolhido = scan.next();

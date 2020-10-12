@@ -5,9 +5,9 @@ import java.text.NumberFormat;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.HtmlColors;
 import com.ray.model.util.ProdutosUtil;
+import com.ray.model.util.ProdutosUtilConsole;
 
 
 public class InformacoesProdutos {
@@ -123,7 +123,18 @@ public class InformacoesProdutos {
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
-    public static void listarNaoConcluidos(ProductServiceConsole util) {
+    public static void listarNaoConcluidosConsole(ProdutosUtilConsole util) {
+	try {
+	    util.listarNaoConcluidosConsole();
+	} catch (ListaVaziaException e) {
+	    System.out.println("Todos os produtos da lista foram comprados :)");
+	}
+    }
+    
+    /**
+     * @apiNote Exceptions tratadas nesse método: ListaVaziaException
+     */
+    public static void listarConcluidosConsole(ProdutosUtilConsole util) {
 	try {
 	    util.listarNaoConcluidosConsole();
 	} catch (ListaVaziaException e) {

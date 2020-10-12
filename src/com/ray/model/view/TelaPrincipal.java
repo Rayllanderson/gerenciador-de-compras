@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.ray.informacoes.InformacoesProdutos;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.Categoria;
@@ -17,7 +18,7 @@ import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.interacoes.InteracaoUser;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductServiceConsole;
-import com.ray.model.util.ProdutosUtil;
+import com.ray.model.util.ProdutosUtilConsole;
 import com.ray.model.util.UserUtil;
 
 public class TelaPrincipal {
@@ -121,18 +122,19 @@ public class TelaPrincipal {
 	String opcao = null;
 	while (true) {
 	    try {
+		ProdutosUtilConsole util = new ProdutosUtilConsole(cat);
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		InteracaoProduto.somaTotalConsole(service);
+		InformacoesProdutos.somaTotalConsole(util);
 		mostrarOrcamento(cat);
-		service.listarPordutosConsole();
+		util.listarPordutosConsole();
 		Menu.menuPrincipalProdutos();
 		opcao = scan.next();
 		switch (Integer.parseInt(opcao)) {
 		case 0:
 		    return true;
 		case 1:
-		    while (MenuProduto.funcoesUteis(service, cat))
+		    while (MenuProduto.funcoesUteis(util, cat))
 			;
 		    break;
 		case 2:

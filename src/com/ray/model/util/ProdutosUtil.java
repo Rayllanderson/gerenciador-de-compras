@@ -6,7 +6,6 @@ import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.ProductService;
-import com.ray.model.service.ProductServiceConsole;
 
 public class ProdutosUtil {
 
@@ -15,17 +14,6 @@ public class ProdutosUtil {
     
     public ProdutosUtil (Categoria cat) {
 	this.service = new ProductService(cat);
-    }
-    
-    /**
-     * @apiNote Exceptions tratadas nesse método: ListaVaziaException
-     */
-    public static void listarConcluidos(ProductServiceConsole service) {
-	try {
-	    service.listarConcluidosConsole();
-	} catch (ListaVaziaException e) {
-	    System.out.println("Nenhum produto da lista foi comprado :(");
-	}
     }
 
     /**
@@ -175,4 +163,5 @@ public class ProdutosUtil {
     public List<Product> getList() {
 	return service.findAll();
     }
+    
 }

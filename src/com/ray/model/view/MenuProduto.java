@@ -12,7 +12,7 @@ import com.ray.model.exception.ProductoException;
 import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
-import com.ray.model.util.ProdutosUtil;
+import com.ray.model.util.ProdutosUtilConsole;
 
 public class MenuProduto {
 
@@ -27,7 +27,7 @@ public class MenuProduto {
 	Scanner scan = new Scanner(System.in);
 	while (true) {
 	    try {
-		Product p = InteracaoProduto.selecionarProduto(service, "Editar");
+		Product p = InteracaoProduto.selecionarProduto(service, new ProdutosUtilConsole(service.getCat()), "Editar");
 		ButtonUtil.botaoVoltar(p);
 		System.out.println("Escolha o que deseja editar");
 		Menu.menuEditarProduto();
@@ -68,7 +68,7 @@ public class MenuProduto {
     /**
      * Exceptions tratadas: EntradaInvalidaException, NumberFormatException
      */
-    public static boolean funcoesUteis(ProductServiceConsole service, Categoria cat) {
+    public static boolean funcoesUteis(ProdutosUtilConsole service, Categoria cat) {
 	String opcaoEditarProduto;
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
@@ -86,11 +86,11 @@ public class MenuProduto {
 		    break;
 		case 2:
 		    System.out.println("Produtos comprados: ");
-		    ProdutosUtil.listarConcluidos(service);
+		    InformacoesProdutos.listarConcluidosConsole(service);
 		    break;
 		case 3:
 		    System.out.println("Produdos que você ainda não comprou: ");
-		    InformacoesProdutos.listarNaoConcluidos(service);
+		    InformacoesProdutos.listarNaoConcluidosConsole(service);
 		    break;
 		case 4:
 		    InformacoesProdutos.disponivelParaComprar(service, cat);
