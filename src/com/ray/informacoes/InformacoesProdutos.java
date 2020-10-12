@@ -5,9 +5,9 @@ import java.text.NumberFormat;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.service.ProductService;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.HtmlColors;
+import com.ray.model.util.ProdutosUtil;
 
 
 public class InformacoesProdutos {
@@ -20,10 +20,10 @@ public class InformacoesProdutos {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static String quantidadeGasta(ProductService service, Categoria cat) {
+    public static String quantidadeGasta(ProdutosUtil util, Categoria cat) {
 	try {
 	    double orcamento = cat.getOrcamento();
-	    double valorGasto = service.getTotalGasto();
+	    double valorGasto = util.getTotalGasto();
 	    String complemento = ". ";
 	    if (orcamento == 0) {
 		complemento = " E você não tem um orcamento para essa lista";
@@ -47,10 +47,10 @@ public class InformacoesProdutos {
      * @apiNote Exceptions tratadas nesse método: NullPointerException,
      *          ListaVaziaException
      */
-    public static String disponivelParaComprar(ProductService service, Categoria cat) {
+    public static String disponivelParaComprar(ProdutosUtil util, Categoria cat) {
 	 Double orcamento = 0.0;
-	 double somaTotalNaoConcluidos = service.getEstipuladoRestante();
-	 if(somaTotalNaoConcluidos == 0 && !service.listIsEmpty()) {
+	 double somaTotalNaoConcluidos = util.getEstipuladoRestante();
+	 if(somaTotalNaoConcluidos == 0 && ! util.getList().isEmpty()) {
 	     return "Todos os produtos foram comprados :)";
 	 }
 	try {
@@ -60,7 +60,7 @@ public class InformacoesProdutos {
 	    if (orcamento == 0.0 || orcamento == null) {
 		throw new NullPointerException();
 	    }
-	    disponivel = orcamento - service.getTotalGasto();
+	    disponivel = orcamento - util.getTotalGasto();
 	    if (disponivel < 0) {
 		complemento = HtmlColors.RED +" Ixi! Você passou do seu orcamento em " + currencyFormatter.format((-(disponivel)));
 		complemento += ". Você não tem mais nada disponível para gastar";
@@ -84,7 +84,7 @@ public class InformacoesProdutos {
 		}else {
 		complemento += "Você antigiu seu orçamento e a partir de agora, tudo passará de seu orcamento"
 			+ HtmlColors.RED + "<br>Comprando tudo, ao final, passará em " + currencyFormatter.format(somaTotalNaoConcluidos) + " do seu orçamento."
-				+ "<br>Totalizando " + currencyFormatter.format(somaTotalNaoConcluidos + service.getTotalGasto());
+				+ "<br>Totalizando " + currencyFormatter.format(somaTotalNaoConcluidos + util.getTotalGasto());
 		}
 	    }
 	    complemento += HtmlColors.BLACK;
@@ -105,9 +105,9 @@ public class InformacoesProdutos {
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
-    public static String valorEconomizado(ProductService service) {
+    public static String valorEconomizado(ProdutosUtil util) {
 	try {
-	    double valorEconomizado = service.getValorEconomizado();
+	    double valorEconomizado = util.getValorEconomizado();
 	    if (valorEconomizado < 0) {
 		return HtmlColors.RED +"Eita! Você não economizou nada! Você gastou " + currencyFormatter.format((-(valorEconomizado)))
 			+ " a mais do que planejava" + HtmlColors.BLACK;
@@ -123,48 +123,57 @@ public class InformacoesProdutos {
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
-    public static void listarNaoConcluidos(ProductServiceConsole service) {
+    public static void listarNaoConcluidos(ProductServiceConsole util) {
 	try {
-	    service.listarNaoConcluidosConsole();
+	    util.listarNaoConcluidosConsole();
 	} catch (ListaVaziaException e) {
 	    System.out.println("Todos os produtos da lista foram comprados :)");
 	}
     }
     
-    public static String getTotalEstipuladoHtml(ProductService service) {
-	return HtmlColors.BLUE + currencyFormatter.format(service.getTotalEstipulado()) + HtmlColors.BLACK;
+    public static String getTotalEstipuladoHtml(ProdutosUtil util) {
+	return HtmlColors.BLUE + currencyFormatter.format(util.getTotalEstipulado()) + HtmlColors.BLACK;
     }
     
-    public static String getValorTotalHtml(ProductService service) {
-   	return HtmlColors.BLUE + currencyFormatter.format(service.getTotalAtual()) + HtmlColors.BLACK;
+    public static String getValorTotalHtml(ProdutosUtil util) {
+   	return HtmlColors.BLUE + currencyFormatter.format(util.getTotalAtual()) + HtmlColors.BLACK;
     }
     
     
-    public static String mostrarInfosProdutos(User user, ProductService service, double orcamento) {
+    public static String mostrarInfosProdutos(User user, ProdutosUtil util, double orcamento) {
 	int qntProdutos = 0, qntProdutosComprados = 0;
-	double valorRealGasto = 0, valorEstipulado = service.getTotalEstipulado();
-	double valorEstipuladoRestante = 0;
+	double valorRealGasto = 0, valorEstipulado = 0, valorEstipuladoRestante = 0, totalAtual = 0;
 	try {
-	    qntProdutos = service.findAll().size();
-	} catch (ListaVaziaException e) {
+	    totalAtual = util.getTotalAtual();
+	}catch (ListaVaziaException e) {
+	    totalAtual = 0;
+	}
+	try {
+	    valorEstipulado = util.getTotalEstipulado();
+	}catch (ListaVaziaException e) {
+	    valorEstipulado = 0;
+	}
+	try {
+	    qntProdutos = util.getList().size();
+	}catch (ListaVaziaException e) {
 	    qntProdutos = 0;
 	}
 	try {
-	    qntProdutosComprados = service.getConcluidos().size();
-	} catch (ListaVaziaException e) {
+	    qntProdutosComprados = util.getConcluidos().size();
+	}catch (ListaVaziaException e) {
 	    qntProdutosComprados = 0;
 	}
 	try {
-	    valorRealGasto = service.getTotalGasto();
-	} catch (ListaVaziaException e) {
+	    valorRealGasto = util.getTotalGasto();
+	}catch (ListaVaziaException e) {
 	    valorRealGasto = 0;
 	}
 	try {
-	    valorEstipuladoRestante = service.getEstipuladoRestante();
-	} catch (ListaVaziaException e) {
+	    valorEstipuladoRestante = util.getEstipuladoRestante();
+	}catch (ListaVaziaException e) {
 	    valorEstipuladoRestante = 0;
 	}
-	
+		
 	StringBuilder infos = new StringBuilder();
 	infos.append(!(qntProdutos == 1) ? "Você possui <strong>" + qntProdutos + "</strong> produtos na lista atual" : "Você possui <strong>" + qntProdutos + "</strong> produto na lista atual");
 	infos.append("<br>");
@@ -176,16 +185,17 @@ public class InformacoesProdutos {
 	infos.append("<br>");
 	infos.append("O valor estipulado atual é de <strong>" + currencyFormatter.format(valorEstipulado) + "</strong>");
 	infos.append("<br>");
-	infos.append("O valor total atual é de <strong>" + currencyFormatter.format(service.getTotalAtual()) + "</strong>");
+	
+	infos.append("O valor total atual é de <strong>" + currencyFormatter.format(totalAtual) + "</strong>");
 	infos.append("<br>");
 	infos.append("Orçamento: <strong>" + currencyFormatter.format(orcamento) + "</strong>");
 	infos.append("<br>");
 	return infos.toString();
     }
-
     
-    public static void somaTotalConsole(ProductService service) {
-	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(service.getTotalEstipulado()));
-	System.out.println("Valor Total: " + currencyFormatter.format(service.getTotalAtual()));
+  
+    public static void somaTotalConsole(ProdutosUtil util) {
+	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(util.getTotalEstipulado()));
+	System.out.println("Valor Total: " + currencyFormatter.format(util.getTotalAtual()));
     }
 }

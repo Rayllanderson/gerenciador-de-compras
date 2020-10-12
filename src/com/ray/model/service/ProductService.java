@@ -77,8 +77,15 @@ public class ProductService {
    	}
        }
     
+    /**
+     * 
+     * @return
+     */
+    public List<Product> findAll() {
+	return dao.findAll();
+    }
     
-    public List<Product> findAll() throws ListaVaziaException {
+    public List<Product> findAllWithException() throws ListaVaziaException {
 	List<Product> list = dao.findAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");

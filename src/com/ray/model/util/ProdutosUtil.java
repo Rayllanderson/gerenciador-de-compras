@@ -12,6 +12,11 @@ public class ProdutosUtil {
 
     private ProductService service;
     
+    
+    public ProdutosUtil (Categoria cat) {
+	this.service = new ProductService(cat);
+    }
+    
     /**
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException
      */
@@ -30,8 +35,8 @@ public class ProdutosUtil {
         *  nenhum produto da lista ainda não tenha sido comprado <br>
      */
     public List<Product> getNaoConcluidos() throws ListaVaziaException {
-   	List<Product> list = service.findAll();
-   	if (list.isEmpty()) {
+	List <Product> list = service.findAll();
+	if (list.isEmpty()) {
    	    throw new ListaVaziaException("Você não tem produtos na lista");
    	}
    	for (int i = 0; i < list.size(); i++) {
@@ -56,8 +61,8 @@ public class ProdutosUtil {
         *  comprado até o momento :(");
         */
        public List<Product> getConcluidos() throws ListaVaziaException {
-   	List<Product> list = service.findAll();
-   	if (list.isEmpty()) {
+	   List <Product> list = service.findAll();
+	   if (list.isEmpty()) {
    	    throw new ListaVaziaException("Você não tem produtos na lista");
    	}
    	for (int i = 0; i < list.size(); i++) {
@@ -96,8 +101,8 @@ public class ProdutosUtil {
      * @throws ListaVaziaException caso não tenha nenhum produto na lista
      */
     public double getTotalEstipulado() throws ListaVaziaException {
+	List <Product> list = service.findAll();
 	double sum = 0;
-	List<Product> list = service.findAll();
 	for (Product p : list) {
 	    sum += p.getPrecoEstipulado();
 	}
@@ -111,10 +116,10 @@ public class ProdutosUtil {
      *         valorReal + valorEstipulado (if !comprado)
      */
     public double getTotalAtual() {
+	List <Product> list = service.findAll();
 	double sum = 0;
-	List<Product> list = service.findAll();
 	for (Product p : list) {
-	    if (p.getPrecoReal() != 0 && !p.isComprado()) {
+	    if (p.getPrecoReal() != 0) {
 		sum += p.getPrecoReal();
 	    } else {
 		sum += p.getPrecoEstipulado();
@@ -165,5 +170,9 @@ public class ProdutosUtil {
 	} catch (ListaVaziaException e) {
 	    return 0.0;
 	}
+    }
+
+    public List<Product> getList() {
+	return service.findAll();
     }
 }

@@ -382,7 +382,7 @@ public class InteracaoProduto {
      *                             lista.");
      */
     public static Product getProdutoByNumer(int num, ProductServiceConsole service) throws ProductoException, ListaVaziaException {
-	List<Product> list = service.findAll();
+	List<Product> list = service.findAllWithException();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
 	}

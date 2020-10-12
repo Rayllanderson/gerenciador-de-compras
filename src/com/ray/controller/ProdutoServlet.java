@@ -21,6 +21,7 @@ import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
+import com.ray.model.util.ProdutosUtil;
 
 /**
  * Servlet implementation class Login
@@ -33,6 +34,7 @@ public class ProdutoServlet extends HttpServlet {
     private ProductService service = null;
     private Categoria cat = null;
     private boolean flag = false;
+    private ProdutosUtil util = null;
 
     public ProdutoServlet() {
 	super();
@@ -69,11 +71,11 @@ public class ProdutoServlet extends HttpServlet {
     }
 
     private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.getSession().setAttribute("gerais", InformacoesProdutos.mostrarInfosProdutos(this.cat.getUser(), service, this.cat.getOrcamento()));
-	request.getSession().setAttribute("disponivel", InformacoesProdutos.disponivelParaComprar(service, cat));
-	request.getSession().setAttribute("economizado", InformacoesProdutos.valorEconomizado(service));
-	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(service));
-	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(service));
+	request.getSession().setAttribute("gerais", InformacoesProdutos.mostrarInfosProdutos(this.cat.getUser(), util, this.cat.getOrcamento()));
+	request.getSession().setAttribute("disponivel", InformacoesProdutos.disponivelParaComprar(util, cat));
+	request.getSession().setAttribute("economizado", InformacoesProdutos.valorEconomizado(util));
+	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
+	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -182,6 +184,7 @@ public class ProdutoServlet extends HttpServlet {
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
 	this.cat = instanciarCategoria(request);
 	service = new ProductService(cat);
+	util = new ProdutosUtil(cat);
 	repository = DaoFactory.createProductDao(cat);
     }
 
@@ -205,7 +208,7 @@ public class ProdutoServlet extends HttpServlet {
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    List<Product> list = service.getConcluidos();
+	    List<Product> list = util.getConcluidos();
 	    request.getSession().setAttribute("produtos", list);
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
@@ -216,7 +219,7 @@ public class ProdutoServlet extends HttpServlet {
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    request.getSession().setAttribute("produtos", service.getNaoConcluidos());
+	    request.getSession().setAttribute("produtos", util.getNaoConcluidos());
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
 	    setResponseBody(request, response, e.getMessage(), 200);
