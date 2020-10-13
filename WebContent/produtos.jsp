@@ -32,6 +32,8 @@
 						 margin-right: 0;
 						 text-align: center;
                         }
+                         
+
                     </style>
 
                 </head>
@@ -120,6 +122,8 @@
 
 
 <infos>
+
+
 <div  id="info">
 
 <div class="container">
@@ -140,10 +144,10 @@
 
 
                     <!-- INÍCIO CARD INFOS -->
-                    <div class="container" style="margin-bottom: 6%">
+                    <div class="container" style="">
                         <div class="collapse" id="collapseExample">
-                            <div class="card card-body" style=" border: 0;
-  border-radius: 1rem;">
+                            <div id="cardCol" class="card card-body" style=" border: 0;
+  border-radius: 1rem;margin-bottom: 4%; background-color: #f8f9fa">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-header" id="headingOne">
@@ -495,6 +499,69 @@
 
 
                 </body>
+
+<script type="text/javascript">
+/*
+document.getElementById('cardCol').style.transition = "height 0s";
+
+$('#collapse3, #collapseOne, #collapseTwo').on('hidden.bs.collapse', function () {
+	$('#collapse3, #collapseOne, #collapseTwo').collapse({
+		  toggle: 
+		})
+	
+	document.getElementById('cardCol').style.height = "28vh"
+	document.getElementById('cardCol').style.transition = "height 0.5s";
+	
+	ola();
+	ola2();
+	ola3();
+	
+	});
+
+
+
+
+	
+
+	function ola (){
+		$('#collapseOne').on('show.bs.collapse', function () {
+			console.log('fodase?')
+			document.getElementById('cardCol').style.height="45vh"
+			document.getElementById('cardCol').style.transition = "height 0.5s";
+			});
+	}
+	
+	function ola2 (){
+		$('#collapseTwo').on('show.bs.collapse', function () {
+			document.getElementById('cardCol').style.height = "35vh"
+			document.getElementById('cardCol').style.transition = "height 0.5s";
+			});
+	}
+	
+	function ola3 (){
+		$('#collapse3').on('show.bs.collapse', function () {
+			document.getElementById('cardCol').style.height = "28vh"
+				
+			});
+	}
+	
+	
+	
+
+
+/*
+$('#collapseOne').on('hidden.bs.collapse', function () {
+	document.getElementById('cardCol').style.height = "28vh"
+	document.getElementById('cardCol').style.transition = "height 0.5s";
+	
+	});
+	
+$('#collapseTwo').on('hidden.bs.collapse', function () {
+	document.getElementById('cardCol').style.height = "28vh"
+	document.getElementById('cardCol').style.transition = "height 0.5s";
+	});
+	*/
+</script>
 
 
                 <script>

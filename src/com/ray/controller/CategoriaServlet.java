@@ -111,7 +111,7 @@ public class CategoriaServlet extends HttpServlet {
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	try {
 	    if (cat.getId() == null) {
-		cat = service.salvar(cat);
+		cat = service.save(cat);
 		response.setStatus(HttpServletResponse.SC_CREATED);
 //	    String json = new Gson().toJson(cat);
 //	    System.out.println(json);
@@ -161,7 +161,7 @@ public class CategoriaServlet extends HttpServlet {
 	try {
 	    if (!serch.isEmpty()) {
 		response.setStatus(HttpServletResponse.SC_OK);
-		request.getSession().setAttribute("categorias", service.searchCategoriaByName(serch));
+		request.getSession().setAttribute("categorias", service.findCategoriaByName(serch));
 		flag = true; // pode pesquisar com campo nulo que vai listar todas as categorias
 	    } else if (flag) {
 		listarTodasCategorias(request, response);

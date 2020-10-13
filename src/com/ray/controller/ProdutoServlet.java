@@ -251,7 +251,7 @@ public class ProdutoServlet extends HttpServlet {
 	String serch = request.getParameter("search");
 	try {
 	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", service.searchProductByName(serch));
+		request.getSession().setAttribute("produtos", service.findProductByName(serch));
 		response.setStatus(200);
 		flag = true;
 	    } else if (flag) {

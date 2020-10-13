@@ -12,7 +12,7 @@ import com.ray.model.exception.ConfirmException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.OpcaoInvalidaException;
-import com.ray.model.service.CategoriaService;
+import com.ray.model.service.CategoriaServiceConsole;
 import com.ray.model.util.ButtonUtil;
 
 public class InteracaoCategoria {
@@ -25,7 +25,7 @@ public class InteracaoCategoria {
      * @apiNote Exceptions tratadas nesse método: CategoriaException,
      *          ListaVaziaException
      */
-    public static Categoria selecionarCategoria(CategoriaService service, Scanner scan)
+    public static Categoria selecionarCategoria(CategoriaServiceConsole service, Scanner scan)
 	    throws BackButtonException, NumberFormatException, OpcaoInvalidaException {
 	System.out.println("Pressione 0 para voltar");
 	try {
@@ -46,7 +46,7 @@ public class InteracaoCategoria {
      * @throws BackButtonException
      * @throws NumberFormatException
      */
-    public static void adicionarCategoria(CategoriaService service, User user)
+    public static void adicionarCategoria(CategoriaServiceConsole service, User user)
 	    throws BackButtonException, NumberFormatException {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
@@ -56,7 +56,7 @@ public class InteracaoCategoria {
 	    String nome = getNome(scan);
 	    novaCategoria.setName(nome);
 	    novaCategoria.setUser(user);
-	    if (service.salvar(novaCategoria) != null) {
+	    if (service.save(novaCategoria) != null) {
 		System.out.println("Deseja adicionar um orçamento para essa Lista?");
 		System.out.println("[ 1 ] - sim");
 		System.out.println("[ 2 ] - não");
@@ -97,7 +97,7 @@ public class InteracaoCategoria {
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException,
      *          CategoriaException, ConfirmException
      */
-    public static void deletarCategoria(CategoriaService service) throws NumberFormatException, BackButtonException {
+    public static void deletarCategoria(CategoriaServiceConsole service) throws NumberFormatException, BackButtonException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
@@ -125,7 +125,7 @@ public class InteracaoCategoria {
      * @apiNote Exceptions tratadas nesse método: ListaVaziaException,
      *          CategoriaException, ConfirmException
      */
-    private static void inserirOrcamento(CategoriaService service, Categoria cat) throws EntradaInvalidaException {
+    private static void inserirOrcamento(CategoriaServiceConsole service, Categoria cat) throws EntradaInvalidaException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
 	try {
@@ -148,7 +148,7 @@ public class InteracaoCategoria {
      * @apiNote Exceptions tratadas nesse método: EntradaInvalidaException,
      *          ConfirmException
      */
-    public static void editarTudoCategoria(CategoriaService service, String oqVaiSerEditado, Categoria cat)
+    public static void editarTudoCategoria(CategoriaServiceConsole service, String oqVaiSerEditado, Categoria cat)
 	    throws BackButtonException, NumberFormatException {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
@@ -194,7 +194,7 @@ public class InteracaoCategoria {
      * @param cat
      * @apiNote Exceptions tratadas nesse método: EntradaInvalidaException
      */
-    public static void adicionarOrcamento(CategoriaService service, Categoria cat) {
+    public static void adicionarOrcamento(CategoriaServiceConsole service, Categoria cat) {
 	try {
 	    inserirOrcamento(service, cat);
 	} catch (EntradaInvalidaException e) {

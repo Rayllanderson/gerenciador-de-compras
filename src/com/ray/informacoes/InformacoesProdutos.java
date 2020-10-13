@@ -92,8 +92,8 @@ public class InformacoesProdutos {
 	    if (orcamento == 0.0 || orcamento == null) {
 		return "Você não tem orçamento para esta lista, portanto, impossível saber quanto ainda tem disponível para compra :( . Adicione um orçamento no menu principal";
 	    } else 
-		return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? "Você ainda não comprou nenhum produto da lista. Então você ainda tem "
-			+ currencyFormatter.format(orcamento) + " disponível para gastar" : e.getMessage();
+		return e.getMessage().isEmpty() || e.getMessage().equals("Puxa, nenhum produto foi comprado até o momento :(") ? HtmlColors.GREEN + "Você ainda não comprou nenhum produto da lista. Então você ainda tem "
+			+ currencyFormatter.format(orcamento) + " disponível para gastar" + HtmlColors.BLACK : e.getMessage();
 	} catch (NullPointerException e) {
 	    return "Você não tem orçamento para esta lista. Por isso, infelizmente, não é possível saber o quanto você ainda tem disponível. Adicione um orçamento no menu principal.";
 	}

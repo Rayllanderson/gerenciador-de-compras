@@ -13,7 +13,7 @@ import com.ray.model.exception.ConfirmException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProdutoException;
-import com.ray.model.service.CategoriaService;
+import com.ray.model.service.CategoriaServiceConsole;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ButtonUtil;
 import com.ray.model.util.ProdutosUtilConsole;
@@ -243,7 +243,7 @@ public class InteracaoProduto {
     public static boolean editarCategoria(Product p) {
 	@SuppressWarnings("resource")
 	Scanner scan = new Scanner(System.in);
-	CategoriaService cService = new CategoriaService(p.getCategoria().getUser());
+	CategoriaServiceConsole cService = new CategoriaServiceConsole(p.getCategoria().getUser());
 	System.out.println("Mudar o produto " + p.getNome() + " para qual categoria?\nSelecione: ");
 	try {
 	    cService.listarCategoriasConsole();

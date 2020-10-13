@@ -16,7 +16,7 @@ import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.interacoes.InteracaoCategoria;
 import com.ray.model.interacoes.InteracaoProduto;
 import com.ray.model.interacoes.InteracaoUser;
-import com.ray.model.service.CategoriaService;
+import com.ray.model.service.CategoriaServiceConsole;
 import com.ray.model.service.ProductServiceConsole;
 import com.ray.model.util.ProdutosUtilConsole;
 import com.ray.model.util.UserUtil;
@@ -72,7 +72,7 @@ public class TelaPrincipal {
     // -------------------- MENUS CATEGORIA -----------------------------
     @SuppressWarnings("resource")
     public Categoria telaCategoria(User user) {
-	CategoriaService service = new CategoriaService(user);
+	CategoriaServiceConsole service = new CategoriaServiceConsole(user);
 	do {
 	    Scanner scan = new Scanner(System.in);
 	    String opcao = null;
@@ -148,7 +148,7 @@ public class TelaPrincipal {
 		    InteracaoProduto.deletarProduto(service);
 		    break;
 		case 5:
-		    InteracaoCategoria.adicionarOrcamento(new CategoriaService(cat.getUser()), cat);
+		    InteracaoCategoria.adicionarOrcamento(new CategoriaServiceConsole(cat.getUser()), cat);
 		    break;
 		default:
 		    throw new OpcaoInvalidaException("Opção inválida! Tente novamente.");

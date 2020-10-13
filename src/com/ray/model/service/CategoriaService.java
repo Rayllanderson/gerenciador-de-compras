@@ -1,6 +1,5 @@
 package com.ray.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ray.db.DbException;
@@ -18,7 +17,7 @@ public class CategoriaService {
 	this.categoriaDao = DaoFactory.createCategoriaDao(user);
     }
 
-    private CategoriaDao categoriaDao;
+    protected CategoriaDao categoriaDao;
 
     // --------------------------- CRUD ----------------------------------
     /**
@@ -27,7 +26,7 @@ public class CategoriaService {
      * @return a categoria salva no banco de dados, com id
      * @throws CategoriaException caso o nome da categoria esteja vazio
      */
-    public Categoria salvar(Categoria cat) throws CategoriaException {
+    public Categoria save(Categoria cat) throws CategoriaException {
 	try {
 	   if (cat.getOrcamento() == null) {
 		cat.setOrcamento(0.0);
@@ -74,7 +73,7 @@ public class CategoriaService {
     
     // -------------------------------- outros -------------------------------//
     
-    public List<Categoria> searchCategoriaByName(String name) throws ListaVaziaException {
+    public List<Categoria> findCategoriaByName(String name) throws ListaVaziaException {
 	List<Categoria> list = categoriaDao.findByName(name);
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException(!(name.length() == 1) ? "Não existe nenhuma lista com as letras '" + name +"'": "Não existe nenhuma lista com a letra '" + name + "'");
@@ -82,50 +81,6 @@ public class CategoriaService {
 	return list;
     }
 
-    /**
-     * @throws ListaVaziaException ja com mensagem
-     */
-    public void listarCategoriasConsole() throws ListaVaziaException {
-	List<Categoria> list = new ArrayList<>();
-	list = categoriaDao.findAll();
-	if (!list.isEmpty()) {
-	    for (int i = 0; i < list.size(); i++) {
-		System.out.println("[ " + (i + 1) + " ] - " + list.get(i));
-	    }
-	} else {
-	    throw new ListaVaziaException("Lista Vazia");
-	}
-    }
-
-    /**
-     * Método para escolher a categoria via console
-     * @param numero da categoria
-     * @return a categoria escolhida
-     * @throws CategoriaException se nao encontrar categoria com o número digitado.
-     *                            Exception já contem mensagem
-     */
-    public Categoria getCategoriaByNumber(int num) throws CategoriaException {
-	List<Categoria> list = categoriaDao.findAll();
-	if (!list.isEmpty() && num <= list.size()) {
-	    return list.get(num - 1);
-	}
-	throw new CategoriaException("Não encontrado. Verifique se digitou corretamente");
-    }
-
-    public boolean deletarCategoria(Categoria cat) {
-	try {
-	    categoriaDao.deletById(cat.getId());
-	    return true;
-	} catch (DbException e) {
-	    return false;
-	}
-    }
-
-    public void inserirOrcamento(Categoria categoria, double value) {
-	categoria.setOrcamento(value);
-	categoriaDao.update(categoria);
-    }
-    
     //----------------------- validaçoes ----------------------------//
     
     private void validarNome(Categoria cat) throws CategoriaException {

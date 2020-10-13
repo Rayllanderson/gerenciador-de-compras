@@ -19,7 +19,7 @@ public class CalculoTotal {
 
     private void instanciarTodosProdutos(Categoria cat) {
 	ProductService pService = new ProductService(cat);
-	List<Product> list = pService.findAllWithException();
+	List<Product> list = pService.findAll();
 	for (Product p : list) {
 	    cat.adicionarProduto(p);
 	}

@@ -7,12 +7,12 @@ import com.ray.model.exception.BackButtonException;
 import com.ray.model.exception.OpcaoInvalidaException;
 import com.ray.model.interacoes.InteracaoCategoria;
 import com.ray.model.interacoes.InteracaoProduto;
-import com.ray.model.service.CategoriaService;
+import com.ray.model.service.CategoriaServiceConsole;
 import com.ray.model.service.ProductServiceConsole;
 
 public class MenuCategoria {
 
-    public static void editarCategoria(CategoriaService service) {
+    public static void editarCategoria(CategoriaServiceConsole service) {
 	Scanner scan = new Scanner(System.in);
 	scan.useDelimiter(System.lineSeparator());
 	try {

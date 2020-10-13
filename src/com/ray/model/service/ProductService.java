@@ -123,7 +123,7 @@ public class ProductService {
      * @return
      * @throws ListaVaziaException
      */
-    public List<Product> searchProductByName(String name) throws ListaVaziaException {
+    public List<Product> findProductByName(String name) throws ListaVaziaException {
 	List<Product> list = dao.findByName(name);
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException(
