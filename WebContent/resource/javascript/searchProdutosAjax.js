@@ -4,7 +4,7 @@ function search(){
 			method: "GET",
 			url: "produtos?acao=search",
 			data: { search : search }
-		}).done(function(response) {
+		}).done(function() {
 			$.get("produtos.jsp", function(responseXml) {          
 				$("#tabela-produtos").html($(responseXml).find("data").html());
 			});

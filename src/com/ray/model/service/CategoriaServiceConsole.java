@@ -3,7 +3,6 @@ package com.ray.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ray.db.DbException;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 import com.ray.model.exception.CategoriaException;
@@ -44,15 +43,6 @@ public class CategoriaServiceConsole extends CategoriaService{
 	    return list.get(num - 1);
 	}
 	throw new CategoriaException("Não encontrado. Verifique se digitou corretamente");
-    }
-
-    public boolean deletarCategoria(Categoria cat) {
-	try {
-	    categoriaDao.deletById(cat.getId());
-	    return true;
-	} catch (DbException e) {
-	    return false;
-	}
     }
 
     public void inserirOrcamento(Categoria categoria, double value) {

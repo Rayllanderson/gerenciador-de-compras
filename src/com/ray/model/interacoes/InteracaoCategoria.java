@@ -106,7 +106,7 @@ public class InteracaoCategoria {
 	    ButtonUtil.botaoVoltar(num);
 	    Categoria cat1 = service.getCategoriaByNumber(Integer.parseInt(num));
 	    ButtonUtil.confirmar("deletar a lista " + cat1.getName());
-	    if (service.deletarCategoria(cat1))
+	    if (service.deleteById(cat1.getId()))
 		System.out.println("Lista deletada com sucesso!");
 	} catch (ListaVaziaException e) {
 	    System.out.println(e.getMessage());

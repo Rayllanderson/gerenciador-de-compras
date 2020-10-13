@@ -15,7 +15,7 @@ function ajax(){
 		document.getElementById('titulo').innerHTML="Sucesso!"
 		setColorAlert(response);
 		document.getElementById('pName').innerHTML = 'Olá, <strong>' +  nome  + '</strong>!';
-	}).fail(function(xhr, status, errorThrown) {
+	}).fail(function(xhr) {
 		document.getElementById('titulo').innerHTML="Error"
 		alertBoostrap(xhr.responseText, 'alert alert-danger');
 	});

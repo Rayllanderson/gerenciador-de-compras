@@ -12,7 +12,7 @@ function listar(url){
 			$.get("produtos.jsp", function(responseXml) {          
 				$("#tabela-produtos").html($(responseXml).find("data").html());
 			});
-		}).fail(function(xhr, status, errorThrown) {
+		}).fail(function(xhr) {
 			alertBoostrap(xhr.responseText, 'alert alert-danger')
 		});
 

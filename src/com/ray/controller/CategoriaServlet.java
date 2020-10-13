@@ -70,19 +70,18 @@ public class CategoriaServlet extends HttpServlet {
 		selecionarLista(request, response);
 	    } else if (acao.equals("salvar")) {
 		salvarLista(request, response, user);
-	    } 
+	    }
 	}
     }
 
     private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
 	String id = request.getParameter("id1");
-	System.out.println("cara... id chegou aqui foi esse..: " + id);
 	if (service.deleteById(Long.parseLong(id))) {
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
 	} else {
-	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_REQUEST); //caso a categoria nao pertenca ao user atual ou algo der errado
 	}
 
     }
