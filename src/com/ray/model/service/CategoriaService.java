@@ -7,9 +7,10 @@ import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
-import com.ray.model.exception.CategoriaException;
 import com.ray.model.exception.CategoriaInexistenteException;
+import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
+import com.ray.model.validacoes.Validacao;
 
 public class CategoriaService {
 
@@ -24,14 +25,14 @@ public class CategoriaService {
      * 
      * @param cat
      * @return a categoria salva no banco de dados, com id
-     * @throws CategoriaException caso o nome da categoria esteja vazio
+     * @throws EntradaInvalidaException - caso o nome da categoria esteja nulo
      */
-    public Categoria save(Categoria cat) throws CategoriaException {
+    public Categoria save(Categoria cat) throws EntradaInvalidaException {
 	try {
 	   if (cat.getOrcamento() == null) {
 		cat.setOrcamento(0.0);
 	    }
-	   validarNome(cat);
+	   Validacao.validarNome(cat.getName());
 	   return categoriaDao.save(cat);
 	} catch (DbException e) {
 	    return null;
@@ -54,16 +55,16 @@ public class CategoriaService {
     /**
      * @param cat
      * @return true caso dê tudo ok
-     * @throws CategoriaException caso o nome da categoria esteja nulo
      * @throws CategoriaInexistenteException - caso a categoria editada não exista (questão de segurança apenas, para não permitir mudar a categoria editando o html, por exemplo)
+     * @throws EntradaInvalidaException - caso o nome da categoria esteja nulo
      */
-    public boolean update(Categoria cat) throws CategoriaException, CategoriaInexistenteException {
+    public boolean update(Categoria cat) throws CategoriaInexistenteException, EntradaInvalidaException {
 	try {
 	    if (cat.getOrcamento() == null) {
 		cat.setOrcamento(0.0);
 	    }
-	    validarCategoria(cat);
-	    validarNome(cat);
+	    Validacao.validarCategoria(cat);
+	    Validacao.validarNome(cat.getName());
 	    categoriaDao.update(cat);
 	    return true;
 	} catch (DbException e) {
@@ -81,30 +82,4 @@ public class CategoriaService {
 	return list;
     }
 
-    //----------------------- validaçoes ----------------------------//
-    
-    private void validarNome(Categoria cat) throws CategoriaException {
-	String nome = cat.getName();
-	if (nome.trim().isEmpty() || nome == null) {
-	    throw new CategoriaException("O campo 'Nome' não pode ser nulo");
-	}
-    }
-    
-    /**
-     * método para verifica se a categoria atual percente ao usuário
-     * 
-     * @throws CategoriaInexistenteException caso a categoria escolhida não exista para o
-     *                           usuário atual
-     */
-    public static void validarCategoria(Categoria cat) throws CategoriaInexistenteException {
-	// Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de
-	// atualizar,
-	// procura no banco de dados para verificar se o usuário é mesmo o dono da
-	// categoria, se nao for, retorna nulo.
-	CategoriaDao catRespotitory = DaoFactory.createCategoriaDao(cat.getUser());
-	List<Categoria> list = catRespotitory.findAll();
-	if (!list.contains(cat)) {
-	    throw new CategoriaInexistenteException("Essa categoria não existe.");
-	}
-    }
 }

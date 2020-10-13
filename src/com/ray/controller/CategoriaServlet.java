@@ -14,8 +14,8 @@ import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
-import com.ray.model.exception.CategoriaException;
 import com.ray.model.exception.CategoriaInexistenteException;
+import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 
@@ -122,9 +122,9 @@ public class CategoriaServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 	    }
 	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
-	} catch (CategoriaException e) {
-	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	} catch (CategoriaInexistenteException e) {
+	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
+	} catch (EntradaInvalidaException e) {
 	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	}
     }

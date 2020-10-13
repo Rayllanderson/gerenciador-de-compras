@@ -10,7 +10,7 @@ import com.ray.model.entities.Product;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProdutoException;
-import com.ray.model.validacoes.ValidacaoProduto;
+import com.ray.model.validacoes.Validacao;
 
 public class ProductService {
 
@@ -38,9 +38,9 @@ public class ProductService {
      */
     public boolean save(Product p) throws EntradaInvalidaException {
 	try {
-	    ValidacaoProduto.validarNome(p.getNome());
-	    ValidacaoProduto.validarPreco(p.getPrecoEstipulado());
-	    ValidacaoProduto.validarPreco(p.getPrecoReal());
+	    Validacao.validarNome(p.getNome());
+	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
 	    dao.save(p);
 	    cat.adicionarProduto(p);
 	    return true;
@@ -54,7 +54,6 @@ public class ProductService {
      * Atualiza o produto. Passa por 3 verificações. Primeiro checa se o produto de
      * fato pertence ao usuário atual, caso seja, verifica se o nome não é nulo, se
      * for throw exception. E os preços, se forem nulos, seta para 0.0
-     * 
      * @param p
      * @return
      * @throws EntradaInvalidaException - caso o campo nome esteja nulo
@@ -64,9 +63,9 @@ public class ProductService {
 	try {
 	    System.out.println(p.getId());
 	    if (dao.productIsValid(p.getId())) {
-		ValidacaoProduto.validarNome(p.getNome());
-		ValidacaoProduto.validarPreco(p.getPrecoEstipulado());
-		ValidacaoProduto.validarPreco(p.getPrecoReal());
+		Validacao.validarNome(p.getNome());
+		p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+		p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
 		dao.update(p);
 		return true;
 	    } else {

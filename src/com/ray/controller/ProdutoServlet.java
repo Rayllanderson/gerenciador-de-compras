@@ -20,9 +20,9 @@ import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.exception.ProdutoException;
-import com.ray.model.service.CategoriaService;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
+import com.ray.model.validacoes.Validacao;
 
 /**
  * Servlet implementation class Login
@@ -155,8 +155,7 @@ public class ProdutoServlet extends HttpServlet {
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);
-		    CategoriaService.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence a
-							    // ele mesmo
+		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence a ele mesmo
 		}
 		service.update(p);// moveu
 		// voltando pra categoria atual para nao ser redirecionado para nova categoria

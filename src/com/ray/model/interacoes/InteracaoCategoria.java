@@ -68,9 +68,6 @@ public class InteracaoCategoria {
 	    }
 	} catch (EntradaInvalidaException e) {
 	    System.out.println(e.getMessage());
-	} catch (CategoriaException e) {
-	    System.out.println(e.getMessage());
-	    e.printStackTrace();
 	}
     }
 
@@ -182,9 +179,6 @@ public class InteracaoCategoria {
 	    System.out.println("Lista não atualizada.");
 	} catch (EntradaInvalidaException e) {
 	    System.out.println(e.getMessage());
-	} catch (CategoriaException e) {
-	    System.out.println(e.getMessage());
-	    e.printStackTrace();
 	} catch (CategoriaInexistenteException e) {
 	    e.printStackTrace();
 	}
