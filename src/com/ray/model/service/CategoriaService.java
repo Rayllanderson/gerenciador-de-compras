@@ -41,11 +41,11 @@ public class CategoriaService {
 
     /**
      * @param id
-     * @return
-     * @throws CategoriaInexistenteException caso a categoria não pertenca ao usuário
+     * @return true caso de tudo ok, false caso a categoria não pertenca ao usuário ou ocorra um erro 
      */
     public boolean deleteById(Long id)  {
 	try {
+	    // verificando se a categoria pertence ao usuário
 	    Validacao.validarCategoria(categoriaDao.findById(id));
 	    categoriaDao.deletById(id);
 	    return true;
@@ -55,8 +55,8 @@ public class CategoriaService {
     }
 
     /**
-     * Para atualizar, passa por 2 verificações. Se o preço é nulo, seta para 0. Se
-     * o nome é nulo, throw exception.
+     * Para atualizar, passa por 3 verificações. Se a categoria, de fato, pertence ao usuario atual. Verifica se o preço é nulo, se for,  seta para 0. E, verifica se
+     * o nome é nulo, se for, throw exception.
      * 
      * @param cat
      * @return true caso dê tudo ok

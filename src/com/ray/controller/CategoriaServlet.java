@@ -37,75 +37,64 @@ public class CategoriaServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String acao = request.getParameter("acao");
-	User user = instanciarUser(request);
-	repository = DaoFactory.createCategoriaDao(user);
-	service = new CategoriaService(user);
-	if (acao != null) {
-	    if (acao.equals("voltar") || acao.equals("listar")) {
-		listarTodasCategorias(request, response);
-	    } else if (acao.equals("excluir")) {
-		deletarCategoria(request, response);
-	    } else if (acao.equals("search")) {
-		search(request, response);
+	try {
+	    String acao = request.getParameter("acao");
+	    User user = instanciarUser(request);
+	    repository = DaoFactory.createCategoriaDao(user);
+	    service = new CategoriaService(user);
+	    if (acao != null) {
+		if (acao.equals("voltar") || acao.equals("listar")) {
+		    listarTodasCategorias(request, response);
+		} else if (acao.equals("excluir")) {
+		    deletarCategoria(request, response);
+		} else if (acao.equals("search")) {
+		    search(request, response);
+		} else {
+		    listarTodasCategorias(request, response);
+		}
 	    } else {
 		listarTodasCategorias(request, response);
 	    }
-	} else {
-	    listarTodasCategorias(request, response);
+	} catch (NumberFormatException e) {
+	    setResponseBody(response, "Há um caractere inválido em um de seus campos",
+		    HttpServletResponse.SC_BAD_REQUEST);
+	} catch (RuntimeException e) {
+	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_GATEWAY);
 	}
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String acao = request.getParameter("acao");
-	if (acao != null) {
-	    User user = instanciarUser(request);
-	    repository = DaoFactory.createCategoriaDao(user);
-	    service = new CategoriaService(user);
-	    System.out.println(acao);
-	    if (acao.equals("listar")) {
-		listarTodasCategorias(request, response);
-	    } else if (acao.equals("selecionar")) {
-		selecionarLista(request, response);
-	    } else if (acao.equals("salvar")) {
-		salvarLista(request, response, user);
+	try {
+	    String acao = request.getParameter("acao");
+	    if (acao != null) {
+		User user = instanciarUser(request);
+		repository = DaoFactory.createCategoriaDao(user);
+		service = new CategoriaService(user);
+		System.out.println(acao);
+		if (acao.equals("listar")) {
+		    listarTodasCategorias(request, response);
+		} else if (acao.equals("selecionar")) {
+		    selecionarLista(request, response);
+		} else if (acao.equals("salvar")) {
+		    salvarLista(request, response, user);
+		}
 	    }
+	} catch (NumberFormatException e) {
+	    setResponseBody(response, "Há um caractere inválido em um de seus campos",
+		    HttpServletResponse.SC_BAD_REQUEST);
+	} catch (RuntimeException e) {
+	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_GATEWAY);
 	}
     }
 
-    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
-	    throws IOException, ServletException {
-	String id = request.getParameter("id1");
-	if (service.deleteById(Long.parseLong(id))) {
-	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
-	} else {
-	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_REQUEST); //caso a categoria nao pertenca ao user atual ou algo der errado
-	}
-
-    }
-
-    /**
-     * 
-     * Será a lista selecionada, então redirecionará para os produtos dessa lista
-     * selecionada
-     */
-    private void selecionarLista(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	String id = request.getParameter("id");
-	Categoria cat = repository.findById(Long.parseLong(id));
-	request.getSession().setAttribute("categoria", cat);
-	response.sendRedirect("produtos?acao=listar");
-    }
-
+    //----------------------------------- Private methods -------------------------------------//
+    
     private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user)
 	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
 	String orcamento = request.getParameter("orcamento");
-	System.out.println("orcamento= " + orcamento);
-	System.out.println("nome " + nome);
-	System.out.println("id = " + id);
 	Categoria cat = new Categoria(!id.isEmpty() ? Long.parseLong(id) : null, nome, user);
 	cat.setOrcamento(!orcamento.isEmpty() ? Double.valueOf(parseNumber(orcamento)) : 0.0);
 	try {
@@ -120,13 +109,38 @@ public class CategoriaServlet extends HttpServlet {
 		service.update(cat);
 		response.setStatus(HttpServletResponse.SC_OK);
 	    }
-	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
 	} catch (CategoriaInexistenteException e) {
 	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	}
     }
+    
+    private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
+	    throws IOException, ServletException {
+	String id = request.getParameter("id1");
+	if (service.deleteById(Long.parseLong(id))) {
+	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
+	} else {
+	    // caso a categoria nao pertenca ao user atual ou algo der errado
+	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_REQUEST);
+	}
+    }
+
+    /**
+     * 
+     * Será a lista selecionada, então redirecionará para os produtos dessa lista
+     * selecionada
+     */
+    private void selecionarLista(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	String id = request.getParameter("id");
+	Categoria cat = repository.findById(Long.parseLong(id));
+	request.getSession().setAttribute("categoria", cat);
+	response.sendRedirect("produtos?acao=listar");
+    }
+
+    
 
     private void setResponseBody(HttpServletResponse response, String mensagem, int codigo) throws IOException {
 	response.setContentType("text/plain");

@@ -325,12 +325,10 @@ const msg = "${catNula}"
     if (msg != null && msg != '') {
     	$(document).ready(function() {  	
     	$.getScript("resource/javascript/alert.js", function() {
-    		alertBoostrap(msg, 'alert alert-warning', "Ei...")
+    		alertBoostrap(msg, 'alert alert-warning', "Ei!")
     	});
     });
     }
-
-
 </script>
 
 <script src="resource/javascript/esconderUrl.js"></script>

@@ -19,7 +19,6 @@ import com.ray.model.entities.Product;
 import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
-import com.ray.model.exception.ProdutoException;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
 import com.ray.model.validacoes.Validacao;
@@ -65,7 +64,7 @@ public class ProdutoServlet extends HttpServlet {
 		listarTodosProdutos(request, response);
 	    }
 	} catch (NullPointerException e) {
-	    request.setAttribute("catNula", "Antes você deve selecionar uma lista primeiro");
+	    request.setAttribute("catNula", "Você não selecionou nenhuma lista!");
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
 	    dispatcher.forward(request, response);
 	} catch (RuntimeException e) {
@@ -74,22 +73,12 @@ public class ProdutoServlet extends HttpServlet {
 	}
     }
 
-    private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.getSession().setAttribute("gerais",
-		InformacoesProdutos.infosGerais(this.cat.getUser(), util, this.cat.getOrcamento()));
-	request.getSession().setAttribute("disponivel", InformacoesProdutos.getDisponivel(util, cat));
-	request.getSession().setAttribute("economizado", InformacoesProdutos.getValorEconomizado(util));
-	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
-	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
+	    startServiceAndRepository(request, response);
 	    String acao = request.getParameter("acao");
 	    if (acao != null) {
-		startServiceAndRepository(request, response);
-		setInformacoes(request, response);
 //	    System.out.println(acao + " método POST");
 		if (acao.equals("listar")) {
 		    listarTodosProdutos(request, response);
@@ -99,8 +88,6 @@ public class ProdutoServlet extends HttpServlet {
 		    System.out.println(p);
 		} else if (acao.equals("salvar")) {
 		    salvarProduto(request, response);
-		} else if (acao.equals("editar")) {
-		    redirecionarEditarProduto(request, response);
 		}
 	    } else {
 		listarTodosProdutos(request, response);
@@ -111,41 +98,26 @@ public class ProdutoServlet extends HttpServlet {
 	}
     }
 
-    private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	Long id = Long.valueOf(request.getParameter("id1"));
-	if (service.deleteById(id)) {
-	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	} else {
-	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
-	}
-
-    }
-
-    private void redirecionarEditarProduto(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	String id = request.getParameter("id");
-	Product p = repository.findById(Long.parseLong(id));
-	RequestDispatcher dispatcher = request.getRequestDispatcher("edit-produto.jsp");
-	request.setAttribute("produto", p);
-	dispatcher.forward(request, response);
-    }
+    //------------------------------ Private methods --------------------------------//
 
     private void salvarProduto(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
-	String id = request.getParameter("id");
-	String nome = request.getParameter("nome");
-
 	Long catOriginal = cat.getId();
 	try {
+	    String nome = request.getParameter("nome");
+	    String id = request.getParameter("id");
+	    //recuperando os valores
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
 
+	    //setando os valores
 	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
 	    p.setPrecoEstipulado(!valorEstipulado.isEmpty() ? Double.parseDouble(parseNumber(valorEstipulado)) : 0.0);
 	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
 	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
-
+	    
+	    //verificação pra ver se dá update ou se insere
 	    if (p.getId() == null) {
 		service.save(p);
 		response.setStatus(HttpServletResponse.SC_CREATED);
@@ -164,7 +136,7 @@ public class ProdutoServlet extends HttpServlet {
 	    }
 	} catch (NumberFormatException e) {
 	    setResponseBody(request, response,
-		    "Um ou mais campos de preço estão inválidos. Tente digitar apenas números",
+		    "Há um ou mais campos com caracteres inválidos.",
 		    HttpServletResponse.SC_BAD_REQUEST);
 	} catch (CategoriaInexistenteException e) { // existe a chance da pessoa editar o html e mudar o id, então não
 						    // vamos
@@ -173,46 +145,18 @@ public class ProdutoServlet extends HttpServlet {
 	    setResponseBody(request, response, e.getMessage(), 422);// dados foram compreendidos, mas não são válidos.
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(request, response, e.getMessage(), 400);
-	} catch (ProdutoException e) {
-	    setResponseBody(request, response, e.getMessage(), 400);
-	} catch (NullPointerException e) {
+	} catch (NullPointerException e) { //cairá aqui caso o user tentar editar algo no html
 	    setResponseBody(request, response, "Ocorreu um erro", 400);
 	}
     }
-
-    /**
-     * Apenas pra diminuir codigo. <br>
-     * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o
-     * Ajax
-     * 
-     * @param mensagem - mensagem que será enviada como resposta
-     * @param codigo   - codigo que será enviado
-     */
-    private void setResponseBody(HttpServletRequest request, HttpServletResponse response, String mensagem, int codigo)
-	    throws IOException {
-	response.setContentType("text/plain");
-	response.setCharacterEncoding("UTF-8");
-	response.setStatus(codigo);
-	response.getWriter().write(mensagem);
-    }
-
-    private String parseNumber(String value) {
-	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
-	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
-    }
-
-    private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
-	this.cat = instanciarCategoria(request);
-	service = new ProductService(cat);
-	util = new ProdutosUtil(cat);
-	repository = DaoFactory.createProductDao(cat);
-    }
-
-    private Categoria instanciarCategoria(HttpServletRequest request) {
-	HttpServletRequest req = (HttpServletRequest) request;
-	HttpSession session = req.getSession();
-	this.cat = (Categoria) session.getAttribute("categoria");
-	return cat;
+    
+    private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	Long id = Long.valueOf(request.getParameter("id1"));
+	if (service.deleteById(id)) {
+	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	} else {
+	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+	}
     }
 
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
@@ -261,4 +205,50 @@ public class ProdutoServlet extends HttpServlet {
 	    setResponseBody(request, response, e.getMessage(), 400);
 	}
     }
+      
+    //-----------------------------------------------------------------------------------------//
+   
+    private Categoria instanciarCategoria(HttpServletRequest request) {
+	HttpServletRequest req = (HttpServletRequest) request;
+	HttpSession session = req.getSession();
+	this.cat = (Categoria) session.getAttribute("categoria");
+	return cat;
+    }
+    
+    private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	request.getSession().setAttribute("gerais",
+		InformacoesProdutos.infosGerais(this.cat.getUser(), util, this.cat.getOrcamento()));
+	request.getSession().setAttribute("disponivel", InformacoesProdutos.getDisponivel(util, cat));
+	request.getSession().setAttribute("economizado", InformacoesProdutos.getValorEconomizado(util));
+	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
+	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
+    }
+    
+    /**
+     * Apenas pra diminuir codigo. <br>
+     * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o
+     * Ajax 
+     * @param mensagem - mensagem que será enviada como resposta
+     * @param codigo   - codigo que será enviado
+     */
+    private void setResponseBody(HttpServletRequest request, HttpServletResponse response, String mensagem, int codigo)
+	    throws IOException {
+	response.setContentType("text/plain");
+	response.setCharacterEncoding("UTF-8");
+	response.setStatus(codigo);
+	response.getWriter().write(mensagem);
+    }
+
+    private String parseNumber(String value) {
+	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
+	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
+    }
+
+    private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
+	this.cat = instanciarCategoria(request);
+	service = new ProductService(cat);
+	util = new ProdutosUtil(cat);
+	repository = DaoFactory.createProductDao(cat);
+    }
+    
 }

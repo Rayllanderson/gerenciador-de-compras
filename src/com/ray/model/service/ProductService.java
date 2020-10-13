@@ -50,10 +50,12 @@ public class ProductService {
 	}
     }
 
+    
+    
     /**
      * Atualiza o produto. Passa por 3 verificações. Primeiro checa se o produto de
      * fato pertence ao usuário atual, caso seja, verifica se o nome não é nulo, se
-     * for throw exception. E os preços, se forem nulos, seta para 0.0
+     * for throw exception. E, os preços, se forem nulos, seta para 0.0
      * @param p
      * @return
      * @throws EntradaInvalidaException - caso o campo nome esteja nulo
@@ -61,7 +63,6 @@ public class ProductService {
      */
     public boolean update(Product p) throws EntradaInvalidaException, ProdutoException {
 	try {
-	    System.out.println(p.getId());
 	    if (dao.productIsValid(p.getId())) {
 		Validacao.validarNome(p.getNome());
 		p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
@@ -79,19 +80,18 @@ public class ProductService {
 
     /**
      * Deleta o produto pelo ID. Verifica se o produto pertence ao usuário, senao
-     * throw exception
+     * return false
      * 
      * @param id
-     * @return
-     * @throws ProdutoException - caso o produto não pertenca ao usuário
+     * @return true caso ok, false caso dê erro.
      */
-    public boolean deleteById(Long id) throws ProdutoException {
+    public boolean deleteById(Long id) {
 	try {
 	    if (dao.productIsValid(id)) {
 		dao.deletById(id);
 		return true;
 	    } else {
-		throw new ProdutoException("Ocorreu um inesperado");
+		return false;
 	    }
 	} catch (DbException e) {
 	    e.printStackTrace();
