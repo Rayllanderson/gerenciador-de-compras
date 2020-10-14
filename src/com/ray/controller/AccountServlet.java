@@ -47,6 +47,7 @@ public class AccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String action = request.getParameter("action");
+	System.out.println(action);
 	if (action != null) {
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
@@ -83,7 +84,11 @@ public class AccountServlet extends HttpServlet {
 		    response.setStatus(400);
 		    response.getWriter().write("Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
 		}
-	    }else {//se mudar o parametro de action
+	    }else if(action.equals("base64")) {
+		String fileUpload = request.getParameter("fileUpload");
+		System.out.println("UE CARALGO...");
+		System.out.println("alo..." + fileUpload);
+	    } else {//se mudar o parametro de action
 		response.setStatus(400);
 		response.getWriter().write("Ocorreu um erro. Por favor, atualize a página.");
 	    }

@@ -292,9 +292,11 @@
 
                                                 <!-- onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" -->
 
+                                            <!-- style="
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" -->
+
                                                 <td data-label="Editar"><button class="btn btn-outline-info" 
-                                                style="
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
+
                                                 data-toggle="modal" data-target="#exampleModal" data-title="Editar" data-id="${prod.id}" data-nome="${prod.nome}" data-estipulado="${prod.getValorEstipuladoEmReal()}"
                                                         data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}" <c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}" /> onclick="setCheckedIfTrue('${prod.isComprado()}')">
 
@@ -310,7 +312,7 @@
                                                 
                                                 data-toggle="modal" data-target="#exampleModalCenter" data-id="${prod.id}" 
 												data-nome="${prod.nome}"
-					 							style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+					 							>
 													
 						
 											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

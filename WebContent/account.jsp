@@ -9,8 +9,7 @@
 
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" id="bootstrap-css"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet"
@@ -20,7 +19,9 @@
 <!--   --><link href="resource/css/account.css" type="text/css" rel="stylesheet" />
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-                    
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
+
 
 <title>My Account</title>
 </head>
@@ -80,6 +81,30 @@
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Sua Conta</h4>
 				<div class="text-center">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<input type="file" id="file" name="file" onchange="upload();">
+				<img alt="" src="" id="target" width="200px" height="200px" onchange="upload()">
+				<input type="text" id="aa">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
   <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -139,6 +164,41 @@
 		}
 	</script>
 	
+	<script type="text/javascript">
+		
+	function upload() {
+	    console.log('ola1')
+	    var target = document.querySelector("#target");
+	    var file = document.querySelector("#file").files[0];
+
+	    var reader = new FileReader();
+
+	    reader.onloadend = function() {
+	        target.src = reader.result;
+	        document.getElementById('aa').value= reader.result;
+	        //ajax
+		 console.log('ola3')
+	        $.ajax({
+	            method: "POST",
+	            url: "my-account?action=base64",
+	            data: { fileUpload : reader.result }
+	        }).done(function(response) {
+	            alert('sucesso')
+	        }).fail(function(xhr) {
+	            alert('fail')
+	        });
+
+	    };
+
+	    if (file) {
+	        console.log('ola2')
+	        reader.readAsDataURL(file)
+
+	    } else {
+	        target.src = ""
+	    }
+	}
+	</script>
 
 
 	
