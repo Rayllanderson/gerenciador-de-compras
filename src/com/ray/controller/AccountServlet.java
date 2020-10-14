@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ray.informacoes.InformacoesUsuario;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
-import com.ray.model.util.UserUtil;
 import com.ray.model.validacoes.UserValidation;
 
 @WebServlet("/my-account")
@@ -92,12 +92,12 @@ public class AccountServlet extends HttpServlet {
 
     private void setInformacoes(HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
-	UserUtil util = new UserUtil(user);
-	request.getSession().setAttribute("tListas", util.getNumeroTotalCategorias());
-	request.getSession().setAttribute("tProdutos", util.getNumTotalProdutos());
-	request.getSession().setAttribute("nProdutosComprados", util.getNumTotalProdutosComprados());
-	request.getSession().setAttribute("tEstipulado", util.getTotalEstipulado());
-	request.getSession().setAttribute("tGasto", util.getTotalValorReal());
+	InformacoesUsuario infos = new InformacoesUsuario(user);
+	request.getSession().setAttribute("tListas", infos.getNumeroTotalCategorias());
+	request.getSession().setAttribute("tProdutos", infos.getNumTotalProdutos());
+	request.getSession().setAttribute("nProdutosComprados", infos.getNumTotalProdutosComprados());
+	request.getSession().setAttribute("tEstipulado", infos.getTotalEstipulado());
+	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 
 }

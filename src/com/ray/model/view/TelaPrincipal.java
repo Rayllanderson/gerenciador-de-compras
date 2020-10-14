@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.ray.informacoes.InformacoesProdutos;
+import com.ray.informacoes.InformacoesUsuario;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.Categoria;
@@ -96,7 +97,7 @@ public class TelaPrincipal {
 		    InteracaoCategoria.deletarCategoria(service);
 		    break;
 		case 5:
-		    UserUtil.mostrarInfos(user);
+		    InformacoesUsuario.mostrarInfosConsole(user);
 		    MenuUser.opcoesAccount(user);
 		    break;
 		default:
