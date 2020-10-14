@@ -127,13 +127,13 @@
 <div  id="info">
 
 <div class="container">
-                    
+
                         <div class="card card-signin my-5" style=" border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                             <article class="card-body mx-auto" style="max-width: 400px;">
                                 <h4 id="catTitulo" class="card-title mt-3 text-center">${categoria.name} <a
-                                class="text-decoration-none" type="button" title="Editar Lista"
+                                class="text-decoration-none" type="button" title="Editar Lista" id="editCat"
 					data-toggle="modal" data-target="#categoriaModal" 
 					data-title="Editar"
 					data-id="${categoria.id}" 
@@ -574,6 +574,11 @@ $(".alert").hide();
                 </body>
 
                 <script>
+                
+                function f1() {
+                    window.open(document.getElementById("teste").href, "#editCat");
+                }
+                
                 $(".alert").hide();
                 
                     $(document).ready(function() {
