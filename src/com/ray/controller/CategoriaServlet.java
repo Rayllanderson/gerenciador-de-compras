@@ -77,6 +77,10 @@ public class CategoriaServlet extends HttpServlet {
 		    selecionarLista(request, response);
 		} else if (acao.equals("salvar")) {
 		    salvarLista(request, response, user);
+		}else if (acao.equals("editar")) { //pra editar a categoria via tela de produtos
+		    Categoria cat = salvarLista(request, response, user);
+		    System.out.println(cat);
+		    request.getSession().setAttribute("categoria", cat);
 		}
 	    }
 	} catch (NumberFormatException e) {
@@ -89,7 +93,7 @@ public class CategoriaServlet extends HttpServlet {
 
     //----------------------------------- Private methods -------------------------------------//
     
-    private void salvarLista(HttpServletRequest request, HttpServletResponse response, User user)
+    private Categoria salvarLista(HttpServletRequest request, HttpServletResponse response, User user)
 	    throws IOException, ServletException {
 	String id = request.getParameter("id");
 	String nome = request.getParameter("nome");
@@ -100,6 +104,7 @@ public class CategoriaServlet extends HttpServlet {
 	    if (cat.getId() == null) {
 		cat = service.save(cat);
 		response.setStatus(HttpServletResponse.SC_CREATED);
+		return cat;
 //	    String json = new Gson().toJson(cat);
 //	    System.out.println(json);
 //	    response.setContentType("application/json");
@@ -107,12 +112,14 @@ public class CategoriaServlet extends HttpServlet {
 	    } else {
 		service.update(cat);
 		response.setStatus(HttpServletResponse.SC_OK);
+		return cat;
 	    }
 	} catch (CategoriaInexistenteException e) {
 	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
 	}
+	return null;
     }
     
     private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)

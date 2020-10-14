@@ -59,7 +59,7 @@ public class CadastroServlet extends HttpServlet {
      */
     private boolean validarCampos(HttpServletRequest request, HttpServletResponse response, String name,
 	    String username, String password, String password2) throws ServletException, IOException {
-	if(name.isEmpty()) {
+	if(name.isEmpty() || name == null) {
 	    name = "Convidado";
 	}
 	if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
@@ -71,4 +71,4 @@ public class CadastroServlet extends HttpServlet {
 	}
 	return true;
     }
-}
+    }

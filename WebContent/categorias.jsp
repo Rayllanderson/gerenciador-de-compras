@@ -91,7 +91,7 @@
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#exampleModal"  style="margin-top: 3%;
+                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#categoriaModal"  style="margin-top: 3%;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" > 
 		
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -175,7 +175,7 @@
 					
 					<button
 					class="btn btn-outline-info"
-					data-toggle="modal" data-target="#exampleModal" 
+					data-toggle="modal" data-target="#categoriaModal" 
 					data-title="Editar"
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
@@ -253,7 +253,7 @@
 		<!--		
 		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
 		-->		
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
@@ -263,13 +263,13 @@
 			  <div class="modal-body">
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label">Nome:</label>
-					<input name="nomeLista" type="text" class="form-control" id="recipient-name" value="${cat.name}" required/>
+					<input name="nomeLista" type="text" class="form-control" id="categoriaName" value="${cat.name}" required/>
 				  </div>
 				  <div class="form-group">
 					<label for="message-text" class="control-label">Orcamento:</label>
 					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
 				  </div>
-				<input name="id" type="hidden" class="form-control" id="id" value="${cat.id}">
+				<input name="id" type="hidden" class="form-control" id="idCat" value="${cat.id}">
 				<button type="button" id="save1" class="btn btn-success" onclick="saveAjax();" >&nbsp; Salvar &nbsp;</button> 
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			  </div>
@@ -287,9 +287,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="resource/javascript/jquery.mask.min.js"></script>
     
+    
 <script type="text/javascript">
-
-		$('#exampleModal').on('show.bs.modal', function (event) {
+		
+		$('#categoriaModal').on('show.bs.modal', function (event) {
 		  var button = $(event.relatedTarget) // Button that triggered the modal
 		  var title = button.data('title')
 		  var id = button.data('id') // Extract info from data-* attributes
@@ -299,8 +300,8 @@
 		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 		  var modal = $(this)
 		  modal.find('.modal-title').text(title)
-		  modal.find('#id').val(id)
-		  modal.find('#recipient-name').val(recipientnome)
+		  modal.find('#idCat').val(id)
+		  modal.find('#categoriaName').val(recipientnome)
 		  modal.find('#orcamento').val(recipientOrcamento)
 		})
 </script>  
@@ -332,7 +333,7 @@ const msg = "${catNula}"
 </script>
 
 <script src="resource/javascript/esconderUrl.js"></script>
-<script src="resource/javascript/categoriaAjax.js" ></script>
+<script src="resource/javascript/salvarCategoriaAjax.js" ></script>
 <script src="resource/javascript/excluirCategoriaAjax.js" ></script>
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
 <script src="resource/javascript/alert.js"></script>

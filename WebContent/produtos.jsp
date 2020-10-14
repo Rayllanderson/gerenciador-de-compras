@@ -132,8 +132,19 @@
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                             <article class="card-body mx-auto" style="max-width: 400px;">
-                                <h4 class="card-title mt-3 text-center">${categoria.name}</h4>
-
+                                <h4 id="catTitulo" class="card-title mt-3 text-center">${categoria.name} <a
+                                class="text-decoration-none" type="button" title="Editar Lista"
+					data-toggle="modal" data-target="#categoriaModal" 
+					data-title="Editar"
+					data-id="${categoria.id}" 
+					data-nome="${categoria.name}"
+					data-orcamento="${categoria.getOrcamentoEmReal()}">
+					
+<svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+</svg>
+					</a> </h4>	
+					
                                 <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
                                 <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
 
@@ -396,6 +407,54 @@
 
 
 
+
+	<!-- Tela Modal EDITAR CATEGORIA -->
+	
+																<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title text-center" id="myModalLabel"> ${cat.id} </h4>
+											</div>
+											<div class="modal-body">
+											</div>
+										</div>
+									</div>
+								</div>
+		<!--		
+		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
+		-->		
+		<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  </div>
+			  <div class="modal-body">
+				  <div class="form-group">
+					<label for="recipient-name" class="control-label">Nome:</label>
+					<input name="nomeLista" type="text" class="form-control" id="categoriaName" value="${cat.name}" required/>
+				  </div>
+				  <div class="form-group">
+					<label for="message-text" class="control-label">Orcamento:</label>
+					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
+				  </div>
+				<input name="id" type="hidden" class="form-control" id="idCat" value="${cat.id}">
+				<button type="button" id="save1" class="btn btn-success" onclick="saveAjax();" >&nbsp; Salvar &nbsp;</button> 
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+			  </div>
+			</div>
+		  </div>
+		  </div>
+	
+	
+	<!-- Fim Tela Modal -->
+
+
+
+
  <!-- Modal confirmar excluir -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -421,16 +480,32 @@
                     <!-- ---------------------------------------------- -->
 
 					<script src="resource/javascript/excluirProdutoAjax.js"></script>
-					<script src="resource/javascript/produtosAjax.js"></script>
+					<script src="resource/javascript/salvarProdutosAjax.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
 					<script src="resource/javascript/listarProdutos.js"></script>
 					<script src="resource/javascript/searchProdutosAjax.js"></script>
+					<script src="resource/javascript/salvarCategoriaAjax2.js" ></script>
 
 
 <script type="text/javascript">
-
-</script>
+$(".alert").hide();
+//modal de editar categoria
+		$('#categoriaModal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var title = button.data('title')
+		  var id = button.data('id') // Extract info from data-* attributes
+		  var recipientnome = button.data('nome')
+		  var recipientOrcamento = button.data('orcamento')
+		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		  var modal = $(this)
+		  modal.find('.modal-title').text(title)
+		  modal.find('#idCat').val(id)
+		  modal.find('#categoriaName').val(recipientnome)
+		  modal.find('#orcamento').val(recipientOrcamento)
+		})
+</script>  
 
                     <script type="text/javascript">
                     
@@ -464,6 +539,7 @@
                     </script>
 
                     <script type="text/javascript">
+                    //modal de add e editar prod
                         $('#exampleModal')
                             .on(
                                 'show.bs.modal',
@@ -498,6 +574,8 @@
                 </body>
 
                 <script>
+                $(".alert").hide();
+                
                     $(document).ready(function() {
                         $('#real').mask('000.000.000.000.000,00', {
                             reverse: true
@@ -508,6 +586,14 @@
                             reverse: true
                         });
                     });
+                    
+                    
+
+                    $(document).ready(function(){
+                       $('#orcamento').mask('000.000.000.000.000,00', {reverse: true});
+                    });
+                    	
+                    
                 </script>
 
                 </html>
