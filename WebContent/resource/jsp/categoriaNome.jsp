@@ -1,5 +1,5 @@
 ${categoria.name} <a
-                                class="text-decoration-none" type="button" title="Editar Lista"
+                                class="text-decoration-none" type="button" title="Editar Lista" id="editCat"
 					data-toggle="modal" data-target="#categoriaModal" 
 					data-title="Editar"
 					data-id="${categoria.id}" 
