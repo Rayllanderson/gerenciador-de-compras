@@ -15,6 +15,7 @@ import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
 import com.ray.model.util.UserUtil;
+import com.ray.model.validacoes.UserValidation;
 
 @WebServlet("/my-account")
 public class AccountServlet extends HttpServlet {
@@ -49,47 +50,44 @@ public class AccountServlet extends HttpServlet {
 	if (action != null) {
 	    response.setContentType("text/plain");
 	    response.setCharacterEncoding("UTF-8");
-	    Long id = Long.valueOf(request.getParameter("id"));
+	    String id = request.getParameter("id");
 	    String name = request.getParameter("nome");
 	    String username = request.getParameter("username");
 	    if (action.equals("editar")) {
-		if (!fieldsAreValids(name, username)) {
-		    response.setStatus(400);
-		    response.getWriter().write("Um ou mais campos estãos vazios");
-		} else {
-		    if (isModified(name, username, request)) {
-			try {
-			    if (service.update(id, name, username)) {
-				response.setStatus(200);
-				response.getWriter().write("Editado com sucesso!");
-				request.getSession().setAttribute("user", repository.findById(id));
-				setInformacoes(request);
-			    } else {
-				response.setStatus(500);
-				response.getWriter().write("Ocorreu um erro inesperado");
-			    }
-			} catch (MyLoginException e) {
-			    response.setStatus(409);
-			    response.getWriter().write("O username escolhido já está em uso. Tente usar outro");
-			}
+		if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
+		    if (!UserValidation.fieldsAreValids(name, username)) { // validando os campos
+			response.setStatus(400);
+			response.getWriter().write("Um ou mais campos estãos vazios");
 		    } else {
-			response.setStatus(202);
-			response.getWriter().write("Nenhuma alteração foi detectada.");
+			if (UserValidation.userIsModified(name, username, request)) { //verificando se modificou pra evitar requisição desnecessária
+			    try {
+				if (service.update(Long.valueOf(id), name, username)) {
+				    response.setStatus(200);
+				    response.getWriter().write("Editado com sucesso!");
+				    request.getSession().setAttribute("user", repository.findById(Long.valueOf(id)));
+				    setInformacoes(request);
+				} else {
+				    response.setStatus(500);
+				    response.getWriter().write("Ocorreu um erro inesperado");
+				}
+			    } catch (MyLoginException e) {
+				response.setStatus(409);
+				response.getWriter().write("O username escolhido já está em uso. Tente usar outro");
+			    }
+			} else { //usuario nao mudou nenhum campo
+			    response.setStatus(200);
+			    response.getWriter().write("Nenhuma alteração foi detectada.");
+			}
 		    }
+		} else { // id não é o mesmo
+		    response.setStatus(400);
+		    response.getWriter().write("Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
 		}
+	    }else {//se mudar o parametro de action
+		response.setStatus(400);
+		response.getWriter().write("Ocorreu um erro. Por favor, atualize a página.");
 	    }
 	}
-    }
-
-    /**
-     * verifica se um dos campos estão vazios
-     * 
-     * @param name
-     * @param username
-     * @return true caso os campos sejam válidos
-     */
-    private boolean fieldsAreValids(String name, String username) {
-	return !(name.isEmpty() || username.isEmpty());
     }
 
     private void setInformacoes(HttpServletRequest request) {
@@ -102,15 +100,4 @@ public class AccountServlet extends HttpServlet {
 	request.getSession().setAttribute("tGasto", util.getTotalValorReal());
     }
 
-    /**
-     * checa se nome e username do user foi alterado
-     * 
-     * @param nome    & username - para verificar com o user atual
-     * @param request para capturar o user atual
-     * @return true caso detecte que um dos campos foi modificado
-     */
-    private boolean isModified(String nome, String username, HttpServletRequest request) {
-	User user = (User) request.getSession().getAttribute("user");
-	return !(user.getName().equals(nome) && user.getUsername().equals(username));
-    }
 }

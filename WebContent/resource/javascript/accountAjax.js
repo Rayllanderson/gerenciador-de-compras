@@ -25,7 +25,7 @@ function alertBoostrap(msg, classe){
   $(".alert").show();
   document.getElementById('alertMsg').innerHTML = msg;
   document.getElementById("success-alert").className = classe;
-  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+  $("#success-alert").fadeTo(2700, 500).slideUp(500, function(){
     $("#success-alert").slideUp(500);
 });
 }

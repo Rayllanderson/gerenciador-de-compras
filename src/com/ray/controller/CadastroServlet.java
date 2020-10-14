@@ -32,7 +32,6 @@ public class CadastroServlet extends HttpServlet {
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String password2 = request.getParameter("password2");
-
 	if (validarCampos(request, response, name, username, password, password2)) {  
 	    try {
 		User user = new User(null, name, username, password);

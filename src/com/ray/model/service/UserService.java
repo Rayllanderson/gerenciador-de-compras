@@ -1,11 +1,10 @@
 package com.ray.model.service;
 
-import java.util.List;
-
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
+import com.ray.model.validacoes.UserValidation;
 
 public class UserService {
 
@@ -15,20 +14,6 @@ public class UserService {
 	this.dao = DaoFactory.createUserDao();
     }
 
-    /**
-     * Verifica se o username já existe
-     * @param newUsername
-     * @throws MyLoginException com mensagem
-     */
-    private void verificarUsernameExistente(String newUsername) throws MyLoginException{
-	List<String> usernames = dao.findAllUsernames();
-	for (String name : usernames) {
-	    if (name.equals(newUsername)) {
-		throw new MyLoginException("Username já existente!");
-	    }
-	}
-    }
-
     public boolean alterarUsername(Long id, String newUsername) {
 	User user = dao.findById(id);
 	if (user != null) {
@@ -36,7 +21,7 @@ public class UserService {
 	    if (!newUsername.equals(user.getUsername())) {
 		// se nao for, verificar se o username já existe
 		try {
-		    verificarUsernameExistente(newUsername);
+		    UserValidation.validarUsername(newUsername, dao);
 		    user.setUsername(newUsername);
 		    dao.update(user);
 		    return true;
@@ -44,42 +29,41 @@ public class UserService {
 		    return false;
 		}
 	    }
-	    return true; //caso o username for igual o atual não fazer nada, apenas retorna mensagem de sucesso
+	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de
+			 // sucesso
 	}
-	return false; //usuário não existe
+	return false; // usuário não existe
     }
+
     /**
      * update name e username (verifica se o username ja existe)
-     * @param id 
+     * 
+     * @param id
      * @param newName
      * @param newUsername
      * @return true caso dê tudo ok, false se o usuário com id passado não exista
      * @throws MyLoginException caso login já exista
      */
-    public boolean update(Long id, String newName, String newUsername) throws MyLoginException{
-   	User user = dao.findById(id);
-   	if (user != null) {
-   	    // Verificando se o username atual não é igual ao username dele mesmo
-   	    if (!newUsername.equals(user.getUsername())) {
-   		// se nao for, verificar se o username já existe
-   		    verificarUsernameExistente(newUsername);
-   		    user.setUsername(newUsername);
-   	    }
-   	    user.setName(newName);
-   	    dao.update(user);
-   	    return true; 
-   	}
-   	return false; //usuário não existe
-       }
-    
+    public boolean update(Long id, String newName, String newUsername) throws MyLoginException {
+	User user = dao.findById(id);
+	if (user != null) {
+	    alterarUsername(id, newUsername);
+	    user.setName(newName);
+	    dao.update(user);
+	    return true;
+	}
+	return false; // usuário não existe
+    }
+
+
     /**
      * 
      * @param user novo usuário a se cadastrar
      * @return true caso ocorra tudo ok
      * @throws MyLoginException caso username já exista (throws já possui mensagem)
      */
-    public boolean cadastrar(User user) throws MyLoginException{
-	verificarUsernameExistente(user.getUsername()); //caso username já exista, throw MyLoginException;
+    public boolean cadastrar(User user) throws MyLoginException {
+	UserValidation.validarUsername(user.getName(), dao); // caso username já exista, throw MyLoginException;
 	dao.cadastrar(user);
 	return true;
     }
@@ -92,7 +76,7 @@ public class UserService {
      * @return true caso ocorra tudo ok
      * @throws MyLoginException caso a senha não corresponda
      */
-    public boolean alterarSenha(User user, String senhaAtual, String newPassword) throws MyLoginException{
+    public boolean changePassword(User user, String senhaAtual, String newPassword) throws MyLoginException {
 	if (verificarSenha(user, senhaAtual)) { // verificar senha antes de poder alterar
 	    user.setPassword(newPassword);
 	    dao.update(user);
@@ -109,10 +93,11 @@ public class UserService {
 	return false;
     }
 
+    /**
+     * update sem verificação, apenas atualiza
+     * @param user
+     */
     public void update(User user) {
 	dao.update(user);
     }
-    
-
-
 }

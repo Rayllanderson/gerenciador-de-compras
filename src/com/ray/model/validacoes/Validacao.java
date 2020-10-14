@@ -50,4 +50,6 @@ public class Validacao {
 	    throw new CategoriaInexistenteException("Essa categoria não existe.");
 	}
     }
+   
+    
 }

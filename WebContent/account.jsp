@@ -6,20 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
+
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" id="bootstrap-css"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 	
-<link href="resource/css/account.css" type="text/css" rel="stylesheet" />
+	
+<!--   --><link href="resource/css/account.css" type="text/css" rel="stylesheet" />
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
                     
 
 <title>My Account</title>
@@ -28,7 +28,7 @@
 
                    <header>
 
-                        <nav class="navbar navbar-expand navbar-dark bg-primary">
+                         <nav class="navbar navbar-expand navbar-dark bg-primary">
                             <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px" /></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,11 +43,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="categorias">Categorias</a>
                                     </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">Produtos</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="produtos">Produtos</a>
                                     </li>
                                 </ul>
                             </div>
+                            
                             
                             <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -58,17 +59,15 @@
   </button>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
-                        </nav>
 
-                    </header>
-
-
+</nav>
+</header>
 
 	<div class="container">
 	  	<div class="alert alert-success" id="success-alert" style="margin-top: 1%">
@@ -102,7 +101,7 @@
 					<div style="display: flex; justify-content: space-between;">
 						<div class="text-left">
 						
-							<input id="" class="btn btn-primary" type="button" onclick="ajax()"				
+							<input id="" class="btn btn-success" type="button" onclick="ajax()"				
 							value="Editar" />
 						</div>
 					
@@ -144,6 +143,7 @@
 
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     
 <script src="resource/javascript/accountAjax.js" ></script>

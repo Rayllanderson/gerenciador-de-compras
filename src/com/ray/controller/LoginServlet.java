@@ -45,8 +45,8 @@ public class LoginServlet extends HttpServlet {
 		HttpSession newSession = request.getSession(true);
 		newSession.setMaxInactiveInterval(30 * 60);
 		newSession.setAttribute("user", user);
-		Cookie message = new Cookie("message", "Welcome");
-		response.addCookie(message);
+		Cookie id = new Cookie("b80bb7740288fda1f201890375a60c8f", user.getId().toString()); //md5 do nome id xD só pra nao deixar tão óbvio
+		response.addCookie(id);
 		response.sendRedirect("home.jsp");
 	    }
 	} catch (MyLoginException e) {

@@ -28,8 +28,7 @@ public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDao repository;
     private CategoriaService service;
-    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas
-			  // uma vez
+    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas uma vez
 
     public CategoriaServlet() {
 	super();
