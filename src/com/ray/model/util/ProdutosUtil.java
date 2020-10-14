@@ -66,6 +66,18 @@ public class ProdutosUtil {
 	}
 	return list;
     }
+    
+    /**
+     * 
+     * @return tamanho da lista de produtos concluídos (marcados como comprados)
+     */
+    public int sizeOfConcluidos() {
+	try {
+	   return this.getConcluidos().size();
+	}catch (ListaVaziaException e) {
+	    return 0;
+	}
+    }
 
     public List<Product> getList() {
 	return service.findAll();

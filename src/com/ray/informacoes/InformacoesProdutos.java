@@ -49,7 +49,7 @@ public class InformacoesProdutos {
     public static String getDisponivel(ProdutosUtil util, Categoria cat) {
 	 Double orcamento = 0.0;
 	 double somaTotalNaoConcluidos = util.getEstipuladoRestante();
-	 if(somaTotalNaoConcluidos == 0 && ! util.getList().isEmpty()) {
+	 if(somaTotalNaoConcluidos == 0 && !util.getList().isEmpty() && util.sizeOfConcluidos() >0) {
 	     return "Todos os produtos foram comprados :)";
 	 }
 	try {
