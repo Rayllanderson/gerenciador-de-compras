@@ -11,6 +11,7 @@ import java.util.List;
 import com.ray.db.DB;
 import com.ray.db.DbException;
 import com.ray.model.dao.UserDao;
+import com.ray.model.entities.Arquivo;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 
@@ -33,7 +34,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"));
+			rs.getString("senha"), rs.getString("miniatura"), new Arquivo(rs.getString("foto"), null));
 	    } else if (checkIfUserExists(username)){
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
@@ -103,7 +104,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"));
+			rs.getString("senha"), rs.getString("miniatura"), new Arquivo(rs.getString("foto"), null));
 	    } else {
 		return null;
 	    }
@@ -137,12 +138,13 @@ public class UserDaoJDBC implements UserDao {
     public void update(User user) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ? where id = ?");
+	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ?, foto = ? where id = ?");
 	    st.setString(1, user.getName());
 	    st.setString(2, user.getUsername());
 	    st.setString(3, user.getPassword());
 	    st.setString(4, user.getMiniatura());
-	    st.setLong(5, user.getId());
+	    st.setString(5, user.getFoto());
+	    st.setLong(6, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());

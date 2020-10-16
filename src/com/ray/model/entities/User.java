@@ -2,64 +2,66 @@ package com.ray.model.entities;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id;
     private String name;
     private String username;
     private String password;
+    private Arquivo foto;
     private String miniatura;
-    
+
     public User(Long id, String name, String username, String password) {
 	this.id = id;
 	this.name = name;
 	this.username = username;
 	this.password = password;
     }
-    
-    public User(Long id, String name, String username, String password, String miniatura) {
+
+    public User(Long id, String name, String username, String password, String miniatura, Arquivo foto) {
 	this.id = id;
 	this.name = name;
 	this.username = username;
 	this.password = password;
 	this.miniatura = miniatura;
+	this.foto = foto;
     }
 
     public User() {
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
 
     public Long getId() {
-        return id;
+	return id;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 
     public String getUsername() {
-        return username;
+	return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+	this.username = username;
     }
 
     public String getPassword() {
-        return password;
+	return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+	this.password = password;
     }
 
     @Override
@@ -99,4 +101,13 @@ public class User implements Serializable{
     public void setMiniatura(String miniatura) {
 	this.miniatura = miniatura;
     }
+
+    public String getFoto() {
+	return foto.getArquivoBase64();
+    }
+
+    public void setFoto(Arquivo foto) {
+	this.foto = foto;
+    }
+
 }

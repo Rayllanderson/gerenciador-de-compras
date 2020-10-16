@@ -45,13 +45,14 @@ public class UserValidation {
      * checa se nome e username do user foi alterado
      * 
      * @param nome    & username - para verificar com o user atual
+     * @param foto64 
      * @param request para capturar o user atual
      * @return true caso detecte que um dos campos foi modificado
      */
-    public static boolean userIsModified(String nome, String username, String miniatura, HttpServletRequest request) {
+    public static boolean userIsModified(String nome, String username, String foto64, HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
 	try {
-	    return !(user.getName().equals(nome) && user.getUsername().equals(username) && user.getMiniatura().equals(miniatura));
+	    return !(user.getName().equals(nome) && user.getUsername().equals(username) && user.getFoto().equals(foto64));
 	}catch (NullPointerException e) {
 	    return true;
 	}
@@ -67,7 +68,6 @@ public class UserValidation {
 	Cookie[] cookies = request.getCookies();
 	for (Cookie cookie : cookies) {
 	    if (cookie.getName().equals("b80bb7740288fda1f201890375a60c8f")) { // md5 de ID
-		System.out.println(cookie.getValue() + "< cookie;\n id normal >" + id);
 		return cookie.getValue().equals(id);
 	    }
 	}

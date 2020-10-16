@@ -69,7 +69,9 @@ public class AccountServlet extends HttpServlet {
 	    String name = request.getParameter("nome");
 	    String username = request.getParameter("username");
 
-	    String miniatura = createMiniature(request);
+	    String foto64 = createBase64(request);
+	    
+	    String miniatura = createMiniatureBase64(request);
 
 	    if (action.equals("editar")) {
 		if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
@@ -77,17 +79,18 @@ public class AccountServlet extends HttpServlet {
 			response.setStatus(400);
 			response.getWriter().write("Um ou mais campos estãos vazios");
 		    } else {
-			if (UserValidation.userIsModified(name, username, miniatura, request)) { // verificando se
+			if (UserValidation.userIsModified(name, username, foto64, request)) { // verificando se
 												 // modificou pra evitar
 												 // requisição
 												 // desnecessária
 			    try {
-				if (service.update(Long.valueOf(id), name, username, miniatura)) {
+				if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
 				    response.setStatus(200);
 				    response.getWriter().write("Editado com sucesso!");
 				    User user = repository.findById(Long.valueOf(id));
 				    System.out.println(user.getName());
 				    System.out.println(user.getMiniatura());
+				    System.out.println(user.getFoto());
 				    request.getSession().setAttribute("user", user);
 				    setInformacoes(request);
 				    request.getRequestDispatcher("account.jsp").forward(request, response);
@@ -144,14 +147,20 @@ public class AccountServlet extends HttpServlet {
 	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 
-    private String createMiniature(HttpServletRequest request)
-	    throws IOException, ServletException {
+    /**
+     * Converte a imagem em base 64, converte em PNG e então inicia o processo de criação de miniatura
+     * @param request
+     * @return imagem em forma de miniatura
+     * @throws IOException
+     * @throws ServletException
+     */
+    private String createMiniatureBase64(HttpServletRequest request) throws IOException, ServletException {
 	if (ServletFileUpload.isMultipartContent(request)) {// validando de form é de upload
 	    Part imagem = request.getPart("file");
-	    if (imagem.getSize() > 0) {
-		/* Inicio miniatura imagem */
+	    if (imagem != null && imagem.getInputStream().available() > 0) {
 		String fotoBase64 = Base64.encodeBase64String(streamToByte(imagem.getInputStream()));
-		/* Transforma em um bufferedImage */
+
+		/* Transforma emum bufferedImage */
 		byte[] imageByteDecode = Base64.decodeBase64(fotoBase64);
 		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
 
@@ -167,7 +176,25 @@ public class AccountServlet extends HttpServlet {
 		/* Escrever imagem novamente */
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(resizedImage, "png", baos);
+
 		return "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
+	    }
+	}
+	return "";
+    }
+
+    /**
+     * retorna a base 64 do arquivo 
+     * @param request
+     * @return
+     * @throws IOException
+     * @throws ServletException
+     */
+    private String createBase64 (HttpServletRequest request) throws IOException, ServletException {
+	if (ServletFileUpload.isMultipartContent(request)) {
+	    Part imagem = request.getPart("file");
+	    if (imagem.getSize() > 0) {
+		return "data:" + imagem.getContentType() + ";base64," +  Base64.encodeBase64String(streamToByte(imagem.getInputStream()));
 	    }
 	}
 	return "";

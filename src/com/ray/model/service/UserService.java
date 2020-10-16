@@ -2,6 +2,7 @@ package com.ray.model.service;
 
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
+import com.ray.model.entities.Arquivo;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.validacoes.UserValidation;
@@ -44,15 +45,19 @@ public class UserService {
      * @return true caso dê tudo ok, false se o usuário com id passado não exista
      * @throws MyLoginException caso login já exista
      */
-    public boolean update(Long id, String newName, String newUsername, String miniatura) throws MyLoginException {
+    public boolean update(Long id, String newName, String newUsername, String miniatura, String foto) throws MyLoginException {
 	User user = dao.findById(id);
 	if (user != null) {
 	    if (miniatura.equals("") && user.getMiniatura()!= null) {
 		miniatura = user.getMiniatura();
 	    }
+	    if (foto.equals("") && user.getFoto()!= null) {
+		foto = user.getFoto();
+	    }
 	    alterarUsername(id, newUsername);
 	    user.setName(newName);
 	    user.setMiniatura(miniatura);
+	    user.setFoto(new Arquivo(foto, null));
 	    dao.update(user);
 	    return true;
 	}
