@@ -44,11 +44,15 @@ public class UserService {
      * @return true caso dê tudo ok, false se o usuário com id passado não exista
      * @throws MyLoginException caso login já exista
      */
-    public boolean update(Long id, String newName, String newUsername) throws MyLoginException {
+    public boolean update(Long id, String newName, String newUsername, String miniatura) throws MyLoginException {
 	User user = dao.findById(id);
 	if (user != null) {
+	    if (miniatura.equals("") && user.getMiniatura()!= null) {
+		miniatura = user.getMiniatura();
+	    }
 	    alterarUsername(id, newUsername);
 	    user.setName(newName);
+	    user.setMiniatura(miniatura);
 	    dao.update(user);
 	    return true;
 	}

@@ -82,34 +82,36 @@
 				<h4 class="card-title mt-3 text-center">Sua Conta</h4>
 				<div class="text-center">
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<input type="file" id="file" name="file" onchange="upload();">
-				<img alt="" src="" id="target" width="200px" height="200px" onchange="upload()">
-				<input type="text" id="aa">
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-</svg>
+
+					
+				  
 				</div>
+				
+				
+					<form class="" action="my-account?action=editar"
+		method="POST" id="formUser" enctype="multipart/form-data">			
+		
+		
+					<input type="file" id="file" name="file">
+
+					<img id="target" src="<c:out value="${user.getMiniatura()}"/>"
+					alt="Imagem de perfil..."> 
+
+
+					<c:if test="${user.miniatura.isEmpty()}">
+					<div id="target2">
+						<svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	 						 <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+	  						<path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+						</svg> 
+					</div>
+					</c:if>
+
+					<c:if test="${!user.miniatura.isEmpty()}">
+					<img id="target" src="<c:out value="${user.getMiniatura()}"/>"
+					alt="Imagem de perfil..." width="4em" height="4em"> 
+					</c:if>
+				
 			<input value="${user.id}" name="id" hidden="true" id="id">
 				<span class="input-text"> Nome </span>
 					<div class="form-group input-group">
@@ -126,19 +128,24 @@
 					<div style="display: flex; justify-content: space-between;">
 						<div class="text-left">
 						
-							<input id="" class="btn btn-success" type="button" onclick="ajax()"				
+							<input id="" class="btn btn-success" type="submit" 				
 							value="Editar" />
 						</div>
+					
+					
 					
 						<div class="text-right">
 							<a href="index.jsp">Mudar senha</a>
 						</div>
 					
 					</div>
+					</form>
 			</article>
+			
 		</div>
 		<!-- card.// -->
 	</div>
+	
 
 
 <hr>
@@ -165,47 +172,62 @@
 	</script>
 	
 	<script type="text/javascript">
-		
-	function upload() {
-	    console.log('ola1')
-	    var target = document.querySelector("#target");
-	    var file = document.querySelector("#file").files[0];
-
-	    var reader = new FileReader();
-
-	    reader.onloadend = function() {
-	        target.src = reader.result;
-	        document.getElementById('aa').value= reader.result;
-	        //ajax
-		 console.log('ola3')
-	        $.ajax({
-	            method: "POST",
-	            url: "my-account?action=base64",
-	            data: { fileUpload : reader.result }
-	        }).done(function(response) {
-	            alert('sucesso')
-	        }).fail(function(xhr) {
-	            alert('fail')
-	        });
-
-	    };
-
-	    if (file) {
-	        console.log('ola2')
-	        reader.readAsDataURL(file)
-
-	    } else {
-	        target.src = ""
-	    }
-	}
-	</script>
-
-
 	
+	
+/*	
+    function upload() {
+    var target = document.querySelector("#target");
+	var file = document.querySelector("input[type=file]").files[0];
+	
+	
+	var fd = new FormData();    
+	fd.append( 'file', document.querySelector("input[type=file]").files[0] );
+	console.log(fd)
+	
+	
+	var reader = new FileReader();
+			
+	reader.onloadend = function () {
+				
+		
+		
+	    target.src = reader.result;
+	    $('#aa').val(reader.result)
+				
+	    // Upload Ajax
+	    $.ajax({
+	        method: "POST",
+		url: "my-account?action=base64",
+		data: { 
+		    file: reader.result
+		}
+	    })
+	    .done(function(response) {
+	        alert("Sucesso: " + response);
+	    })
+	    .fail(function(xhr, status, errorThrown) {
+	        alert("Error: " + xhr.responseText);
+	    });
+	};
+			
+	if (file) {						
+	    reader.readAsDataURL(file);	
+	    reader.readAsDataURL(input.files[0]);
+	} else {
+	    target.src = "";
+	}
+    }	
+    */
+        	</script>
+  
+    
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     
-<script src="resource/javascript/accountAjax.js" ></script>
+
 </body>
 </html>

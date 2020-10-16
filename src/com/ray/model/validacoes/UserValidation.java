@@ -48,9 +48,13 @@ public class UserValidation {
      * @param request para capturar o user atual
      * @return true caso detecte que um dos campos foi modificado
      */
-    public static boolean userIsModified(String nome, String username, HttpServletRequest request) {
+    public static boolean userIsModified(String nome, String username, String miniatura, HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
-	return !(user.getName().equals(nome) && user.getUsername().equals(username));
+	try {
+	    return !(user.getName().equals(nome) && user.getUsername().equals(username) && user.getMiniatura().equals(miniatura));
+	}catch (NullPointerException e) {
+	    return true;
+	}
     }
     
     /**

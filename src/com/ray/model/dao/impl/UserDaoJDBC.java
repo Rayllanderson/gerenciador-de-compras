@@ -33,7 +33,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"));
+			rs.getString("senha"), rs.getString("miniatura"));
 	    } else if (checkIfUserExists(username)){
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
@@ -103,7 +103,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"));
+			rs.getString("senha"), rs.getString("miniatura"));
 	    } else {
 		return null;
 	    }
@@ -137,11 +137,12 @@ public class UserDaoJDBC implements UserDao {
     public void update(User user) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ? where id = ?");
+	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ? where id = ?");
 	    st.setString(1, user.getName());
 	    st.setString(2, user.getUsername());
 	    st.setString(3, user.getPassword());
-	    st.setLong(4, user.getId());
+	    st.setString(4, user.getMiniatura());
+	    st.setLong(5, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());
