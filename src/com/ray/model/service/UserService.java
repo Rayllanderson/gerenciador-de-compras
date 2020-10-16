@@ -2,7 +2,6 @@ package com.ray.model.service;
 
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
-import com.ray.model.entities.Arquivo;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.validacoes.UserValidation;
@@ -21,17 +20,12 @@ public class UserService {
 	    // Verificando se o username atual não é igual ao username dele mesmo
 	    if (!newUsername.equals(user.getUsername())) {
 		// se nao for, verificar se o username já existe
-		try {
-		    UserValidation.validarUsername(newUsername, dao);
-		    user.setUsername(newUsername);
-		    dao.update(user);
-		    return true;
-		} catch (MyLoginException e) {
-		    return false;
-		}
+		UserValidation.validarUsername(newUsername, dao);
+		user.setUsername(newUsername);
+		dao.update(user);
+		return true;
 	    }
-	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de
-			 // sucesso
+	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de  sucesso
 	}
 	return false; // usuário não existe
     }
@@ -45,25 +39,25 @@ public class UserService {
      * @return true caso dê tudo ok, false se o usuário com id passado não exista
      * @throws MyLoginException caso login já exista
      */
-    public boolean update(Long id, String newName, String newUsername, String miniatura, String foto) throws MyLoginException {
+    public boolean update(Long id, String newName, String newUsername, String miniatura, String foto)
+	    throws MyLoginException {
 	User user = dao.findById(id);
 	if (user != null) {
-	    if (miniatura.equals("") && user.getMiniatura()!= null) {
+	    if (miniatura.equals("") && user.getMiniatura() != null) {
 		miniatura = user.getMiniatura();
 	    }
-	    if (foto.equals("") && user.getFoto()!= null) {
+	    if (foto.equals("") && user.getFoto() != null) {
 		foto = user.getFoto();
 	    }
-	    alterarUsername(id, newUsername);
+	    alterarUsername(id, newUsername); //throw exception caso username exista
 	    user.setName(newName);
 	    user.setMiniatura(miniatura);
-	    user.setFoto(new Arquivo(foto, null));
+	    user.setFoto(foto);
 	    dao.update(user);
 	    return true;
 	}
 	return false; // usuário não existe
     }
-
 
     /**
      * 
@@ -79,6 +73,7 @@ public class UserService {
 
     /**
      * método verifica a senha antes de alterar
+     * 
      * @param user
      * @param senhaAtual
      * @param newPassword
@@ -104,6 +99,7 @@ public class UserService {
 
     /**
      * update sem verificação, apenas atualiza
+     * 
      * @param user
      */
     public void update(User user) {

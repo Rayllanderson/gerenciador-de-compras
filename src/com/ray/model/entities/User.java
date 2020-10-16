@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String name;
     private String username;
     private String password;
-    private Arquivo foto;
+    private String foto;
     private String miniatura;
 
     public User(Long id, String name, String username, String password) {
@@ -20,7 +20,7 @@ public class User implements Serializable {
 	this.password = password;
     }
 
-    public User(Long id, String name, String username, String password, String miniatura, Arquivo foto) {
+    public User(Long id, String name, String username, String password, String miniatura, String foto) {
 	this.id = id;
 	this.name = name;
 	this.username = username;
@@ -103,10 +103,10 @@ public class User implements Serializable {
     }
 
     public String getFoto() {
-	return foto.getArquivoBase64();
+	return foto;
     }
 
-    public void setFoto(Arquivo foto) {
+    public void setFoto(String foto) {
 	this.foto = foto;
     }
 

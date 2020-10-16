@@ -52,7 +52,7 @@ public class UserValidation {
     public static boolean userIsModified(String nome, String username, String foto64, HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
 	try {
-	    return !(user.getName().equals(nome) && user.getUsername().equals(username) && user.getFoto().equals(foto64));
+	    return !(user.getName().equals(nome) && user.getUsername().equals(username) && (user.getFoto().equals(foto64) || foto64.equals("")));
 	}catch (NullPointerException e) {
 	    return true;
 	}

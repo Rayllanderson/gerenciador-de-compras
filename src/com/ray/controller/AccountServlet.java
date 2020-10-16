@@ -1,33 +1,22 @@
 package com.ray.controller;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import javax.imageio.ImageIO;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import javax.xml.bind.DatatypeConverter;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.tomcat.util.codec.binary.Base64;
-
-import com.google.gson.Gson;
 import com.ray.informacoes.InformacoesUsuario;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
+import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
+import com.ray.model.util.ArquivosUtil;
 import com.ray.model.validacoes.UserValidation;
 
 @MultipartConfig
@@ -45,16 +34,15 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String action = request.getParameter("action");
-	if (action != null) {
-	    setInformacoes(request);
-	    if (action.equals("view")) {
-		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("account.jsp");
-		dispatcher.forward(request, response);
-	    }
-	}
+	listarTudo(request, response);
+    }
 
+    private void listarTudo(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	response.setStatus(200);
+	request.getSession().setAttribute("success", "");
+	request.getSession().setAttribute("error", "");
+	request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     @Override
@@ -62,79 +50,76 @@ public class AccountServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	String action = request.getParameter("action");
 	System.out.println(action);
-	if (action != null) {
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-	    String id = request.getParameter("id");
-	    String name = request.getParameter("nome");
-	    String username = request.getParameter("username");
-
-	    String foto64 = createBase64(request);
-	    
-	    String miniatura = createMiniatureBase64(request);
-
-	    if (action.equals("editar")) {
-		if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
-		    if (!UserValidation.fieldsAreValids(name, username)) { // validando os campos
-			response.setStatus(400);
-			response.getWriter().write("Um ou mais campos estãos vazios");
-		    } else {
-			if (UserValidation.userIsModified(name, username, foto64, request)) { // verificando se
-												 // modificou pra evitar
-												 // requisição
-												 // desnecessária
-			    try {
+	try {
+	    if (action != null) {
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
+		String name = request.getParameter("nome");
+		String username = request.getParameter("username");
+		String foto64 = ArquivosUtil.createBase64(request);
+		String miniatura = ArquivosUtil.createMiniatureBase64(request);
+		if (action.equals("editar")) {
+		    if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
+			if (!UserValidation.fieldsAreValids(name, username)) { // validando os campos
+			    redirect(request, response, 400, "Um ou mais campos estãos vazios");
+			    System.out.println("user válido...");
+			} else {
+			    // verificando se modificou pra evitar requisição desnecessária
+			    if (UserValidation.userIsModified(name, username, foto64, request)) {
+				System.out.println("user modificado...");
 				if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
+				    System.out.println("upou!");
 				    response.setStatus(200);
-				    response.getWriter().write("Editado com sucesso!");
+				    request.getSession().setAttribute("success", "Editado com sucesso!");
 				    User user = repository.findById(Long.valueOf(id));
-				    System.out.println(user.getName());
-				    System.out.println(user.getMiniatura());
-				    System.out.println(user.getFoto());
 				    request.getSession().setAttribute("user", user);
 				    setInformacoes(request);
-				    request.getRequestDispatcher("account.jsp").forward(request, response);
 				} else {
-				    response.setStatus(500);
-				    response.getWriter().write("Ocorreu um erro inesperado");
+				    System.out.println("nao upou");
+				    redirect(request, response, 500, "Ocorreu um erro inesperado");
 				}
-			    } catch (MyLoginException e) {
-				response.setStatus(409);
-				response.getWriter().write("O username escolhido já está em uso. Tente usar outro");
+				request.getRequestDispatcher("account.jsp").forward(request, response);
+			    } else { // usuario nao mudou nenhum campo
+				redirect(request, response, 200, "Nenhuma alteração foi detectada.");
 			    }
-			} else { // usuario nao mudou nenhum campo
-			    response.setStatus(200);
-			    response.getWriter().write("Nenhuma alteração foi detectada.");
 			}
+		    } else { // id não é o mesmo
+			redirect(request, response, 400,
+				"Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
 		    }
-		} else { // id não é o mesmo
-		    response.setStatus(400);
-		    response.getWriter().write(
-			    "Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
+		} else {// se mudar o parametro de action
+		    redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a página.");
 		}
-	    } else if (action.equals("base64")) {
-		Part filePart = request.getPart("file");
-		System.out.println(filePart);
-		String jsonStr = request.getParameter("file");
-		System.out.println(jsonStr);
-		String oi = new Gson().toJson(jsonStr);
-		System.out.println(oi);
-
-	    } else {// se mudar o parametro de action
-		response.setStatus(400);
-		response.getWriter().write("Ocorreu um erro. Por favor, atualize a página.");
+	    } else { // se nao for editar, simplemtente volta tudo
+		request.getRequestDispatcher("account.jsp").forward(request, response);
 	    }
+
+	} catch (EntradaInvalidaException e) { // upou arquivo inválido
+	    redirect(request, response, 400, e.getMessage());
+	} catch (MyLoginException e) { // username ja existente
+	    redirect(request, response, 409, "O username escolhido já está em uso. Tente usar outro");
+	}catch (RuntimeException e) {
+	    e.printStackTrace();
+	    redirect(request, response, 500, "ocorreu um erro inesperado");
 	}
     }
 
-    private byte[] streamToByte(InputStream imagem) throws IOException {
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	int reads = imagem.read();
-	while (reads != -1) {
-	    baos.write(reads);
-	    reads = imagem.read();
-	}
-	return baos.toByteArray();
+    /**
+     * redireciona para account.jsp. se o codigo for entre 200 e 399, alert success, senao, alert error.
+     * @param request
+     * @param response
+     * @param codigo
+     * @param mensagem
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void redirect(HttpServletRequest request, HttpServletResponse response, int codigo, String mensagem)
+	    throws ServletException, IOException {
+	response.setStatus(codigo);
+	String tipo = codigo >= 200 && codigo < 400 ? "success" : "error";
+	request.getRequestDispatcher("account.jsp").forward(request, response);
+	request.getSession().setAttribute(tipo, mensagem);
     }
 
     private void setInformacoes(HttpServletRequest request) {
@@ -147,56 +132,4 @@ public class AccountServlet extends HttpServlet {
 	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 
-    /**
-     * Converte a imagem em base 64, converte em PNG e então inicia o processo de criação de miniatura
-     * @param request
-     * @return imagem em forma de miniatura
-     * @throws IOException
-     * @throws ServletException
-     */
-    private String createMiniatureBase64(HttpServletRequest request) throws IOException, ServletException {
-	if (ServletFileUpload.isMultipartContent(request)) {// validando de form é de upload
-	    Part imagem = request.getPart("file");
-	    if (imagem != null && imagem.getInputStream().available() > 0) {
-		String fotoBase64 = Base64.encodeBase64String(streamToByte(imagem.getInputStream()));
-
-		/* Transforma emum bufferedImage */
-		byte[] imageByteDecode = Base64.decodeBase64(fotoBase64);
-		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
-
-		/* Pega o tipo da imagem */
-		int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
-
-		/* Cria imagem em miniatura */
-		BufferedImage resizedImage = new BufferedImage(100, 100, type);
-		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(bufferedImage, 0, 0, 100, 100, null);
-		g.dispose();
-
-		/* Escrever imagem novamente */
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(resizedImage, "png", baos);
-
-		return "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
-	    }
-	}
-	return "";
-    }
-
-    /**
-     * retorna a base 64 do arquivo 
-     * @param request
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    private String createBase64 (HttpServletRequest request) throws IOException, ServletException {
-	if (ServletFileUpload.isMultipartContent(request)) {
-	    Part imagem = request.getPart("file");
-	    if (imagem.getSize() > 0) {
-		return "data:" + imagem.getContentType() + ";base64," +  Base64.encodeBase64String(streamToByte(imagem.getInputStream()));
-	    }
-	}
-	return "";
-    }
 }

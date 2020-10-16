@@ -11,7 +11,6 @@ import java.util.List;
 import com.ray.db.DB;
 import com.ray.db.DbException;
 import com.ray.model.dao.UserDao;
-import com.ray.model.entities.Arquivo;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 
@@ -34,7 +33,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), new Arquivo(rs.getString("foto"), null));
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"));
 	    } else if (checkIfUserExists(username)){
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
@@ -104,7 +103,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), new Arquivo(rs.getString("foto"), null));
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"));
 	    } else {
 		return null;
 	    }

@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet"
@@ -22,6 +19,28 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 
+
+<style type="text/css">
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: red;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+
+</style>
 
 <title>My Account</title>
 </head>
@@ -91,26 +110,28 @@
 					<form class="" action="my-account?action=editar"
 		method="POST" id="formUser" enctype="multipart/form-data">			
 		
-		
-					<input type="file" id="file" name="file">
+			<div class="image-upload">
+			  				<label for="file">
 
-					<img id="target" src="<c:out value="${user.getFoto()}"/>" width="200px" height="200px"
-					alt="Imagem de perfil..."> 
-
-
-					<c:if test="${user.getFoto().isEmpty()}">
-					<div id="target2">
-						<svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	 						 <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-	  						<path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-						</svg> 
-					</div>
+					<c:if test="${user.getFoto().isEmpty() || user.getFoto() == null}">
+							
+						<img id="target" src="resource/img/user.png" width="150" height="160"
+						 alt="Imagem de perfil"> 
+  				
+						<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
+							
 					</c:if>
 
 					<c:if test="${!user.getFoto().isEmpty()}">
-					<img id="target" src="<c:out value="${user.getMiniatura()}"/>"
-					alt="Imagem de perfil..."> 
+
+			  			 <img id="target" src="<c:out value="${user.getFoto()}"/>" width="260" height="260" style="border-radius: 50%;"
+						 alt="Imagem de perfil"> 
+  				
+						<input id="file" type="file" name="file" style="display: none" onload="upload()" accept="image/*"/>
+	
 					</c:if>
+				</label>	
+			</div>
 				
 			<input value="${user.id}" name="id" hidden="true" id="id">
 				<span class="input-text"> Nome </span>
@@ -163,71 +184,85 @@
 			</div>
 			
 			
-			
+	
 	<script type="text/javascript">
-		const msg = "${msg}"
-		if (msg != null && msg != '') {
-			alert(msg)
+
+
+	$(".alert").hide();
+
+	
+	let error = "${error}"
+	let success = "${success}"
+
+	
+	if (error) {
+		console.log('hum?')
+		alertBoostrap(error, 'alert alert-danger')
+		error= '';
+	}
+
+	if (success) {
+		alertBoostrap(success, 'alert alert-success')
+		success = '';
+	}
+
+	function alertBoostrap(msg, classe){
+	  $(".alert").show();
+	  document.getElementById('alertMsg').innerHTML = msg;
+	  document.getElementById("success-alert").className = classe;
+	  $("#success-alert").fadeTo(2700, 500).slideUp(500, function(){
+	    $("#success-alert").slideUp(500);
+	});
+	}
+
+	function setColorAlert(response){
+		if (response == 'Nenhuma alteração foi detectada.'){
+			alertBoostrap(response, 'alert alert-warning')
+		}else{
+			alertBoostrap(response, 'alert alert-success')
 		}
+	}
+	
 	</script>
 	
 	<script type="text/javascript">
-	
-	
-/*	
-    function upload() {
-    var target = document.querySelector("#target");
-	var file = document.querySelector("input[type=file]").files[0];
-	
-	
-	var fd = new FormData();    
-	fd.append( 'file', document.querySelector("input[type=file]").files[0] );
-	console.log(fd)
-	
-	
-	var reader = new FileReader();
-			
-	reader.onloadend = function () {
-				
-		
-		
-	    target.src = reader.result;
-	    $('#aa').val(reader.result)
-				
-	    // Upload Ajax
-	    $.ajax({
-	        method: "POST",
-		url: "my-account?action=base64",
-		data: { 
-		    file: reader.result
+	if ( window.history.replaceState ) {
+		  window.history.replaceState( null, null, window.location.href );
 		}
-	    })
-	    .done(function(response) {
-	        alert("Sucesso: " + response);
-	    })
-	    .fail(function(xhr, status, errorThrown) {
-	        alert("Error: " + xhr.responseText);
-	    });
-	};
-			
-	if (file) {						
-	    reader.readAsDataURL(file);	
-	    reader.readAsDataURL(input.files[0]);
-	} else {
-	    target.src = "";
-	}
-    }	
-    */
         	</script>
   
-    
+  <script type="text/javascript">
+
+  
+	function upload() {
+	    console.log('ola1')
+	    var target = document.querySelector("#target");
+	    var file = document.querySelector("#file").files[0];
+	    var reader = new FileReader();
+	    reader.onloadend = function() {
+	        target.src = reader.result;
+		 console.log('ola3')
+	    };
+	    if (file) {
+	        console.log('ola2')
+	        target.style.width = '260px';
+	        target.style.height = '260px';
+	        target.style.borderRadius = '50%';
+	        reader.readAsDataURL(file)
+	    } else {
+	        target.src = ""
+	    }
+	}
+  
+  
+  </script>  
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    
+<script src="resource/javascript/accountAjax.js"></script>   
 
 </body>
 </html>
