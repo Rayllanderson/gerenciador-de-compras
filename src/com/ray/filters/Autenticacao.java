@@ -36,6 +36,7 @@ public class Autenticacao implements Filter {
 	HttpServletResponse res = (HttpServletResponse) response;
 	User user = (User) req.getSession().getAttribute("user");
 	HttpSession session = req.getSession(false);
+	request.setCharacterEncoding("UTF-8");
 //	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
 	if (session == null || user == null) { // checking whether the session exists
 	    this.context.log("Unauthorized access request");
