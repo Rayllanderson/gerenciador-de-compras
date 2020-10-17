@@ -15,6 +15,7 @@
 	
 <!--   --><link href="resource/css/account.css" type="text/css" rel="stylesheet" />
 
+<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
@@ -22,23 +23,69 @@
 
 <style type="text/css">
 
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .3s ease;
-  background-color: red;
+.box {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+.avatar::after {
+    opacity: 0;
+    font-family: FontAwesome;
+    content: "\f040";
+    color: #fff;
+    font-size: 2.5rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0.1px;
+    width: 260px;
+    height: 260px;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 350ms ease-in-out;
+}
+.avatar:hover::after {
+    opacity: 1;
 }
 
-#file:hover {
-  background-color: yellow;
+.avatar {
+    border: 4px;
+    border-radius: 50%;
 }
 
+.menu {
+    position: absolute;
+    opacity: 0;
+    width: 100px;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    top: 60%;
+    left: 60%;
+    z-index: -1;
+    transition: 350ms ease-in-out;
+}
+.box input {
+    display: none;
+}
+.box input:checked + div.menu {
+    opacity: 1;
+    z-index: 999;
+}
+
+#target{
+
+width: 260;
+height: 260;
+
+}
 
 </style>
 
@@ -70,6 +117,15 @@
                             </div>
                             
                             
+                            
+                            <c:if test="${!user.miniatura.isEmpty() && user.miniatura != null}">
+                            		<div class="icon-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            			<input  class="img-perfil" type="image" src="${user.miniatura }" />
+                            		</div>
+                            </c:if>
+                            
+                            
+                             <c:if test="${user.miniatura.isEmpty() || user.miniatura == null}">
                             <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
@@ -78,6 +134,7 @@
 </svg>
   </button>
 
+	</c:if>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
@@ -100,38 +157,42 @@
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Sua Conta</h4>
 				<div class="text-center">
-				
-
-					
-				  
+		  
 				</div>
 				
-				
-					<form class="" action="my-account?action=editar"
-		method="POST" id="formUser" enctype="multipart/form-data">			
-		
-			<div class="image-upload">
-			  				<label for="file">
+				<div class="box">
+			  				<label class="avatar" for="file">
 
 					<c:if test="${user.getFoto().isEmpty() || user.getFoto() == null}">
 							
 						<img id="target"class="target" src="resource/img/user.png" width="220" height="230" title="Nova foto de perfil"
 						 alt="Imagem de perfil"> 
   				
-						<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
-							
 					</c:if>
 
 					<c:if test="${!user.getFoto().isEmpty() && user.getFoto() != null}">
 
 			  			 <img id="target" src="<c:out value="${user.getFoto()}"/>" width="260" height="260" style="border-radius: 50%;"
 						 alt="Imagem de perfil" title="Nova foto de perfil"> 
-  				
-						<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
 	
 					</c:if>
-				</label>	
+					
+					<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
+				</label>
+				
+				 <div class="menu">
+				        <a href="#"><i class="fa fa-upload"> <span>upload</span></i></a>
+				        <br>
+				        <a href="#"><i class="fa fa-edit"> <span>edite</span></i></a>
+   				 </div>
+					
 			</div>
+				
+				
+					<form class="" action="my-account?action=editar"
+		method="POST" id="formUser" enctype="multipart/form-data">			
+		
+			
 				
 			<input value="${user.id}" name="id" hidden="true" id="id">
 				<span class="input-text"> Nome </span>
