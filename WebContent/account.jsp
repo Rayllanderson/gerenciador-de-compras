@@ -35,8 +35,8 @@
   background-color: red;
 }
 
-.container:hover .overlay {
-  opacity: 1;
+#file:hover {
+  background-color: yellow;
 }
 
 
@@ -44,7 +44,7 @@
 
 <title>My Account</title>
 </head>
-<body class="account">
+<body class="account" >
 
                    <header>
 
@@ -115,19 +115,19 @@
 
 					<c:if test="${user.getFoto().isEmpty() || user.getFoto() == null}">
 							
-						<img id="target" src="resource/img/user.png" width="150" height="160"
+						<img id="target"class="target" src="resource/img/user.png" width="220" height="230" title="Nova foto de perfil"
 						 alt="Imagem de perfil"> 
   				
 						<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
 							
 					</c:if>
 
-					<c:if test="${!user.getFoto().isEmpty()}">
+					<c:if test="${!user.getFoto().isEmpty() && user.getFoto() != null}">
 
 			  			 <img id="target" src="<c:out value="${user.getFoto()}"/>" width="260" height="260" style="border-radius: 50%;"
-						 alt="Imagem de perfil"> 
+						 alt="Imagem de perfil" title="Nova foto de perfil"> 
   				
-						<input id="file" type="file" name="file" style="display: none" onload="upload()" accept="image/*"/>
+						<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
 	
 					</c:if>
 				</label>	
@@ -150,7 +150,7 @@
 						<div class="text-left">
 						
 							<input id="" class="btn btn-success" type="submit" 				
-							value="Editar" />
+							value="Salvar" />
 						</div>
 					
 					
@@ -196,12 +196,13 @@
 
 	
 	if (error) {
-		console.log('hum?')
+		console.log(error)
 		alertBoostrap(error, 'alert alert-danger')
 		error= '';
 	}
 
 	if (success) {
+		console.log(success)
 		alertBoostrap(success, 'alert alert-success')
 		success = '';
 	}
@@ -233,7 +234,6 @@
   
   <script type="text/javascript">
 
-  
 	function upload() {
 	    console.log('ola1')
 	    var target = document.querySelector("#target");
@@ -250,7 +250,7 @@
 	        target.style.borderRadius = '50%';
 	        reader.readAsDataURL(file)
 	    } else {
-	        target.src = ""
+	        target.src = "resource/img/user.png"
 	    }
 	}
   

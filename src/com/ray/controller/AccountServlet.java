@@ -39,6 +39,7 @@ public class AccountServlet extends HttpServlet {
 
     private void listarTudo(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	setInformacoes(request);
 	response.setStatus(200);
 	request.getSession().setAttribute("success", "");
 	request.getSession().setAttribute("error", "");
@@ -117,9 +118,16 @@ public class AccountServlet extends HttpServlet {
     private void redirect(HttpServletRequest request, HttpServletResponse response, int codigo, String mensagem)
 	    throws ServletException, IOException {
 	response.setStatus(codigo);
-	String tipo = codigo >= 200 && codigo < 400 ? "success" : "error";
+	String tipo = null;
+	if (codigo >= 200 && codigo < 400) { //success
+	    tipo = "success";
+	    request.getSession().setAttribute("error", ""); //resetando o atributo error
+	}else { //fail
+	    tipo = "error";
+	    request.getSession().setAttribute("success", ""); //resetando o atributo success
+	}
+	request.getSession().setAttribute(tipo, mensagem); //setando novo status com mensagem enviada
 	request.getRequestDispatcher("account.jsp").forward(request, response);
-	request.getSession().setAttribute(tipo, mensagem);
     }
 
     private void setInformacoes(HttpServletRequest request) {
