@@ -19,6 +19,8 @@
 
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
@@ -124,13 +126,15 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 </header>
 
 
+ 					<div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
+
 
 	<div class="container">
-
-	  	<div class="alert alert-success" id="success-alert" style="margin-top: 1%; ">
-   		 <button type="button" class="close" data-dismiss="alert">x</button>
-   	<h4 id="titulo"></h4> <p id="alertMsg"></p>
-  	</div>
   	
   	
 		<div class="card card-signin my-5" style="border-radius: 1em">
@@ -189,13 +193,12 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 						<div class="text-left">
 						
 							<input id="" class="btn btn-success" type="submit" 				
-							value="Salvar" />
+							value="&nbsp; Salvar &nbsp;" />
 						</div>
-					
-					
-					
+
 						<div class="text-right">
-							<a href="index.jsp">Mudar senha</a>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+							>Mudar senha</button>
 						</div>
 			</div>		
 					</div>
@@ -207,6 +210,68 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 		<!-- card.// -->
 	</div>
 	
+
+
+
+
+<!-- MODAL DE MUDAR SENHA -->
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      
+                                        <div class="form-group">
+                                            <label for="old" class="control-label" style="text-align: center">Senha Atual:</label>
+                                            <input type="password" name="old" type="text" class="form-control" id="old" required="required">
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="new1" class="control-label" style="text-align: center">Nova Senha:</label>
+                                            <input type="password" name="new1" type="text" class="form-control" id="new1" required="required">
+                                        </div>
+
+
+                                         <div class="form-group">
+                                            <label for="new2" class="control-label" style="text-align: center">Confirme a Nova Senha:</label>
+                                            <input type="password" name="new2" type="text" class="form-control" id="new2" required="required">
+                                        </div>
+                                       
+                                </div>
+                                
+					      <div class="modal-footer">
+					        		<button id="change-pass" type="submit" class="btn btn-success">&nbsp; Salvar &nbsp;</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+
+
+
+
 
 
 <hr>
@@ -230,38 +295,8 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 	<script type="text/javascript">
 	$(".alert").hide();
 
-	let error = "${error}"
-	let success = "${success}"
-
-	
-	if (error) {
-		console.log("yes, fail", error)
-		alertBoostrap(error, 'alert alert-danger')
-		error= '';
-	}
-
-	if (success) {
-		console.log("yes success", success)
-		alertBoostrap(success, 'alert alert-success')
-		success = '';
-	}
-
-	function alertBoostrap(msg, classe){
-	  $(".alert").show();
-	  document.getElementById('alertMsg').innerHTML = msg;
-	  document.getElementById("success-alert").className = classe;
-	  $("#success-alert").fadeTo(2700, 500).slideUp(500, function(){
-	    $("#success-alert").slideUp(500);
-	});
-	}
-
-	function setColorAlert(response){
-		if (response == 'Nenhuma alteração foi detectada.'){
-			alertBoostrap(response, 'alert alert-warning')
-		}else{
-			alertBoostrap(response, 'alert alert-success')
-		}
-	}
+	var error = "${error}"
+	var success = "${success}"
 	
 	</script>
 	
@@ -296,9 +331,16 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
   </script>  
 
 
+<script type="text/javascript">
+$('#exampleModal').on('show.bs.modal',
+    function(event) {
+        var button = $(event.relatedTarget)
+        var title = button.data('title')
+    })
+</script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="resource/javascript/accountAjax.js"></script>   
 

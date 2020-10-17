@@ -13,6 +13,7 @@
                     <title>Seus Produtos</title>
                     
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
+					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,14 +26,7 @@
                         body {
                             background-color: #f8f9fa;
 						}
-						
-                        #success-alert{
-                       	 margin-top: 1%;
-                         top: 0px; 
-						 margin-left: 0;
-						 margin-right: 0;
-						 text-align: center;
-                        }
+
                     </style>
 
                 </head>
@@ -426,7 +420,7 @@
 
 	<!-- Tela Modal EDITAR CATEGORIA -->
 	
-																<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -437,7 +431,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+							</div>
 		<!--		
 		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
 		-->		

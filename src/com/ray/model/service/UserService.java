@@ -80,11 +80,11 @@ public class UserService {
      * @return true caso ocorra tudo ok
      * @throws MyLoginException caso a senha não corresponda
      */
-    public boolean changePassword(User user, String senhaAtual, String newPassword) throws MyLoginException {
+    public User changePassword(User user, String senhaAtual, String newPassword) throws MyLoginException {
 	if (verificarSenha(user, senhaAtual)) { // verificar senha antes de poder alterar
 	    user.setPassword(newPassword);
 	    dao.update(user);
-	    return true;
+	    return user;
 	} else {
 	    throw new MyLoginException("Sua senha não corresponde a senha digitada. Digite novamente");
 	}

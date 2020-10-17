@@ -89,6 +89,8 @@ public class AccountServlet extends HttpServlet {
 			redirect(request, response, 400,
 				"Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
 		    }
+		} else if(action.equals("change-password")) {
+		   changePassword(request, response);
 		} else {// se mudar o parametro de action
 		    redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a página.");
 		}
@@ -140,4 +142,24 @@ public class AccountServlet extends HttpServlet {
 	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 
+    private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	String old = request.getParameter("old");
+	String new1 = request.getParameter("new1");
+	String new2 = request.getParameter("new2");
+	if(UserValidation.passwordIsValid(new1, new2)) { //senhas se batem
+	    User user = (User) request.getAttribute("user");
+	   try {
+	       	user = service.changePassword(user, old, new1); 
+		request.getSession().setAttribute("user", user);
+	       	response.setStatus(200);
+		response.getWriter().write("Senha Alterada com sucesso!");
+	    }catch (MyLoginException e) {
+		response.setStatus(400);
+		response.getWriter().write("A senha atual digitada não corresponde");
+	    } 
+	}else {
+	    response.setStatus(400);
+	    response.getWriter().write("As novas senham não correspodem");
+	}
+    }
 }

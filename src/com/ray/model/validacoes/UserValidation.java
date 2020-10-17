@@ -73,4 +73,14 @@ public class UserValidation {
 	}
 	return false;
     }
+    
+    /**
+     * 
+     * @param pasw1
+     * @param pasw2
+     * @return true caso as 2 senhas sejam iguais
+     */
+    public static boolean passwordIsValid(String pasw1, String pasw2) {
+	return pasw1.equals(pasw2);
+    }
 }
