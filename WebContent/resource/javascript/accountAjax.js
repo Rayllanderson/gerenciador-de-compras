@@ -1,4 +1,5 @@
 $(".alert").hide(); 
+$(".alertE").hide(); 
 
 
 $('#change-pass').on('click', function (){
@@ -22,11 +23,10 @@ $('#change-pass').on('click', function (){
 				$.get("my-account?action=view")
 				
 			}).fail(function(xhr) {
-				alertBoostrap(xhr.responseText, 'alert alert-danger', "Erro")
-				$('#exampleModal').modal('hide')
+				alertBoostrapError(xhr.responseText, 'alert alert-danger', "Erro")
 		});
 		} else {
-			alertBoostrap("Um ou mais campos estão nulos", 'alert alert-danger', "Erro")
+			alertBoostrapError("Um ou mais campos estão nulos", 'alert alert-danger', "Erro")
 		}
 });
 
@@ -49,5 +49,14 @@ if (error) {
 	  document.getElementById("success-alert").className = classe;
 	  $("#success-alert").fadeTo(2700, 500).slideUp(500, function(){
 	    $("#success-alert").slideUp(500);
+	});
+	}
+	
+	function alertBoostrapError(msg, classe){
+	  $("#alertE").show();
+	  document.getElementById('alertMsgE').innerHTML = msg;
+	  document.getElementById("alertE").className = classe;
+	  $("#alertE").fadeTo(2700, 500).slideUp(500, function(){
+	    $("#alertE").slideUp(500);
 	});
 	}

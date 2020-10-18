@@ -147,7 +147,7 @@ public class AccountServlet extends HttpServlet {
 	String new1 = request.getParameter("new1");
 	String new2 = request.getParameter("new2");
 	if(UserValidation.passwordIsValid(new1, new2)) { //senhas se batem
-	    User user = (User) request.getAttribute("user");
+	    User user = (User) request.getSession().getAttribute("user");
 	   try {
 	       	user = service.changePassword(user, old, new1); 
 		request.getSession().setAttribute("user", user);

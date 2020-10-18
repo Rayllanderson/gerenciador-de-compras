@@ -76,8 +76,8 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
                             <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px" /></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      							 <span class="navbar-toggler-icon"></span>
+     						 </button>
 
                             <div class="collapse navbar-collapse" id="navbarsExample02">
                                 <ul class="navbar-nav mr-auto">
@@ -234,11 +234,20 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 						  <div class="modal-dialog">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+						        <h5 class="modal-title" id="exampleModalLabel">Alterar Senha</h5>
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
+						        
+						       
+						        
 						      </div>
+						      
+						       <div class="alert alert-success" id="alertE">
+				   				 <button type="button" class="close" onclick="$('#alertE').hide();">x</button>
+				   					<h4 id="titulo"></h4> <p id="alertMsgE"></p>
+				  				 </div>
+						      
 						      <div class="modal-body">
 						      
                                         <div class="form-group">
@@ -301,14 +310,14 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 	</script>
 	
 	<script type="text/javascript">
-
+	$(".alert").hide();
 	if ( window.history.replaceState ) {
 		  window.history.replaceState( null, null, window.location.href );
 		}
         	</script>
   
   <script type="text/javascript">
-  
+  $(".alert").hide();
 	function upload() {
 	    console.log('ola1')
 	    var target = document.querySelector("#target");
@@ -332,10 +341,17 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 
 
 <script type="text/javascript">
+$(".alert").hide();
+
+
 $('#exampleModal').on('show.bs.modal',
     function(event) {
+	$("#alertE").hide();
         var button = $(event.relatedTarget)
         var title = button.data('title')
+        
+        var modal = $(this)
+      //  modal.find('.modal-title').text("Alterar Senha")
     })
 </script>
 
