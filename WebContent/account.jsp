@@ -348,10 +348,6 @@ $('#exampleModal').on('show.bs.modal',
     function(event) {
 	$("#alertE").hide();
         var button = $(event.relatedTarget)
-        var title = button.data('title')
-        
-        var modal = $(this)
-      //  modal.find('.modal-title').text("Alterar Senha")
     })
 </script>
 

@@ -6,7 +6,7 @@ $('#change-pass').on('click', function (){
   	let old = $('#old').val();
 	let new1 = $('#new1').val();
 	let new2 = $('#new2').val();
-
+	let modal = $('#exampleModal')
 
 		if (old && new1 && new2) {
 			$.ajax({
@@ -21,7 +21,9 @@ $('#change-pass').on('click', function (){
 				alertBoostrap("Sua senha foi alterada com sucesso", 'alert alert-success', "Sucesso")	
 				$('#exampleModal').modal('hide')
 				$.get("my-account?action=view")
-				
+				modal.find('#old').val('')
+         		modal.find('#new1').val('')
+         		modal.find('#new2').val('')
 			}).fail(function(xhr) {
 				alertBoostrapError(xhr.responseText, 'alert alert-danger', "Erro")
 		});
