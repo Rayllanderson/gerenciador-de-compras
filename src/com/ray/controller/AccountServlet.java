@@ -89,27 +89,28 @@ public class AccountServlet extends HttpServlet {
 			redirect(request, response, 400,
 				"Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
 		    }
-		} else if(action.equals("change-password")) {
-		   changePassword(request, response);
+		} else if (action.equals("change-password")) {
+		    changePassword(request, response);
 		} else {// se mudar o parametro de action
 		    redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a página.");
 		}
 	    } else { // se nao for editar, simplemtente volta tudo
 		request.getRequestDispatcher("account.jsp").forward(request, response);
 	    }
-
 	} catch (EntradaInvalidaException e) { // upou arquivo inválido
 	    redirect(request, response, 400, e.getMessage());
 	} catch (MyLoginException e) { // username ja existente
 	    redirect(request, response, 409, "O username escolhido já está em uso. Tente usar outro");
-	}catch (RuntimeException e) {
+	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	    redirect(request, response, 500, "ocorreu um erro inesperado");
 	}
     }
 
     /**
-     * redireciona para account.jsp. se o codigo for entre 200 e 399, alert success, senao, alert error.
+     * redireciona para account.jsp. se o codigo for entre 200 e 399, alert success,
+     * senao, alert error.
+     * 
      * @param request
      * @param response
      * @param codigo
@@ -121,14 +122,14 @@ public class AccountServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	response.setStatus(codigo);
 	String tipo = null;
-	if (codigo >= 200 && codigo < 400) { //success
+	if (codigo >= 200 && codigo < 400) { // success
 	    tipo = "success";
-	    request.getSession().setAttribute("error", ""); //resetando o atributo error
-	}else { //fail
+	    request.getSession().setAttribute("error", ""); // resetando o atributo error
+	} else { // fail
 	    tipo = "error";
-	    request.getSession().setAttribute("success", ""); //resetando o atributo success
+	    request.getSession().setAttribute("success", ""); // resetando o atributo success
 	}
-	request.getSession().setAttribute(tipo, mensagem); //setando novo status com mensagem enviada
+	request.getSession().setAttribute(tipo, mensagem); // setando novo status com mensagem enviada
 	request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
@@ -146,18 +147,22 @@ public class AccountServlet extends HttpServlet {
 	String old = request.getParameter("old");
 	String new1 = request.getParameter("new1");
 	String new2 = request.getParameter("new2");
-	if(UserValidation.passwordIsValid(new1, new2)) { //senhas se batem
+	if (UserValidation.passwordIsValid(new1, new2)) { // senhas se batem
 	    User user = (User) request.getSession().getAttribute("user");
-	   try {
-	       	user = service.changePassword(user, old, new1); 
+	    try {
+		user = service.changePassword(user, old, new1);
 		request.getSession().setAttribute("user", user);
-	       	response.setStatus(200);
+		response.setStatus(200);
 		response.getWriter().write("Senha Alterada com sucesso!");
-	    }catch (MyLoginException e) {
+	    } catch (MyLoginException e) {
 		response.setStatus(400);
 		response.getWriter().write("A senha atual digitada não corresponde");
-	    } 
-	}else {
+	    } catch (RuntimeException e) {
+		e.printStackTrace();
+		response.setStatus(500);
+		response.getWriter().write("Ocorreu um erro x_x");
+	    }
+	} else {
 	    response.setStatus(400);
 	    response.getWriter().write("As novas senham não correspodem");
 	}

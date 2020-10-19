@@ -7,7 +7,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -25,14 +25,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
 
+<link href="resource/css/wave.css" type="text/css" rel="stylesheet" />
+
 <style type="text/css">
 
-body{
-background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033a01f47e0c0b1d6e.jpg');
+* {
+ box-sizing: border-box;
 }
 
-.box {
+
+body{
+margin: 0;
+padding: 0;
+height: 100%;
+border-radius: 1em;
+background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033a01f47e0c0b1d6e.jpg');
+background-repeat: no-repeat;
+position: relative;
 }
+
+*:before,
+*:after {
+ box-sizing: border-box;
+}
+
+
+.content {
+ min-height: 100vh; /* will cover the 100% of viewport */
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-bottom: 100px; /* height of your footer */
+
+}
+
+footer{
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ height: 3.5rem;
+}
+
+
 .avatar::after {
     opacity: 0;
     content: "\f044";
@@ -60,6 +94,90 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
     border-radius: 50%;
 }
 
+.menu {
+    position: absolute;
+    opacity: 0;
+    width: 100px;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    top: 50%; 
+    left: 56%;
+    z-index: -1;
+    transition: 350ms ease-in-out;
+}
+
+
+
+
+
+.wave {
+  fill: #7500B3;
+}
+.drop {
+  stroke: #7500B3;
+}
+
+
+
+
+nav{
+box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+.items{
+	color: #7500B3;
+}
+
+
+
+
+
+
+
+
+
+#wrapper {
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+#wrapper > .header {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+#wrapper > .header + div {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+#wrapper > .header + div > div:first-of-type {
+    -webkit-flex: 7 0 0;
+    flex: 7 0 0;
+}
+
+#wrapper > .header + div > div:last-of-type {
+    -webkit-flex: 3 0 0;
+    flex: 3 0 0;
+}
+
 
 
 
@@ -72,7 +190,7 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 
                    <header>
 
-                         <nav class="navbar navbar-expand navbar-dark bg-primary">
+                         <nav class="navbar navbar-expand navbar-dark">
                             <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px" /></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +233,7 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 							
 							
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
+                                <a class="dropdown-item" href="#">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                                 <div class="dropdown-divider"></div>
@@ -133,6 +251,7 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 				  		</div>
 					</div>
 
+<div class="wrapper" id="wrapper">
 
 	<div class="container">
   	
@@ -152,8 +271,9 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 			
 		<article class="roll">					
 			<div class="box">
-			  		<label class="avatar" for="file">
+			  		<label class="avatar" for="btn">
 			  		
+			  		  		
 			  		<!--  NAO POSSUI FOTO  -->
 					<c:if test="${user.getFoto().isEmpty() || user.getFoto() == null}">	
 						<img id="target" class="target" src="resource/img/user.png" width="260" height="260" style="border-radius: 50%; border: 1px solid gray;" title="Nova foto de perfil"
@@ -164,12 +284,26 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 					<c:if test="${!user.getFoto().isEmpty() && user.getFoto() != null}">
 			  			 <img id="target" src="<c:out value="${user.getFoto()}"/>" width="260" height="260" style="border-radius: 50%;"
 						 alt="Imagem de perfil" title="Nova foto de perfil"> 
+						
 					</c:if>
 					
-					<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
 					
-				</label>			
-									
+						
+				</label>	
+				
+				
+				
+				 <button id="btn" type="button" style="display:none;" onclick="console.log('clicou')">A</button>	
+					<div id="menu" class="menu">
+       					
+       					<label  for="file"> <i class="fa fa-upload"> <span class="items">Upload</span></i> 
+       					 
+       						 <input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
+       					</label>	 
+       						 <br>
+       					<a href="my-account?action=remove-photo"><i class="fas fa-times"> <span class="items" >Remove</span></i></a>
+    				</div>	
+			
 			</div>
 			</article>
 			
@@ -209,7 +343,30 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 		</div>
 		<!-- card.// -->
 	</div>
+
+
+<!--  
+
+<hr>
+<div class="container">
 	
+	
+		<div class="card card-signin my-5" style="border-radius: 1em">
+			<article class="card-body mx-auto">
+			<h4 class="card-title mt-3 text-center">Informações Gerais</h4>
+			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
+			<p>Você possui ${tListas} listas no total </p>
+			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
+			<p>Você já gastou ${tGasto} </p>
+			<p>Você pretende gastar ${tEstipulado} </p>
+			</article>
+			</div>
+			</div>
+			
+			
+			 -->
+		
+
 
 
 
@@ -278,28 +435,43 @@ background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033
 					</div>
 
 
+<footer>
+<svg viewBox="0 0 120 28">
+ <defs> 
+   <mask id="xxx">
+     <circle cx="7" cy="12" r="40" fill="#fff" />
+   </mask>
+   
+   <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="
+           1 0 0 0 0  
+           0 1 0 0 0  
+           0 0 1 0 0  
+           0 0 0 13 -9" result="goo" />
+      <feBlend in="SourceGraphic" in2="goo" />
+  	</filter>
+     <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+  </defs> 
+
+   <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2" ></use> 
+   <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0" ></use>
+ 
+
+  </g>
+  <g class="gooeff">
+  <circle class="drop drop1" cx="20" cy="2" r="1.8"  />
+  <circle class="drop drop2" cx="25" cy="2.5" r="1.5"  />
+  <circle class="drop drop3" cx="16" cy="2.8" r="1.2"  />
+    <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+
+</svg>
+
+</footer>
 
 
+ </div>	
 
-
-
-<hr>
-<div class="container">
-	
-	
-		<div class="card card-signin my-5" style="border-radius: 1em">
-			<article class="card-body mx-auto">
-			<h4 class="card-title mt-3 text-center">Informações Gerais</h4>
-			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
-			<p>Você possui ${tListas} listas no total </p>
-			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
-			<p>Você já gastou ${tGasto} </p>
-			<p>Você pretende gastar ${tEstipulado} </p>
-			</article>
-			</div>
-			</div>
-			
-			
 	
 	<script type="text/javascript">
 	$(".alert").hide();
@@ -351,7 +523,22 @@ $('#exampleModal').on('show.bs.modal',
     })
 </script>
 
+<script type="text/javascript">
 
+let menu = document.getElementById("menu");
+
+$(window).on('click', function() {
+	menu.style.opacity = 0;
+	});
+
+	$('#btn').on('click', function(event){
+		event.stopPropagation();
+	    menu.style.opacity= 1;
+	    menu.style.zIndex = 999;
+	});
+
+
+</script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="resource/javascript/accountAjax.js"></script>   

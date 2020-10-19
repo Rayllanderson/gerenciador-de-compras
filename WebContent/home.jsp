@@ -5,7 +5,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 
 <title>Home</title>
 
@@ -13,6 +13,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 
+<link href="resource/css/wave.css" type="text/css" rel="stylesheet" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -20,6 +21,24 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+
+<style type="text/css">
+
+		body{
+		  background-color: #f8f9fa;
+		
+		}
+	
+
+		body{
+		 background-image: url('resource/img/ola/a.jpg');
+		 background-repeat: no-repeat;
+		 
+		}
+
+		
+</style>
 
 </head>
 <body>
@@ -83,8 +102,17 @@
 <!-- pôr um botao de procurar um produto ou categoria -->
 <h3>Login Success</h3>
 <br><br>
-	<h1>Olá, ${user.name}, O que você quer fazer?!</h1>
-		<a class="btn btn-primary" type="submit" href="categorias?acao=listar">Acessar suas listas</a>
 
+<div class="container" >
+<div class="card card-signin my-5" style="border-radius: 1em; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);">
+			<article class="card-body mx-auto">
+			<h3 class="card-title mt-3 text-center">Olá, ${user.name}, O que você quer fazer?</h3>
+						<a class="btn btn-primary" type="submit" href="categorias?acao=listar">Acessar suas listas</a>
+				</article>
+		</div>
+</div>
+
+	
+		
 </body>
 </html>

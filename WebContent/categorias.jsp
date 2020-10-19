@@ -14,9 +14,13 @@
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
  <style type="text/css">
                         body {
-                            background-color: #f8f9fa;
+                       	background-color: #f8f9fa;
                         }
                        
+                       .table-responsive-lg{
+                       
+                       
+                       }
                         
                     </style>
 </head>
@@ -130,7 +134,7 @@
 
 	<!-- SEARCH -->
     <div class="form-inline" id="searchForm">
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="search" title="procure algum produto que queira encontrar" style="width: 80%;
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="search" title="procure alguma categoria que queira encontrar" style="width: 80%;
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
       <button type="button" onclick="search()" class="btn btn-outline-primary my-2 my-sm-0" style="border: 0.5px solid; border-radius: 0.9rem; 
