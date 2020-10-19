@@ -135,45 +135,18 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     background-color: darkviolet;
 }
 
-.dropdown-item text-info.active, .dropdown-item text-info:active{
-    background-color: rgb(230, 230, 230);
-}
-
 .yo.active, .yo:active{
     background-color: rgb(230, 230, 230);
 }
 
+.yo{
+	cursor: pointer;
+}
 
 #wrapper {
     height: 100%;
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-}
-
-#wrapper > .header {
-    -webkit-flex: 0 0 auto;
-    flex: 0 0 auto;
-}
-
-#wrapper > .header + div {
-    -webkit-flex: 1 1 auto;
-    flex: 1 1 auto;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-}
-
-#wrapper > .header + div > div:first-of-type {
-    -webkit-flex: 7 0 0;
-    flex: 7 0 0;
-}
-
-#wrapper > .header + div > div:last-of-type {
-    -webkit-flex: 3 0 0;
-    flex: 3 0 0;
 }
 
 
@@ -188,7 +161,12 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
                    <header>
 
                          <nav class="navbar navbar-expand navbar-dark">
-                            <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px" /></a>
+                            <a class="navbar-brand" href="home.jsp">
+                            
+                           <i class="fas fa-arrow-left fa-md"></i>
+                            
+                          <!-- <img src="resource/img/back.png" width="25px" height="20px" /></a>  -->  
+                          </a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
       							 <span class="navbar-toggler-icon"></span>
@@ -197,13 +175,13 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
                             <div class="collapse navbar-collapse" id="navbarsExample02">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="home.jsp"> <i class="fas fa-home fa-sm"></i> Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="categorias">Categorias</a>
+                                        <a class="nav-link" href="categorias"> <i class="fas fa-clipboard fa-sm"></i> Listas</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="produtos">Produtos</a>
+                                    	<a class="nav-link" href="produtos" ><i class="fas fa-shopping-cart fa-sm"></i> Produtos</a>
                                     </li>
                                 </ul>
                             </div>
@@ -268,7 +246,8 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			  		  		
 			  		<!--  NAO POSSUI FOTO  -->
 					<c:if test="${user.getFoto().isEmpty() || user.getFoto() == null}">	
-						<img id="target" class="target" src="resource/img/user.png" width="260" height="260" style="border-radius: 50%; border: 1px solid gray;" title="Nova foto de perfil"
+						<div class="without-photo" style="display: none"></div>
+						<img id="target"  src="resource/img/user.png" width="260" height="260" style="border-radius: 50%; border: 1px solid gray;" title="Nova foto de perfil"
 						 alt="Imagem de perfil"> 
 					</c:if>
 
@@ -292,8 +271,8 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
        				
        					</label>
        					 
-       					<div class="yo dropdown-item">
-       					<a href="my-account?action=remove-photo" class="text-danger"><i class="fas fa-times"> <span class="items" >Remove</span></i></a>
+       					<div class="yo dropdown-item" id="remove" data-toggle="modal" data-target="#exampleModalCenter">
+       						<a class="text-danger"><i class="fas fa-times"> <span class="items" >Remove</span></i></a>
        					</div>
     				</div>	
 			
@@ -336,6 +315,29 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 		</div>
 		<!-- card.// -->
 	</div>
+
+
+
+<!-- Modal confirmar remover foto -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Atenção <i class="fas fa-exclamation-triangle"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	Você tem certeza que deseja remover sua foto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="excluir">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!--  
@@ -506,6 +508,19 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 
 
 <script type="text/javascript">
+
+let target = document.getElementsByClassName("without-photo");
+if(target.length > 0){
+	document.getElementById('remove').style.display = "none";
+}else{
+	console.log('false');
+	document.getElementById('remove').style.display = "block";
+}
+
+</script>
+
+
+<script type="text/javascript">
 $(".alert").hide();
 
 
@@ -533,7 +548,9 @@ $(window).on('click', function() {
 </script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="resource/javascript/accountAjax.js"></script>   
+<script src="resource/javascript/accountAjax.js"></script> 
+<script src="resource/javascript/remover-foto.js"></script>     
+
 
 </body>
 </html>

@@ -12,6 +12,8 @@
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+
  <style type="text/css">
                         body {
                        	background-color: #f8f9fa;
@@ -30,7 +32,7 @@
 <header>
 
 <nav class="navbar navbar-expand navbar-dark bg-primary">
-      <a class="navbar-brand" href="home.jsp"><img src="resource/img/back.png" width="25px" height="20px"/></a>
+      <a class="navbar-brand" href="home.jsp"><i class="fas fa-arrow-left fa-md"></i></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -39,13 +41,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="home.jsp"> <i class="fas fa-home fa-sm"></i> Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Categorias</a>
+            <a class="nav-link" href="#"><i class="fas fa-clipboard fa-md"></i> Listas</a>
           </li>
           <li class="nav-item ">
-      		<a class="nav-link" href="produtos" >Produtos</a>
+      		<a class="nav-link" href="produtos" ><i class="fas fa-shopping-cart fa-sm"></i> Produtos</a>
       	  </li>
         </ul>
         </div>

@@ -20,7 +20,7 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
-					
+					<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
 
                     <style type="text/css">
                         body {
@@ -37,22 +37,22 @@
                     <header>
 
                         <nav class="navbar navbar-expand navbar-dark bg-primary">
-                            <a class="navbar-brand" href="categorias.jsp"><img src="resource/img/back.png" width="25px" height="20px" /></a>
+                            <a class="navbar-brand" href="categorias.jsp"> <i class="fas fa-arrow-left fa-md"> </i></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+					        <span class="navbar-toggler-icon"></span>
+					      </button>
 
                             <div class="collapse navbar-collapse" id="navbarsExample02">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="home.jsp"> <i class="fas fa-home fa-sm"></i> Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="categorias">Categorias</a>
+                                        <a class="nav-link" href="categorias"><i class="fas fa-clipboard fa-sm"></i> Listas</a>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="#">Produtos</a>
+                                        <a class="nav-link" href="#"><i class="fas fa-shopping-cart fa-md"></i> Produtos</a>
                                     </li>
                                 </ul>
                             </div>
@@ -470,7 +470,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Atenção</h5>
+        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Atenção <i class="fas fa-exclamation-triangle"></i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -34,23 +34,15 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	System.out.println("get");
 	listarTudo(request, response);
-    }
-
-    private void listarTudo(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	setInformacoes(request);
-	response.setStatus(200);
-	request.getSession().setAttribute("success", "");
-	request.getSession().setAttribute("error", "");
-	request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String action = request.getParameter("action");
-	System.out.println(action);
+	System.out.println("POST" + action);
 	try {
 	    if (action != null) {
 		response.setContentType("text/plain");
@@ -106,6 +98,18 @@ public class AccountServlet extends HttpServlet {
 	    redirect(request, response, 500, "ocorreu um erro inesperado");
 	}
     }
+    
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        System.out.println("delete");
+        if(action != null) {
+            if(action.equals("remove-photo")) {
+        	removerFoto(request, response);
+        	response.setStatus(204);
+            }
+        }
+    }
 
     /**
      * redireciona para account.jsp. se o codigo for entre 200 e 399, alert success,
@@ -130,6 +134,25 @@ public class AccountServlet extends HttpServlet {
 	    request.getSession().setAttribute("success", ""); // resetando o atributo success
 	}
 	request.getSession().setAttribute(tipo, mensagem); // setando novo status com mensagem enviada
+	request.getRequestDispatcher("account.jsp").forward(request, response);
+    }
+    
+    private void removerFoto(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	User user = (User) request.getSession().getAttribute("user");
+	user.setFoto("");
+	user.setMiniatura("");
+	service.update(user);
+	request.getSession().setAttribute("user", repository.findById(user.getId()));
+    }
+    
+
+    private void listarTudo(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+	setInformacoes(request);
+	response.setStatus(200);
+	request.getSession().setAttribute("success", "");
+	request.getSession().setAttribute("error", "");
 	request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 

@@ -20,7 +20,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
 
 
 <style type="text/css">
@@ -56,13 +56,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link active" href="#"><i class="fas fa-home fa-md"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="categorias">Categorias</a>
+            <a class="nav-link" href="categorias"><i class="fas fa-clipboard fa-sm"></i> Listas</a>
           </li>
           <li class="nav-item">
-      		<a class="nav-link" href="produtos" >Produtos</a>
+      		<a class="nav-link" href="produtos" ><i class="fas fa-shopping-cart fa-sm"></i> Produtos</a>
       	  </li>
         </ul>
         </div>

@@ -61,4 +61,6 @@ if (error) {
 	  $("#alertE").fadeTo(2700, 500).slideUp(500, function(){
 	    $("#alertE").slideUp(500);
 	});
-	}
+}
+
+
