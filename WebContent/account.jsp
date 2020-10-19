@@ -39,7 +39,7 @@ margin: 0;
 padding: 0;
 height: 100%;
 border-radius: 1em;
-background-image: url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033a01f47e0c0b1d6e.jpg');
+background-image: url('resource/img/ola/b9c8f893c9a782033a01f47e0c0b1d6e.jpg');
 background-repeat: no-repeat;
 position: relative;
 }
@@ -94,15 +94,16 @@ footer{
     border-radius: 50%;
 }
 
-.menu {
+#menu {
     position: absolute;
     opacity: 0;
-    width: 100px;
+    width: 200px
     height: auto;
     background-color: #fff;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
     box-sizing: border-box;
-    padding: 0.5rem;
+    padding: 0.3rem;
+    padding-left: 0.1rem;
     border-radius: 0.5rem;
     top: 50%; 
     left: 56%;
@@ -129,21 +130,18 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 
-
-
-
-
-
-.items{
-	color: #7500B3;
+.dropdown-item.active, .dropdown-item:active{
+    color: #fff;
+    background-color: darkviolet;
 }
 
+.dropdown-item text-info.active, .dropdown-item text-info:active{
+    background-color: rgb(230, 230, 230);
+}
 
-
-
-
-
-
+.yo.active, .yo:active{
+    background-color: rgb(230, 230, 230);
+}
 
 
 #wrapper {
@@ -177,7 +175,6 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     -webkit-flex: 3 0 0;
     flex: 3 0 0;
 }
-
 
 
 
@@ -254,21 +251,16 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 <div class="wrapper" id="wrapper">
 
 	<div class="container">
-  	
-  	
+
 		<div class="card card-signin my-5" style="border-radius: 1em">
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Sua Conta</h4>
 				<div class="text-center">
-		  			
 				</div>
+				
 				
 					<form class="" action="my-account?action=editar"
 		method="POST" id="formUser" enctype="multipart/form-data">			
-		
-		
-		
-			
 		<article class="roll">					
 			<div class="box">
 			  		<label class="avatar" for="btn">
@@ -285,23 +277,24 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			  			 <img id="target" src="<c:out value="${user.getFoto()}"/>" width="260" height="260" style="border-radius: 50%;"
 						 alt="Imagem de perfil" title="Nova foto de perfil"> 
 						
-					</c:if>
-					
-					
-						
+					</c:if>		
 				</label>	
 				
 				
 				
-				 <button id="btn" type="button" style="display:none;" onclick="console.log('clicou')">A</button>	
-					<div id="menu" class="menu">
+				 <button id="btn" type="button" style="display:none;" >A</button>	
+					<div class="card" id="menu">
        					
-       					<label  for="file"> <i class="fa fa-upload"> <span class="items">Upload</span></i> 
+       					<label class="yo dropdown-item text-info" id="label-file" for="file" style="cursor: pointer; text-decoration: none">
+       					
+       					<i class="fas fa-camera fa-fw"></i>Upload
+								<input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
+       				
+       					</label>
        					 
-       						 <input id="file" type="file" name="file" style="display: none" onchange="upload()" accept="image/*"/>
-       					</label>	 
-       						 <br>
-       					<a href="my-account?action=remove-photo"><i class="fas fa-times"> <span class="items" >Remove</span></i></a>
+       					<div class="yo dropdown-item">
+       					<a href="my-account?action=remove-photo" class="text-danger"><i class="fas fa-times"> <span class="items" >Remove</span></i></a>
+       					</div>
     				</div>	
 			
 			</div>
@@ -536,7 +529,6 @@ $(window).on('click', function() {
 	    menu.style.opacity= 1;
 	    menu.style.zIndex = 999;
 	});
-
 
 </script>
 
