@@ -357,4 +357,14 @@ $(document).ready(function(){
 	
 </script>
 
+ <script type="text/javascript">
+ 
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                		document.getElementById('search').style.marginLeft = "2%"
+                		document.getElementById('search').style.marginRight = "2%"
+                	}
+</script>
+
+
+
 </html>

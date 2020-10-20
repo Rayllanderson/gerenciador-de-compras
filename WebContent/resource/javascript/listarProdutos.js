@@ -11,6 +11,7 @@ function listar(url){
 			
 			$.get("produtos.jsp", function(responseXml) {          
 				$("#tabela-produtos").html($(responseXml).find("data").html());
+				tupi();
 			});
 		}).fail(function(xhr) {
 			alertBoostrap(xhr.responseText, 'alert alert-danger')

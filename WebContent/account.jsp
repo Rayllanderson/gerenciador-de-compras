@@ -507,18 +507,6 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   </script>  
 
 
-<script type="text/javascript">
-
-let target = document.getElementsByClassName("without-photo");
-if(target.length > 0){
-	document.getElementById('remove').style.display = "none";
-}else{
-	console.log('false');
-	document.getElementById('remove').style.display = "block";
-}
-
-</script>
-
 
 <script type="text/javascript">
 $(".alert").hide();

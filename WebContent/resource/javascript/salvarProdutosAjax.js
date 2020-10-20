@@ -45,7 +45,8 @@ function saveProduct() {
 				alertBoostrap(setMessageAlert(id, nome), 'alert alert-success', "Sucesso")	
 				$('#exampleModal').modal('hide')
 				$.get("produtos?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
-					$("#tabela-produtos").html($(responseXml).find("data").html()); // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
+					$("#tabela-produtos").html($(responseXml).find("data").html());
+					tupi();
 					atualizarValores()
 				}); 
 	
@@ -67,6 +68,18 @@ function atualizarValores(){
 					$('#vtEstipulado').load('resource/jsp/vtEstipulado.jsp').html;
 }
 
+
+  
+function tupi(){
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                		document.getElementById('tabela').className = "table table-sm";
+                		document.getElementById('search').style.marginLeft = "2%"
+                		document.getElementById('search').style.marginRight = "2%"
+                	}else{
+                		document.getElementById('tabela').className = "table";
+                	}
+                
+}
 
 
 

@@ -24,6 +24,7 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 			$.get("produtos?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
 				$("#tabela-produtos").html($(responseXml).find("data").html()); 		  // Parse XML, find <data> element and append its HTML to HTML DOM element with ID "somediv".
 				atualizarValores()
+				tupi();
 			});
 		}).fail(function(xhr) {
 			$('#exampleModal').modal('hide')

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <%@page import="com.ray.model.entities.Product"%>
             <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -9,7 +9,7 @@
                 <head>
                     <meta charset="ISO-8859-1">
 
-                    <meta name="viewport" content="width=device-width, initial-scale=0.71">
+                    <meta name="viewport" content="width=device-width, initial-scale=0.8">
                     <title>Seus Produtos</title>
                     
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
@@ -25,18 +25,48 @@
                     <style type="text/css">
                         body {
                             background-color: #f8f9fa;
+                          
 						}
-
+						
+						.wall
+						{
+							background-image: url('resource/img/ola/pink.svg');
+							background-size:cover;
+							 background-repeat: no-repeat;
+							/* box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+							  border-radius: 1em;
+							/* background-color: #A2D9FF */
+							
+						}
+						
+						@keyframes animateWave {
+						  0% {
+						    transform: scale(1,0);
+						  }
+						  100% {
+						    transform: scale(1,1);
+						  }
+						}
+.wall > svg {
+  display: block;
+  transform-origin: bottom;
+  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+	
+						
+					
                     </style>
 
                 </head>
 
                 <body>
  
- <!-- Início navbar -->
+ <!-- InÃ­cio navbar -->
+ 			<div class="wall">
                     <header>
 
-                        <nav class="navbar navbar-expand navbar-dark bg-primary">
+					<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
+                        <nav class="navbar navbar-expand navbar-dark" style="box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);">
                             <a class="navbar-brand" href="categorias.jsp"> <i class="fas fa-arrow-left fa-md"> </i></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,22 +131,20 @@
  
  <!-- INICIO 2NAV -->
 
-                    <div class="card card-signin" style="height: 5%">
-                        <ul class="nav justify-content-end">
-
-
-
+<!--  <div class="card card-signin" style="height: 5%"> -->
+                 <div class="navbar navbar-expand navbar-dark justify-content-end" style="height: 5%; box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.08);">
+                        <ul class="nav" style="justify-content: end;">
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" data-target="#exampleModal" class="btn btn-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
-			<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
-</svg> Add
-</button><!-- botao add novo produto -->
+                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%;margin-right:5px; border:none; color:white; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" data-target="#exampleModal" class="btn btn-outline-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
+									<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+									</svg> Add
+									</button><!-- botao add novo produto -->
 
 									
-                                    <a class="btn btn-primary" data-toggle="collapse" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a class="btn btn-outline-primary" data-toggle="collapse" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); color:white; border: none;" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         <svg width="1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 </svg> Infos <!-- botao infos -->
@@ -153,16 +181,15 @@
 </svg>
 					</a> </h4>	
 					
-                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
-                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
+                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preÃ§o estipulado dos que nÃ£o foram comprados"> Valor Total: ${tTotal} </p>
+                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preÃ§o estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
 
                             </article>
                         </div>
                     </div>
 
 
-
-                    <!-- INÍCIO CARD INFOS -->
+                    <!-- INÃCIO CARD INFOS -->
                     <div class="container" style="">
                         <div class="collapse" id="collapseExample">
                             <div id="cardCol" class="card card-body" style=" border: 0;
@@ -185,7 +212,7 @@
                                             <div class="card-header" id="headingOne">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseOne">
-										Quanto você Já economizou</button>
+										Quanto vocÃª JÃ¡ economizou</button>
                                                 </h2>
                                             </div>
                                             <div id="collapse3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
@@ -199,7 +226,7 @@
                                         <div class="card">
                                             <div class="card-header" id="headingOne">
                                                 <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Quanto disponível você
+                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Quanto disponÃ­vel vocÃª
 										tem pra gastar</button>
                                                 </h2>
                                             </div>
@@ -213,10 +240,14 @@
                             <!-- fim card -->
                         </div>
                     </div>
-                    <!-- FIM INFORMAÇÕES -->
+                    <!-- FIM INFORMAÃ‡Ã•ES -->
                     </div>
 </infos>
 
+ 
+ <div>&nbsp;</div>
+ 
+</div>
 
                     <div class="container-xl">
                         <main role="main" class="">
@@ -233,7 +264,7 @@
                                     <div class="form-inline">
                                         <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search" aria-label="Search" title="procure algum produto que queira encontrar" style="
   border-radius: 0.9rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); ">
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); width: 80%">
                                         <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" onclick="search()" style="border: 0.5px solid;
   border-radius: 0.9rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
@@ -250,25 +281,25 @@
 
                                 
                                         <button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
-  border-radius: 0.9rem;">
-		<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-</svg>
-</button>									
+								  border-radius: 0.9rem;">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+								</svg>
+								</button>									
 
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" style="
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                                             <a class="dropdown-item" type="button" onclick="listar('produtos?acao=listar')">Todos os Produtos</a>
                                             <a class="dropdown-item" type="button" onclick="listar('produtos?acao=comprados')">Produtos Comprados</a>
-                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=nao_comprados')">Produtos Não Comprados</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=nao_comprados')">Produtos NÃ£o Comprados</a>
                                         </div>
                                         </div>
 
   <data>
 
                             <!--  INICIO TABELA  -->
-                            <div class="table-responsive-xl" id="tabela-produtos">
+                            <div class="table-responsive-lg" id="tabela-produtos">
                                 <table class="table" id="tabela" style="
                                  border: 0;
   border-radius: 1rem;
@@ -277,8 +308,8 @@
                                     <thead>
                                         <tr class="text-primary">
                                             <th scope="col">Nome</th>
-                                            <th scope="col">Preço Estipulado</th>
-                                            <th scope="col">Preço Real</th>
+                                            <th scope="col">PreÃ§o Estipulado</th>
+                                            <th scope="col">PreÃ§o Real</th>
                                             <th scope="col" style="text-align: center">Comprado</th>
                                             <th scope="col">Editar</th>
                                             <th scope="col">Excluir</th>
@@ -289,10 +320,10 @@
                                         <c:forEach items="${produtos}" var="prod">
                                             <tr>
                                                 <td data-label="Nome" >${prod.nome}</td>
-                                                <td data-label="Preço Estipulado" style="color: deeppink">R$
+                                                <td data-label="PreÃ§o Estipulado" style="color: deeppink">R$
                                                     <fmt:formatNumber type="number" maxFractionDigits="3" value="${prod.precoEstipulado}" />
                                                 </td>
-                                                <td data-label="Preço Real" class="text-primary">R$
+                                                <td data-label="PreÃ§o Real" class="text-primary">R$
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
                                                 </td>
                                                 <td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
@@ -376,13 +407,13 @@
 
 
                                         <div class="form-group">
-                                            <label for="message-text" class="control-label">Preço
+                                            <label for="message-text" class="control-label">PreÃ§o
 								Estipulado:</label> <input name="estipulado" type="text" class="form-control" id="estipulado" required="required" style="width: 50%;" inputmode="numeric">
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label for="message-text" class="control-label">Preço
+                                            <label for="message-text" class="control-label">PreÃ§o
 								Real:</label> <input name="real" type="text" class="form-control" id="real" style="width: 50%;" data-thousands="." data-decimal="," data-prefix="R$ " inputmode="numeric">
                                         </div>
 
@@ -399,7 +430,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="comprado">Produto já foi comprado?</label> <input type="checkbox" id="comprado" name="comprado" onclick="myFunction()" style="margin-left: 3px; margin-top: 5px; transform: scale(1.5);">
+                                            <label for="comprado">Produto jÃ¡ foi comprado?</label> <input type="checkbox" id="comprado" name="comprado" onclick="myFunction()" style="margin-left: 3px; margin-top: 5px; transform: scale(1.5);">
 
                                             <span id="text"></span>
 
@@ -470,13 +501,13 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Atenção <i class="fas fa-exclamation-triangle"></i></h5>
+        <h5 class="modal-title text-danger" id="exampleModalLongTitle">AtenÃ§Ã£o <i class="fas fa-exclamation-triangle"></i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       	Você tem certeza que deseja excluir o produto <strong><span id="nomeProd"></span></strong>?
+       	VocÃª tem certeza que deseja excluir o produto <strong><span id="nomeProd"></span></strong>?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -538,7 +569,7 @@ $(".alert").hide();
                             if (checkBox.checked == true) {                           	
                                 text.innerHTML = 'Sim'
                             } else {      
-                                text.innerHTML = 'Não'
+                                text.innerHTML = 'NÃ£o'
                             }
                         }
 
@@ -610,5 +641,21 @@ $(".alert").hide();
                     	
                     
                 </script>
-
+                
+                
+              <script type="text/javascript">
+	                function tupi(){
+	            	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	            		document.getElementById('tabela').className = "table table-sm";
+	            		document.getElementById('search').style.marginLeft = "2%"
+	            		document.getElementById('search').style.marginRight = "2%"
+	            	}else{
+	            		document.getElementById('tabela').className = "table";
+	            	}
+	                }
+	                
+	                tupi();
+                </script>
+                
+                
                 </html>
