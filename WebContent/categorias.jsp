@@ -10,6 +10,7 @@
 <title>Suas Listas</title>
 
 <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/set-categorias-themes.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -25,27 +26,20 @@
 						{
 							background-color: #e7008a;
 						}
-
+							
+						.galaxy{
+                	    background-image: url('resource/img/galaxy.jpg');
+                    	}
                     </style>
                     
 </head>
 <body>
 
 
-
-                    	<!-- ALERT -->
-				 	 <div class="fixed-top">
-				 		<div class="alert alert-success" id="success-alert">
-				   			 <button type="button" class="close"onclick="$('.alert').hide();">x</button>
-				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
-				  		</div>
-					</div>
-
-
 <div class="wall" id="wall">
 
 <header>
-	 <nav class="navbar navbar-expand navbar-dark" style="box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);">
+	 <nav class="navbar navbar-expand navbar-dark" id="navbar">
       <a class="navbar-brand" href="home.jsp"><i class="fas fa-arrow-left fa-md"></i></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,18 +106,25 @@
 
 </header>
 
+                    	<!-- ALERT -->
+				 	  <div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close"onclick="$('.alert').hide();">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
 
 
- <div class="navbar navbar-expand navbar-dark justify-content-end" style="height: 5%; box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.08);">
+<!-- 2navbar -->
+
+ <div class="navbar navbar-expand navbar-dark justify-content-end" id="2navbar">
                         <ul class="nav justify-content-end">
-
 
 
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-outline-success" data-target="#categoriaModal"  style="margin-top: 3%;
- border:none; color:white; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" > 
+                                   <button type="submit" id="btn-new-list" data-toggle="modal" data-title="Nova Lista" class="btn btn-outline-success" data-target="#categoriaModal" > 
 		
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
@@ -136,7 +137,7 @@
                     
 
 
-	<h4 style="text-align: center; margin-top: 4%; color: white;">Listas</h4>
+	<h4 id="list-titulo">Listas</h4>
 	<div>&nbsp;</div>
 	<div>&nbsp;</div>
 </div>	
@@ -197,12 +198,8 @@
 					<td data-label="Orçamento" style="color: deeppink">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
 					
 					
-					<!-- onclick="sendPost('categorias?acao=editar', {id: '${cat.id}'});" -->
 					
 					<td data-label="Editar">
-					
-					
-					
 					<button
 					class="btn btn-outline-info"
 					data-toggle="modal" data-target="#categoriaModal" 
@@ -239,10 +236,6 @@
 </div>
 	
  
- <!-- 					onclick="
-					if(confirm('Você tem certeza que deseja excluir a lista ${cat.name}?')){
-						sendPost('categorias?acao=excluir', {id: '${cat.id}'});
-					}" -->
  
  
  <!-- Modal confirmar excluir -->
@@ -268,21 +261,7 @@
  
 	
 	<!-- Tela Modal EDITAR/SALVAR-->
-								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title text-center" id="myModalLabel"> ${cat.id} </h4>
-											</div>
-											<div class="modal-body">
-											</div>
-										</div>
-									</div>
-								</div>
-		<!--		
-		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
-		-->		
+
 		<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -347,14 +326,17 @@
 	
 
 	
-	
-	
-
-	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 <script src="resource/javascript/jquery.mask.min.js"></script>
+
+<script src="resource/javascript/esconderUrl.js"></script>
+<script src="resource/javascript/salvarCategoriaAjax.js" ></script>
+<script src="resource/javascript/excluirCategoriaAjax.js" ></script>
+<script src="resource/javascript/searchCategoriaAjax.js" ></script>
+<script src="resource/javascript/alert.js"></script>
+<script src="resource/javascript/sendThemeAjax.js"></script>
     
     
 <script type="text/javascript">
@@ -401,13 +383,6 @@ const msg = "${catNula}"
     }
 </script>
 
-
-<script src="resource/javascript/esconderUrl.js"></script>
-<script src="resource/javascript/salvarCategoriaAjax.js" ></script>
-<script src="resource/javascript/excluirCategoriaAjax.js" ></script>
-<script src="resource/javascript/searchCategoriaAjax.js" ></script>
-<script src="resource/javascript/alert.js"></script>
-<script src="resource/javascript/changeThemeAjax.js"></script>
 
 <script>
 $(".alert").hide();

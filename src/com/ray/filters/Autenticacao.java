@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ray.model.entities.User;
+import com.ray.model.util.Theme;
 
 @WebFilter(urlPatterns = { "/categorias/*", "/produtos/*", "/home.jsp", "/categorias.jsp", "/produtos.jsp", "/account.jsp", "/my-account/*" })
 public class Autenticacao implements Filter {
@@ -35,6 +36,7 @@ public class Autenticacao implements Filter {
 	HttpServletRequest req = (HttpServletRequest) request;
 	HttpServletResponse res = (HttpServletResponse) response;
 	User user = (User) req.getSession().getAttribute("user");
+	setUserTheme(request, user);
 	HttpSession session = req.getSession(false);
 	request.setCharacterEncoding("UTF-8");
 //	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
@@ -51,5 +53,15 @@ public class Autenticacao implements Filter {
     public void destroy() {
 	Filter.super.destroy();
     }
-
+    
+    private void setUserTheme(ServletRequest request, User user) {
+	String theme = null;
+	try {
+	    theme = user.getTheme().toString();
+	}catch (Exception e) {
+	    theme = Theme.DEFAULT.toString();
+	}finally {
+	    request.setAttribute("theme", theme);
+	}
+    }
 }

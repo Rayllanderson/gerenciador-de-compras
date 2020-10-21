@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ray.model.entities.User;
+import com.ray.model.service.UserService;
 /**
  * Servlet implementation class Login
  */
@@ -22,6 +25,10 @@ public class ThemeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String theme = request.getParameter("colorTheme");
-	System.out.println(theme);
+	User user = (User) request.getSession().getAttribute("user");
+	UserService service = new UserService();
+	service.changeTheme(user, theme);
     }
+    
+    
 }

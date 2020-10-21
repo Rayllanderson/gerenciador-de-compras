@@ -26,7 +26,8 @@ public class UserService {
 		dao.update(user);
 		return true;
 	    }
-	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de  sucesso
+	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de
+			 // sucesso
 	}
 	return false; // usuário não existe
     }
@@ -50,7 +51,7 @@ public class UserService {
 	    if (foto.equals("") && user.getFoto() != null) {
 		foto = user.getFoto();
 	    }
-	    alterarUsername(id, newUsername); //throw exception caso username exista
+	    alterarUsername(id, newUsername); // throw exception caso username exista
 	    user.setName(newName);
 	    user.setMiniatura(miniatura);
 	    user.setFoto(foto);
@@ -106,21 +107,25 @@ public class UserService {
     public void update(User user) {
 	dao.update(user);
     }
-    
+
     /**
-     * muda o tema do usuário. 
+     * muda o tema do usuário.
+     * 
      * @param user
-     * @param theme - recebe o tema em string, tenta converter para enum, caso ocorra algum erro, seta pra default
+     * @param theme - recebe o tema em string, tenta converter para enum, caso
+     *              ocorra algum erro, seta pra default
      */
-    public void changeTheme(User user, String theme)  {
-	 Theme tema = null;
+    public void changeTheme(User user, String theme) {
+	Theme tema = null;
 	try {
-   	  tema = Theme.valueOf(theme);
-   	}catch (Exception e) {
-   	    tema = Theme.DEFAULT;
-   	}
-	user.setTheme(tema);
-	this.update(user);
-       }
-    
+	    tema = Theme.valueOf(theme.toUpperCase());
+	} catch (Exception e) {
+	    tema = Theme.DEFAULT;
+	} finally {
+	    user.setTheme(tema);
+	    this.update(user);
+	}
+
+    }
+
 }

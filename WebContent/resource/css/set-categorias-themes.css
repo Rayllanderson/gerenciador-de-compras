@@ -1,10 +1,28 @@
-					.theme{
-						display:inline-block;
-						height: 19px;
-						width: 19px;
-						border-radius: 50%;
+					
+					
+					#navbar {
+						box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
 					}
 					
+					#2navbar{
+						box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.08);
+						height: 5%;
+					}
+					
+					#btn-new-list{
+					margin-top: 3%;
+					border:none;
+					color:white; 
+					box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+					}
+					
+					#list-titulo{
+						text-align: center;
+						margin-top: 4%; 
+						color: white;
+					}
+					
+				
 					.pink{
 					background-color: #e7008a;}
 					
@@ -22,10 +40,6 @@
                     
                     .green{
                     background-color: #00cba9;}    
-                    
-                    /*.galaxy{ terá que ser no arquivo html, já que ta dando erro sem motivos...
-                	    background-image: url('resource/img/galaxy.jpg');
-                    }*/
                     
                     .orange{
                     background-color: #FF5500;}

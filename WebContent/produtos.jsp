@@ -11,16 +11,16 @@
 
                     <meta name="viewport" content="width=device-width, initial-scale=0.8">
                     <title>Seus Produtos</title>
-                    
-					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
-					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
 					<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+					
+					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
+					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
                     <style type="text/css">
                         body {
@@ -558,6 +558,12 @@ $(".alert").hide();
 		})
 </script>  
 
+<script type="text/javascript">
+	var theme = "${theme}"
+	console.log(theme)
+</script>
+
+
                     <script type="text/javascript">
                     
                         function setCheckedIfTrue(funcao) {                	
@@ -617,8 +623,6 @@ $(".alert").hide();
                                     modal.find('#recipient-name').val(recipientnome)
                                     modal.find('#estipulado').val(estipulado)
                                     modal.find('#real').val(real)
-                                        // modal.find('#comprado').val(comprado)
-                                        // modal.find('#categoria').val(catId)
                                 })
                     </script>
 
@@ -644,7 +648,6 @@ $(".alert").hide();
                     });
                     
                     
-
                     $(document).ready(function(){
                        $('#orcamento').mask('000.000.000.000.000,00', {reverse: true});
                     });
@@ -663,7 +666,7 @@ $(".alert").hide();
 	            		document.getElementById('tabela').className = "table";
 	            	}
 	                }
-	                
+
 	                tupi();
                 </script>
                 
