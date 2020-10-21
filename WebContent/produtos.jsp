@@ -33,10 +33,6 @@
 							background-image: url('resource/img/ola/pink.svg');
 							background-size:cover;
 							 background-repeat: no-repeat;
-							/* box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-							  border-radius: 1em;
-							/* background-color: #A2D9FF */
-							
 						}
 						
 						@keyframes animateWave {
@@ -47,11 +43,11 @@
 						    transform: scale(1,1);
 						  }
 						}
-.wall > svg {
-  display: block;
-  transform-origin: bottom;
-  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
+					.wall > svg {
+					  display: block;
+					  transform-origin: bottom;
+					  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+					}
 	
 						
 					

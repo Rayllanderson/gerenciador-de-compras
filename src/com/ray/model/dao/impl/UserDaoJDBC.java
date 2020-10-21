@@ -13,6 +13,7 @@ import com.ray.db.DbException;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
+import com.ray.model.util.Theme;
 
 public class UserDaoJDBC implements UserDao {
 
@@ -33,7 +34,7 @@ public class UserDaoJDBC implements UserDao {
 	    rs = st.executeQuery();
 	    if (rs.next()) {
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"));
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), getUserTheme(rs));
 	    } else if (checkIfUserExists(username)){
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
@@ -102,8 +103,11 @@ public class UserDaoJDBC implements UserDao {
 	    st = this.conn.createStatement();
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
+		
+		
+		
 		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"));
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), getUserTheme(rs));
 	    } else {
 		return null;
 	    }
@@ -112,6 +116,14 @@ public class UserDaoJDBC implements UserDao {
 	} finally {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
+	}
+    }
+    
+    private Theme getUserTheme (ResultSet rs) {
+	try{
+	    return Theme.valueOf(rs.getString("theme"));
+	}catch (Exception e) {
+	    return Theme.DEFAULT;
 	}
     }
 
@@ -137,13 +149,14 @@ public class UserDaoJDBC implements UserDao {
     public void update(User user) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ?, foto = ? where id = ?");
+	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ?, foto = ?, theme = ? where id = ?");
 	    st.setString(1, user.getName());
 	    st.setString(2, user.getUsername());
 	    st.setString(3, user.getPassword());
 	    st.setString(4, user.getMiniatura());
 	    st.setString(5, user.getFoto());
-	    st.setLong(6, user.getId());
+	    st.setString(6, user.getTheme().toString());
+	    st.setLong(7, user.getId());
 	    st.executeUpdate();
 	} catch (SQLException e) {
 	    throw new DbException(e.getMessage());

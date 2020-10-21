@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
+import com.ray.model.util.Theme;
 
 /**
  * Servlet implementation class Login
@@ -34,7 +35,7 @@ public class CadastroServlet extends HttpServlet {
 	String password2 = request.getParameter("password2");
 	if (validarCampos(request, response, name, username, password, password2)) {  
 	    try {
-		User user = new User(null, name, username, password);
+		User user = new User(null, name, username, password, null, null, Theme.DEFAULT);
 		service.cadastrar(user);
 		request.setAttribute("msg", "Cadastro realizado com sucesso! Faça login para continuar");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

@@ -2,6 +2,8 @@ package com.ray.model.entities;
 
 import java.io.Serializable;
 
+import com.ray.model.util.Theme;
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -12,6 +14,7 @@ public class User implements Serializable {
     private String password;
     private String foto;
     private String miniatura;
+    private Theme theme;
 
     public User(Long id, String name, String username, String password) {
 	this.id = id;
@@ -20,7 +23,7 @@ public class User implements Serializable {
 	this.password = password;
     }
 
-    public User(Long id, String name, String username, String password, String miniatura, String foto) {
+    public User(Long id, String name, String username, String password, String miniatura, String foto, Theme theme) {
 	this.id = id;
 	this.name = name;
 	this.username = username;
@@ -108,6 +111,14 @@ public class User implements Serializable {
 
     public void setFoto(String foto) {
 	this.foto = foto;
+    }
+
+    public Theme getTheme() {
+	return theme;
+    }
+
+    public void setTheme(Theme theme) {
+	this.theme = theme;
     }
 
 }

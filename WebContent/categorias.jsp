@@ -19,19 +19,32 @@
                        	background-color: #f8f9fa;
                         }
                        
-                       .table-responsive-lg{
-                       
-                       
-                       }
+						.wall
+						{
+							background-color: #e7008a;
+						}
+						
+						
                         
                     </style>
 </head>
 <body>
 
 
-<header>
 
-<nav class="navbar navbar-expand navbar-dark bg-primary">
+                    	<!-- ALERT -->
+				 	 <div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close"onclick="$('.alert').hide();">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
+
+
+<div class="wall">
+
+<header>
+	 <nav class="navbar navbar-expand navbar-dark" style="box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);">
       <a class="navbar-brand" href="home.jsp"><i class="fas fa-arrow-left fa-md"></i></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +64,8 @@
       	  </li>
         </ul>
         </div>
-       
-                            
+
+                         
                        <c:if test="${!user.miniatura.isEmpty() && user.miniatura != null}">
 								<div class="icon-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             			<input  class="img-perfil" type="image" src="${user.miniatura }" />
@@ -61,38 +74,30 @@
                             
                             
                              <c:if test="${user.miniatura.isEmpty() || user.miniatura == null}">
-                            <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
-    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-  <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-  <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-</svg>
-  </button>
-	</c:if>
+								                            <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
+								    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+								  <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+								  <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+								</svg>
+								  </button>
+							</c:if>
 	
-  <div class="dropdown-menu dropdown-menu-right">
-    <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item"  href="logout">Logout</a>
-  </div>
-</nav>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="logout">Logout</a>
+                            </div>
+                        </nav>
 
-
-                    	<!-- ALERT -->
-				 	 <div class="fixed-top">
-				 		<div class="alert alert-success" id="success-alert">
-				   			 <button type="button" class="close"onclick="$('.alert').hide();">x</button>
-				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
-				  		</div>
-					</div>
 
 </header>
 
 
 
- <div class="card card-signin" style="height: 5%">
+ <div class="navbar navbar-expand navbar-dark justify-content-end" style="height: 5%; box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.08);">
                         <ul class="nav justify-content-end">
 
 
@@ -100,8 +105,8 @@
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-success" data-target="#categoriaModal"  style="margin-top: 3%;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" > 
+                                   <button type="submit" data-toggle="modal" data-title="Nova Lista" class="btn btn-outline-success" data-target="#categoriaModal"  style="margin-top: 3%;
+ border:none; color:white; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" > 
 		
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
@@ -114,12 +119,11 @@
                     
 
 
+	<h4 style="text-align: center; margin-top: 4%; color: white;">Listas</h4>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+</div>	
 
-
-
-	<h4 style="text-align: center; margin-top: 2%">Listas</h4>
-	
-	
 <div class="container">
 
 	  	
