@@ -125,7 +125,6 @@ public class UserService {
 	    user.setTheme(tema);
 	    this.update(user);
 	}
-
     }
 
 }

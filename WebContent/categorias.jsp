@@ -10,7 +10,7 @@
 <title>Suas Listas</title>
 
 <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/set-categorias-themes.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/custom-categoria-themes.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -22,10 +22,6 @@
                        	background-color: #f8f9fa;
                         }
                        
-						.wall
-						{
-							background-color: #e7008a;
-						}
 							
 						.galaxy{
                 	    background-image: url('resource/img/galaxy.jpg');
@@ -337,6 +333,7 @@
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
 <script src="resource/javascript/alert.js"></script>
 <script src="resource/javascript/sendThemeAjax.js"></script>
+<script src="resource/javascript/setTheme.js"></script>
     
     
 <script type="text/javascript">
@@ -357,12 +354,21 @@
 		})
 </script>  
 	
+<div id="#script">
+<theme>
+
+<script type="text/javascript">
+	var theme = "${theme}"
+	console.log('hey..body')
+	themeSwitch(theme);
+</script>
+
+</theme>	
+
+</div>	
 
 	
 </body>
-
-
-
 
 <script type="text/javascript">
 

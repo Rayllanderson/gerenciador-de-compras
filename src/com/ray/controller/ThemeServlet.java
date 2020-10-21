@@ -21,6 +21,12 @@ public class ThemeServlet extends HttpServlet {
     public ThemeServlet() {
 	super();
     }
+    
+    @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+	    String theme = request.getParameter("colorTheme");
+	    request.setAttribute("theme", theme);
+        }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +34,7 @@ public class ThemeServlet extends HttpServlet {
 	User user = (User) request.getSession().getAttribute("user");
 	UserService service = new UserService();
 	service.changeTheme(user, theme);
+	response.setStatus(HttpServletResponse.SC_OK);
     }
     
     

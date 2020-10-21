@@ -33,9 +33,11 @@ public class UserDaoJDBC implements UserDao {
 	    st.setString(2, password);
 	    rs = st.executeQuery();
 	    if (rs.next()) {
-		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), getUserTheme(rs));
-	    } else if (checkIfUserExists(username)){
+		User user = new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), null);
+		user.setTheme(getUserTheme(rs));
+		return user;
+	    } else if (checkIfUserExists(username)) {
 		throw new MyLoginException("Usuário ou Senha inválidos.");
 	    }
 	} catch (SQLException e) {
@@ -50,7 +52,8 @@ public class UserDaoJDBC implements UserDao {
     /**
      * 
      * @param username
-     * @return true if username exist else <br> throw MyLoginException - Usuário não cadastrado
+     * @return true if username exist else <br>
+     *         throw MyLoginException - Usuário não cadastrado
      */
     private boolean checkIfUserExists(String username) {
 	PreparedStatement st = null;
@@ -58,9 +61,9 @@ public class UserDaoJDBC implements UserDao {
 	try {
 	    st = conn.prepareStatement("select username from usuario where username = '" + username + "'");
 	    rs = st.executeQuery();
-	    if(rs.next()) {
+	    if (rs.next()) {
 		return true;
-	    }else {
+	    } else {
 		throw new MyLoginException("Usuário não cadastrado");
 	    }
 	} catch (SQLException e) {
@@ -70,7 +73,7 @@ public class UserDaoJDBC implements UserDao {
 	    DB.closeStatement(st);
 	}
     }
-    
+
     @Override
     public boolean cadastrar(User user) {
 	PreparedStatement st = null;
@@ -103,11 +106,10 @@ public class UserDaoJDBC implements UserDao {
 	    st = this.conn.createStatement();
 	    rs = st.executeQuery("select * from usuario where id = " + id);
 	    if (rs.next()) {
-		
-		
-		
-		return new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
-			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), getUserTheme(rs));
+		User user = new User(rs.getLong("id"), rs.getString("nome"), rs.getString("username"),
+			rs.getString("senha"), rs.getString("miniatura"), rs.getString("foto"), null);
+		user.setTheme(getUserTheme(rs));
+		return user;
 	    } else {
 		return null;
 	    }
@@ -118,11 +120,11 @@ public class UserDaoJDBC implements UserDao {
 	    DB.closeStatement(st);
 	}
     }
-    
-    private Theme getUserTheme (ResultSet rs) {
-	try{
+
+    private Theme getUserTheme(ResultSet rs) {
+	try {
 	    return Theme.valueOf(rs.getString("theme"));
-	}catch (Exception e) {
+	} catch (Exception e) {
 	    return Theme.DEFAULT;
 	}
     }
@@ -149,7 +151,8 @@ public class UserDaoJDBC implements UserDao {
     public void update(User user) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("update usuario set nome = ?, username = ?, senha = ?, miniatura = ?, foto = ?, theme = ? where id = ?");
+	    st = conn.prepareStatement(
+		    "update usuario set nome = ?, username = ?, senha = ?, miniatura = ?, foto = ?, theme = ? where id = ?");
 	    st.setString(1, user.getName());
 	    st.setString(2, user.getUsername());
 	    st.setString(3, user.getPassword());

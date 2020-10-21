@@ -36,7 +36,7 @@ public class Autenticacao implements Filter {
 	HttpServletRequest req = (HttpServletRequest) request;
 	HttpServletResponse res = (HttpServletResponse) response;
 	User user = (User) req.getSession().getAttribute("user");
-	setUserTheme(request, user);
+	setUserTheme(req, user);
 	HttpSession session = req.getSession(false);
 	request.setCharacterEncoding("UTF-8");
 //	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
@@ -54,7 +54,7 @@ public class Autenticacao implements Filter {
 	Filter.super.destroy();
     }
     
-    private void setUserTheme(ServletRequest request, User user) {
+    private void setUserTheme(HttpServletRequest request, User user) {
 	String theme = null;
 	try {
 	    theme = user.getTheme().toString();
