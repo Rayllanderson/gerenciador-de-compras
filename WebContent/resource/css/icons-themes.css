@@ -1,0 +1,43 @@
+					.theme{
+						display:inline-block;
+						height: 19px;
+						width: 19px;
+						border-radius: 50%;
+					}
+					
+					.pink{
+					background-color: #e7008a;}
+					
+					.blue{
+					background-color: #0099ff;}
+					
+					.red{
+					background-color: #E72553;}
+                    
+                    .purple{
+                    background-color: #5000ca;}
+                    
+                    .cian{
+                    background-color: #3CD6F0;}
+                    
+                    .green{
+                    background-color: #00cba9;}    
+                    
+                    .galaxy{
+                	    background-image: url('resource/img/galaxy.jpg');
+                    }
+                    
+                    .orange{
+                    background-color: #FF5500;}
+                    
+                    .black{
+                    background-color: #273036;}
+                    
+                    .default{
+                   	border: 1px solid black;
+                   	line-height: 19px;
+   					align-items: center;
+   					justify-content: center;
+   					padding: 3px 3px;   					
+                   	}
+                   

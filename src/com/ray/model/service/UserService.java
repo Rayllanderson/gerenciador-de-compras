@@ -4,6 +4,7 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
+import com.ray.model.util.Theme;
 import com.ray.model.validacoes.UserValidation;
 
 public class UserService {
@@ -105,4 +106,21 @@ public class UserService {
     public void update(User user) {
 	dao.update(user);
     }
+    
+    /**
+     * muda o tema do usuário. 
+     * @param user
+     * @param theme - recebe o tema em string, tenta converter para enum, caso ocorra algum erro, seta pra default
+     */
+    public void changeTheme(User user, String theme)  {
+	 Theme tema = null;
+	try {
+   	  tema = Theme.valueOf(theme);
+   	}catch (Exception e) {
+   	    tema = Theme.DEFAULT;
+   	}
+	user.setTheme(tema);
+	this.update(user);
+       }
+    
 }

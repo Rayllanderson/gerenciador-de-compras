@@ -132,7 +132,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 
 .dropdown-item.active, .dropdown-item:active{
     color: #fff;
-    background-color: darkviolet;
+    background-color: #7500B3;
 }
 
 .yo.active, .yo:active{

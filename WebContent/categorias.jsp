@@ -9,12 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=0.88">
 <title>Suas Listas</title>
 
+<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
 
  <style type="text/css">
+                      
                         body {
                        	background-color: #f8f9fa;
                         }
@@ -23,10 +25,9 @@
 						{
 							background-color: #e7008a;
 						}
-						
-						
-                        
+
                     </style>
+                    
 </head>
 <body>
 
@@ -41,7 +42,7 @@
 					</div>
 
 
-<div class="wall">
+<div class="wall" id="wall">
 
 <header>
 	 <nav class="navbar navbar-expand navbar-dark" style="box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);">
@@ -84,9 +85,25 @@
 							</c:if>
 	
                             <div class="dropdown-menu dropdown-menu-right">
+                            
+                           
+                            
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Temas</h6>
+                               <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
+	                                <div class="theme blue" onclick="swapColor('blue')" style="margin-left: 1%;"></div>
+									<div class="theme pink" onclick="swapColor('pink')"></div>
+									<div class="theme red" onclick="swapColor('red')"></div>
+									<div class="theme purple" onclick="swapColor('purple')"></div>
+									<div class="theme cian" onclick="swapColor('cian')"></div>
+									<br>
+									<div class="theme green" onclick="swapColor('green')"></div>
+									<div class="theme orange" onclick="swapColor('orange')"></div>
+									<div class="theme black" onclick="swapColor('black')"></div>
+									<div class="theme galaxy" onclick="swapColor('galaxy')"></div>
+									<div class="theme default" onclick="swapColor('default')"></div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
@@ -293,6 +310,45 @@
 	
 	<!-- Fim Tela Modal -->
 	
+	
+	
+	
+	
+	
+	<!-- Tela Modal EDITAR CATEGORIA -->
+	
+					
+		<div class="modal fade" id="temaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Temas</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  </div>
+			  <div class="modal-body">
+				  <div class="form-group">
+					<div class="pink" onclick="teste('pink')"></div>
+					<div class="blue" onclick="teste('blue')"></div>
+					<div class="pink" onclick="teste('pink')"></div>
+					<div class="blue" onclick="teste('blue')"></div>
+					<div class="pink" onclick="teste('pink')"></div>
+					<div class="blue" onclick="teste('blue')"></div>
+				  </div>
+				 
+				<button type="button" id="save1" class="btn btn-success" >&nbsp; Salvar &nbsp;</button> 
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+			  </div>
+			</div>
+		  </div>
+		  </div>
+	
+
+
+	
+
+	
+	
+	
 
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -345,12 +401,13 @@ const msg = "${catNula}"
     }
 </script>
 
+
 <script src="resource/javascript/esconderUrl.js"></script>
 <script src="resource/javascript/salvarCategoriaAjax.js" ></script>
 <script src="resource/javascript/excluirCategoriaAjax.js" ></script>
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
 <script src="resource/javascript/alert.js"></script>
-
+<script src="resource/javascript/changeThemeAjax.js"></script>
 
 <script>
 $(".alert").hide();

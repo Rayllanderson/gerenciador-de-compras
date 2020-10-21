@@ -32,7 +32,7 @@
 						{
 							background-image: url('resource/img/ola/pink.svg');
 							background-size:cover;
-							 background-repeat: no-repeat;
+							background-repeat: no-repeat;
 						}
 						
 						@keyframes animateWave {
@@ -48,6 +48,8 @@
 					  transform-origin: bottom;
 					  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 					}
+					
+					
 	
 						
 					
@@ -108,7 +110,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#temaModal">Temas</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
@@ -514,6 +516,18 @@
 </div>
 
 
+
+
+
+
+
+<!--  modal temporário de mudar tema -->
+
+
+
+
+
+
                     <!-- ---------------------------------------------- -->
 
 					<script src="resource/javascript/excluirProdutoAjax.js"></script>
@@ -652,6 +666,8 @@ $(".alert").hide();
 	                
 	                tupi();
                 </script>
+                
+
                 
                 
                 </html>
