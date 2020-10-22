@@ -1,6 +1,6 @@
 
 
- function swapColor(colorTheme){
+ function swapColor(colorTheme, animation){
 
 					$.ajax({
 							method: "POST",
@@ -10,8 +10,7 @@
 							}
 						}).done(function() {	
 								//preciso dar um set em theme novamente e dar um get la no body
-								console.log('hey.. ajax')	
-								themeSwitch(colorTheme)	
+								themeSwitch(colorTheme, animation)	
 						}).fail(function(xhr) {
 							
 							//

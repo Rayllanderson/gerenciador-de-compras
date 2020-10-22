@@ -35,14 +35,6 @@
 							background-repeat: no-repeat;
 						}
 						
-						@keyframes animateWave {
-						  0% {
-						    transform: scale(1,0);
-						  }
-						  100% {
-						    transform: scale(1,1);
-						  }
-						}
 					.wall > svg {
 					  display: block;
 					  transform-origin: bottom;

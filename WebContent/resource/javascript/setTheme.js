@@ -1,17 +1,19 @@
 
 
-function themeSwitch(colorTheme) {
+function themeSwitch(colorTheme, animation) {
+
+	console.log('animation = ', animation)
+
 	var wall = document.getElementById("wall");
 	wall.style.backgroundImage = "none"
-	
+
 	let btnList = document.getElementById('btn-new-list');
 	let navbar = document.getElementById('navbar');
 	let seccondNavbar = document.getElementById('seccond-navbar');
-	
+
 	changeClassName(btnList, navbar, seccondNavbar)
-	
-	console.log("hallo????" , colorTheme.toUpperCase())
-	
+
+
 	switch (colorTheme.toUpperCase()) {
 		case 'PINK':
 			//muda nome do class wall e carrega css 
@@ -48,23 +50,32 @@ function themeSwitch(colorTheme) {
 			seccondNavbar.className = 'card card-signin';
 			wall.className = "default";
 			document.querySelector("link[href='resource/css/custom-categoria-themes.css']").href = "resource/css/default-theme.css";
+			//aq
 			break;
 	}
+	activeAnimation(animation);
 }
 
 /**
 	muda o nome das classes e o css se houver necessidade
  */
-function changeClassName(btnList, navbar, seccondNavbar){
-		console.log("?", wall.className)
-		
-	if(wall.className == 'default'){ //está no defaultT-theme
-		console.log('pq o javascript nao entra aqui cara...')
+function changeClassName(btnList, navbar, seccondNavbar) {
+
+	if (wall.className == 'default' || wall.className == "default animate") { //está no defaultT-theme
 		btnList.className = 'btn btn-outline-success';
 		navbar.className = 'navbar navbar-expand navbar-dark';
 		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-theme.css']").href = "resource/css/custom-categoria-themes.css";	
+		document.querySelector("link[href='resource/css/default-theme.css']").href = "resource/css/custom-categoria-themes.css";
 	}//senao, nao tem necessidade de mudar, já que já estão no tema
+}
+
+function activeAnimation(animation) {
+	if (animation) {
+			
+		let wall = document.getElementById("wall");
+		wall.classList.add('animate');
+		setTimeout(() => wall.classList.remove('animate'), 999);
+	}
 }
 
 

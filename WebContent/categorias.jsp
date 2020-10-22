@@ -83,17 +83,17 @@
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Temas</h6>
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
-	                                <div class="theme blue" onclick="swapColor('blue')" style="margin-left: 1%;"></div>
-									<div class="theme pink" onclick="swapColor('pink')"></div>
-									<div class="theme red" onclick="swapColor('red')"></div>
-									<div class="theme purple" onclick="swapColor('purple')"></div>
-									<div class="theme cian" onclick="swapColor('cian')"></div>
+	                                <div class="theme blue" onclick="swapColor('blue', true)" style="margin-left: 1%;"></div>
+									<div class="theme pink" onclick="swapColor('pink', true)"></div>
+									<div class="theme red" onclick="swapColor('red', true)"></div>
+									<div class="theme purple" onclick="swapColor('purple', true)"></div>
+									<div class="theme cian" onclick="swapColor('cian', true)"></div>
 									<br>
-									<div class="theme green" onclick="swapColor('green')"></div>
-									<div class="theme orange" onclick="swapColor('orange')"></div>
-									<div class="theme black" onclick="swapColor('black')"></div>
-									<div class="theme galaxy" onclick="swapColor('galaxy')"></div>
-									<div class="theme default" onclick="swapColor('default')"></div>
+									<div class="theme green" onclick="swapColor('green', true)"></div>
+									<div class="theme orange" onclick="swapColor('orange', true)"></div>
+									<div class="theme black" onclick="swapColor('black', true)"></div>
+									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
+									<div class="theme default" onclick="swapColor('default', true)"></div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
