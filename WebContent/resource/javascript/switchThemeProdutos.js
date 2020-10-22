@@ -8,7 +8,7 @@ function produtosThemeSwitch(colorTheme, animation) {
 	let navbar = document.getElementById('navbar');
 	let seccondNavbar = document.getElementById('seccond-navbar');
 
-	changeClassName(btnNew, btnInfo, navbar, seccondNavbar)
+	changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar)
 
 
 	switch (colorTheme.toUpperCase()) {
@@ -57,9 +57,9 @@ function produtosThemeSwitch(colorTheme, animation) {
 /**
 	muda o nome das classes e o css se houver necessidade
  */
-function changeClassName(btnNew, btnInfo, navbar, seccondNavbar) {
-
+function changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar) {
 	if (wall.className == 'default' || wall.className == "default animate") { //está no defaultT-theme
+		console.log('ce ta de sacanagem?')
 		btnNew.className = 'btn btn-outline-success';
 		btnInfo.className = 'btn btn-outline-primary';
 		navbar.className = 'navbar navbar-expand navbar-dark';

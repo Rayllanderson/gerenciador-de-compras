@@ -10,7 +10,7 @@
 <title>Suas Listas</title>
 
 <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/default-theme.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/custom-categoria-themes.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
 <body>
 
 
-<div class="default" id="wall">
+<div class="wall" id="wall">
 
 <header>
 	 <nav class="navbar navbar-expand navbar-dark" id="navbar">
