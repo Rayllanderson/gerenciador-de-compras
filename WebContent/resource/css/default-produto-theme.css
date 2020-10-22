@@ -1,10 +1,6 @@
 @import "animation.css";
 
 
-.default{
-	  border: 0px;
-	  padding: 0;
-}
 .default.animate{
 	animation: 5s wobble;
 }

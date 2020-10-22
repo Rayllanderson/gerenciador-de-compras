@@ -39,7 +39,7 @@ margin: 0;
 padding: 0;
 height: 100%;
 border-radius: 1em;
-background-image: url('resource/img/ola/b9c8f893c9a782033a01f47e0c0b1d6e.jpg');
+background-image: url('resource/img/account.jpg');
 background-repeat: no-repeat;
 position: relative;
 }

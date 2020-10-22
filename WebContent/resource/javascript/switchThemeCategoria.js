@@ -49,7 +49,7 @@ function categoriaThemeSwitch(colorTheme, animation) {
 			navbar.className = 'navbar navbar-expand navbar-dark bg-primary';
 			seccondNavbar.className = 'card card-signin';
 			wall.className = "default";
-			document.querySelector("link[href='resource/css/custom-categoria-themes.css']").href = "resource/css/default-theme.css";
+			document.querySelector("link[href='resource/css/custom-categoria-theme.css']").href = "resource/css/default-categoria-theme.css";
 			//aq
 			break;
 	}
@@ -65,7 +65,7 @@ function changeClassName(btnList, navbar, seccondNavbar) {
 		btnList.className = 'btn btn-outline-success';
 		navbar.className = 'navbar navbar-expand navbar-dark';
 		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-theme.css']").href = "resource/css/custom-categoria-themes.css";
+		document.querySelector("link[href='resource/css/default-categoria-theme.css']").href = "resource/css/custom-categoria-theme.css";
 	}//senao, nao tem necessidade de mudar, já que já estão no tema
 }
 

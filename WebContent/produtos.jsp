@@ -21,12 +21,13 @@
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-					<link href="resource/css/custom-produtos-themes.css" type="text/css" rel="stylesheet" />	
+					<link href="resource/css/custom-produto-theme.css" type="text/css" rel="stylesheet" />	
                     
                     <style type="text/css">
                         body {
                             background-color: #f8f9fa;
 						}
+						
                     </style>
 
                 </head>
@@ -96,7 +97,7 @@
 									<div class="theme orange" onclick="swapColor('orange', true)"></div>
 									<div class="theme black" onclick="swapColor('black', true)"></div>
 									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
-									<div class="theme default" onclick="swapColor('default', true)"></div>
+									<div class="theme icon-default" onclick="swapColor('default', true)"></div>
 									
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>

@@ -35,41 +35,40 @@
 	background-repeat: no-repeat;
 }
 
-.wall pink {
-	background-image: url('resource/img/pink.svg')
+.pinkP {
+	background-image: url('../img/pink.svg')
 }
 
-.wall blue {
+.blueP {
 	background-image: url('../img/blue.svg')
 }
 
-.wall red {
+.redP {
 	background-image: url('../img/red.svg')
 }
 
-.wall purple {
+.purpleP {
 	background-image: url('../img/purple.svg')
 }
 
-.wall cian {
-	background-image: url('../img/cian.svg')
+.cianP {
+	background-image: url('../img/cian.svg');
 }
 
-.wall green {
+.greenP {
 	background-image: url('../img/green.svg')
 }
 
-.wall orange {
+.orangeP {
 	background-image: url('../img/orange.svg')
 }
 
-.wall black {
+.blackP {
 	background-image: url('../img/black.svg')
 }
 
-.wall galaxy{
+.galaxyP{
 	background-image: url('../img/galaxy.jpg');
-	background-size: cover;
 }
 
 

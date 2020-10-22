@@ -14,32 +14,33 @@ function produtosThemeSwitch(colorTheme, animation) {
 	switch (colorTheme.toUpperCase()) {
 		case 'PINK':
 			//muda nome do class wall e carrega css 
-			wall.className = "wall pink";
+			wall.className = "wall pinkP";
 			break;
 		case 'BLUE':
-			wall.className = "wall blue";
+			wall.className = "wall blueP";
 			break;
 		case 'RED':
-			wall.className = "wall red";
+			wall.className = "wall redP";
 			break;
 		case 'PURPLE':
-			wall.className = "wall purple";
+			wall.className = "wall purpleP";
 			break;
 		case 'CIAN':
-			wall.className = "wall cian";
+			wall.className = "wall cianP";
 			break;
 		case 'GREEN':
-			wall.className = "wall green";
+			console.log('AAAAAA')
+			wall.className = "wall greenP";
 			break;
 		case 'BLACK':
-			wall.className = "wall black";
+			wall.className = "wall blackP";
 			break;
 		case 'ORANGE':
-			wall.className = "wall orange";
+			wall.className = "wall orangeP";
 			break;
 		case 'GALAXY':
 		
-			wall.className = "wall galaxy";
+			wall.className = "wall galaxyP";
 			break;
 		case 'DEFAULT':
 			wall.style.backgroundImage = ""
@@ -48,7 +49,7 @@ function produtosThemeSwitch(colorTheme, animation) {
 			navbar.className = 'navbar navbar-expand navbar-dark bg-primary';
 			seccondNavbar.className = 'card card-signin';
 			wall.className = "default";
-			document.querySelector("link[href='resource/css/custom-produtos-themes.css']").href = "resource/css/default-theme-produto.css";
+			document.querySelector("link[href='resource/css/custom-produto-theme.css']").href = "resource/css/default-produto-theme.css";
 			break;
 	}
 	activeAnimation(animation);
@@ -64,7 +65,7 @@ function changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar) {
 		btnInfo.className = 'btn btn-outline-primary';
 		navbar.className = 'navbar navbar-expand navbar-dark';
 		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-theme-produto.css']").href = "resource/css/custom-produtos-themes.css";
+		document.querySelector("link[href='resource/css/default-produto-theme.css']").href = "resource/css/custom-produto-theme.css";
 	}
 }
 

@@ -10,7 +10,7 @@
 <title>Suas Listas</title>
 
 <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/custom-categoria-themes.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/custom-categoria-theme.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -89,7 +89,7 @@
 									<div class="theme orange" onclick="swapColor('orange', true, 'categoria')"></div>
 									<div class="theme black" onclick="swapColor('black', true, 'categoria')"></div>
 									<div class="theme galaxy" onclick="swapColor('galaxy', true, 'categoria')"></div>
-									<div class="theme default" onclick="swapColor('default', true, 'categoria')"></div>
+									<div class="theme icon-default" onclick="swapColor('default', true, 'categoria')"></div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
