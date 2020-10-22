@@ -17,10 +17,13 @@
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
 					<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 					
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
+					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+					<link href="resource/css/custom-produtos-themes.css" type="text/css" rel="stylesheet" />
+                    
 
                     <style type="text/css">
                         body {
@@ -41,6 +44,10 @@
 					  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 					}
 					
+					galaxy{ 
+                	    background-image: url('resource/img/galaxy.jpg');
+                	    }
+					
 					
 	
 						
@@ -52,11 +59,11 @@
                 <body>
  
  <!-- Início navbar -->
- 			<div class="wall">
+ 			<div class="wall" id="wall">
                     <header>
 
 					<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
-                        <nav class="navbar navbar-expand navbar-dark" style="box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);">
+                        <nav class="navbar navbar-expand navbar-dark" id="navbar" >
                             <a class="navbar-brand" href="categorias.jsp"> <i class="fas fa-arrow-left fa-md"> </i></a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +109,20 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#temaModal">Temas</a>
+                                <h6 class="dropdown-header">Temas</h6>
+                               <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
+	                                <div class="theme blue" onclick="swapColor('blue', true)" style="margin-left: 1%;"></div>
+									<div class="theme pink" onclick="swapColor('pink', true)"></div>
+									<div class="theme red" onclick="swapColor('red', true)"></div>
+									<div class="theme purple" onclick="swapColor('purple', true)"></div>
+									<div class="theme cian" onclick="swapColor('cian', true)"></div>
+									<br>
+									<div class="theme green" onclick="swapColor('green', true)"></div>
+									<div class="theme orange" onclick="swapColor('orange', true)"></div>
+									<div class="theme black" onclick="swapColor('black', true)"></div>
+									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
+									<div class="theme default" onclick="swapColor('default', true)"></div>
+									
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
@@ -122,19 +142,19 @@
  <!-- INICIO 2NAV -->
 
 <!--  <div class="card card-signin" style="height: 5%"> -->
-                 <div class="navbar navbar-expand navbar-dark justify-content-end" style="height: 5%; box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.08);">
+                 <div class="navbar navbar-expand navbar-dark justify-content-end" id="seccond-navbar" >
                         <ul class="nav" style="justify-content: end;">
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" style="margin-top: 3%;margin-right:5px; border:none; color:white; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" data-target="#exampleModal" class="btn btn-outline-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
+                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" id="btn-new" data-target="#exampleModal" class="btn btn-outline-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
 									<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
 									</svg> Add
 									</button><!-- botao add novo produto -->
 
 									
-                                    <a class="btn btn-outline-primary" data-toggle="collapse" style="margin-top: 3%; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); color:white; border: none;" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a class="btn btn-outline-primary" data-toggle="collapse" id="btn-info" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         <svg width="1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 </svg> Infos <!-- botao infos -->
@@ -363,21 +383,6 @@
 
 
                     <!-- Tela Modal editar e adicionar -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-                                    <h4 class="modal-title text-center" id="myModalLabel">
-                                        ${prod.id}</h4>
-                                </div>
-                                <div class="modal-body"></div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -387,7 +392,6 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-
                                 </div>
                                 <div class="modal-body">
 
@@ -440,22 +444,8 @@
 
 
 	<!-- Tela Modal EDITAR CATEGORIA -->
+
 	
-							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title text-center" id="myModalLabel"> ${cat.id} </h4>
-											</div>
-											<div class="modal-body">
-											</div>
-										</div>
-									</div>
-							</div>
-		<!--		
-		 onclick="sendPost('categorias?acao=salvar', {id: '${cat.id}'});"
-		-->		
 		<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -508,12 +498,6 @@
 </div>
 
 
-
-
-
-
-
-<!--  modal temporário de mudar tema -->
 
 
 

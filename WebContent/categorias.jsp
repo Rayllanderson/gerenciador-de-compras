@@ -333,7 +333,7 @@
 <script src="resource/javascript/searchCategoriaAjax.js" ></script>
 <script src="resource/javascript/alert.js"></script>
 <script src="resource/javascript/sendThemeAjax.js"></script>
-<script src="resource/javascript/setTheme.js"></script>
+<script src="resource/javascript/switchThemeCategoria.js"></script>
     
     
 <script type="text/javascript">
@@ -360,7 +360,7 @@
 <script type="text/javascript">
 	var theme = "${theme}"
 	console.log('hey..body')
-	themeSwitch(theme);
+	categoriaThemeSwitch(theme);
 </script>
 
 </theme>	

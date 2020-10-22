@@ -1,6 +1,6 @@
 
 
-function themeSwitch(colorTheme, animation) {
+function categoriaThemeSwitch(colorTheme, animation) {
 
 	console.log('animation = ', animation)
 
