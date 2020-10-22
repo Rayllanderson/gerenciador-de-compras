@@ -1,18 +1,14 @@
 
 
-function categoriaThemeSwitch(colorTheme, animation) {
-
-	console.log('animation = ', animation)
+function produtosThemeSwitch(colorTheme, animation) {
 
 	var wall = document.getElementById("wall");
-	
-
 	let btnNew = document.getElementById('btn-new');
 	let btnInfo = document.getElementById('btn-info');
 	let navbar = document.getElementById('navbar');
 	let seccondNavbar = document.getElementById('seccond-navbar');
 
-	changeClassName(btnList, navbar, seccondNavbar)
+	changeClassName(btnNew, btnInfo, navbar, seccondNavbar)
 
 
 	switch (colorTheme.toUpperCase()) {
@@ -42,18 +38,17 @@ function categoriaThemeSwitch(colorTheme, animation) {
 			wall.className = "wall orange";
 			break;
 		case 'GALAXY':
-			wall.style.backgroundImage = "url('resource/img/galaxy.jpg')"
+		
 			wall.className = "wall galaxy";
 			break;
 		case 'DEFAULT':
-			wall.style.backgroundImage = "none"
-			//navbar para class="navbar navbar-expand navbar-dark bg-primary"
-			//seccond-navbar = card card-signin
-			//btn-new =  class="btn btn-success" 
-			//btn-info = class="btn btn-primary
-			
-			//document.querySelector("link[href='resource/css/custom-categoria-themes.css']").href = "resource/css/default-theme.css";
-			//aq
+			wall.style.backgroundImage = ""
+			btnNew.className = 'btn btn-success';
+			btnInfo.className = 'btn btn-primary';
+			navbar.className = 'navbar navbar-expand navbar-dark bg-primary';
+			seccondNavbar.className = 'card card-signin';
+			wall.className = "default";
+			document.querySelector("link[href='resource/css/custom-produtos-themes.css']").href = "resource/css/default-theme-produto.css";
 			break;
 	}
 	activeAnimation(animation);
@@ -62,19 +57,19 @@ function categoriaThemeSwitch(colorTheme, animation) {
 /**
 	muda o nome das classes e o css se houver necessidade
  */
-function changeClassName(btnList, navbar, seccondNavbar) {
+function changeClassName(btnNew, btnInfo, navbar, seccondNavbar) {
 
 	if (wall.className == 'default' || wall.className == "default animate") { //está no defaultT-theme
-		btnList.className = 'btn btn-outline-success';
+		btnNew.className = 'btn btn-outline-success';
+		btnInfo.className = 'btn btn-outline-primary';
 		navbar.className = 'navbar navbar-expand navbar-dark';
 		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-theme.css']").href = "resource/css/custom-categoria-themes.css";
-	}//senao, nao tem necessidade de mudar, já que já estão no tema
+		document.querySelector("link[href='resource/css/default-theme-produto.css']").href = "resource/css/custom-produtos-themes.css";
+	}
 }
 
 function activeAnimation(animation) {
 	if (animation) {
-			
 		let wall = document.getElementById("wall");
 		wall.classList.add('animate');
 		setTimeout(() => wall.classList.remove('animate'), 999);

@@ -1,18 +1,16 @@
 @import "animation.css";
 
+
 .default{
-	top:0;
-	padding:0;
-	margin:0;
-	border: 0;
+	  border: 0px;
+	  padding: 0;
 }
-
-
 .default.animate{
 	animation: 5s wobble;
 }
 
 #seccond-navbar{
+	height: 5%; 
 	border: 0;
 	border-radius: 1rem;
  	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
@@ -23,4 +21,8 @@
 	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
+
+.galaxy{
+	background-image: url('../img/galaxy.jpg');
+}
 

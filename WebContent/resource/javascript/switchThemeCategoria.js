@@ -41,7 +41,7 @@ function categoriaThemeSwitch(colorTheme, animation) {
 			wall.className = "wall orange";
 			break;
 		case 'GALAXY':
-			wall.style.backgroundImage = "url('resource/img/galaxy.jpg')"
+			wall.style.backgroundImage = ""
 			wall.className = "wall galaxy";
 			break;
 		case 'DEFAULT':

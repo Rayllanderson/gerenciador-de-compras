@@ -22,10 +22,6 @@
                        	background-color: #f8f9fa;
                         }
                        
-							
-						.galaxy{
-                	    background-image: url('resource/img/galaxy.jpg');
-                    	}
                     </style>
                     
 </head>
@@ -83,17 +79,17 @@
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Temas</h6>
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
-	                                <div class="theme blue" onclick="swapColor('blue', true)" style="margin-left: 1%;"></div>
-									<div class="theme pink" onclick="swapColor('pink', true)"></div>
-									<div class="theme red" onclick="swapColor('red', true)"></div>
-									<div class="theme purple" onclick="swapColor('purple', true)"></div>
-									<div class="theme cian" onclick="swapColor('cian', true)"></div>
+	                                <div class="theme blue" onclick="swapColor('blue', true, 'categoria')" style="margin-left: 1%;"></div>
+									<div class="theme pink" onclick="swapColor('pink', true, 'categoria')"></div>
+									<div class="theme red" onclick="swapColor('red', true, 'categoria')"></div>
+									<div class="theme purple" onclick="swapColor('purple', true, 'categoria')"></div>
+									<div class="theme cian" onclick="swapColor('cian', true, 'categoria')"></div>
 									<br>
-									<div class="theme green" onclick="swapColor('green', true)"></div>
-									<div class="theme orange" onclick="swapColor('orange', true)"></div>
-									<div class="theme black" onclick="swapColor('black', true)"></div>
-									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
-									<div class="theme default" onclick="swapColor('default', true)"></div>
+									<div class="theme green" onclick="swapColor('green', true, 'categoria')"></div>
+									<div class="theme orange" onclick="swapColor('orange', true, 'categoria')"></div>
+									<div class="theme black" onclick="swapColor('black', true, 'categoria')"></div>
+									<div class="theme galaxy" onclick="swapColor('galaxy', true, 'categoria')"></div>
+									<div class="theme default" onclick="swapColor('default', true, 'categoria')"></div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>

@@ -26,31 +26,11 @@
                     
 
                     <style type="text/css">
+                       
                         body {
                             background-color: #f8f9fa;
                           
 						}
-						
-						.wall
-						{
-							background-image: url('resource/img/ola/pink.svg');
-							background-size:cover;
-							background-repeat: no-repeat;
-						}
-						
-					.wall > svg {
-					  display: block;
-					  transform-origin: bottom;
-					  animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
-					}
-					
-					galaxy{ 
-                	    background-image: url('resource/img/galaxy.jpg');
-                	    }
-					
-					
-	
-						
 					
                     </style>
 
@@ -143,7 +123,7 @@
 
 <!--  <div class="card card-signin" style="height: 5%"> -->
                  <div class="navbar navbar-expand navbar-dark justify-content-end" id="seccond-navbar" >
-                        <ul class="nav" style="justify-content: end;">
+                           <ul class="nav justify-content-end">
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
@@ -202,8 +182,12 @@
                     <!-- INÍCIO CARD INFOS -->
                     <div class="container" style="">
                         <div class="collapse" id="collapseExample">
-                            <div id="cardCol" class="card card-body" style=" border: 0;
-  border-radius: 1rem;margin-bottom: 4%; background-color: #f8f9fa">
+                            <div id="cardCol" class="card card-body" style="
+                             border: 0;
+  border-radius: 1rem;
+  margin-bottom: 4%;
+ 
+  line-height: 1.6;">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-header" id="headingOne">
@@ -513,7 +497,16 @@
 					<script src="resource/javascript/listarProdutos.js"></script>
 					<script src="resource/javascript/searchProdutosAjax.js"></script>
 					<script src="resource/javascript/salvarCategoriaAjax2.js" ></script>
+					<script src="resource/javascript/sendThemeAjax.js" ></script>
+					<script src="resource/javascript/switchThemeProdutos.js" ></script>
+					
+					
+<script type="text/javascript">
 
+var theme = "${theme}"
+	console.log('hey..body')
+	produtosThemeSwitch(theme);
+</script>
 
 <script type="text/javascript">
 $(".alert").hide();

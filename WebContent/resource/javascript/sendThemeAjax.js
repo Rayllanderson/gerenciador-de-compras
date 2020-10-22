@@ -1,6 +1,6 @@
 
 
- function swapColor(colorTheme, animation){
+ function swapColor(colorTheme, animation, pagina){
 
 					$.ajax({
 							method: "POST",
@@ -10,7 +10,11 @@
 							}
 						}).done(function() {	
 								//preciso dar um set em theme novamente e dar um get la no body
-								categoriaThemeSwitch(colorTheme, animation)	
+								if(pagina == 'categoria'){
+									categoriaThemeSwitch(colorTheme, animation)	
+								}else{
+									produtosThemeSwitch(colorTheme, animation)	
+								}
 						}).fail(function(xhr) {
 							
 							//

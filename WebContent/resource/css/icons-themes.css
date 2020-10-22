@@ -23,9 +23,9 @@
                     .green{
                     background-color: #00cba9;}    
                     
-                    /*.galaxy{ terá que ser no arquivo html, já que ta dando erro sem motivos...
-                	    background-image: url('resource/img/galaxy.jpg');
-                    }*/
+                    .galaxy{ 
+                	    background-image : url('../img/galaxy.jpg')
+                    }
                     
                     .orange{
                     background-color: #FF5500;}

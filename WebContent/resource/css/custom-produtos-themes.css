@@ -12,21 +12,16 @@
 
 
 #btn-new {
-	margin-top: 3%;
 	margin-right:5px;
-	border:none; 
-	color:white;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
-#btn-info{
+
+#btn-new, #btn-info{
 	margin-top: 3%;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-	color:white; 
 	border: none;
+	color:white; 
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
-
-
 
 
 
@@ -35,36 +30,46 @@
 	
 }
 
+.wall {
+	background-size:cover;
+	background-repeat: no-repeat;
+}
+
 .wall pink {
-	background-color: #e7008a;
+	background-image: url('../img/pink.svg')
 }
 
 .wall blue {
-	background-color: #0099ff;
+	background-image: url('../img/blue.svg')
 }
 
 .wall red {
-	background-color: #E72553;
+	background-image: url('../img/red.svg')
 }
 
 .wall purple {
-	background-color: #5000ca;
+	background-image: url('../img/purple.svg')
 }
 
 .wall cian {
-	background-color: #3CD6F0;
+	background-image: url('../img/cian.svg')
 }
 
 .wall green {
-	background-color: #00cba9;
+	background-image: url('../img/green.svg')
 }
 
 .wall orange {
-	background-color: #FF5500;
+	background-image: url('../img/orange.svg')
 }
 
 .wall black {
-	background-color: #273036;
+	background-image: url('../img/black.svg')
+}
+
+.wall galaxy{
+	background-image: url('../img/galaxy.jpg');
+	background-size: cover;
 }
 
 
