@@ -1,6 +1,15 @@
+.default{
+	top:0;
+	padding:0;
+	margin:0;
+	border: 0;
+	transition: 0.5s;
+	
+}
 
-#2navbar{
+#seccond-navbar{
 	height: 5%;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.05);
 }
 
 #btn-new-list{
@@ -10,5 +19,6 @@
 
 #list-titulo{
 	text-align: center;
-	margin-top: 2%"
+	margin-top: 2%;
+	margin-bottom: -2.5%;
 }
