@@ -74,6 +74,13 @@ p {
   transform-origin: bottom;
   animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
+	
+
+.form-label-group input {
+  height: auto;
+  border-radius: 2rem;
+}	
+	
 		
 </style>
 

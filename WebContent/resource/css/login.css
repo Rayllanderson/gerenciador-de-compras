@@ -11,7 +11,7 @@ body {
 .card-signin {
   border: 0;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+ 
 }
 
 .card-signin .card-title {
@@ -99,11 +99,6 @@ body {
   color: #777;
 }
 
-.btn-google {
-  color: white;
-  background-color: #d9534f;
-}
-
 
 /* Fallback for Edge
 -------------------------------------------------- */
@@ -128,6 +123,10 @@ body {
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
+}
+
+#btn-submit:hover{
+	background-color: #6e4af6
 }
 
 

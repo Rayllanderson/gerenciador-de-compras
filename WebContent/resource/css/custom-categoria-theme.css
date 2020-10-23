@@ -64,6 +64,8 @@
 
 .galaxy{
 	background-image: url('../img/galaxy.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 

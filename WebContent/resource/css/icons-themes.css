@@ -33,11 +33,11 @@
                     .black{
                     background-color: #273036;}
                     
-                    .icon-default{
-                   	border: 1px solid black;
-                   	line-height: 19px;
-   					align-items: center;
-   					justify-content: center;
-   					padding: 3px 3px;   					
+                    .theme icon-default{
+	                   	border: 1px solid black;
+	                   	line-height: 19px;
+	   					align-items: center;
+	   					justify-content: center;
+	   					padding: 3px 3px;   					
                    	}
                    
