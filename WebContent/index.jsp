@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=0.53">
 
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -14,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
-<link href="resource/style.css" type="text/css" rel="stylesheet" />
+<!--   <link href="resource/style.css" type="text/css" rel="stylesheet" />  -->
 
 <title>Login</title>
 
@@ -66,82 +67,125 @@ body {
     }
     
     
-    @media (max-width:900px)  { 
+    
+
+.btn:focus{
+outline: none;
+  box-shadow: none;
+}
+
+.btn {
+  margin: 20px auto;
+  border: none;
+  padding: 10px 44px;
+  font-size: 36px;
+  position: relative;
+  outline: 0 none;
+  z-index: 998;
+  
+}
+.btn::before {
+  -webkit-transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  content: '';
+  width: 50%;
+  height: 100%;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+
+.btn {
+  border-radius: 50px;
+}
+.btn .text-green { /*texto*/
+  color: #6e4af6;
+  z-index: 999;
+}
+.btn::before {
+  border-radius: 50px;
+  width: 1px;
+  background: white;
+  mix-blend-mode: normal;
+}
+
+.btn:hover::before  {
+  	background: #6e4af6;
+  	width: 100%;
+   mix-blend-mode: normal;
+}
+
+
+
+
+    
+    
+@media (max-width:900px) { 
     	.login-card .card-body {
         padding: 60px 60px 60px; 
         transform: scale(1.3);
         }
-        html, body {
- 		 overflow-x: hidden;
-		}
-		body {
-		  position: relative;
-		}
-      	
-     @media (orientation: landscape) {
-     	.login-card .card-body {
-        padding: 10px 10px; 
-        }
-     }
-     
-     @media (max-width:500px)  { 
+       
+      }
+      
+      
+     @media (max-width:700px)  { 
     	.login-card .card-body {
         padding: 10px 10px; 
         transform: scale(0.8);
         }
-      	
-     @media (orientation: landscape) {
-     	.login-card .card-body {
-        padding: 10px 10px; 
-        }
-     }
-     
-     
-     #btn-submit{
-     
-		
-	}
+      }
 
-	 button.botao:hover{
-		color: white;
-		background-color: #5833e5;
-		transition: 1s;
-		
-	}
+
+
+	/* box-shadow: inset 1px 1px 1px #6e4af6;
 	
-	textarea:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {  
-border-bottom: 0.5px solid #6e4af6; 
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+	
+	
+	
+	*/
+	
+	
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+[contenteditable].form-control:focus {
+ border-bottom: 0.5px solid;
+border-radius: 0;
+border:hidden;
+ box-shadow:  inset 0 -2px 1px -1px #6e4af6, 0 0 0  #6e4af6;
+border-color:  #6e4af6;
   outline: 0 none;
+  overflow: hidden;
+
 }
+
 	
-	input[type="text"], input[type="password"], select { 
-    	border-bottom: 0.5px solid #6e4af6;
-	}
+	input.form-control, 
+input[type=text],
+input[type=password], 
+[contenteditable].form-control{
+ 	transition: ease-in-out 0.9s ;
+	transition-delay: 0.1s;
+}
+
+
+
+
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active, input:-webkit-autofill:focus {
+
+   transition: background-color 5000s ease-in-out 0s;
+   transition: ease-in-out 0.9s ;
+	transition-delay: 0.1s;
+}
+
 	
-	input:focus{
-	border-bottom: 0.5px solid #6e4af6;
-	}
-    
-    
- #username input{
- 	border: none;
- }
 </style>
 
 
@@ -177,14 +221,14 @@ border-bottom: 0.5px solid #6e4af6;
 				
 			            <form class="form-signin" action="home" method="post">
 			              <div class="form-label-group">
-			               <input type="text" name="username" id="username" value="${username}" class="form-control" placeholder="Username" style=" " required autofocus>
+			               <input type="text" name="username" id="username" value="${username}" class="form-control user" placeholder="Username" style="border: hidden " required autofocus>
 			                <label for="username">Username</label>
 			              </div>
 			              <div class="form-label-group">
-			                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required style="border: hidden;">
+			                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required style="border: none;">
 			                <label for="password">Password</label>
 			              </div>
-			              <button class="btn btn-lg btn-block text-uppercase botao" id="btn-submit"  style="color: #6e4af6;" type="submit" onclick="return validarDados()">Login</button>
+			              <button class="btn btn-lg btn-block text-uppercase botao" id="btn-submit"  style="color: #6e4af6;" type="submit" ><span class="text-green">Login</span></button>
 			              </form>
 			              <hr class="my-4">
 			              <div class="form-footer">

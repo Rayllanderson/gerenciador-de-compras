@@ -24,48 +24,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Make some waves!</title>
-    
-<style type="text/css">
-    
 
-		
-		.wall{
-			
-			width: 100px;
-			height: 100px;
-			background-color: black;
-		}
-		
-		.red {
-		background-color: red;
-		}
-		
-		.blue {
-		background-color: blue;
-		}
-		
-		
-	</style>
+
+<style type="text/css">
+body, html {
+  height: 100%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #111;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-align: center;
+          align-items: center;
+  align-content: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  background-color: #ECECEC;
+}
+
+.container {
+  width: auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+} 
+
+/**nao preciso */
+
+.btn {
+  margin: 20px auto;
+  border: none;
+  padding: 10px 44px;
+  font-size: 36px;
+  position: relative;
+  
+}
+.btn::before {
+  -webkit-transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  content: '';
+  width: 50%;
+  height: 100%;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+
+.btn {
+  border-radius: 50px;
+}
+.btn .text-green { /*texto*/
+  color: #6e4af6;
+}
+.btn::before {
+  border-radius: 50px;
+  width: 1px;
+  background: #6e4af6;
+  mix-blend-mode: normal;
+}
+
+.btn:hover::before  {
+  	background: #6e4af6;
+  	width: 100%;
+   mix-blend-mode: normal;
+}
+
+
+</style>
 
 </head>
-
 <body>
 
-<div class="wall blue">
 
-
-
+<div class="container">
+  <button class="btn"><span class="text-green">Login</span></button>
 </div>
-
-
-
-
+  
+  
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-
-</script>
-
 
 </body>
 </html>

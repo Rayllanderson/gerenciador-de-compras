@@ -34,7 +34,6 @@ body {
   letter-spacing: .1rem;
   font-weight: bold;
   padding: 1rem;
-  transition: all 0.2s;
 }
 
 .form-label-group {
@@ -44,7 +43,7 @@ body {
 
 .form-label-group input {
   height: auto;
-  border-radius: 2rem;
+  border-radius: 1.8rem;
 }
 
 .form-label-group>input,
@@ -125,9 +124,10 @@ body {
   }
 }
 
+/*
 #btn-submit:hover{
 	background-color: #6e4af6
-}
+}*/
 
 
 .account {
