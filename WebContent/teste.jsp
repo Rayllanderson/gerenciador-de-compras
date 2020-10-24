@@ -100,10 +100,104 @@ body {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hb {
+      position: relative;
+      box-sizing: border-box;
+      display: inline-block;
+      overflow: hidden;
+      padding: 8px 20px;
+      margin: 0px 3px 6px;
+      text-align: center;
+      text-decoration: none;
+      color:  #6e4af6;
+      white-space: nowrap;
+      z-index: 0;
+      border-radius: 1em;
+      
+} 
+ 
+
+
+ 
+
+.hb::before {
+      position: absolute;
+      content: "";
+      background: rgb(255, 255, 255);
+      transition-duration: 0.8s;
+      z-index: -1;
+      top: 0px;
+      right: 0px;
+      bottom: auto;
+      left: auto;
+      width: 50%;
+      height: 100%;
+      opacity: 1;
+} 
+ 
+
+.hb:hover::before {
+      width: 0px;
+      height: 100%;
+      opacity: 1;
+} 
+ 
+
+.hb:hover {
+      background:  #6e4af6;
+      color: #fff;
+      transition: color 0.8s, background 0s;
+} 
+ 
+
+.hb::after {
+      position: absolute;
+      content: "";
+      background: rgb(255, 255, 255);
+      transition-duration: 0.8s;
+      z-index: -1;
+      top: 0px;
+      right: auto;
+      bottom: auto;
+      left: 0px;
+      width: 50%;
+      height: 100%;
+      opacity: 1;
+} 
+ 
+
+.hb:hover::after {
+      width: 0px;
+} 
+ 
+
+
+
+
+
+
+
+
 </style>
 
 </head>
 <body>
+
+
+<a href="#" class="hb">Reveal Middle</a>
 
 
 <div class="container">
