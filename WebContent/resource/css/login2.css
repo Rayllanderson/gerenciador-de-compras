@@ -68,7 +68,7 @@ body {
       white-space: nowrap;
       z-index: 0;
       background: white;
-      transition: color 0.8s ease 0s, background 0.8s ease 0.8s;
+      transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
       outline: 0;
       border: 0;
       
@@ -106,7 +106,7 @@ body {
 .btn:hover {
       background: #6e4af6;
       color: rgb(255, 255, 255);
-      transition: color 0.8s , background 0.8s ;
+      transition: color 0.8s , background 0.7s ;
       box-shadow: none;
 } 
  
@@ -115,7 +115,7 @@ body {
       position: absolute;
       content: "";
       background: rgb(255, 255, 255);
-      transition-duration: 0.8s;
+      transition-duration: 0.7s;
       z-index: -1;
       top: 0px;
       right: auto;
@@ -199,17 +199,17 @@ input[type=password]:focus,
 
 .ipt ~ .focus-border{
 	
-	position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #6e4af6; transition: 0.8s;
+	position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #6e4af6; transition: 0.7s;
 }
 
-.ipt:focus ~ .focus-border{width: 100%; transition: 0.8s; left: 0;}
+.ipt:focus ~ .focus-border{width: 100%; transition: 0.7s; left: 0;}
 
 	
 input.form-control, 
 input[type=text],
 input[type=password], 
 [contenteditable].form-control{
- 	transition: ease-in-out 0.9s ;
+ 	transition: ease-in-out 0.7s ;
 	transition-delay: 0.1s;
 }
 
