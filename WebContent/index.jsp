@@ -48,7 +48,7 @@
           <div class="col-md-7">
             <div class="card-body">
               <div class="brand-wrapper">
-                <h3 class="logo">Gerencie suas compras aqui!</h3>
+                <div class="logo"></div>
               </div>
               <p class="login-card-description">Faça Login em sua conta</p>
 				
@@ -56,10 +56,12 @@
 			              <div class="form-label-group">
 			               <input type="text" name="username" id="username" value="${username}" class="ipt form-control user" placeholder="Username" style="border: none " required autofocus>
 			                <label for="username">Username</label>
+			                 <span class="focus-border"></span>
 			              </div>
 			              <div class="form-label-group">
-			                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required style="border: none;">
+			                <input type="password" id="password" name="password" class="ipt form-control" placeholder="Password" required style="border: none;">
 			                <label for="password">Password</label>
+			                 <span class="focus-border"></span>
 			              </div>
 			              <button class="btn btn-lg btn-block text-uppercase botao" id="btn-submit"  type="submit" >Login</button>
 			              </form>

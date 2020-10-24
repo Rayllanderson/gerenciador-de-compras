@@ -47,143 +47,20 @@ body {
   background-color: #ECECEC;
 }
 
-.container {
-  width: auto;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
-} 
-
-/**nao preciso */
-
-.btn {
-  margin: 20px auto;
-  border: none;
-  padding: 10px 44px;
-  font-size: 36px;
-  position: relative;
-  
-}
-.btn::before {
-  -webkit-transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  content: '';
-  width: 50%;
-  height: 100%;
-  background: black;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-}
 
 
-.btn {
-  border-radius: 50px;
-}
-.btn .text-green { /*texto*/
-  color: #6e4af6;
-}
-.btn::before {
-  border-radius: 50px;
-  width: 1px;
-  background: #6e4af6;
-  mix-blend-mode: normal;
-}
+:focus{outline: none;}
 
-.btn:hover::before  {
-  	background: #6e4af6;
-  	width: 100%;
-   mix-blend-mode: normal;
-}
+
+.col-3{float: left; width: 27.33%; margin: 40px 3%; position: relative;} /* necessary to give position: relative to parent. */
+input[type="text"]{font: 15px/24px "Lato", Arial, sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
 
 
 
+.effect-2{border-radius: 2em; border:0; padding: 7px 0; border-bottom: 1px solid #ccc;}
 
-
-
-
-
-
-
-
-
-
-
-
-.hb {
-      position: relative;
-      box-sizing: border-box;
-      display: inline-block;
-      overflow: hidden;
-      padding: 8px 20px;
-      margin: 0px 3px 6px;
-      text-align: center;
-      text-decoration: none;
-      color:  #6e4af6;
-      white-space: nowrap;
-      z-index: 0;
-      border-radius: 1em;
-      
-} 
- 
-
-
- 
-
-.hb::before {
-      position: absolute;
-      content: "";
-      background: rgb(255, 255, 255);
-      transition-duration: 0.8s;
-      z-index: -1;
-      top: 0px;
-      right: 0px;
-      bottom: auto;
-      left: auto;
-      width: 50%;
-      height: 100%;
-      opacity: 1;
-} 
- 
-
-.hb:hover::before {
-      width: 0px;
-      height: 100%;
-      opacity: 1;
-} 
- 
-
-.hb:hover {
-      background:  #6e4af6;
-      color: #fff;
-      transition: color 0.8s, background 0s;
-} 
- 
-
-.hb::after {
-      position: absolute;
-      content: "";
-      background: rgb(255, 255, 255);
-      transition-duration: 0.8s;
-      z-index: -1;
-      top: 0px;
-      right: auto;
-      bottom: auto;
-      left: 0px;
-      width: 50%;
-      height: 100%;
-      opacity: 1;
-} 
- 
-
-.hb:hover::after {
-      width: 0px;
-} 
- 
-
+.effect-2 ~ .focus-border{position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #3399FF; transition: 0.8s;}
+.effect-2:focus ~ .focus-border{width: 98%; transition: 0.8s; left: 0;}
 
 
 
@@ -196,16 +73,28 @@ body {
 </head>
 <body>
 
+	<div class="col-3">
+	<input class="effect-2" type="text" placeholder="Placeholder2 Text">
+	 <span class="focus-border"></span>
+	 </div>
 
-<a href="#" class="hb">Reveal Middle</a>
-
-
-<div class="container">
-  <button class="btn"><span class="text-green">Login</span></button>
-</div>
   
   
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	$(window).load(function(){
+		$(".col-3 input").val("");
+		
+		$(".input-effect input").focusout(function(){
+			if($(this).val() != ""){
+				$(this).addClass("has-content");
+			}else{
+				$(this).removeClass("has-content");
+			}
+		})
+	});
+	
+	</script>
 </body>
 </html>
