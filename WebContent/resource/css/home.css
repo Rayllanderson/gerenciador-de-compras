@@ -94,3 +94,86 @@ nav {
         top: 20%
     }
 }
+
+
+/*search */
+
+  .containerSearch .searchbox {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 53px;
+            transition: 0.4s linear;
+            overflow: hidden;
+            transition: 0.8s linear;
+        }
+        
+        .containerSearch .searchbox .searchbox__input {
+            display: block;
+            appearance: none;
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            background-color: transparent;
+            padding: 15px;
+            color: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.8s linear;
+        }
+        
+        .containerSearch .searchbox .searchbox__input::placeholder {
+            color: transparent;
+        }
+        
+        .containerSearch .searchbox .searchbox__input:focus::placeholder {
+            color:  #6e4af6;
+        }
+        
+        .containerSearch .searchbox .searchbox__input:focus {
+            color:  #6e4af6;
+        }
+        
+        .containerSearch .searchbox .searchbox__icon {
+            position: absolute;
+            right: calc(53px / 2);
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+        
+        
+        .containerSearch .searchbox .searchbox__icon path {
+            fill: rgb(255, 255, 255);
+            transition: 0.8s linear;
+        }
+        
+        .containerSearch .searchbox:focus-within {
+            max-width: 300px;
+        }
+        
+        .containerSearch .searchbox:focus-within .searchbox__input {
+            background-color: white;
+            padding-right: 50px;
+        }
+        
+        .containerSearch .searchbox:focus-within .searchbox__icon path {
+            fill:  #6e4af6;
+        }
+		
+		
+		
+		button[type="submit"] {
+			  border: none;
+			  background: none;
+			  padding: 0;
+			  margin: 0;
+			  display: block;
+			}
+
+
+
+
