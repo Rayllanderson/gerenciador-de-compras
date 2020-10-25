@@ -16,25 +16,34 @@
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
 					<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+					
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 					
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/custom-produto-theme.css" type="text/css" rel="stylesheet" />	
-                    
+                    <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	 
                     <style type="text/css">
                         body {
                             background-color: #f8f9fa;
-						}
+                            }
+                            html, body{
+                            height: 100%;
+							
+                            }
 						
+						.content{
+						min-height: 100%;
+						position: relative;
+						}				
                     </style>
 
                 </head>
 
                 <body>
- 
  <!-- Início navbar -->
+ <div class="content">
  			<div class="wall" id="wall">
                     <header>
 
@@ -86,8 +95,9 @@
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <h6 class="dropdown-header">Temas</h6>
+                                <div class= "items">
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
-	                                <div class="theme blue" onclick="swapColor('blue', true)" style="margin-left: 1%;"></div>
+	                                <div class="theme blue" onclick="swapColor('blue', true)"></div>
 									<div class="theme pink" onclick="swapColor('pink', true)"></div>
 									<div class="theme red" onclick="swapColor('red', true)"></div>
 									<div class="theme purple" onclick="swapColor('purple', true)"></div>
@@ -98,7 +108,7 @@
 									<div class="theme black" onclick="swapColor('black', true)"></div>
 									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
 									<div class="theme icon-default" onclick="swapColor('default', true)"></div>
-									
+								</div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>
@@ -289,7 +299,7 @@
   <data>
 
                             <!--  INICIO TABELA  -->
-                            <div class="table-responsive-lg" id="tabela-produtos">
+                            <div class="table-responsive" id="tabela-produtos">
                                 <table class="table" id="tabela" style="
                                  border: 0;
   border-radius: 1rem;
@@ -358,8 +368,6 @@
                         </main>
                     </div>
                    <!-- FIM TABLE -->
-
-<hr>
 
 
                     <!-- Tela Modal editar e adicionar -->
@@ -455,7 +463,6 @@
 
 
 
-
  <!-- Modal confirmar excluir -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -477,10 +484,102 @@
   </div>
 </div>
 
+</div>
 
 
 
+<div style="padding-bottom: 100px;"></div>
 
+    <!-- Footer -->
+    <footer class="footer">
+
+        <!-- Footer Elements -->
+        <div class="container">
+            <!-- Grid row-->
+            <div class="row text-center d-flex justify-content-center mb-1" style="padding-top: 4%;">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Sobre</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Ajuda</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Contato</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+            <hr class="mt-2" style="margin: 0 32%;">
+
+            <!-- Grid row-->
+            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+                <!-- Grid column -->
+                <div class="col-md-4 mt-2">
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+
+            <!-- Grid row-->
+            <div class="p-2">
+
+                <!-- Grid column -->
+                <div class="icons">
+
+                    <div class="text-center justify-content-center">
+
+                        <!-- Facebook -->
+                        <a  href="https://www.facebook.com/rayllanderson.goncalves/" style="border: none;">
+                            <i class="fab fa-facebook fa-lg mr-3"> </i>
+                        </a>
+
+                        <a href="https://github.com/Rayllanderson">
+                            <i class="fab fa-github fa-lg white-text mr-3"></i>
+                        </a>
+                        <!-- Google +-->
+
+                        <a href="www.instagram.com/_ray_goncalves_/">
+                            <i class="fab fa-instagram fa-lg white-text mr-3"> </i>
+                        </a>
+
+
+                    </div>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="copyright footer-copyright text-center py-3">© <span id="year"></span>
+            <p style="display: inline-block;"> Made with <i class="fab fa-java fa-md" title="Java"></i> and <i class="fab fa-bootstrap fa-md" title="Boostrap"></i></p>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
 
 
 
@@ -495,7 +594,7 @@
 					<script src="resource/javascript/salvarCategoriaAjax2.js" ></script>
 					<script src="resource/javascript/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
-					
+					<script src="resource/javascript/getYear.js"></script>
 					
 <script type="text/javascript">
 

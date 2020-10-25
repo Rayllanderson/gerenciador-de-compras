@@ -1,43 +1,89 @@
+					
+					:root {
+					  --pink: #e7008a;
+					  --blue: #0099ff;
+					  --red: #E72553 ;
+					  --purple:#5000ca ;
+					  --cian: #3CD6F0 ;
+					  --green: #00cba9 ;
+					  --orange: #FF5500 ;
+					  --black: #273036 ;
+					  --hover-color: #e7008a ;
+					}
+					
+					.items{
+						justify-content: center;
+						align-items: center;
+						align-content: center;
+						text-align: center;
+					}
+					
 					.theme{
 						display:inline-block;
 						height: 19px;
 						width: 19px;
 						border-radius: 50%;
+						transition: 0.5s;
 					}
 					
 					.pink{
-					background-color: #e7008a;}
+					background-color: var(--pink);
+					--hover-color: var(--pink);
+					}
 					
 					.blue{
-					background-color: #0099ff;}
+					background-color: var(--blue);
+					--hover-color: var(--blue);
+					}
 					
 					.red{
-					background-color: #E72553;}
+					background-color: var(--red);
+					--hover-color: var(--red);
+					}
                     
                     .purple{
-                    background-color: #5000ca;}
+                   background-color: var(--purple);
+					--hover-color: var(--purple);
+                    }
                     
                     .cian{
-                    background-color: #3CD6F0;}
+                   background-color: var(--cian);
+					--hover-color: var(--cian);
+                    }
                     
                     .green{
-                    background-color: #00cba9;}    
+                    background-color: var(--green);
+					--hover-color: var(--green);
+                    }    
                     
-                    .galaxy{ 
-                	    background-image : url('../img/galaxy.jpg')
+                     .galaxy{ 
+                	    background-image : url('../img/galaxy.jpg');
+                	    background-size: cover;
+						background-repeat: no-repeat;
+						--hover-color: var(--purple);
                     }
                     
                     .orange{
-                    background-color: #FF5500;}
+                   background-color: var(--orange);
+					--hover-color: var(--orange);}
                     
                     .black{
-                    background-color: #273036;}
+                   background-color: var(--black);
+					--hover-color: var(--pink);}
                     
-                    .theme icon-default{
-	                   	border: 1px solid black;
-	                   	line-height: 19px;
-	   					align-items: center;
-	   					justify-content: center;
-	   					padding: 3px 3px;   					
+                    
+                    .icon-default{
+	                    background-image : url('../img/x.png');
+ 						background-size: contain;
+                	    background-repeat: no-repeat;
+                	    border: 0.1px solid black;	
+                	    --hover-color: var(--pink);
                    	}
+                   	
                    
+                   
+                   	.theme:hover{
+						height: 21px;
+						width: 21px;
+						border: 0.3px solid var(--hover-color);
+					}
