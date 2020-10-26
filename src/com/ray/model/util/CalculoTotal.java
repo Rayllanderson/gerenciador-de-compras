@@ -40,11 +40,78 @@ public class CalculoTotal {
 	return list;
     }
 
-    public int numTotalProdutos() {
+    public int getNumProdutos() {
 	return getTodosProdutos().size();
     }
+    
+    /**
+     * 
+     * @return total do valor que acha que vai pagar de todas as listas
+     */
+    public double getEstipulado() {
+	double total = 0;
+	for (Product p : getTodosProdutos()) {
+	    total += p.getPrecoEstipulado();
+	}
+	return total;
+    }
+    
+    /**
+     * @return quanto já gastou de todas as listas
+     */
+    public double getValorGasto() {
+	double total = 0;
+	for (Product p : this.getTodosProdutos()) {
+		total += p.getPrecoReal();
+	}
+	return total;
+    }
 
-    public int numTotalProdutosComprados() {
+    /**
+     * 
+     * @return total do valor que economizou
+     */
+    public double getEconomizado() {
+	double total = 0;
+	for (Product p : getTodosProdutos()) {
+	    if(p.isComprado()) {
+		total += (p.getPrecoEstipulado() - p.getPrecoReal());
+	    }
+	}
+	return total;
+    }
+    
+    /**
+     * 
+     * @return total do valor que acha que vai pagar de todas as listas
+     */
+    public double getRestante() {
+	double total = 0;
+	for (Product p : getTodosProdutos()) {
+	    if(!p.isComprado()) {
+		total += p.getPrecoEstipulado();
+	    }
+	}
+	return total;
+    }
+    
+    /**
+     * 
+     * @return valor total de todos os produtos das listas. se o produto for comprado, leva em consideração o valor real
+     */
+    public double getTotal() {
+	double total = 0;
+	for (Product p : getTodosProdutos()) {
+	    if(p.isComprado()) {
+		total += p.getPrecoReal();
+	    }else {
+		total += p.getPrecoEstipulado();
+	    }
+	}
+	return total;
+    }
+    
+    public int getNumProdutosComprados() {
 	int total = 0;
 	for (Product p : this.getTodosProdutos()) {
 	    if (p.isComprado()) {
@@ -56,8 +123,9 @@ public class CalculoTotal {
 
     /**
      * @return quanto já gastou de todas as listas
+     * ps: apenas os produtos comprados
      */
-    public double totalValorReal() {
+    public double getGastoComprados() {
 	double total = 0;
 	for (Product p : this.getTodosProdutos()) {
 	    if(p.isComprado()) {
@@ -71,7 +139,7 @@ public class CalculoTotal {
      * 
      * @return total do valor que acha que vai pagar de todas as listas, porém só os que ja foram comprados
      */
-    public double totalEstipulado() {
+    public double getEstipuladoComprados() {
 	double total = 0;
 	for (Product p : getTodosProdutos()) {
 	    if(p.isComprado()) {
@@ -85,7 +153,7 @@ public class CalculoTotal {
      * @return list.size();
      * @throws ListaVaziaException("Você não possui listas no momento");
      */
-    public int numeroTotalCategorias() throws ListaVaziaException {
+    public int getNumCategorias() throws ListaVaziaException {
 	List<Categoria> list = this.cService.findAll();
 	return list.size();
     }

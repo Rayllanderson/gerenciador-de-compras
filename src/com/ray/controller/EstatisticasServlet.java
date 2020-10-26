@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ray.model.entities.User;
-import com.ray.model.util.UserUtil;
+import com.ray.model.util.CalculoTotal;
 
 @MultipartConfig
 @WebServlet("/estatisticas")
@@ -36,12 +36,17 @@ public class EstatisticasServlet extends HttpServlet {
 
     private void setInformacoes(HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
-	UserUtil infos = new UserUtil(user);
-	request.getSession().setAttribute("tListas", infos.getNumeroTotalCategorias());
-	request.getSession().setAttribute("tProdutos", infos.getNumTotalProdutos());
-	request.getSession().setAttribute("nProdutosComprados", infos.getNumTotalProdutosComprados());
-	request.getSession().setAttribute("tEstip", infos.getTotalEstipulado());
-	request.getSession().setAttribute("tGasto", infos.getTotalReal());
+	CalculoTotal infos = new CalculoTotal(user);
+	request.getSession().setAttribute("totalListas", infos.getNumCategorias());
+	request.getSession().setAttribute("totalProdutos", infos.getNumProdutos());
+	request.getSession().setAttribute("numProdutosComprados", infos.getNumProdutosComprados());
+	request.getSession().setAttribute("valorGastoComprados", infos.getGastoComprados());
+	request.getSession().setAttribute("valorEstipComprados", infos.getEstipuladoComprados());
+	request.getSession().setAttribute("valorGasto", infos.getValorGasto());
+	request.getSession().setAttribute("valorEstip", infos.getEstipulado());
+	request.getSession().setAttribute("economizado", infos.getEconomizado());
+	request.getSession().setAttribute("restante", infos.getRestante());
+	request.getSession().setAttribute("total", infos.getTotal());
     }
 
   

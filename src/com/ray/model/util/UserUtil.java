@@ -16,23 +16,25 @@ public class UserUtil {
     }
     
     public int getNumeroTotalCategorias() {
-	return ct.numeroTotalCategorias();
+	return ct.getNumCategorias();
     }
     
     public int getNumTotalProdutosComprados() {
-	return ct.numTotalProdutosComprados();
+	return ct.getNumProdutosComprados();
     }
     
     public int getNumTotalProdutos() {
-	return ct.numTotalProdutos();
+	return ct.getNumProdutos();
     }
     
     public Double getTotalReal() {
-	return ct.totalValorReal();
+	return ct.getGastoComprados();
     }
 
     public Double getTotalEstipulado() {
-	return ct.totalEstipulado();
+	return ct.getEstipuladoComprados();
     }
+    
+    
 
 }

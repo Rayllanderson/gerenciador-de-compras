@@ -22,10 +22,10 @@ public class InformacoesUsuario {
 	NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 	CalculoTotal ct = new CalculoTotal(user);
 	System.out.println("Olá, " + UserUtil.formatarNome(user.getName()) + "!");
-	System.out.println("Você possui " + ct.numeroTotalCategorias() + " listas no total");
-	System.out.println("Você já comprou " + ct.numTotalProdutosComprados() + " produtos de um total de " + ct.numTotalProdutos());
-	System.out.println("Você já gastou "+ currencyFormatter.format(ct.totalValorReal()));
-	System.out.println("Você pretendia gastar " + currencyFormatter.format( ct.totalEstipulado()));
+	System.out.println("Você possui " + ct.getNumCategorias() + " listas no total");
+	System.out.println("Você já comprou " + ct.getNumProdutosComprados() + " produtos de um total de " + ct.getNumProdutos());
+	System.out.println("Você já gastou "+ currencyFormatter.format(ct.getGastoComprados()));
+	System.out.println("Você pretendia gastar " + currencyFormatter.format( ct.getEstipuladoComprados()));
     }
 
     

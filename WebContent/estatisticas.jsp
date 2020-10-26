@@ -150,11 +150,11 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 					
 				</div>
 			<ul>
-				<li> <p>Número total de listas: <span> ${tListas} </span> </p> </li>
+				<li> <p>Número total de listas: <span> ${totalListas} </span> </p> </li>
 			</ul>	
 			
 			<ul>
-			 <li><p>Número total de produtos: <span> ${tProdutos} </span></p></li>
+			 <li><p>Número total de produtos: <span> ${totalProdutos} </span></p></li>
 			</ul>		
 						
 			<div class="text-center">
@@ -165,7 +165,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			<div class="mb-5"></div>
 			
 			<div class="text-center">
-					<p class="text-uppercase font-weight-bold">Valores dos Produtos</p>
+					<p class="text-uppercase font-weight-bold">Valores Produtos Comprados</p>
 			</div>	
 			
 			<p>PS: o gráfico abaixo está levando em consideração apenas os produtos <a href='#'> marcados como comprados </a> </p>
@@ -174,11 +174,11 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			<div class="mb-5"></div>
 			
 			<div class="text-center">
-					<p class="text-uppercase font-weight-bold">Simulando Valores dos Produtos</p>
+					<p class="text-uppercase font-weight-bold">Valores Todos os Produtos</p>
 			</div>	
 			
-			<p>PS: o gráfico abaixo está levando em consideração todos os produtos. Caso já esteja marcado como comprado, leva em consideração o valor real. Caso não, leva em consideração
-			o preço estipulado </p>
+			<p>PS: 
+			</p>
 			<canvas id="myChart2"></canvas>
 				
 				
@@ -194,17 +194,13 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 
 <script>
 
-var qtdProdutosComprados = parseInt('${nProdutosComprados}');
-var total = parseInt("${tProdutos}");
-var qtdProdutosNaoComprados = total - qtdProdutosComprados;
-var valorReal = Number("${tGasto}");
-var valorEstipulado = Number("${tEstip}");
+var numProdutosComprados = parseInt('${numProdutosComprados}');
+var total = parseInt("${totalProdutos}");
+var numProdutosNaoComprados = total - numProdutosComprados;
 
-console.log(valorEstipulado)
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
-	exportEnabled: true,
 	animationEnabled: true,
 	title: {
 		text: ""
@@ -218,14 +214,22 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		indexLabelFontSize: 14,
 		indexLabel: " {label} {y} ",
 		dataPoints: [
-			{ y: qtdProdutosNaoComprados, label: "Não Comprados" },
-			{ y: qtdProdutosComprados, label: "Comprados" }
+			{ y: numProdutosNaoComprados, label: "Não Comprados" },
+			{ y: numProdutosComprados, label: "Comprados" }
 		]
 	}]
 });
 chart.render();
 $(".canvasjs-chart-credit").hide();
 
+
+
+
+
+//apenas produdos comprados
+var valorGastoComprados = Number("${valorGastoComprados}").toFixed(2);
+var valorEstipuladoComprados = Number("${valorEstipComprados}").toFixed(2);
+var valorEconomizadoComprados = (valorEstipuladoComprados - valorGastoComprados).toFixed(2);
 
 
 var ctx = document.getElementById('myChart');
@@ -235,16 +239,16 @@ var myChart = new Chart(ctx, {
         labels: ['Valor Gasto', 'Valor Estipulado', 'Valor Economizado'],
         datasets: [{
             label: 'R$',
-            data: [valorReal, valorEstipulado, valorEstipulado - valorReal],
+            data: [valorGastoComprados, valorEstipuladoComprados, valorEconomizadoComprados],
             backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+            	'rgba(54, 162, 235, 1)',
+                'rgba(232, 62, 140, 1)',
+                 getColor(valorEconomizadoComprados)
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+            	'rgba(40, 148, 245, 1)',
+            	'rgba(242, 56, 135, 1)',
+            	 getColor(valorEconomizadoComprados)
             ],
             borderWidth: 1
         }]
@@ -261,23 +265,38 @@ var myChart = new Chart(ctx, {
     }
 });
 
-var ctx2 = document.getElementById('myChart2');
+
+
+
+
+//todos os produtos
+var valorGasto = Number("${valorGasto}").toFixed(2);
+var valorEstipulado = Number("${valorEstip}").toFixed(2);
+var economizado = Number("${economizado}").toFixed(2);
+var restante = Number("${restante}").toFixed(2);
+var total = Number("${total}").toFixed(2);
+
+var ctx2 = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(ctx2, {
     type: 'bar',
     data: {
-        labels: ['Valor Gasto', 'Valor Estipulado', 'Valor Economizado'],
+        labels: ['Valor economizado', 'Falta Gastar', 'Valor Gasto', 'Valor total estipulado', 'Valor Total'],
         datasets: [{
             label: 'R$',
-            data: [10, 15, 15 - 10 ],
+            data: [economizado, restante, valorGasto, valorEstipulado, total],
             backgroundColor: [
-                'rgba(255, 99, 132, 1)',
+            	getColor(economizado),
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 69, 18, 1)' 
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 69, 18, 1)' 
             ],
             borderWidth: 1
         }]
@@ -294,6 +313,10 @@ var myChart2 = new Chart(ctx2, {
     }
 });
 
+
+function getColor(economizado){
+	return economizado >= 0 ? 'rgba(62, 232, 69, 1)' : 'rgba(232, 69, 62, 1)';
+}
 
 </script>	
 	
