@@ -11,11 +11,18 @@
 
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="resource/javascript/util/fa.js"></script>
+
+<!-- canvas JS -->
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<!-- chart.js 2.9.4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 <style type="text/css">
 
@@ -58,6 +65,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 <body>
 
 <div class="content">
+
                    <header>
                          <nav class="navbar navbar-expand navbar-dark">
                             <a class="navbar-brand" href="home.jsp">
@@ -110,27 +118,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 </header> 	<!--  END NAVBAR  -->
 				
 				
-				
-				
-
-
-	<div class="container">
-
-		<div class="card card-signin my-5" style="border-radius: 1em">
-			<article class="card-body mx-auto">
-				<h4 class="card-title mt-3 text-center">Estatísticas</h4>
-			
-				
-				<!--  CONTENT HERE -->
-				
-			</article>
-		</div>
-		<!-- card.// -->
-	</div>
-
-</div>
-
-<!--  
+	<!--  
 
 <hr>
 <div class="container">
@@ -149,10 +137,103 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			</div>
 			
 			
-			 -->
+			 -->			
+				
+
+
+	<div class="container" style="margin-top: 5%">
+
+		<div class="card mt-3 p-3" style="border-radius: 1em">
+				<h4 class="card-title mt-3 text-center">Estatísticas</h4>
+				
+				<!--  CONTENT HERE -->
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rhoncus, magna eget luctus consectetur,
+			 odio nisi posuere urna, placerat lobortis felis risus eu mi. 
+			 Donec suscipit suscipit neque, vel sollicitudin nibh imperdiet in. </p>	
+			<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+			
+			<div class="mb-3"></div>
+			
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rhoncus, magna eget luctus consectetur,
+			 odio nisi posuere urna, placerat lobortis felis risus eu mi. 
+			 Donec suscipit suscipit neque, vel sollicitudin nibh imperdiet in. </p>
+			<canvas id="myChart"></canvas>
+			
+				
+				
+		</div>
+		<!-- card.// -->
+	</div>
+
+</div>
+
+
+
+
+
+<script>
+
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Produtos"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}",
+		dataPoints: [
+			{ y: 51, label: "Não Comprados" },
+			{ y: 27, label: "Comprados" }
+		]
+	}]
+});
+
+chart.render();
+$(".canvasjs-chart-credit").hide();
+
+</script>
+
+<script type="text/javascript">
+
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Valor Real', 'Valor Estipulado', 'Valor Economizado'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 19-12],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+
+</script>	
+	
 		
 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
