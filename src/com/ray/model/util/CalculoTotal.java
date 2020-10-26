@@ -28,7 +28,7 @@ public class CalculoTotal {
     /**
      * @return uma lista contendo todos os produtos de um usuário
      */
-    private List<Product> todosProdutos() {
+    private List<Product> getTodosProdutos() {
 	List<Categoria> listCategoria = cService.findAll();
 	for (int i = 0; i < listCategoria.size(); i++) {
 	    instanciarTodosProdutos(listCategoria.get(i));
@@ -41,12 +41,12 @@ public class CalculoTotal {
     }
 
     public int numTotalProdutos() {
-	return todosProdutos().size();
+	return getTodosProdutos().size();
     }
 
     public int numTotalProdutosComprados() {
 	int total = 0;
-	for (Product p : this.todosProdutos()) {
+	for (Product p : this.getTodosProdutos()) {
 	    if (p.isComprado()) {
 		total++;
 	    }
@@ -59,20 +59,24 @@ public class CalculoTotal {
      */
     public double totalValorReal() {
 	double total = 0;
-	for (Product p : this.todosProdutos()) {
-	    total += p.getPrecoReal();
+	for (Product p : this.getTodosProdutos()) {
+	    if(p.isComprado()) {
+		total += p.getPrecoReal();
+	    }
 	}
 	return total;
     }
 
     /**
+     * 
      * @return total do valor que acha que vai pagar de todas as listas
      */
     public double totalEstipulado() {
 	double total = 0;
-	todosProdutos();
-	for (Product p : this.todosProdutos()) {
+	for (Product p : getTodosProdutos()) {
+	    if(p.isComprado()) {
 	    total += p.getPrecoEstipulado();
+	    }
 	}
 	return total;
     }

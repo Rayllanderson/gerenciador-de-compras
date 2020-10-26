@@ -13,13 +13,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
     <link href="resource/css/home.css" type="text/css" rel="stylesheet" />
-	
+   
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+ 	<script src="resource/javascript/util/fa.js"></script>  
 
+	  
 
     <style type="text/css">
 		.dropdown-item.active, .dropdown-item:active{
@@ -100,7 +101,7 @@
                     <div class="form-group" style="height: 60px; ">
 	                    <div class ="containerSearch" style="float: right;">
 		                     <div class="searchbox" id="searchbox">
-					            <input type="text" id="search" class="searchbox__input" placeholder="procure por um produto" />
+					            <input type="text" id="search" class="searchbox__input" placeholder="Procure por um produto" />
 					            
 					            <button type="submit">
 					            
@@ -116,27 +117,33 @@
                     </form>
                     
                     <div class="form-group" style="margin-top: 3%;">
-                        <button class="botao btn btn-outline" href="categorias?acao=listar"><i class="fas fa-clipboard fa-sm"></i> Acessar suas listas</button>
+                        <a href="categorias">
+                        <button class="botao btn btn-outline"><i class="fas fa-clipboard fa-sm"></i> Acessar suas listas </button></a>
                     </div>
 
                     <div class="form-group">
-                        <button class="botao btn btn-outline" href="my-account"><i class="fas fa-clipboard fa-sm"></i> Acessar sua conta</button>
+                        <a href="my-account">
+                        <button class="botao btn btn-outline"><i class="fas fa-user-circle"></i> Acessar sua conta </button> </a>
                     </div>
 
                     <div class="form-group">
-                        <button class="botao btn btn-outline" href="#"><i class="fas fa-clipboard fa-sm"></i> Acessar estatítiscas</button>
+                        <a href="#">
+                        <button class="botao btn btn"><i class="fas fa-chart-pie"></i> Estatítiscas </button></a>
                     </div>
 
                     <div class="form-group">
-                        <button class="botao btn btn-outline" href="#"><i class="fas fa-clipboard fa-sm"></i> Todos os seus produtos</button>
+                        <a href="#">
+                        <button class="botao btn btn-outline"><i class="fas fa-shopping-bag"></i> Todos os produtos </button></a>
                     </div>
 
                     <div class="form-group">
-                        <button class="botao btn btn-outline" href="#"><i class="fas fa-clipboard fa-sm"></i> Sobre</button>
+                        <a href="#">
+                        <button class="botao btn btn-outline"><i class="fas fa-info"></i> Sobre </button></a>
                     </div>
 
                     <div class="form-group">
-                        <button class="botao btn btn-outline" href="#"><i class="fas fa-clipboard fa-sm"></i> Ajuda</button>
+                        <a href="#">
+                        <button class="botao btn btn-outline"><i class="fas fa-question"></i> Ajuda </button></a>
                     </div>
                 </div>
             </div>

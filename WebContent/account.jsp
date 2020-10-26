@@ -18,12 +18,16 @@
 <!--   --><link href="resource/css/account.css" type="text/css" rel="stylesheet" />
 
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
-<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+<script src="resource/javascript/util/fa.js"></script>
 
 <link href="resource/css/wave.css" type="text/css" rel="stylesheet" />
 
@@ -34,10 +38,13 @@
 }
 
 
+html, body{
+	height: 100%;
+}
+
 body{
 margin: 0;
 padding: 0;
-height: 100%;
 border-radius: 1em;
 background-image: url('resource/img/account.jpg');
 background-repeat: no-repeat;
@@ -51,19 +58,15 @@ position: relative;
 
 
 .content {
- min-height: 100vh; /* will cover the 100% of viewport */
- overflow: hidden;
- display: block;
- position: relative;
- padding-bottom: 100px; /* height of your footer */
-
+ min-height: 70%; /* will cover the 100% of viewport */
+ padding-bottom: -250px; /* height of your footer */
 }
 
 footer{
- position: absolute;
- bottom: 0;
+ position: relative;
  width: 100%;
  height: 3.5rem;
+ bottom: 0;
 }
 
 
@@ -158,6 +161,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 </head>
 <body class="account">
 
+<div class="content">
                    <header>
 
                          <nav class="navbar navbar-expand navbar-dark">
@@ -429,8 +433,12 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 					  </div>
 					</div>
 
+</div>
 
-<footer>
+
+</div>
+
+<footer class="footer">
 <svg viewBox="0 0 120 28">
  <defs> 
    <mask id="xxx">
@@ -465,7 +473,6 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 </footer>
 
 
- </div>	
 
 	
 	<script type="text/javascript">

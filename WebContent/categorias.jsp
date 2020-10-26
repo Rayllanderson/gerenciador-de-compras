@@ -17,7 +17,7 @@
 <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	 
 
 
-<script src="https://kit.fontawesome.com/7b8bfaf036.js" crossorigin="anonymous"></script>
+<script src="resource/javascript/util/fa.js"></script>
 
  <style type="text/css">
                       
@@ -392,7 +392,7 @@
                     <div class="text-center justify-content-center">
 
                         <!-- Facebook -->
-                        <a  href="https://www.facebook.com/rayllanderson.goncalves/" style="border: none;">
+                        <a  href="https://www.facebook.com/rayllanderson.goncalves/">
                             <i class="fab fa-facebook fa-lg mr-3"> </i>
                         </a>
 
@@ -419,7 +419,7 @@
 
         <!-- Copyright -->
         <div class="copyright footer-copyright text-center py-3">© <span id="year"></span>
-            <p style="display: inline-block;"> Made with <i class="fab fa-java fa-md" title="Java"></i> and <i class="fab fa-bootstrap fa-md" title="Boostrap"></i></p>
+            <p style="display: inline-block;"> Made with <i class="fab fa-java fa-md" title="Java"></i> and <i class="fab fa-bootstrap fa-md" title="Bootstrap"></i></p>
         </div>
         <!-- Copyright -->
 

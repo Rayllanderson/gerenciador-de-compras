@@ -46,11 +46,12 @@ nav {
 }
 
 .hero.is-theme-secondary {
-    background-color: #7F00FF;
+    background-color: #6e4af6;
 }
 
+ /* #7F00FF */
 #landing-hero {
-    background: #7F00FF url(../img/icon-bg.png) repeat 0 0;
+    background: #6e4af6 url(../img/icon-bg2.png) repeat 0 0;
     -webkit-animation: 18s linear 0s normal none infinite animate;
     animation: 18s linear 0s normal none infinite animate
 }
@@ -103,9 +104,12 @@ nav {
             display: block;
             width: 100%;
             max-width: 53px;
+            height: 53px;
             transition: 0.4s linear;
             overflow: hidden;
-            transition: 0.8s linear;
+            transition: 0.5s linear;
+			border: 0.5px solid white;
+   			 border-radius: 1em;
         }
         
         .containerSearch .searchbox .searchbox__input {
@@ -115,16 +119,18 @@ nav {
             border: none;
             outline: none;
             border-radius: 50px;
+            height: 53px;
             background-color: transparent;
             padding: 15px;
             color: transparent;
             font-size: 20px;
             cursor: pointer;
-            transition: 0.8s linear;
+            transition: 0.6s linear;
         }
         
         .containerSearch .searchbox .searchbox__input::placeholder {
             color: transparent;
+            border: 0;
         }
         
         .containerSearch .searchbox .searchbox__input:focus::placeholder {
@@ -148,11 +154,13 @@ nav {
         
         .containerSearch .searchbox .searchbox__icon path {
             fill: rgb(255, 255, 255);
-            transition: 0.6s linear;
+            transition: 0.5s linear;
+            
         }
         
         .containerSearch .searchbox:focus-within {
             max-width: 300px;
+            border: 0;
         }
         
         .containerSearch .searchbox:focus-within .searchbox__input {

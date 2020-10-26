@@ -24,7 +24,7 @@ public class Autenticacao implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-	Filter.super.init(filterConfig);
+//	Filter.super.init(filterConfig);
 	this.context = filterConfig.getServletContext();
 	this.context.log("AuthenticationFilter initialized");
     }
@@ -51,7 +51,7 @@ public class Autenticacao implements Filter {
 
     @Override
     public void destroy() {
-	Filter.super.destroy();
+//	Filter.super.destroy();
     }
     
     private void setUserTheme(HttpServletRequest request, User user) {

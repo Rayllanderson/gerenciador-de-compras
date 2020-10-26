@@ -1,3 +1,8 @@
+:root{
+	--roxo: #6e4af6;
+	--roxo-hover: #5c32fa;
+}
+
 
 /** layout geral */
 
@@ -64,10 +69,10 @@ body {
       overflow: hidden;
       text-align: center;
       text-decoration: none;
-      color: #6e4af6;
+      color:white;
       white-space: nowrap;
       z-index: 0;
-      background: white;
+      background: var(--roxo);
       transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
       outline: 0;
       border: 0;
@@ -83,7 +88,7 @@ body {
 .btn::before {
       position: absolute;
       content: "";
-      background: rgb(255, 255, 255);
+      background: var(--roxo);
       transition-duration: 0.8s;
       z-index: -1;
       top: 0px;
@@ -104,8 +109,8 @@ body {
  
 
 .btn:hover {
-      background: #6e4af6;
-      color: rgb(255, 255, 255);
+      background: var(--roxo-hover);
+      color: white;
       transition: color 0.8s , background 0.7s ;
       box-shadow: none;
 } 
@@ -114,7 +119,7 @@ body {
 .btn::after {
       position: absolute;
       content: "";
-      background: rgb(255, 255, 255);
+      background:var(--roxo);
       transition-duration: 0.7s;
       z-index: -1;
       top: 0px;

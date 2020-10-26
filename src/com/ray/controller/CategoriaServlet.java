@@ -70,7 +70,6 @@ public class CategoriaServlet extends HttpServlet {
 		User user = instanciarUser(request);
 		repository = DaoFactory.createCategoriaDao(user);
 		service = new CategoriaService(user);
-		System.out.println(acao);
 		if (acao.equals("listar")) {
 		    listarTodasCategorias(request, response);
 		} else if (acao.equals("selecionar")) {
@@ -143,7 +142,7 @@ public class CategoriaServlet extends HttpServlet {
 	String id = request.getParameter("id");
 	Categoria cat = repository.findById(Long.parseLong(id));
 	request.getSession().setAttribute("categoria", cat);
-	response.sendRedirect("produtos?acao=listar");
+	response.sendRedirect("produtos");
     }
 
     
