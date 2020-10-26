@@ -162,7 +162,7 @@ public class AccountServlet extends HttpServlet {
 	request.getSession().setAttribute("tListas", infos.getNumeroTotalCategorias());
 	request.getSession().setAttribute("tProdutos", infos.getNumTotalProdutos());
 	request.getSession().setAttribute("nProdutosComprados", infos.getNumTotalProdutosComprados());
-	request.getSession().setAttribute("tEstipulado", infos.getTotalEstipulado());
+	request.getSession().setAttribute("tEstip", infos.getTotalEstipulado());
 	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 

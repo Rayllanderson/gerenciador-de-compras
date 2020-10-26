@@ -129,7 +129,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 			<h4 class="card-title mt-3 text-center">Informações Gerais</h4>
 			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
 			<p>Você possui ${tListas} listas no total </p>
-			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
+			<p>Você comprou produtos de um total de ${tProdutos} </p>
 			<p>Você já gastou ${tGasto} </p>
 			<p>Você pretende gastar ${tEstipulado} </p>
 			</article>
@@ -145,20 +145,41 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 
 		<div class="card mt-3 p-3" style="border-radius: 1em">
 				<h4 class="card-title mt-3 text-center">Estatísticas</h4>
-				
-				<!--  CONTENT HERE -->
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rhoncus, magna eget luctus consectetur,
-			 odio nisi posuere urna, placerat lobortis felis risus eu mi. 
-			 Donec suscipit suscipit neque, vel sollicitudin nibh imperdiet in. </p>	
+				<div class="text-center">
+					<p>Olá, <strong> ${user.name}</strong>!</p>
+					
+				</div>
+			<ul>
+				<li> <p>Número total de listas: <span> ${tListas} </span> </p> </li>
+			</ul>	
+			
+			<ul>
+			 <li><p>Número total de produtos: <span> ${tProdutos} </span></p></li>
+			</ul>		
+						
+			<div class="text-center">
+					<p class="text-uppercase font-weight-bold">Quantidade de Produtos</p>
+			</div>	
 			<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 			
-			<div class="mb-3"></div>
+			<div class="mb-5"></div>
 			
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rhoncus, magna eget luctus consectetur,
-			 odio nisi posuere urna, placerat lobortis felis risus eu mi. 
-			 Donec suscipit suscipit neque, vel sollicitudin nibh imperdiet in. </p>
+			<div class="text-center">
+					<p class="text-uppercase font-weight-bold">Valores dos Produtos</p>
+			</div>	
+			
+			<p>PS: o gráfico abaixo está levando em consideração apenas os produtos <a href='#'> marcados como comprados </a> </p>
 			<canvas id="myChart"></canvas>
 			
+			<div class="mb-5"></div>
+			
+			<div class="text-center">
+					<p class="text-uppercase font-weight-bold">Simulando Valores dos Produtos</p>
+			</div>	
+			
+			<p>PS: o gráfico abaixo está levando em consideração todos os produtos. Caso já esteja marcado como comprado, leva em consideração o valor real. Caso não, leva em consideração
+			o preço estipulado </p>
+			<canvas id="myChart2"></canvas>
 				
 				
 		</div>
@@ -173,44 +194,48 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 
 <script>
 
+var qtdProdutosComprados = parseInt('${nProdutosComprados}');
+var total = parseInt("${tProdutos}");
+var qtdProdutosNaoComprados = total - qtdProdutosComprados;
+var valorReal = Number("${tGasto}");
+var valorEstipulado = Number("${tEstip}");
+
+console.log(valorEstipulado)
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Produtos"
+		text: ""
 	},
 	data: [{
 		type: "pie",
 		startAngle: 25,
-		toolTipContent: "<b>{label}</b>: {y}",
+		toolTipContent: " <b>{label}</b>: {y} ",
 		showInLegend: "true",
 		legendText: "{label}",
-		indexLabelFontSize: 16,
-		indexLabel: "{label} - {y}",
+		indexLabelFontSize: 14,
+		indexLabel: " {label} {y} ",
 		dataPoints: [
-			{ y: 51, label: "Não Comprados" },
-			{ y: 27, label: "Comprados" }
+			{ y: qtdProdutosNaoComprados, label: "Não Comprados" },
+			{ y: qtdProdutosComprados, label: "Comprados" }
 		]
 	}]
 });
-
 chart.render();
 $(".canvasjs-chart-credit").hide();
 
-</script>
 
-<script type="text/javascript">
 
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Valor Real', 'Valor Estipulado', 'Valor Economizado'],
+        labels: ['Valor Gasto', 'Valor Estipulado', 'Valor Economizado'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 19-12],
+            label: 'R$',
+            data: [valorReal, valorEstipulado, valorEstipulado - valorReal],
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
@@ -225,7 +250,47 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: true
+        responsive: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx2 = document.getElementById('myChart2');
+var myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['Valor Gasto', 'Valor Estipulado', 'Valor Economizado'],
+        datasets: [{
+            label: 'R$',
+            data: [10, 15, 15 - 10 ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     }
 });
 

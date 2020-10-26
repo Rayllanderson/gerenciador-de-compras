@@ -127,7 +127,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="#">
+                        <a href="estatisticas">
                         <button class="botao btn btn"><i class="fas fa-chart-pie"></i> Estatítiscas </button></a>
                     </div>
 

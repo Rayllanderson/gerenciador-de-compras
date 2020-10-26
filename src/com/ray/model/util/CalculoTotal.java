@@ -69,7 +69,7 @@ public class CalculoTotal {
 
     /**
      * 
-     * @return total do valor que acha que vai pagar de todas as listas
+     * @return total do valor que acha que vai pagar de todas as listas, porém só os que ja foram comprados
      */
     public double totalEstipulado() {
 	double total = 0;
