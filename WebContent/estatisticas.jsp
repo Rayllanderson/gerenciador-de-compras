@@ -7,7 +7,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.9">
+<meta name="viewport" content="width=device-width, initial-scale=0.95">
 
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -57,6 +57,15 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 
+#myChart2{
+max-height: 500px; max-width: 100%
+}
+
+     @media (max-width:700px)  { 
+    	#myChart2{
+		max-height: 300px;
+		}
+      }
 
 </style>
 
@@ -146,7 +155,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 		<div class="card mt-3 p-3" style="border-radius: 1em">
 				<h4 class="card-title mt-3 text-center">Estatísticas</h4>
 				<div class="text-center">
-					<p>Olá, <strong> ${user.name}</strong>!</p>
+					<p>Oi, ${user.name}, aqui estão algumas estatísticas:</p>
 					
 				</div>
 			<ul>
@@ -168,7 +177,7 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 					<p class="text-uppercase font-weight-bold">Valores Produtos Comprados</p>
 			</div>	
 			
-			<p>PS: o gráfico abaixo está levando em consideração apenas os produtos <a href='#'> marcados como comprados </a> </p>
+			<p>PS: o gráfico abaixo está levando em consideração apenas os produtos <a href='#' class="marcado-comprado" data-toggle="modal" data-target="#exampleModal"> marcados como comprados </a> </p>
 			<canvas id="myChart"></canvas>
 			
 			<div class="mb-5"></div>
@@ -177,10 +186,17 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 					<p class="text-uppercase font-weight-bold">Valores Todos os Produtos</p>
 			</div>	
 			
-			<p>PS: 
-			</p>
+			<p>PS: O gráfico abaixo leva em consideração todos os produtos. </p>
+			
 			<canvas id="myChart2"></canvas>
-				
+			<p>Legenda: </p>
+			<ul>
+				<li><strong> Economizado:</strong> Subtração do valor estipulado com o valor do produto que foi comprado</li>
+				<li><strong> Falta Gastar:</strong> Soma dos produtos que ainda não foram comprados </li>
+				<li><strong> Valor Gasto:</strong> Soma dos <a href="#" class="valor-real" data-toggle="modal" data-target="#exampleModal">  valores reais </a> dos produtos, mesmo que não estejam <a  class="marcado-comprado" data-toggle="modal" data-target="#exampleModal" href="#"> marcados como comprados </a></li>
+				<li><strong> Valor Estipulado:</strong> Soma dos valores estipulados dos produtos, mesmo que já tenham sido comprados</li>
+				<li><strong> Valor Total:</strong> Soma dos produtos comprados e não comprados. Caso o produto já tenha sido comprado, leva em consideração seu <a  class="valor-real" data-toggle="modal" data-target="#exampleModal" href="#"> valor real </a> </li>
+			</ul>
 				
 		</div>
 		<!-- card.// -->
@@ -189,6 +205,23 @@ box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 </div>
 
 
+
+<div class="modal fade modal-center" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p id="titulo-modal"></p>
+      <img class="pb-2" alt="" id="img" style=" border:1px solid rgb(225, 225, 225); border-radius: 1em; margin-left: auto; margin-right: auto; display: block;">
+      
+    </div>
+  </div>
+</div>
+</div>
 
 
 
@@ -254,7 +287,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: true,
+        
         scales: {
             yAxes: [{
                 ticks: {
@@ -278,9 +311,9 @@ var total = Number("${total}").toFixed(2);
 
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(ctx2, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
-        labels: ['Valor economizado', 'Falta Gastar', 'Valor Gasto', 'Valor total estipulado', 'Valor Total'],
+        labels: ['Economizado', 'Falta Gastar', 'Valor Gasto', 'V. Estipulado', 'Valor Total'],
         datasets: [{
             label: 'R$',
             data: [economizado, restante, valorGasto, valorEstipulado, total],
@@ -302,14 +335,14 @@ var myChart2 = new Chart(ctx2, {
         }]
     },
     options: {
-        responsive: true,
+    	maintainAspectRatio: false,
         scales: {
             yAxes: [{
                 ticks: {
                     beginAtZero: true
                 }
             }]
-        }
+        }   
     }
 });
 
@@ -318,6 +351,17 @@ function getColor(economizado){
 	return economizado >= 0 ? 'rgba(62, 232, 69, 1)' : 'rgba(232, 69, 62, 1)';
 }
 
+
+$('.marcado-comprado').on('click', function () {
+//	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
+	$("#img").attr("src","resource/img/estatisticas/marcado-comprado.png");
+	
+});
+
+$('.valor-real').on('click', function () {
+//	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
+	$("#img").attr("src","resource/img/estatisticas/preco-real.png");
+});
 </script>	
 	
 		
