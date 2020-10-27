@@ -12,8 +12,9 @@
 
 <link href="resource/css/login.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/login2.css" type="text/css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!--   <link href="resource/style.css" type="text/css" rel="stylesheet" />  -->
 
@@ -30,9 +31,9 @@
 <body>
 
 <!-- ALERT -->
-				 	  <div class="fixed-top">
+				 	 <div class="fixed-top">
 				 		<div class="alert alert-success" id="success-alert">
-				   			 <button type="button" class="close"onclick="$('.alert').hide();">x</button>
+				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
 				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
 				  		</div>
 					</div>
@@ -52,7 +53,7 @@
               </div>
               <p class="login-card-description">Faça Login em sua conta</p>
 				
-			            <form class="form-signin" action="home" method="post">
+			            <div class="form-signin" >
 			              <div class="form-label-group">
 			               <input type="text" name="username" id="username" value="${username}" class="ipt form-control user" placeholder="Username" style="border: none " required autofocus>
 			                <label for="username">Username</label>
@@ -64,7 +65,7 @@
 			                 <span class="focus-border"></span>
 			              </div>
 			              <button class="btn btn-lg btn-block text-uppercase botao" id="btn-submit"  type="submit" >Login</button>
-			              </form>
+			              </div>
 			              <hr class="my-4">
 			              <div class="cadastro form-footer">
 			          <p>   Não tem uma conta? <a class="text-primary" href="cadastro.jsp">Cadastre-se</a></p>
@@ -93,6 +94,8 @@ const msg = "${msg}"
 </script>
 
 <script src="resource/javascript/index.js"></script>
+<script src="resource/javascript/ajax/loginAjax.js"></script>
+<script src="resource/javascript/alert.js"></script>
 
 </body>
 </html>

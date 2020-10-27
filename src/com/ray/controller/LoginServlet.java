@@ -2,7 +2,6 @@ package com.ray.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -19,7 +18,7 @@ import com.ray.model.exception.MyLoginException;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/home")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +32,8 @@ public class LoginServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	response.setContentType("text/plain");
+	response.setCharacterEncoding("UTF-8");
 	try {
 	    User user = repository.login(username, password);
 	    if (user != null) {
@@ -47,13 +48,14 @@ public class LoginServlet extends HttpServlet {
 		newSession.setAttribute("user", user);
 		Cookie id = new Cookie("b80bb7740288fda1f201890375a60c8f", user.getId().toString()); //md5 do nome id xD só pra nao deixar tão óbvio
 		response.addCookie(id);
-		response.sendRedirect("home.jsp");
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.sendRedirect("home");
 	    }
 	} catch (MyLoginException e) {
 	    request.setAttribute("msg", e.getMessage());
 	    request.setAttribute("username", username);
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); ///qnd preciso mandar atributos, tem que ser dispatcher... got it!
-	    dispatcher.forward(request, response);
+	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	    response.getWriter().write(e.getMessage());
 	}
     }
 }

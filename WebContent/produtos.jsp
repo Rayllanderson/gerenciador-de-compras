@@ -93,7 +93,7 @@
 							
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="estatisticas">Estatísticas</a>
                                 <h6 class="dropdown-header">Temas</h6>
                                 <div class= "items">
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
@@ -203,6 +203,8 @@
                                         </div>
                                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
                                             <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px">${gerais}</div>
+                                            <br>
+                                            Acessar gráfico dessa lista (comming soon...)
                                         </div>
                                     </div>
 

@@ -12,7 +12,8 @@
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
-
+<link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	
+ 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="resource/javascript/util/fa.js"></script>
@@ -37,6 +38,7 @@ background-repeat: no-repeat;
 
 
 .content {
+position: relative;
  min-height: 100%; 
  padding-bottom: 100px; 
 }
@@ -116,8 +118,8 @@ max-height: 500px; max-width: 100%
 							</c:if>
 							
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="my-account">Minha Conta</a>
+                                <a class="dropdown-item" href="#">Estatísticas</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
@@ -153,9 +155,9 @@ max-height: 500px; max-width: 100%
 	<div class="container" style="margin-top: 5%">
 
 		<div class="card mt-3 p-3" style="border-radius: 1em">
-				<h4 class="card-title mt-3 text-center">Estatísticas</h4>
+				<h4 class="card-title mt-3 text-center">Estatísticas Gerais</h4>
 				<div class="text-center">
-					<p>Oi, ${user.name}, aqui estão algumas estatísticas:</p>
+					<p>Oi, ${user.name}, aqui estão algumas estatísticas gerais:</p>
 					
 				</div>
 			<ul>
@@ -186,7 +188,7 @@ max-height: 500px; max-width: 100%
 					<p class="text-uppercase font-weight-bold">Valores Todos os Produtos</p>
 			</div>	
 			
-			<p>PS: O gráfico abaixo leva em consideração todos os produtos. </p>
+			<p>PS: O gráfico abaixo está levando em consideração todos os produtos de todas as listas. </p>
 			
 			<canvas id="myChart2"></canvas>
 			<p>Legenda: </p>
@@ -202,7 +204,6 @@ max-height: 500px; max-width: 100%
 		<!-- card.// -->
 	</div>
 
-</div>
 
 
 
@@ -222,6 +223,99 @@ max-height: 500px; max-width: 100%
   </div>
 </div>
 </div>
+
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <!-- Footer Elements -->
+        <div class="container">
+            <!-- Grid row-->
+            <div class="row text-center d-flex justify-content-center mb-1" style="padding-top: 4%;">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Sobre</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Ajuda</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Contato</a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+            <hr class="mt-2" style="margin: 0 32%;">
+
+            <!-- Grid row-->
+            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+                <!-- Grid column -->
+                <div class="col-md-4 mt-2">
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+
+            <!-- Grid row-->
+            <div class="p-2">
+
+                <!-- Grid column -->
+                <div class="icons">
+
+                    <div class="text-center justify-content-center">
+
+                        <!-- Facebook -->
+                        <a  href="https://www.facebook.com/rayllanderson.goncalves/">
+                            <i class="fab fa-facebook fa-lg mr-3"> </i>
+                        </a>
+
+                        <a href="https://github.com/Rayllanderson">
+                            <i class="fab fa-github fa-lg white-text mr-3"></i>
+                        </a>
+                        <!-- Google +-->
+
+                        <a href="www.instagram.com/_ray_goncalves_/">
+                            <i class="fab fa-instagram fa-lg white-text mr-3"> </i>
+                        </a>
+
+
+                    </div>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="copyright footer-copyright text-center py-3">© <span id="year"></span>
+            <p style="display: inline-block;"> Made with <i class="fab fa-java fa-md" title="Java"></i> and <i class="fab fa-bootstrap fa-md" title="Bootstrap"></i></p>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
 
 
 

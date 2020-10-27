@@ -90,7 +90,7 @@
                            
                             
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="estatisticas">Estatísticas</a>
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Temas</h6>
                                 <div class= "items">
@@ -466,7 +466,6 @@
 </script>  
 	
 <div id="#script">
-<theme>
 
 <script type="text/javascript">
 	var theme = "${theme}"
@@ -474,7 +473,6 @@
 	categoriaThemeSwitch(theme);
 </script>
 
-</theme>	
 
 </div>	
 

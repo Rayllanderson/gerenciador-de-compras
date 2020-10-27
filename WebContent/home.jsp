@@ -82,7 +82,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
                         <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="estatisticas">Estatísticas</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout">Logout</a>
@@ -155,7 +155,16 @@
 
 </body>
 
+
+
+
 <script type="text/javascript">
+if ( window.history.replaceState ) {
+	  window.history.replaceState( null, null, window.location.href );
+	}
+
+
+
     var oi = "${b80bb7740288fda1f201890375a60c8f}"
     	$("form").on("submit", function() { 
     		  alert("submitted");

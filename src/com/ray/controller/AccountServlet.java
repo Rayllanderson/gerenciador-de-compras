@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ray.informacoes.InformacoesUsuario;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.UserDao;
 import com.ray.model.entities.User;
@@ -67,7 +66,6 @@ public class AccountServlet extends HttpServlet {
 				    request.getSession().setAttribute("success", "Editado com sucesso!");
 				    User user = repository.findById(Long.valueOf(id));
 				    request.getSession().setAttribute("user", user);
-				    setInformacoes(request);
 				} else {
 				    System.out.println("nao upou");
 				    redirect(request, response, 500, "Ocorreu um erro inesperado");
@@ -149,21 +147,10 @@ public class AccountServlet extends HttpServlet {
 
     private void listarTudo(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	setInformacoes(request);
 	response.setStatus(200);
 	request.getSession().setAttribute("success", "");
 	request.getSession().setAttribute("error", "");
 	request.getRequestDispatcher("account.jsp").forward(request, response);
-    }
-
-    private void setInformacoes(HttpServletRequest request) {
-	User user = (User) request.getSession().getAttribute("user");
-	InformacoesUsuario infos = new InformacoesUsuario(user);
-	request.getSession().setAttribute("tListas", infos.getNumeroTotalCategorias());
-	request.getSession().setAttribute("tProdutos", infos.getNumTotalProdutos());
-	request.getSession().setAttribute("nProdutosComprados", infos.getNumTotalProdutosComprados());
-	request.getSession().setAttribute("tEstip", infos.getTotalEstipulado());
-	request.getSession().setAttribute("tGasto", infos.getTotalReal());
     }
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
