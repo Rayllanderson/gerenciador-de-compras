@@ -59,10 +59,10 @@ body {
 
 
 .btn {
-	  margin: 20px auto;
+	 	
+	  margin-top: 2%;
 	  border: none;
-	  padding: 10px 44px;
-	  font-size: 36px;
+	  font-size: 34px;
       position: relative;
       box-sizing: border-box;
       display: inline-block;
@@ -76,8 +76,19 @@ body {
       transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
       outline: 0;
       border: 0;
+      width: 400px;
       
 } 
+
+
+
+.form-signin .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+}
  
 
 .btn i {
@@ -138,40 +149,6 @@ body {
 
 
 
-
-
-
-
-
-/** config pra smarthphone */
-    
-    
-@media (max-width:900px) { 
-    	.login-card .card-body {
-        padding: 60px 60px 60px; 
-        transform: scale(1.3);
-        }
-       
-       .cadastro{
-       	padding:20px;
-       	margin-top: -5px;
-       }
-       
-
-      }
-      
-      
-     @media (max-width:700px)  { 
-    	.login-card .card-body {
-        padding: 10px 10px; 
-        transform: scale(0.8);
-        }
-      }
-
-
-
-	
-	
 	
 	/** css input */
 	
@@ -216,6 +193,11 @@ input[type=password],
 [contenteditable].form-control{
  	transition: ease-in-out 0.7s ;
 	transition-delay: 0.1s;
+}
+
+input.form-control{
+	width: 400px;
+	border: 0;
 }
 
    

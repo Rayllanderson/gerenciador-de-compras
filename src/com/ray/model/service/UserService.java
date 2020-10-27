@@ -68,7 +68,7 @@ public class UserService {
      * @throws MyLoginException caso username já exista (throws já possui mensagem)
      */
     public boolean cadastrar(User user) throws MyLoginException {
-	UserValidation.validarUsername(user.getName(), dao); // caso username já exista, throw MyLoginException;
+	UserValidation.validarUsername(user.getUsername(), dao); // caso username já exista, throw MyLoginException;
 	dao.cadastrar(user);
 	return true;
     }

@@ -2,7 +2,6 @@ package com.ray.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,29 +28,28 @@ public class CadastroServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String name = request.getParameter("nome");
-	String username = request.getParameter("username");
-	String password = request.getParameter("password");
-	String password2 = request.getParameter("password2");
-	if (validarCampos(request, response, name, username, password, password2)) {  
-	    try {
-		User user = new User(null, name, username, password, null, null, Theme.DEFAULT);
-		service.cadastrar(user);
-		request.setAttribute("msg", "Cadastro realizado com sucesso! Faça login para continuar");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
-	    } catch (MyLoginException e) { //username ja em uso
-		request.setAttribute("msg", e.getMessage());
-		request.setAttribute("nome", name);
-		request.setAttribute("username", username);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro.jsp");
-		dispatcher.forward(request, response);
+	try {
+	    String name = request.getParameter("nome");
+	    String username = request.getParameter("username");
+	    String password = request.getParameter("password");
+	    String password2 = request.getParameter("password2");
+	    if (validarCampos(request, response, name, username, password, password2)) {
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		try {
+		    User user = new User(null, name, username, password, null, null, Theme.DEFAULT);
+		    service.cadastrar(user);
+		    setResponse(response, HttpServletResponse.SC_OK,
+			    "Cadastro realizado com sucesso! Faça login para continuar");
+		} catch (MyLoginException e) { // username ja em uso
+		    setResponse(response, HttpServletResponse.SC_CONFLICT, e.getMessage());
+		}
+	    } else {
+		setResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Um ou mais campos estão vazios");
 	    }
-	}else {
-	    request.setAttribute("nome", name);
-	    request.setAttribute("username", username);
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("cadastro.jsp");
-	    dispatcher.forward(request, response);
+	} catch (Exception e) {
+	    setResponse(response, HttpServletResponse.SC_BAD_GATEWAY, "Ocorreu um erro inesperado x_x");
+	    e.printStackTrace();
 	}
     }
 
@@ -60,7 +58,7 @@ public class CadastroServlet extends HttpServlet {
      */
     private boolean validarCampos(HttpServletRequest request, HttpServletResponse response, String name,
 	    String username, String password, String password2) throws ServletException, IOException {
-	if(name.isEmpty() || name == null) {
+	if (name.isEmpty() || name == null) {
 	    name = "Convidado";
 	}
 	if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
@@ -72,4 +70,9 @@ public class CadastroServlet extends HttpServlet {
 	}
 	return true;
     }
+
+    private void setResponse(HttpServletResponse response, int codigo, String msg) throws IOException {
+	response.setStatus(codigo);
+	response.getWriter().write(msg);
     }
+}
