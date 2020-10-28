@@ -3,7 +3,6 @@ package com.ray.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +15,7 @@ import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.entities.User;
 import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
@@ -46,7 +46,7 @@ public class ProdutoServlet extends HttpServlet {
 	try {
 //	    System.out.println("método GET...");
 	    String acao = request.getParameter("acao");
-//	    System.out.println(acao);
+	    System.out.println(acao);
 	    startServiceAndRepository(request, response);
 	    if (acao != null) {
 		if (acao.equals("listar")) {
@@ -59,14 +59,15 @@ public class ProdutoServlet extends HttpServlet {
 		    excluir(request, response);
 		} else if (acao.equals("search")) {
 		    search(request, response);
+		}else if(acao.equals("all-products")) {
+		    todosProdutosDoUsuario(request, response);
 		}
 	    } else {
 		listarTodosProdutos(request, response);
 	    }
 	} catch (NullPointerException e) {
 	    request.setAttribute("catNula", "Você não selecionou nenhuma lista!");
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("categorias?acao=listar");
-	    dispatcher.forward(request, response);
+	    request.getRequestDispatcher("categorias?acao=listar").forward(request, response);;
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
@@ -162,11 +163,18 @@ public class ProdutoServlet extends HttpServlet {
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	setInformacoes(request, response);
-	RequestDispatcher dispatcher = null;
 	request.getSession().setAttribute("produtos", repository.findAll());
-	dispatcher = request.getRequestDispatcher("produtos.jsp");
 	response.setStatus(200);
-	dispatcher.forward(request, response);
+	request.getRequestDispatcher("produtos.jsp").forward(request, response);;
+    }
+    
+    private void todosProdutosDoUsuario(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+//	setInformacoes(request, response);
+	User user = (User) request.getSession().getAttribute("user");
+	request.getSession().setAttribute("produtos", repository.findAll(user.getId()));
+	response.setStatus(200);
+	request.getRequestDispatcher("produtos.jsp").forward(request, response);;
     }
 
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)

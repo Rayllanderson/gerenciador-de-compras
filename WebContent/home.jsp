@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="#">
+                        <a href="produtos?acao=all-products">
                         <button class="botao btn btn-outline"><i class="fas fa-shopping-bag"></i> Todos os produtos </button></a>
                     </div>
 

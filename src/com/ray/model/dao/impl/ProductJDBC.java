@@ -203,7 +203,7 @@ public class ProductJDBC implements ProductDao {
 	ResultSet rs = null;
 	try {
 	    st = this.conn.prepareStatement(
-		    "select produtos.*, categoria.nome as nome_categoria, from produtos inner join categoria on "
+		    "select produtos.*, categoria.nome as nome_categoria from produtos inner join categoria on "
 			    + "id_categoria = categoria.id where id_user = " + userId);
 	    rs = st.executeQuery();
 	    while (rs.next()) {
