@@ -202,9 +202,9 @@ public class ProductJDBC implements ProductDao {
 	PreparedStatement st = null;
 	ResultSet rs = null;
 	try {
-	    st = this.conn.prepareStatement("select produtos.*, categoria.nome as nome_categoria, "
-		    + "categoria.id_user as id_user from produtos inner join categoria on "
-		    + "id_categoria = categoria.id where id_user = " + userId);
+	    st = this.conn.prepareStatement(
+		    "select produtos.*, categoria.nome as nome_categoria, from produtos inner join categoria on "
+			    + "id_categoria = categoria.id where id_user = " + userId);
 	    rs = st.executeQuery();
 	    while (rs.next()) {
 		Product p = new Product();
@@ -213,7 +213,7 @@ public class ProductJDBC implements ProductDao {
 		p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
 		p.setPrecoReal(rs.getDouble("preco_real"));
 		Categoria cat = new Categoria(rs.getLong("id_categoria"), rs.getString("nome_categoria"),
-			new User(rs.getLong("id_user"), null, null, null));
+			new User(userId, null, null, null));
 		p.setCategoria(cat);
 		p.setComprado(rs.getBoolean("comprado"));
 		list.add(p);
