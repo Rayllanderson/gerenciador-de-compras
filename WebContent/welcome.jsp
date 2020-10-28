@@ -4,7 +4,7 @@
 <html>
 <head lang="pt-br">
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=0.71">
+<meta name="viewport" content="width=device-width, initial-scale=0.72">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,10 +14,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resource/javascript/util/fa.js"></script>
-<link href="resource/css/style-login.css" type="text/css" rel="stylesheet" />
 
+<link href="resource/css/style-login.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/login.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/login2.css" type="text/css" rel="stylesheet" />
 <title>Login</title>
 </head>
 
@@ -63,15 +62,15 @@
 
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input class="ipt" type="text"  name="username-register" id="username-register" placeholder="Username" />
+                        <input class="ipt" type="text"  name="username-register" id="username-register" placeholder="Username" required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input class="ipt" type="password"   name="password-register" id="password-register" placeholder="Senha" />
+                        <input class="ipt" type="password"   name="password-register" id="password-register" placeholder="Senha" required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input class="ipt" type="password" name="password-register2" id="password-register2" placeholder="Repita a Senha" />
+                        <input class="ipt" type="password" name="password-register2" id="password-register2" placeholder="Repita a Senha" required />
                     </div>
                    <button class="btn text-uppercase botao" id="btn-register"  type="submit" >Registrar</button>
                 </form>
@@ -90,7 +89,7 @@
               Cadastre-se
             </button>
                 </div>
-                <img src="resource/img/list10.png" class="image" alt="" />
+                <img src="resource/img/list11.png" class="image" alt="" />
             </div>
             <div class="panel right-panel">
                 <div class="content">
@@ -102,7 +101,7 @@
               Login
             </button>
                 </div>
-                <img src="resource/img/register.svg" class="image" alt="" />
+                <img src="resource/img/register.png" class="image" alt="" />
             </div>
         </div>
     </div>

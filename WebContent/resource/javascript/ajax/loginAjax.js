@@ -34,7 +34,7 @@ $("#form-cadastro").submit(function(e) {
 
     e.preventDefault(); 
 	
-	const name = $('#name').val();
+	let name = $('#name').val();
 	const username = $('#username-register').val();
     const password = $('#password-register').val();
 	const password2 = $('#password-register2').val();

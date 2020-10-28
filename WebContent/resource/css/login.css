@@ -1,28 +1,161 @@
-:root {
-  --input-padding-x: 1.5rem;
-  --input-padding-y: .75rem;
+:root{
+	--roxo: #6e4af6;
+	--roxo-hover: #5c32fa;
+	--input-padding-x: 1.5rem;
+    --input-padding-y: .75rem;
 }
 
-body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+
+   /** botão */ 
+
+.btn:focus{
+	outline: none;
+  box-shadow: none;
 }
 
-.card-signin {
-  border: 0;
-  border-radius: 1rem;
+
+.btn {
+	 	
+	  margin-top: 2%;
+	  border: none;
+	  font-size: 34px;
+      position: relative;
+      box-sizing: border-box;
+      display: inline-block;
+      overflow: hidden;
+      text-align: center;
+      text-decoration: none;
+      color:white;
+      white-space: nowrap;
+      z-index: 0;
+      background: var(--roxo);
+      transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
+      outline: 0;
+      border: 0;
+      width: 400px;
+      
+} 
+
+
+.form-signin .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+}
  
+
+.btn i {
+      padding-right: 8px;
+} 
+ 
+
+.btn::before {
+      position: absolute;
+      content: "";
+      background: var(--roxo);
+      transition-duration: 0.8s;
+      z-index: -1;
+      top: 0px;
+      right: 0px;
+      bottom: auto;
+      left: auto;
+      width: 50%;
+      height: 100%;
+      opacity: 1;
+} 
+ 
+
+.btn:hover::before {
+      width: 0px;
+      height: 100%;
+      opacity: 1;
+} 
+ 
+
+.btn:hover {
+      background: var(--roxo-hover);
+      color: white;
+      transition: color 0.8s , background 0.7s ;
+      box-shadow: none;
+} 
+ 
+
+.btn::after {
+      position: absolute;
+      content: "";
+      background:var(--roxo);
+      transition-duration: 0.7s;
+      z-index: -1;
+      top: 0px;
+      right: auto;
+      bottom: auto;
+      left: 0px;
+      width: 50%;
+      height: 100%;
+      opacity: 1;
+     
+} 
+ 
+.btn:hover::after {
+      width: 0px;
+} 
+
+
+
+	
+	/** css input */
+	
+	
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+[contenteditable].form-control:focus {
+	/*border-bottom: 0.5px solid;
+	border-radius: 0;
+	
+	border-color:  #6e4af6;
+	outline: 0 none;
+	overflow: hidden;*/
+	border-radius: 0.7em;
+	border:hidden;
+	box-shadow:  inset 0 0 0 0 #6e4af6, 0 0 0  #6e4af6;
+	
+	
 }
 
-.card-signin .card-title {
-  margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 1.5rem;
+
+
+.form-label-group{
+	position: relative;
 }
 
-.card-signin .card-body {
-  padding: 2rem;
+:focus{outline: none;}
+
+
+.ipt ~ .focus-border{
+	
+	position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #6e4af6; transition: 0.7s;
 }
+
+.ipt:focus ~ .focus-border{width: 100%; transition: 0.7s; left: 0;}
+
+	
+input.form-control, 
+input[type=text],
+input[type=password], 
+[contenteditable].form-control{
+ 	transition: ease-in-out 0.7s ;
+	transition-delay: 0.1s;
+}
+
+input.form-control{
+	width: 400px;
+	border: 0;
+}
+
+
 
 .form-signin {
   width: 100%;
@@ -116,17 +249,11 @@ body {
   }
 }
 
+   
 /*
 #btn-submit:hover{
 	background-color: #6e4af6
 }*/
-
-
-.account {
-  background: #f8f9fa;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
-}
-
 
 
 

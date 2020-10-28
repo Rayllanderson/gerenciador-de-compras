@@ -42,7 +42,7 @@ public class Autenticacao implements Filter {
 //	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
 	if (session == null || user == null) { // checking whether the session exists
 	    this.context.log("Unauthorized access request");
-	    res.sendRedirect(req.getContextPath() + "/index.jsp");
+	    res.sendRedirect(req.getContextPath() + "/welcome.jsp");
 	} else {
 	    // pass the request along the filter chain
 	    chain.doFilter(request, response);
