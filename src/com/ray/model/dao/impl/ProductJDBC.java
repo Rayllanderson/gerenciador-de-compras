@@ -13,6 +13,7 @@ import com.ray.db.DbException;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.entities.User;
 
 public class ProductJDBC implements ProductDao {
 
@@ -172,7 +173,7 @@ public class ProductJDBC implements ProductDao {
     }
 
     @Override
-    public boolean productIsValid(Long id) { //escolhe rnome melhor pra esse método
+    public boolean productIsValid(Long id) { // escolhe rnome melhor pra esse método
 	String sql = "select produtos.id, categoria.id, usuario.id from"
 		+ " produtos inner join categoria on id_categoria"
 		+ " = categoria.id inner join usuario on categoria.id_user"
@@ -188,10 +189,42 @@ public class ProductJDBC implements ProductDao {
 	    if (rs.next()) {
 		return true;
 	    }
-	}catch (SQLException e) {
-	   e.printStackTrace();
+	} catch (SQLException e) {
+	    e.printStackTrace();
 	}
 	return false;
+    }
+
+    @Override
+    public List<Product> findAll(Long userId) {
+
+	List<Product> list = new ArrayList<>();
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	try {
+	    st = this.conn.prepareStatement("select produtos.*, categoria.nome as nome_categoria, "
+		    + "categoria.id_user as id_user from produtos inner join categoria on "
+		    + "id_categoria = categoria.id where id_user = " + userId);
+	    rs = st.executeQuery();
+	    while (rs.next()) {
+		Product p = new Product();
+		p.setId(rs.getLong("id"));
+		p.setNome(rs.getString("nome"));
+		p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
+		p.setPrecoReal(rs.getDouble("preco_real"));
+		Categoria cat = new Categoria(rs.getLong("id_categoria"), rs.getString("nome_categoria"),
+			new User(rs.getLong("id_user"), null, null, null));
+		p.setCategoria(cat);
+		p.setComprado(rs.getBoolean("comprado"));
+		list.add(p);
+	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} finally {
+	    DB.closeResultSet(rs);
+	    DB.closeStatement(st);
+	}
+	return list;
     }
 
 }

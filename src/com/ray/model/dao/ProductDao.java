@@ -13,6 +13,12 @@ public interface ProductDao {
     List<Product> findAll();
     List<Product> findByName(String name);
     /**
+     * 
+     * @return lista contendo todos os produtos do usuário, independente de categoria
+     */
+    List<Product> findAll(Long userId);
+ 
+    /**
      * Verifica no banco de dados se o produto pertence de fato ao usuário atual
      * @param id do produto
      * @return true se o produto pertencer ao usuario, false se nao
