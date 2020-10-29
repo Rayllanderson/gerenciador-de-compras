@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.ray.informacoes.InformacoesProdutos;
 import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
-import com.ray.model.dao.ProductDao;
+import com.ray.model.dao.impl.AllProductJDBC;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.entities.User;
@@ -32,7 +32,7 @@ import com.ray.model.validacoes.Validacao;
 public class FindAllProductsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private ProductDao productRepository = null;
+    private AllProductJDBC productRepository = null;
     private ProductService productService = null;
     private CategoriaDao categoriaRepository = null;
     private boolean flag = false;
@@ -62,6 +62,8 @@ public class FindAllProductsServlet extends HttpServlet {
 		    listarComprados(request, response);
 		} else if (action.equals("nao_comprados")) {
 		    listarNaoComprados(request, response);
+		}else if(action.equals("search")){
+		    search(request, response);
 		}else {
 		    todosProdutosDoUsuario(request, response);
 		}
@@ -122,9 +124,8 @@ public class FindAllProductsServlet extends HttpServlet {
 		    productService.save(p);
 		    response.setStatus(HttpServletResponse.SC_CREATED);
 		} else {
-		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence ao usuario
-						     // atual
-		    productRepository.update(p);
+		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence ao usuario atual
+		    productService.update(p);
 		    response.setStatus(HttpServletResponse.SC_OK);
 		}
 	    }
@@ -156,7 +157,7 @@ public class FindAllProductsServlet extends HttpServlet {
 	    throws ServletException, IOException {
 //	setInformacoes(request, response);
 	request.getSession().setAttribute("categorias", categoriaRepository.findAll());
-	request.getSession().setAttribute("produtos", productRepository.findAll(this.user.getId()));
+	request.getSession().setAttribute("produtos", productRepository.findAll());
 	response.setStatus(200);
 	request.getRequestDispatcher("all-products.jsp").forward(request, response);
     }
@@ -164,7 +165,6 @@ public class FindAllProductsServlet extends HttpServlet {
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    TotalProdutos totalProdutos = new TotalProdutos(this.user);
 	    List<Product> list = totalProdutos.getComprados();
 	    request.getSession().setAttribute("produtos", list);
 	    response.setStatus(200);
@@ -176,7 +176,6 @@ public class FindAllProductsServlet extends HttpServlet {
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    
 	    request.getSession().setAttribute("produtos", totalProdutos.getNaoComprados());
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
@@ -184,21 +183,21 @@ public class FindAllProductsServlet extends HttpServlet {
 	}
     }
 
-//    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	String serch = request.getParameter("search");
-//	try {
-//	    if (!serch.isEmpty()) {
-//		request.getSession().setAttribute("produtos", productService.findProductByName(serch));
-//		response.setStatus(200);
-//		flag = true;
-//	    } else if (flag) {
-//		listarTodosProdutos(request, response);
-//		flag = false;
-//	    }
-//	} catch (ListaVaziaException e) {
-//	    setResponseBody(request, response, e.getMessage(), 400);
-//	}
-//    }
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	String serch = request.getParameter("search");
+	try {
+	    if (!serch.isEmpty()) {
+		request.getSession().setAttribute("produtos", productRepository.findByName(serch));
+		response.setStatus(200);
+		flag = true;
+	    } else if (flag) {
+		todosProdutosDoUsuario(request, response);
+		flag = false;
+	    }
+	} catch (ListaVaziaException e) {
+	    setResponseBody(request, response, e.getMessage(), 400);
+	}
+    }
 
     // -----------------------------------------------------------------------------------------//
 
@@ -234,14 +233,14 @@ public class FindAllProductsServlet extends HttpServlet {
 
     private String parseNumber(String value) {
 	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
-	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
+	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, dai só mudar pra .
     }
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException {
 	categoriaRepository = DaoFactory.createCategoriaDao(user);
 	productService = new ProductService(cat);
-	productRepository = DaoFactory.createProductDao(cat);
+	productRepository = DaoFactory.createAllProductDao(user);
     }
 
 }

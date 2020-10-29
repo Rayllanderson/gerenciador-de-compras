@@ -13,17 +13,20 @@ import com.ray.db.DbException;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
-import com.ray.model.entities.User;
 
 public class ProductJDBC implements ProductDao {
 
-    private Connection conn;
+    protected Connection conn;
     private Categoria categoria;
 
     public ProductJDBC(Connection conn, Categoria categoria) {
 	this.conn = conn;
 	this.categoria = categoria;
     }
+    
+    public ProductJDBC(Connection conn) {
+   	this.conn = conn;
+       }
 
     @Override
     public void save(Product obj) {
@@ -104,7 +107,7 @@ public class ProductJDBC implements ProductDao {
 	return list;
     }
 
-    private Product instanciarProduto(ResultSet rs) throws SQLException {
+    protected Product instanciarProduto(ResultSet rs) throws SQLException {
 	Product p = new Product();
 	p.setId(rs.getLong("id"));
 	p.setNome(rs.getString("nome"));
@@ -193,38 +196,6 @@ public class ProductJDBC implements ProductDao {
 	    e.printStackTrace();
 	}
 	return false;
-    }
-
-    @Override
-    public List<Product> findAll(Long userId) {
-
-	List<Product> list = new ArrayList<>();
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	try {
-	    st = this.conn.prepareStatement(
-		    "select produtos.*, categoria.nome as nome_categoria from produtos inner join categoria on "
-			    + "id_categoria = categoria.id where id_user = " + userId);
-	    rs = st.executeQuery();
-	    while (rs.next()) {
-		Product p = new Product();
-		p.setId(rs.getLong("id"));
-		p.setNome(rs.getString("nome"));
-		p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
-		p.setPrecoReal(rs.getDouble("preco_real"));
-		Categoria cat = new Categoria(rs.getLong("id_categoria"), rs.getString("nome_categoria"),
-			new User(userId, null, null, null));
-		p.setCategoria(cat);
-		p.setComprado(rs.getBoolean("comprado"));
-		list.add(p);
-	    }
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
-	return list;
     }
 
 }

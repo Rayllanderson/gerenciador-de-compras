@@ -562,7 +562,7 @@
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
 					<script src="resource/javascript/ajax/listarProdutos2.js"></script>
-					<script src="resource/javascript/searchProdutosAjax.js"></script>
+					<script src="resource/javascript/ajax/searchProdutosAjax2.js"></script>
 					<script src="resource/javascript/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/getYear.js"></script>

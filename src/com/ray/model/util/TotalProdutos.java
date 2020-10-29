@@ -12,12 +12,11 @@ import com.ray.model.service.CategoriaService;
 public class TotalProdutos {
 
     private CategoriaService cService;
-    private User user = null;
-    private ProductDao dao = DaoFactory.createProductDao(null);
+    private ProductDao dao = null;
 
     public TotalProdutos(User user) {
 	this.cService = new CategoriaService(user);
-	this.user = user;
+	this.dao = DaoFactory.createAllProductDao(user);
     }
 
 //    private void instanciarTodosProdutos(Categoria cat) {
@@ -32,7 +31,7 @@ public class TotalProdutos {
      * @return uma lista contendo todos os produtos de um usuário
      */
     private List<Product> getAll() {
-	return dao.findAll(this.user.getId());
+	return dao.findAll();
     }
 
     public List<Product> getComprados() {
