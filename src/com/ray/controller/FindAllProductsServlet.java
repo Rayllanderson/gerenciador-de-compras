@@ -48,7 +48,6 @@ public class FindAllProductsServlet extends HttpServlet {
 	    totalProdutos = new TotalProdutos(this.user);
 	    startServiceAndRepository(request, response);
 	    String action = request.getParameter("action");
-	    System.out.println(action);
 	    if (action != null) {
 		if (action.equals("delete")) {
 		    Long catId = Long.parseLong(request.getParameter("cat_id"));
@@ -59,9 +58,9 @@ public class FindAllProductsServlet extends HttpServlet {
 		    listarComprados(request, response);
 		} else if (action.equals("nao_comprados")) {
 		    listarNaoComprados(request, response);
-		}else if(action.equals("search")){
+		} else if (action.equals("search")) {
 		    search(request, response);
-		}else {
+		} else {
 		    todosProdutosDoUsuario(request, response);
 		}
 	    } else {
@@ -121,7 +120,8 @@ public class FindAllProductsServlet extends HttpServlet {
 		    productService.save(p);
 		    response.setStatus(HttpServletResponse.SC_CREATED);
 		} else {
-		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence ao usuario atual
+		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence ao usuario
+						     // atual
 		    productService.update(p);
 		    response.setStatus(HttpServletResponse.SC_OK);
 		}
@@ -182,17 +182,18 @@ public class FindAllProductsServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	String serch = request.getParameter("search");
-	try {
-	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", productRepository.findByName(serch));
+	if (!serch.isEmpty()) {
+	    List<Product> list = productRepository.findByName(serch);
+	    if (list.isEmpty()) {
+		setResponseBody(request, response, "Nenhum produto encontrado", 400);
+	    } else {
+		request.getSession().setAttribute("produtos", list);
 		response.setStatus(200);
 		flag = true;
-	    } else if (flag) {
-		todosProdutosDoUsuario(request, response);
-		flag = false;
 	    }
-	} catch (ListaVaziaException e) {
-	    setResponseBody(request, response, e.getMessage(), 400);
+	} else if (flag) {
+	    todosProdutosDoUsuario(request, response);
+	    flag = false;
 	}
     }
 

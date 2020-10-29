@@ -1,15 +1,17 @@
-function search(){
-	const search = document.getElementById("search").value;
+$('.alert').hide();
+
+$('.SearchBox-button').on('click', function() {
+	console.log('click..')
+	const search = $('#search').val();
+	console.log(search)
 	$.ajax({
-			method: "GET",
-			url: "all-products?action=search",
-			data: { search : search }
-		}).done(function() {
-			$.get("all-products.jsp", function(responseXml) {          
-				$("#tabela-produtos").html($(responseXml).find("data").html());
-				tupi();
-			});
-		}).fail(function(xhr) {
-			alertBoostrap(xhr.responseText, 'alert alert-danger')
-		});
-}
+		method: "GET",
+		url: "all-products?action=search",
+		data: { search: search },
+		success: function() {
+		window.location.replace("all-products.jsp")
+	}, error: function(xhr) {
+		alertBoostrap(xhr.responseText, 'alert alert-danger')
+	}
+});
+});

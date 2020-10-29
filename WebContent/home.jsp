@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
     <link href="resource/css/home.css" type="text/css" rel="stylesheet" />
-   
+  	<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -92,6 +92,14 @@
 
 
             <!-- pôr um botao de procurar um produto ou categoria -->
+            
+              	<!-- ALERT -->
+				 	 <div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
 
             <div class="container">
                 <div class="cartao text-center">
@@ -100,7 +108,7 @@
 					<div class="main1">
 						<div class="mt-3"></div>						
 						<div class="SearchBox">
-							<input type="text" class="SearchBox-input" placeholder="Busque por um produto">
+							<input type="text" id="search" class="SearchBox-input" placeholder="Busque por um produto">
 						
 								<button class="SearchBox-button">
 								
@@ -150,7 +158,8 @@
 
 </body>
 
-<script src="resource/javascript/ajax/searchProdutosAjax2.js"></script>
+<script src="resource/javascript/ajax/searchProdutosHome.js"></script>
+<script src="resource/javascript/alert.js"></script>
 
 
 <script type="text/javascript">
