@@ -583,12 +583,11 @@
                     <!-- ---------------------------------------------- -->
 
 					<script src="resource/javascript/excluirProdutoAjax.js"></script>
-					<script src="resource/javascript/salvarProdutosAjax.js"></script>
+					<script src="resource/javascript/ajax/salvarProdutosAjax2.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
 					<script src="resource/javascript/listarProdutos.js"></script>
 					<script src="resource/javascript/searchProdutosAjax.js"></script>
-					<script src="resource/javascript/salvarCategoriaAjax2.js" ></script>
 					<script src="resource/javascript/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/getYear.js"></script>

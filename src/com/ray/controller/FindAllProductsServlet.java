@@ -59,9 +59,9 @@ public class FindAllProductsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    String acao = request.getParameter("acao");
+	    String acao = request.getParameter("action");
 	    if (acao != null) {
-		if (acao.equals("salvar")) {
+		if (acao.equals("save")) {
 		    salvarProduto(request, response);
 		}
 	    }

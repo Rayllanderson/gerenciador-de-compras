@@ -32,7 +32,7 @@ function saveProduct() {
 		if (nome != '') {
 			$.ajax({
 				method: "POST",
-				url: "produtos?acao=salvar",
+				url: "all-products?action=save",
 				data: {
 					id: id,
 					nome: nome,
@@ -44,7 +44,7 @@ function saveProduct() {
 			}).done(function() {
 				alertBoostrap(setMessageAlert(id, nome), 'alert alert-success', "Sucesso")	
 				$('#exampleModal').modal('hide')
-				$.get("produtos?acao=listar", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
+				$.get("all-products", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
 					$("#tabela-produtos").html($(responseXml).find("data").html());
 					tupi();
 					atualizarValores()
