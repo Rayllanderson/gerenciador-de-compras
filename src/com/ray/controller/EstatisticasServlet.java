@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ray.model.entities.User;
-import com.ray.model.util.CalculoTotal;
+import com.ray.model.util.TotalProdutos;
 
 @MultipartConfig
 @WebServlet("/estatisticas")
@@ -36,7 +36,7 @@ public class EstatisticasServlet extends HttpServlet {
 
     private void setInformacoes(HttpServletRequest request) {
 	User user = (User) request.getSession().getAttribute("user");
-	CalculoTotal infos = new CalculoTotal(user);
+	TotalProdutos infos = new TotalProdutos(user);
 	request.getSession().setAttribute("totalListas", infos.getNumCategorias());
 	request.getSession().setAttribute("totalProdutos", infos.getNumProdutos());
 	request.getSession().setAttribute("numProdutosComprados", infos.getNumProdutosComprados());

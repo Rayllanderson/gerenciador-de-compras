@@ -3,7 +3,7 @@ package com.ray.informacoes;
 import java.text.NumberFormat;
 
 import com.ray.model.entities.User;
-import com.ray.model.util.CalculoTotal;
+import com.ray.model.util.TotalProdutos;
 import com.ray.model.util.UserUtil;
 
 
@@ -20,7 +20,7 @@ public class InformacoesUsuario {
     // ---------------------------------------------------------------------//
     public static void mostrarInfosConsole(User user) {
 	NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
-	CalculoTotal ct = new CalculoTotal(user);
+	TotalProdutos ct = new TotalProdutos(user);
 	System.out.println("Olá, " + UserUtil.formatarNome(user.getName()) + "!");
 	System.out.println("Você possui " + ct.getNumCategorias() + " listas no total");
 	System.out.println("Você já comprou " + ct.getNumProdutosComprados() + " produtos de um total de " + ct.getNumProdutos());

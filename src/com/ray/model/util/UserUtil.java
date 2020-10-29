@@ -4,10 +4,10 @@ import com.ray.model.entities.User;
 
 public class UserUtil {
    
-    private CalculoTotal ct;
+    private TotalProdutos ct;
     
     public UserUtil(User user) {
-	this.ct = new CalculoTotal(user);
+	this.ct = new TotalProdutos(user);
     }
     
     public static String formatarNome(String nome) {
