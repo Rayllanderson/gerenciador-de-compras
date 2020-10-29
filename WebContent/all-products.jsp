@@ -334,7 +334,7 @@
                                                 <td data-label="Editar"><button class="btn btn-outline-info" 
 
                                                 data-toggle="modal" data-target="#exampleModal" data-title="Editar" data-id="${prod.id}" data-nome="${prod.nome}" data-estipulado="${prod.getValorEstipuladoEmReal()}"
-                                                        data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}" data-cat-id="${prod.categoria.id}"<c:set var="nomeCategoria" scope="session" value="${prod.getCategoria().getName()}" /> onclick="setCheckedIfTrue('${prod.isComprado()}')">
+                                                        data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}" data-cat-id="${prod.categoria.id}" onclick="setCheckedIfTrue('${prod.isComprado()}')">
 
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -346,7 +346,7 @@
 
                                                 <td data-label="Excluir"><button class="btn btn-outline-danger" 
                                                 
-                                                data-toggle="modal" data-target="#exampleModalCenter" data-id="${prod.id}" 
+                                                data-toggle="modal" data-target="#exampleModalCenter" data-id="${prod.id}" data-cat_id="${prod.categoria.id}"
 												data-nome="${prod.nome}"
 					 							>
 													
@@ -378,6 +378,13 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
                                 </div>
+                                
+                                <div class="alert alert-success" id="alertE">
+				   				 <button type="button" class="close" onclick="$('#alertE').hide();">x</button>
+				   					<h4 id="titulo"></h4> <p id="alertMsgE"></p>
+				  				 </div>
+                                
+                                
                                 <div class="modal-body">
 
                                         <div class="form-group">
@@ -425,38 +432,6 @@
 
                     <!-- Fim Tela Modal  -->
 
-
-
-
-	<!-- Tela Modal EDITAR CATEGORIA -->
-
-	
-		<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  </div>
-			  <div class="modal-body">
-				  <div class="form-group">
-					<label for="recipient-name" class="control-label">Nome:</label>
-					<input name="nomeLista" type="text" class="form-control" id="categoriaName" value="${cat.name}" required/>
-				  </div>
-				  <div class="form-group">
-					<label for="message-text" class="control-label">Orcamento:</label>
-					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
-				  </div>
-				<input name="id" type="hidden" class="form-control" id="idCat" value="${cat.id}">
-				<button type="button" id="save1" class="btn btn-success" onclick="saveAjax();" >&nbsp; Salvar &nbsp;</button> 
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-			  </div>
-			</div>
-		  </div>
-		  </div>
-	
-	
-	<!-- Fim Tela Modal -->
 
 
 
@@ -582,7 +557,7 @@
 
                     <!-- ---------------------------------------------- -->
 
-					<script src="resource/javascript/excluirProdutoAjax.js"></script>
+					<script src="resource/javascript/ajax/excluirProdutoAjax2.js"></script>
 					<script src="resource/javascript/ajax/salvarProdutosAjax2.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
@@ -595,16 +570,8 @@
 <script type="text/javascript">
 
 var theme = "${theme}"
-	console.log('hey..body')
 	produtosThemeSwitch(theme);
 </script>
-
-
-<script type="text/javascript">
-	var theme = "${theme}"
-	console.log(theme)
-</script>
-
 
                     <script type="text/javascript">
                     
@@ -643,6 +610,7 @@ var theme = "${theme}"
                             .on(
                                 'show.bs.modal',
                                 function(event) {
+                                    $('#alertE').hide();
                                     var button = $(event.relatedTarget)
                                     var title = button.data('title')
                                     var id = button.data('id')
@@ -651,8 +619,7 @@ var theme = "${theme}"
                                     var real = button.data('real')
                                     var comprado = button.data('comprado')
 									const showList = document.getElementById("lista").style.display = 'block';
-                                    var cat = button.data('cat-id')
-                                    console.log(cat)      
+                                    var cat = button.data('cat-id')    
  									$('#categoria').val(cat)
                                     
                                     var modal = $(this)
@@ -671,12 +638,6 @@ var theme = "${theme}"
                 function f1() {
                     window.open(document.getElementById("teste").href, "#editCat");
                 }
-                
-                let catName = "${catName}";
-                let nomeCategoria = "${nomeCategoria}"
-                
-                console.log(catName)
-                console.log(nomeCategoria)
                 
                 $(".alert").hide();
                 

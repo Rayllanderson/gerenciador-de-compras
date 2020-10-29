@@ -46,9 +46,20 @@ public class FindAllProductsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    startServiceAndRepository(request, response);
-	    System.out.println(this.cat);
-	    todosProdutosDoUsuario(request, response);
+	    String action = request.getParameter("action");
+	    if (action != null) {
+		if (action.equals("delete")) {
+		    Long catId = Long.parseLong(request.getParameter("cat_id"));
+		    this.cat = categoriaRepository.findById(catId);
+		    productService = new ProductService(cat);
+		    this.delete(request, response);
+		} else {
+		    todosProdutosDoUsuario(request, response);
+		}
+	    } else {
+		startServiceAndRepository(request, response);
+		todosProdutosDoUsuario(request, response);
+	    }
 
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
@@ -63,7 +74,11 @@ public class FindAllProductsServlet extends HttpServlet {
 	    if (acao != null) {
 		if (acao.equals("save")) {
 		    salvarProduto(request, response);
+		} else {
+		    todosProdutosDoUsuario(request, response);
 		}
+	    } else {
+		todosProdutosDoUsuario(request, response);
 	    }
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
@@ -71,17 +86,7 @@ public class FindAllProductsServlet extends HttpServlet {
 	}
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	try{
-	    excluir(req, resp);
-	}catch (Exception e) {
-	   e.printStackTrace();
-	   setResponseBody(req, resp, "Ocorreu um erro", 502);
-	}
-    }
-
-    // ------------------------------ Private methods // --------------------------------//
+    // ---------------------------- Private methods ------------------------------//
 
     private void salvarProduto(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
@@ -130,22 +135,13 @@ public class FindAllProductsServlet extends HttpServlet {
 
     }
 
-    private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	Long id = Long.valueOf(request.getParameter("id1"));
 	if (productService.deleteById(id)) {
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	} else {
 	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
 	}
-    }
-
-    private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-//	setInformacoes(request, response);
-	request.getSession().setAttribute("produtos", productRepository.findAll());
-	response.setStatus(200);
-	request.getRequestDispatcher("produtos.jsp").forward(request, response);
-	;
     }
 
     private void todosProdutosDoUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -178,32 +174,37 @@ public class FindAllProductsServlet extends HttpServlet {
 	}
     }
 
-    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String serch = request.getParameter("search");
-	try {
-	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", productService.findProductByName(serch));
-		response.setStatus(200);
-		flag = true;
-	    } else if (flag) {
-		listarTodosProdutos(request, response);
-		flag = false;
-	    }
-	} catch (ListaVaziaException e) {
-	    setResponseBody(request, response, e.getMessage(), 400);
-	}
-    }
+//    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	String serch = request.getParameter("search");
+//	try {
+//	    if (!serch.isEmpty()) {
+//		request.getSession().setAttribute("produtos", productService.findProductByName(serch));
+//		response.setStatus(200);
+//		flag = true;
+//	    } else if (flag) {
+//		listarTodosProdutos(request, response);
+//		flag = false;
+//	    }
+//	} catch (ListaVaziaException e) {
+//	    setResponseBody(request, response, e.getMessage(), 400);
+//	}
+//    }
 
     // -----------------------------------------------------------------------------------------//
 
-  /*  private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	request.getSession().setAttribute("gerais",
-		InformacoesProdutos.infosGerais(this.cat.getUser(), util, this.cat.getOrcamento()));
-	request.getSession().setAttribute("disponivel", InformacoesProdutos.getDisponivel(util, cat));
-	request.getSession().setAttribute("economizado", InformacoesProdutos.getValorEconomizado(util));
-	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
-	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
-    }*/
+    /*
+     * private void setInformacoes(HttpServletRequest request, HttpServletResponse
+     * response) throws IOException { request.getSession().setAttribute("gerais",
+     * InformacoesProdutos.infosGerais(this.cat.getUser(), util,
+     * this.cat.getOrcamento())); request.getSession().setAttribute("disponivel",
+     * InformacoesProdutos.getDisponivel(util, cat));
+     * request.getSession().setAttribute("economizado",
+     * InformacoesProdutos.getValorEconomizado(util));
+     * request.getSession().setAttribute("tEstipulado",
+     * InformacoesProdutos.getTotalEstipuladoHtml(util));
+     * request.getSession().setAttribute("tTotal",
+     * InformacoesProdutos.getValorTotalHtml(util)); }
+     */
 
     /**
      * Apenas pra diminuir codigo. <br>
