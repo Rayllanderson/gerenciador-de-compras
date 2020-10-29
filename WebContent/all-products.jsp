@@ -164,7 +164,7 @@
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                             <article class="card-body mx-auto" style="max-width: 400px;">
-                                <h4 id="catTitulo" class="card-title mt-3 text-center">${categoria.name} <a
+                                <h4 id="catTitulo" class="card-title mt-3 text-center"> Todos os produtos <a
                                 class="text-decoration-none" type="button" title="Editar Lista" id="editCat"
 					data-toggle="modal" data-target="#categoriaModal" 
 					data-title="Editar"
@@ -292,9 +292,9 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" style="
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=listar')">Todos os Produtos</a>
-                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=comprados')">Produtos Comprados</a>
-                                            <a class="dropdown-item" type="button" onclick="listar('produtos?acao=nao_comprados')">Produtos Não Comprados</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('all-products?action=listar')">Todos os Produtos</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('all-products?action=comprados')">Produtos Comprados</a>
+                                            <a class="dropdown-item" type="button" onclick="listar('all-products?action=nao_comprados')">Produtos Não Comprados</a>
                                         </div>
                                         </div>
 
@@ -561,7 +561,7 @@
 					<script src="resource/javascript/ajax/salvarProdutosAjax2.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/alert.js"></script>
-					<script src="resource/javascript/listarProdutos.js"></script>
+					<script src="resource/javascript/ajax/listarProdutos2.js"></script>
 					<script src="resource/javascript/searchProdutosAjax.js"></script>
 					<script src="resource/javascript/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>

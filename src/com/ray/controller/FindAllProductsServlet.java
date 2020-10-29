@@ -22,6 +22,7 @@ import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
+import com.ray.model.util.TotalProdutos;
 import com.ray.model.validacoes.Validacao;
 
 /**
@@ -35,9 +36,9 @@ public class FindAllProductsServlet extends HttpServlet {
     private ProductService productService = null;
     private CategoriaDao categoriaRepository = null;
     private boolean flag = false;
-    private ProdutosUtil util = null;
     private User user = null;
     private Categoria cat = null;
+    TotalProdutos totalProdutos = null;
 
     public FindAllProductsServlet() {
 	super();
@@ -46,21 +47,27 @@ public class FindAllProductsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
+	    this.user = (User) request.getSession().getAttribute("user");
+	    totalProdutos = new TotalProdutos(this.user);
+	    startServiceAndRepository(request, response);
 	    String action = request.getParameter("action");
+	    System.out.println(action);
 	    if (action != null) {
 		if (action.equals("delete")) {
 		    Long catId = Long.parseLong(request.getParameter("cat_id"));
 		    this.cat = categoriaRepository.findById(catId);
 		    productService = new ProductService(cat);
 		    this.delete(request, response);
-		} else {
+		} else if (action.equals("comprados")) {
+		    listarComprados(request, response);
+		} else if (action.equals("nao_comprados")) {
+		    listarNaoComprados(request, response);
+		}else {
 		    todosProdutosDoUsuario(request, response);
 		}
 	    } else {
-		startServiceAndRepository(request, response);
 		todosProdutosDoUsuario(request, response);
 	    }
-
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
@@ -70,6 +77,7 @@ public class FindAllProductsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
+	    this.user = (User) request.getSession().getAttribute("user");
 	    String acao = request.getParameter("action");
 	    if (acao != null) {
 		if (acao.equals("save")) {
@@ -156,7 +164,8 @@ public class FindAllProductsServlet extends HttpServlet {
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    List<Product> list = util.getConcluidos();
+	    TotalProdutos totalProdutos = new TotalProdutos(this.user);
+	    List<Product> list = totalProdutos.getComprados();
 	    request.getSession().setAttribute("produtos", list);
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
@@ -167,7 +176,8 @@ public class FindAllProductsServlet extends HttpServlet {
     private void listarNaoComprados(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    request.getSession().setAttribute("produtos", util.getNaoConcluidos());
+	    
+	    request.getSession().setAttribute("produtos", totalProdutos.getNaoComprados());
 	    response.setStatus(200);
 	} catch (ListaVaziaException e) {
 	    setResponseBody(request, response, e.getMessage(), 200);
@@ -229,10 +239,8 @@ public class FindAllProductsServlet extends HttpServlet {
 
     private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException {
-	this.user = (User) request.getSession().getAttribute("user");
 	categoriaRepository = DaoFactory.createCategoriaDao(user);
 	productService = new ProductService(cat);
-	util = new ProdutosUtil(cat);
 	productRepository = DaoFactory.createProductDao(cat);
     }
 

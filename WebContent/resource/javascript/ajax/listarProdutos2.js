@@ -6,8 +6,9 @@ function listar(url){
 
 			if(response != '' && response.length < 60){
 				alertBoostrap(response, 'alert alert-info')
-			}			
-			$.get("produtos.jsp", function(responseXml) {          
+			}
+			
+			$.get("all-products.jsp", function(responseXml) {          
 				$("#tabela-produtos").html($(responseXml).find("data").html());
 				tupi();
 			});

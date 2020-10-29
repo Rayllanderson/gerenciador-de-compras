@@ -58,7 +58,6 @@ public class ProdutoServlet extends HttpServlet {
 		    excluir(request, response);
 		} else if (acao.equals("search")) {
 		    search(request, response);
-		}else if(acao.equals("all-products")) {
 		}
 	    } else {
 		listarTodosProdutos(request, response);
