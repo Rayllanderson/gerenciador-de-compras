@@ -18,7 +18,7 @@ $("#form-login").submit(function(e) {
 			}
 		}).done(function() {
 			alertBoostrap("Login Realizado com sucesso", 'alert alert-success', "Sucesso")
-			setTimeout(function() { window.location.replace("home.jsp") }, 500);
+			setTimeout(function() { window.location.replace("home.jsp") }, 200);
 		}).fail(function() {
 			alertBoostrap("Usuário ou senha inválidos", 'alert alert-danger', "Erro")
 		});

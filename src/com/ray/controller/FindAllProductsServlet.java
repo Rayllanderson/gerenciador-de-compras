@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.ray.informacoes.InformacoesProdutos;
 import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.impl.AllProductJDBC;
@@ -21,7 +19,6 @@ import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.ProductService;
-import com.ray.model.util.ProdutosUtil;
 import com.ray.model.util.TotalProdutos;
 import com.ray.model.validacoes.Validacao;
 
@@ -38,7 +35,7 @@ public class FindAllProductsServlet extends HttpServlet {
     private boolean flag = false;
     private User user = null;
     private Categoria cat = null;
-    TotalProdutos totalProdutos = null;
+    private TotalProdutos totalProdutos = null;
 
     public FindAllProductsServlet() {
 	super();
