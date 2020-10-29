@@ -1,23 +1,20 @@
 package com.ray.model.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
-import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
 import com.ray.model.entities.User;
 import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
-import com.ray.model.service.ProductService;
 
 public class TotalProdutos {
 
     private CategoriaService cService;
     private User user = null;
     private ProductDao dao = DaoFactory.createProductDao(null);
-   
+
     public TotalProdutos(User user) {
 	this.cService = new CategoriaService(user);
 	this.user = user;
@@ -36,6 +33,18 @@ public class TotalProdutos {
      */
     private List<Product> getAll() {
 	return dao.findAll(this.user.getId());
+    }
+
+    public List<Product> getComprados() {
+	List<Product> list = getAll();
+	list.removeIf(x -> !x.isComprado());
+	return list;
+    }
+
+    public List<Product> getNaoComprados() {
+	List<Product> list = getAll();
+	list.removeIf(x -> x.isComprado());
+	return list;
     }
 
     public int getNumProdutos() {
@@ -71,10 +80,8 @@ public class TotalProdutos {
      */
     public double getEconomizado() {
 	double total = 0;
-	for (Product p : getAll()) {
-	    if (p.isComprado()) {
-		total += (p.getPrecoEstipulado() - p.getPrecoReal());
-	    }
+	for (Product p : getComprados()) {
+	    total += (p.getPrecoEstipulado() - p.getPrecoReal());
 	}
 	return total;
     }
@@ -85,10 +92,8 @@ public class TotalProdutos {
      */
     public double getRestante() {
 	double total = 0;
-	for (Product p : getAll()) {
-	    if (!p.isComprado()) {
-		total += p.getPrecoEstipulado();
-	    }
+	for (Product p : getNaoComprados()) {
+	    total += p.getPrecoEstipulado();
 	}
 	return total;
     }
@@ -111,13 +116,7 @@ public class TotalProdutos {
     }
 
     public int getNumProdutosComprados() {
-	int total = 0;
-	for (Product p : this.getAll()) {
-	    if (p.isComprado()) {
-		total++;
-	    }
-	}
-	return total;
+	return getComprados().size();
     }
 
     /**
@@ -125,10 +124,8 @@ public class TotalProdutos {
      */
     public double getGastoComprados() {
 	double total = 0;
-	for (Product p : this.getAll()) {
-	    if (p.isComprado()) {
+	for (Product p : getComprados()) {
 		total += p.getPrecoReal();
-	    }
 	}
 	return total;
     }
@@ -140,10 +137,8 @@ public class TotalProdutos {
      */
     public double getEstipuladoComprados() {
 	double total = 0;
-	for (Product p : getAll()) {
-	    if (p.isComprado()) {
+	for (Product p : getComprados()) {
 		total += p.getPrecoEstipulado();
-	    }
 	}
 	return total;
     }
@@ -153,7 +148,6 @@ public class TotalProdutos {
      * @throws ListaVaziaException("Você não possui listas no momento");
      */
     public int getNumCategorias() throws ListaVaziaException {
-	List<Categoria> list = this.cService.findAll();
-	return list.size();
+	return this.cService.findAll().size();
     }
 }
