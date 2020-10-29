@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.ray.model.entities.User;
 import com.ray.model.util.Theme;
 
-@WebFilter(urlPatterns = { "/categorias/*", "/produtos/*", "/home.jsp", "/home", "/categorias.jsp", "/produtos.jsp", "/account.jsp", "/my-account/*", "/estatisticas/*", "/estatisticas.jsp" })
+@WebFilter(urlPatterns = { "/categorias/*", "/produtos/*", "/all-products/*", "/home.jsp", "/home", "/categorias.jsp", "/produtos.jsp", "/account.jsp", "/my-account/*", "/estatisticas/*", "/estatisticas.jsp" })
 public class Autenticacao implements Filter {
 
     private ServletContext context;

@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ray.informacoes.InformacoesProdutos;
+import com.ray.model.dao.CategoriaDao;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.Product;
+import com.ray.model.entities.User;
 import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
 import com.ray.model.exception.ListaVaziaException;
@@ -25,47 +27,29 @@ import com.ray.model.validacoes.Validacao;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/produtos")
-public class ProdutoServlet extends HttpServlet {
+@WebServlet("/all-products")
+public class FindAllProductsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private ProductDao repository = null;
-    private ProductService service = null;
-    private Categoria cat = null;
+    private ProductDao productRepository = null;
+    private ProductService productService = null;
+    private CategoriaDao categoriaRepository = null;
     private boolean flag = false;
     private ProdutosUtil util = null;
+    private User user = null;
+    private Categoria cat = null;
 
-    public ProdutoServlet() {
+    public FindAllProductsServlet() {
 	super();
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-//	    System.out.println("método GET...");
-	    String acao = request.getParameter("acao");
-	    System.out.println(acao);
 	    startServiceAndRepository(request, response);
-	    if (acao != null) {
-		if (acao.equals("listar")) {
-		    listarTodosProdutos(request, response);
-		} else if (acao.equals("comprados")) {
-		    listarComprados(request, response);
-		} else if (acao.equals("nao_comprados")) {
-		    listarNaoComprados(request, response);
-		} else if (acao.equals("excluir")) {
-		    excluir(request, response);
-		} else if (acao.equals("search")) {
-		    search(request, response);
-		}else if(acao.equals("all-products")) {
-		}
-	    } else {
-		listarTodosProdutos(request, response);
-	    }
-	} catch (NullPointerException e) {
-	    request.setAttribute("catNula", "Você não selecionou nenhuma lista!");
-	    request.getRequestDispatcher("categorias?acao=listar").forward(request, response);;
+	    System.out.println(this.cat);
+	    todosProdutosDoUsuario(request, response);
+
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
@@ -75,21 +59,11 @@ public class ProdutoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-	    startServiceAndRepository(request, response);
 	    String acao = request.getParameter("acao");
 	    if (acao != null) {
-//	    System.out.println(acao + " método POST");
-		if (acao.equals("listar")) {
-		    listarTodosProdutos(request, response);
-		} else if (acao.equals("selecionar")) {
-		    String id = request.getParameter("id");
-		    Product p = repository.findById(Long.parseLong(id));
-		    System.out.println(p);
-		} else if (acao.equals("salvar")) {
+		if (acao.equals("salvar")) {
 		    salvarProduto(request, response);
 		}
-	    } else {
-		listarTodosProdutos(request, response);
 	    }
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
@@ -97,61 +71,68 @@ public class ProdutoServlet extends HttpServlet {
 	}
     }
 
-    //------------------------------ Private methods --------------------------------//
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	try{
+	    excluir(req, resp);
+	}catch (Exception e) {
+	   e.printStackTrace();
+	   setResponseBody(req, resp, "Ocorreu um erro", 502);
+	}
+    }
+
+    // ------------------------------ Private methods // --------------------------------//
 
     private void salvarProduto(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
-	Long catOriginal = cat.getId();
 	try {
 	    String nome = request.getParameter("nome");
 	    String id = request.getParameter("id");
-	    //recuperando os valores
 	    String valorEstipulado = request.getParameter("estipulado");
 	    String valorReal = request.getParameter("real");
 	    String comprado = request.getParameter("comprado");
-
-	    //setando os valores
-	    Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
-	    p.setPrecoEstipulado(!valorEstipulado.isEmpty() ? Double.parseDouble(parseNumber(valorEstipulado)) : 0.0);
-	    p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
-	    p.setComprado(comprado == null || comprado.equals("false") ? false : true);
-	    
-	    //verificação pra ver se dá update ou se insere
-	    if (p.getId() == null) {
-		service.save(p);
-		response.setStatus(HttpServletResponse.SC_CREATED);
+	    Long catId = Long.parseLong(request.getParameter("cat_id"));
+	    this.cat = categoriaRepository.findById(catId);
+	    if (cat == null) { // verificando se o user selecionou uma categoria
+		throw new CategoriaInexistenteException("Selecione uma categoria válida");
 	    } else {
-		Long catId = Long.parseLong(request.getParameter("cat_id"));
-//		System.out.println("ci " + catId);
-		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
-		    // movendo a categoria
-		    cat.setId(catId);
-		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence a ele mesmo
+		startServiceAndRepository(request, response);
+		// setando os valores
+		Product p = new Product(!id.isEmpty() ? Long.parseLong(id) : null, nome, null, null, false, cat);
+		p.setPrecoEstipulado(
+			!valorEstipulado.isEmpty() ? Double.parseDouble(parseNumber(valorEstipulado)) : 0.0);
+		p.setPrecoReal(!valorReal.isEmpty() ? Double.parseDouble(parseNumber(valorReal)) : 0.0);
+		p.setComprado(comprado == null || comprado.equals("false") ? false : true);
+
+		// verificação pra ver se dá update ou se insere
+		if (p.getId() == null) {
+		    productService.save(p);
+		    response.setStatus(HttpServletResponse.SC_CREATED);
+		} else {
+		    Validacao.validarCategoria(cat); // verificando se a categoria que ele vai mudar pertence ao usuario
+						     // atual
+		    productRepository.update(p);
+		    response.setStatus(HttpServletResponse.SC_OK);
 		}
-		service.update(p);// moveu
-		// voltando pra categoria atual para nao ser redirecionado para nova categoria
-		cat.setId(catOriginal);
-		response.setStatus(HttpServletResponse.SC_OK);
 	    }
 	} catch (NumberFormatException e) {
-	    setResponseBody(request, response,
-		    "Há um ou mais campos com caracteres inválidos.",
+	    setResponseBody(request, response, "Há um ou mais campos com caracteres inválidos.",
 		    HttpServletResponse.SC_BAD_REQUEST);
-	} catch (CategoriaInexistenteException e) { // existe a chance da pessoa editar o html e mudar o id, então não
-						    // vamos
-	    // permitir caso a lista nao pertencer a ele
-	    cat.setId(catOriginal);// setando a cat original para evitar o redirecionamento para outra categoria
+	    // existe a chance da pessoa editar o html e mudar o id, então não vamos
+	    // permitir caso a lista nao pertencer ao usuario
+	} catch (CategoriaInexistenteException e) {
 	    setResponseBody(request, response, e.getMessage(), 422);// dados foram compreendidos, mas não são válidos.
 	} catch (EntradaInvalidaException e) {
 	    setResponseBody(request, response, e.getMessage(), 400);
-	} catch (NullPointerException e) { //cairá aqui caso o user tentar editar algo no html
+	} catch (NullPointerException e) { // cairá aqui caso o user tentar editar algo no html
 	    setResponseBody(request, response, "Ocorreu um erro", 400);
 	}
+
     }
-    
+
     private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	Long id = Long.valueOf(request.getParameter("id1"));
-	if (service.deleteById(id)) {
+	if (productService.deleteById(id)) {
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	} else {
 	    response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
@@ -160,10 +141,20 @@ public class ProdutoServlet extends HttpServlet {
 
     private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	setInformacoes(request, response);
-	request.getSession().setAttribute("produtos", repository.findAll());
+//	setInformacoes(request, response);
+	request.getSession().setAttribute("produtos", productRepository.findAll());
 	response.setStatus(200);
-	request.getRequestDispatcher("produtos.jsp").forward(request, response);;
+	request.getRequestDispatcher("produtos.jsp").forward(request, response);
+	;
+    }
+
+    private void todosProdutosDoUsuario(HttpServletRequest request, HttpServletResponse response)
+	    throws ServletException, IOException {
+//	setInformacoes(request, response);
+	request.getSession().setAttribute("categorias", categoriaRepository.findAll());
+	request.getSession().setAttribute("produtos", productRepository.findAll(this.user.getId()));
+	response.setStatus(200);
+	request.getRequestDispatcher("all-products.jsp").forward(request, response);
     }
 
     private void listarComprados(HttpServletRequest request, HttpServletResponse response)
@@ -191,7 +182,7 @@ public class ProdutoServlet extends HttpServlet {
 	String serch = request.getParameter("search");
 	try {
 	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", service.findProductByName(serch));
+		request.getSession().setAttribute("produtos", productService.findProductByName(serch));
 		response.setStatus(200);
 		flag = true;
 	    } else if (flag) {
@@ -202,29 +193,23 @@ public class ProdutoServlet extends HttpServlet {
 	    setResponseBody(request, response, e.getMessage(), 400);
 	}
     }
-      
-    //-----------------------------------------------------------------------------------------//
-   
-    private Categoria instanciarCategoria(HttpServletRequest request) {
-	HttpServletRequest req = (HttpServletRequest) request;
-	HttpSession session = req.getSession();
-	this.cat = (Categoria) session.getAttribute("categoria");
-	return cat;
-    }
-    
-    private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // -----------------------------------------------------------------------------------------//
+
+  /*  private void setInformacoes(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	request.getSession().setAttribute("gerais",
 		InformacoesProdutos.infosGerais(this.cat.getUser(), util, this.cat.getOrcamento()));
 	request.getSession().setAttribute("disponivel", InformacoesProdutos.getDisponivel(util, cat));
 	request.getSession().setAttribute("economizado", InformacoesProdutos.getValorEconomizado(util));
 	request.getSession().setAttribute("tEstipulado", InformacoesProdutos.getTotalEstipuladoHtml(util));
 	request.getSession().setAttribute("tTotal", InformacoesProdutos.getValorTotalHtml(util));
-    }
-    
+    }*/
+
     /**
      * Apenas pra diminuir codigo. <br>
      * Seta o Response para UTf8 e o ContentType para text e manda a mensagem para o
-     * Ajax 
+     * Ajax
+     * 
      * @param mensagem - mensagem que será enviada como resposta
      * @param codigo   - codigo que será enviado
      */
@@ -241,11 +226,13 @@ public class ProdutoServlet extends HttpServlet {
 	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
     }
 
-    private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response) {
-	this.cat = instanciarCategoria(request);
-	service = new ProductService(cat);
+    private void startServiceAndRepository(HttpServletRequest request, HttpServletResponse response)
+	    throws IOException {
+	this.user = (User) request.getSession().getAttribute("user");
+	categoriaRepository = DaoFactory.createCategoriaDao(user);
+	productService = new ProductService(cat);
 	util = new ProdutosUtil(cat);
-	repository = DaoFactory.createProductDao(cat);
+	productRepository = DaoFactory.createProductDao(cat);
     }
-    
+
 }

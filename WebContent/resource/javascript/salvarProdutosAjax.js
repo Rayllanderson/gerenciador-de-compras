@@ -20,6 +20,7 @@ function saveProduct() {
 	let real = $('#real').val();
 	var comprado = $('#comprado').is(':checked');
 	let cat_id = $('#categoria').val();
+	console.log(cat_id)
 	
 	//passando de obj pra string
 	if(comprado == true){
