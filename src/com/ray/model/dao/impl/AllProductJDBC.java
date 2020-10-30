@@ -59,7 +59,7 @@ public class AllProductJDBC extends ProductJDBC {
     
     @Override
     public List<Product> findByName(String name) {
-	String sql = "select produtos.* from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%"
+	String sql = "select produtos.*, categoria.id as cat_id from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%"
 		+ name + "%' and id_user = " + this.user.getId();
 	PreparedStatement st = null;
 	ResultSet rs = null;
@@ -68,7 +68,7 @@ public class AllProductJDBC extends ProductJDBC {
 	    st = this.conn.prepareStatement(sql);
 	    rs = st.executeQuery();
 	    while (rs.next()) {
-		list.add(instanciarProduto(rs));
+		list.add(this.instanciarProduto(rs));
 	    }
 	    return list;
 	} catch (SQLException e) {
@@ -77,6 +77,14 @@ public class AllProductJDBC extends ProductJDBC {
 	    DB.closeResultSet(rs);
 	    DB.closeStatement(st);
 	}
+    }
+    
+    @Override
+    protected Product instanciarProduto(ResultSet rs) throws SQLException {
+	Product p = super.instanciarProduto(rs);
+	p.setCategoria(new Categoria());
+	p.getCategoria().setId(rs.getLong("cat_id"));
+        return p;
     }
 
 }

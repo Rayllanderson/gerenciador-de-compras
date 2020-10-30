@@ -103,7 +103,7 @@
 
             <div class="container">
                 <div class="cartao text-center">
-                    <h1 class="titulo card-title mt-3 text-center">Olá, ${user.name}, bem vindo!</h1>
+                    <h1 class="titulo card-title mt-3 text-center">Olá, ${user.name}!</h1>
                   	<div class="form-group">
 					<div class="main1">
 						<div class="mt-3"></div>						
@@ -125,18 +125,18 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="my-account">
-                        <button class="botao btn btn-outline"><i class="fas fa-user-circle"></i> Acessar sua conta </button> </a>
+                        <a href="all-products">
+                        <button class="botao btn btn-outline"><i class="fas fa-shopping-bag"></i> Todos os produtos </button></a>
                     </div>
-
+                    
                     <div class="form-group">
                         <a href="estatisticas">
                         <button class="botao btn btn"><i class="fas fa-chart-pie"></i> Estatítiscas </button></a>
                     </div>
-
-                    <div class="form-group">
-                        <a href="all-products">
-                        <button class="botao btn btn-outline"><i class="fas fa-shopping-bag"></i> Todos os produtos </button></a>
+                    
+                     <div class="form-group">
+                        <a href="my-account">
+                        <button class="botao btn btn-outline"><i class="fas fa-user-circle"></i> Acessar sua conta </button> </a>
                     </div>
 
                     <div class="form-group">
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="#">
+                        <a href="help.jsp">
                         <button class="botao btn btn-outline"><i class="fas fa-question"></i> Ajuda </button></a>
                     </div>
                 </div>

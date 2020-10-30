@@ -152,7 +152,7 @@ public class FindAllProductsServlet extends HttpServlet {
 
     private void todosProdutosDoUsuario(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-//	setInformacoes(request, response);
+	setInformacoes(request);
 	request.getSession().setAttribute("categorias", categoriaRepository.findAll());
 	request.getSession().setAttribute("produtos", productRepository.findAll());
 	response.setStatus(200);
@@ -188,6 +188,10 @@ public class FindAllProductsServlet extends HttpServlet {
 		setResponseBody(request, response, "Nenhum produto encontrado", 400);
 	    } else {
 		request.getSession().setAttribute("produtos", list);
+		if(request.getParameter("home") != null) { //fazendo pesquisa via home
+		    setInformacoes(request);
+		    request.getSession().setAttribute("categorias", categoriaRepository.findAll());
+		}
 		response.setStatus(200);
 		flag = true;
 	    }
@@ -199,19 +203,23 @@ public class FindAllProductsServlet extends HttpServlet {
 
     // -----------------------------------------------------------------------------------------//
 
-    /*
-     * private void setInformacoes(HttpServletRequest request, HttpServletResponse
-     * response) throws IOException { request.getSession().setAttribute("gerais",
-     * InformacoesProdutos.infosGerais(this.cat.getUser(), util,
-     * this.cat.getOrcamento())); request.getSession().setAttribute("disponivel",
-     * InformacoesProdutos.getDisponivel(util, cat));
-     * request.getSession().setAttribute("economizado",
-     * InformacoesProdutos.getValorEconomizado(util));
-     * request.getSession().setAttribute("tEstipulado",
-     * InformacoesProdutos.getTotalEstipuladoHtml(util));
-     * request.getSession().setAttribute("tTotal",
-     * InformacoesProdutos.getValorTotalHtml(util)); }
-     */
+    
+    private void setInformacoes(HttpServletRequest request) {
+	TotalProdutos infos = new TotalProdutos(user);
+	request.getSession().setAttribute("totalListas", infos.getNumCategorias());
+	request.getSession().setAttribute("totalProdutos", infos.getNumProdutos());
+	request.getSession().setAttribute("numProdutosComprados", infos.getNumProdutosComprados());
+	request.getSession().setAttribute("numProdutosNComprados", infos.getNumProdutos() - infos.getNumProdutosComprados());
+	request.getSession().setAttribute("valorGastoComprados", infos.getGastoComprados());
+	request.getSession().setAttribute("valorEstipComprados", infos.getEstipuladoComprados());
+	request.getSession().setAttribute("valorGasto", infos.getValorGasto());
+	request.getSession().setAttribute("valorEstip", infos.getEstipulado());
+	request.getSession().setAttribute("economizado", infos.getEconomizado());
+	request.getSession().setAttribute("restante", infos.getRestante());
+	request.getSession().setAttribute("total", infos.getTotal());
+    }
+
+    
 
     /**
      * Apenas pra diminuir codigo. <br>

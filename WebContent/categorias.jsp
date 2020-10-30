@@ -85,7 +85,7 @@
 								  </button>
 							</c:if>
 	
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
                             
                            
                             
@@ -197,6 +197,35 @@
 			</tr>
 		</thead>
 		<tbody id="tabela">
+			<tr>
+					<td data-label="Nome">
+					<a class="btn btn-light" href="all-products"
+					style="width: 100%; color: dodgerblue; border-radius: 1rem;">Todos os produtos</a>
+					</td>
+					
+					<td data-label="Orçamento" style="color: deeppink">#####</td>
+					
+					<td data-label="Editar">
+					<button
+					class="btn btn-outline-info disabled" style="
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+					
+<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+</svg>
+					</button> </td>
+
+
+					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger disabled" style="
+ 					 box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
+					 >
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+</svg>
+					</button>
+				</tr>
+		
+		
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">

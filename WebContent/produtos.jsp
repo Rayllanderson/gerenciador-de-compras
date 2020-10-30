@@ -91,7 +91,7 @@
 
 						</c:if>
 							
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
                                 <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
                                 <a class="dropdown-item" href="estatisticas">Estatísticas</a>
                                 <h6 class="dropdown-header">Temas</h6>
@@ -339,7 +339,7 @@
                                                 <td data-label="Editar"><button class="btn btn-outline-info" 
 
                                                 data-toggle="modal" data-target="#exampleModal" data-title="Editar" data-id="${prod.id}" data-nome="${prod.nome}" data-estipulado="${prod.getValorEstipuladoEmReal()}"
-                                                        data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}" <c:set var="nomeCategoria" scope="session" value="${prod.categoria.name}" /> onclick="setCheckedIfTrue('${prod.isComprado()}')">
+                                                        data-real="${prod.getValorRealEmReal()}" data-comprado="${prod.comprado}"  data-cat-id="${prod.categoria.id}" onclick="setCheckedIfTrue('${prod.isComprado()}')">
 
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -405,9 +405,8 @@
                                         <div id="lista" class="form-group" style="display: none; width: 50%">
                                             <label class="message-text" for="categoria">Lista</label> <select id="categoria" name="cat_id" class="custom-select mr-sm-2">
 								<c:forEach items="${categorias}" var="cat">
-									<option id="cat_id" value="${cat.id}"  
-										<c:if test="${cat.name == nomeCategoria}">
- 			 					<c:out value="selected=selected"/> </c:if>>${cat.name}
+									<option id="cat_id" value="${cat.id}">
+									${cat.name}
 									</option>
 								</c:forEach>
 							</select>
@@ -674,7 +673,9 @@ $(".alert").hide();
                                     var estipulado = button.data('estipulado')
                                     var real = button.data('real')
                                     var comprado = button.data('comprado')
-
+									var cat = button.data('cat-id')    
+ 									$('#categoria').val(cat)
+                                    
                                     if (title == 'Editar') {
                                         const showList = document
                                             .getElementById("lista").style.display = 'block';

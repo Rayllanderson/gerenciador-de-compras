@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
 
-body {
-  font-family: Lato, sans-serif;
-}
 
 footer {
   width:100vw;
@@ -15,13 +12,11 @@ footer div {
   color: #fff;
   text-align:center;
 }
-svg {
+.wave-svg {
   width:100%;
 }
-.arrow {
-  stroke-width: .3px;
-  stroke:yellow;
-}
+
+
 .topball {
   animation: ball 1.5s ease-in-out;
   animation-iteration-count:infinite;
