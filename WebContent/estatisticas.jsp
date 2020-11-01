@@ -13,10 +13,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	
+<link href="resource/css/estatisticas.css" type="text/css" rel="stylesheet" />	
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="resource/javascript/util/fa.js"></script>
+
 
 <!-- canvas JS -->
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -26,48 +28,6 @@
 
 
 <style type="text/css">
-
-html, body{
-	height: 100%;
-}
-
-body{
-background-image: url('resource/img/account.jpg');
-background-repeat: no-repeat;
-}
-
-
-.content {
-position: relative;
- min-height: 100%; 
- padding-bottom: 100px; 
-}
-
-footer{
-
-}
-
-
-nav{
-box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-}
-
-
-.dropdown-item.active, .dropdown-item:active{
-    color: #fff;
-    background-color: #7500B3;
-}
-
-
-#myChart2{
-max-height: 500px; max-width: 100%
-}
-
-     @media (max-width:700px)  { 
-    	#myChart2{
-		max-height: 300px;
-		}
-      }
 
 </style>
 
@@ -245,7 +205,7 @@ max-height: 500px; max-width: 100%
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Ajuda</a>
+                        <a href="help.jsp">Ajuda</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -317,156 +277,24 @@ max-height: 500px; max-width: 100%
     </footer>
     <!-- Footer -->
 
+<script type="text/javascript">
 
+var numProdutosComprados = parseInt('${numProdutosComprados}');
+var totalP = parseInt("${totalProdutos}");
+var numProdutosNaoComprados = totalP - numProdutosComprados;
 
-<script>
+var valorGastoComprados = Number("${valorGastoComprados}").toFixed(2);
+var valorEstipuladoComprados = Number("${valorEstipComprados}").toFixed(2);
+var valorEconomizadoComprados = (valorEstipuladoComprados - valorGastoComprados).toFixed(2);
 
-const blue = 'rgba(54, 162, 235, 1)';
-const pink = 'rgba(232, 62, 140, 1)';
-const red = 'rgba(255, 98, 94, 1)';
-const yellow = "rgba(241, 200, 14, 1)"
-const dark = 'rgba(55, 70, 73, 1)';
-const green = 'rgba(2, 184, 171, 1)';
+var valorGasto = Number("${valorGasto}").toFixed(2);
+var valorEstipulado = Number("${valorEstip}").toFixed(2);
+var economizado = Number("${economizado}").toFixed(2);
+var restante = Number("${restante}").toFixed(2);
+var total = Number("${total}").toFixed(2);
 
-const numProdutosComprados = parseInt('${numProdutosComprados}');
-const totalP = parseInt("${totalProdutos}");
-const numProdutosNaoComprados = totalP - numProdutosComprados;
+</script>
 
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "light2", // "light1", "light2", "dark1", "dark2"
-	animationEnabled: true,
-	title: {
-		text: ""
-	},
-	data: [{
-		type: "pie",
-		startAngle: 25,
-		toolTipContent: " <b>{label}</b>: {y} ",
-		showInLegend: "true",
-		legendText: "{label}",
-		indexLabelFontSize: 14,
-		indexLabel: " {label} {y} ",
-		dataPoints: [
-			{ y: numProdutosNaoComprados, label: "Não Comprados" },
-			{ y: numProdutosComprados, label: "Comprados" }
-		]
-	}]
-});
-chart.render();
-$(".canvasjs-chart-credit").hide();
-
-
-
-
-
-//apenas produdos comprados
-const valorGastoComprados = Number("${valorGastoComprados}").toFixed(2);
-const valorEstipuladoComprados = Number("${valorEstipComprados}").toFixed(2);
-const valorEconomizadoComprados = (valorEstipuladoComprados - valorGastoComprados).toFixed(2);
-
-
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Valor Gasto', 'Valor Estipulado', 'Valor Economizado'],
-        datasets: [{
-            label: 'R$',
-            data: [valorGastoComprados, valorEstipuladoComprados, valorEconomizadoComprados],
-            backgroundColor: [
-            	blue,
-                pink,
-                getColor(valorEconomizadoComprados)
-            ],
-            borderColor: [
-            	blue,
-            	pink,
-            	 getColor(valorEconomizadoComprados)
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-
-
-
-
-
-//todos os produtos
-const valorGasto = Number("${valorGasto}").toFixed(2);
-const valorEstipulado = Number("${valorEstip}").toFixed(2);
-const economizado = Number("${economizado}").toFixed(2);
-const restante = Number("${restante}").toFixed(2);
-const total = Number("${total}").toFixed(2);
-
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-var myChart2 = new Chart(ctx2, {
-    type: 'horizontalBar',
-    data: {
-        labels: ['Economizado', 'Falta Gastar', 'Valor Gasto', 'V. Estipulado', 'Valor Total'],
-        datasets: [{
-            label: 'R$',
-            data: [economizado, restante, valorGasto, valorEstipulado, total],
-            backgroundColor: [
-            	getColor(economizado),
-                yellow,
-                blue,
-                pink,
-                dark 
-            ],
-            borderColor: [
-            	getColor(economizado),
-                yellow,
-                blue,
-                pink,
-                dark  
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-    	maintainAspectRatio: false,
-        scales: {
-            xAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }   
-    }
-});
-
-
-function getColor(economizado){
-	return economizado >= 0 ? green : red;
-}
-
-
-$('.marcado-comprado').on('click', function () {
-//	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
-	$("#img").attr("src","resource/img/estatisticas/marcado-comprado.png");
-	
-});
-
-$('.valor-real').on('click', function () {
-//	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
-	$("#img").attr("src","resource/img/estatisticas/preco-real.png");
-});
-</script>	
-	
-		
-
-
+<script src="resource/javascript/graficos.js"></script>
 </body>
 </html>

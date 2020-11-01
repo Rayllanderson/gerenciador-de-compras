@@ -107,14 +107,11 @@
         </div>
     </div>
  
- 
- 
- 
 </body>
 
 <script src="resource/javascript/app.js"></script>
 <script src="resource/javascript/ajax/loginAjax.js"></script>
-<script src="resource/javascript/alert.js"></script>
+<script src="resource/javascript/util/alert.js"></script>
 
 </body>
 </html>

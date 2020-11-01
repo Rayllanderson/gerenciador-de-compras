@@ -490,7 +490,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Ajuda</a>
+                       <a href="help.jsp">Ajuda</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -569,12 +569,12 @@
 					<script src="resource/javascript/ajax/excluirProdutoAjax2.js"></script>
 					<script src="resource/javascript/ajax/salvarProdutosAjax2.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
-					<script src="resource/javascript/alert.js"></script>
+					<script src="resource/javascript/util/alert.js"></script>
 					<script src="resource/javascript/ajax/listarProdutos2.js"></script>
 					<script src="resource/javascript/ajax/searchProdutosAjax2.js"></script>
-					<script src="resource/javascript/sendThemeAjax.js" ></script>
+					<script src="resource/javascript/ajax/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
-					<script src="resource/javascript/getYear.js"></script>
+					<script src="resource/javascript/util/getYear.js"></script>
 					
 <script type="text/javascript">
 

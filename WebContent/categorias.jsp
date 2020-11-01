@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=0.88">
 <title>Suas Listas</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,7 +15,6 @@
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
 <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	 
-
 
 <script src="resource/javascript/util/fa.js"></script>
 
@@ -383,7 +382,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Ajuda</a>
+                        <a href="help.jsp">Ajuda</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -467,13 +466,13 @@
 <script src="resource/javascript/jquery.mask.min.js"></script>
 			
 			<script src="resource/javascript/esconderUrl.js"></script>
-			<script src="resource/javascript/salvarCategoriaAjax.js" ></script>
-			<script src="resource/javascript/excluirCategoriaAjax.js" ></script>
-			<script src="resource/javascript/searchCategoriaAjax.js" ></script>
-			<script src="resource/javascript/alert.js"></script>
-			<script src="resource/javascript/sendThemeAjax.js"></script>
+			<script src="resource/javascript/ajax/salvarCategoriaAjax.js" ></script>
+			<script src="resource/javascript/ajax/excluirCategoriaAjax.js" ></script>
+			<script src="resource/javascript/ajax/searchCategoriaAjax.js" ></script>
+			<script src="resource/javascript/util/alert.js"></script>
+			<script src="resource/javascript/ajax/sendThemeAjax.js"></script>
 			<script src="resource/javascript/switchThemeCategoria.js"></script>
-			<script src="resource/javascript/getYear.js"></script>   
+			<script src="resource/javascript/util/getYear.js"></script>   
 
     
 <script type="text/javascript">

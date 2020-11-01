@@ -1,0 +1,34 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background-image: url('../img/account.jpg');
+	background-repeat: no-repeat;
+}
+
+.content {
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 100px;
+}
+
+nav {
+	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	color: #fff;
+	background-color: #7500B3;
+}
+
+#myChart2 {
+	max-height: 500px;
+	max-width: 100%
+}
+
+@media ( max-width :700px) {
+	#myChart2 {
+		max-height: 300px;
+	}
+}

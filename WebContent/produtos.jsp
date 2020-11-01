@@ -26,17 +26,17 @@
                     <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	 
                     <style type="text/css">
                         body {
-                            background-color: #f8f9fa;
+                           	 background-color: #f8f9fa;
                             }
                             html, body{
-                            height: 100%;
+                           	 height: 100%;
 							
                             }
 						
-						.content{
-						min-height: 100%;
-						position: relative;
-						}				
+							.content{
+								min-height: 100%;
+								position: relative;
+							}				
                     </style>
 
                 </head>
@@ -510,7 +510,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Ajuda</a>
+                       <a href="help.jsp">Ajuda</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -586,16 +586,16 @@
 
                     <!-- ---------------------------------------------- -->
 
-					<script src="resource/javascript/excluirProdutoAjax.js"></script>
-					<script src="resource/javascript/salvarProdutosAjax.js"></script>
+					<script src="resource/javascript/ajax/excluirProdutoAjax.js"></script>
+					<script src="resource/javascript/ajax/salvarProdutosAjax.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
-					<script src="resource/javascript/alert.js"></script>
-					<script src="resource/javascript/listarProdutos.js"></script>
-					<script src="resource/javascript/searchProdutosAjax.js"></script>
-					<script src="resource/javascript/salvarCategoriaAjax2.js" ></script>
-					<script src="resource/javascript/sendThemeAjax.js" ></script>
+					<script src="resource/javascript/util/alert.js"></script>
+					<script src="resource/javascript/ajax/listarProdutos.js"></script>
+					<script src="resource/javascript/ajax/searchProdutosAjax.js"></script>
+					<script src="resource/javascript/ajax/salvarCategoriaAjax2.js" ></script>
+					<script src="resource/javascript/ajax/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
-					<script src="resource/javascript/getYear.js"></script>
+					<script src="resource/javascript/util/getYear.js"></script>
 					
 <script type="text/javascript">
 

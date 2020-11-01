@@ -11,151 +11,16 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">	
 	
-	
-<!--   --><link href="resource/css/account.css" type="text/css" rel="stylesheet" />
-
 <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/wave.css" type="text/css" rel="stylesheet" />
+<link href="resource/css/account.css" type="text/css" rel="stylesheet" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>                    
 <script src="resource/javascript/util/fa.js"></script>
-
-<link href="resource/css/wave.css" type="text/css" rel="stylesheet" />
-
-<style type="text/css">
-
-* {
- box-sizing: border-box;
-}
-
-
-html, body{
-	height: 100%;
-}
-
-body{
-margin: 0;
-padding: 0;
-border-radius: 1em;
-background-image: url('resource/img/account.jpg');
-background-repeat: no-repeat;
-position: relative;
-}
-
-*:before,
-*:after {
- box-sizing: border-box;
-}
-
-
-.content {
- min-height: 70%; /* will cover the 100% of viewport */
- padding-bottom: -250px; /* height of your footer */
-}
-
-footer{
- position: relative;
- width: 100%;
- height: 3.5rem;
- bottom: 0;
-}
-
-
-.avatar::after {
-    opacity: 0;
-    content: "\f044";
-    font-family: FontAwesome;
-    color: #fff;
-    font-size: 2.5rem;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 17.4%;
-    width: 260px;
-    height: 260px;
-    z-index: 2;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 350ms ease-in-out;
-}
-.avatar:hover::after {
-    opacity: 1;
-}
-.avatar {
-    border: 4px;
-    border-radius: 50%;
-}
-
-#menu {
-    position: absolute;
-    opacity: 0;
-    width: 200px
-    height: auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-    box-sizing: border-box;
-    padding: 0.3rem;
-    padding-left: 0.1rem;
-    border-radius: 0.5rem;
-    top: 50%; 
-    left: 56%;
-    z-index: -1;
-    transition: 350ms ease-in-out;
-}
-
-
-
-
-
-.wave {
-  fill: #7500B3;
-}
-.drop {
-  stroke: #7500B3;
-}
-
-
-
-
-nav{
-box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-}
-
-
-.dropdown-item.active, .dropdown-item:active{
-    color: #fff;
-    background-color: #7500B3;
-}
-
-.yo.active, .yo:active{
-    background-color: rgb(230, 230, 230);
-}
-
-.yo{
-	cursor: pointer;
-}
-
-#wrapper {
-    height: 100%;
-    display: -webkit-flex;
-    display: flex;
-}
-
-
-
-
-</style>
 
 <title>My Account</title>
 </head>
@@ -547,7 +412,7 @@ $(window).on('click', function() {
 </script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="resource/javascript/accountAjax.js"></script> 
+<script src="resource/javascript/ajax/accountAjax.js"></script> 
 <script src="resource/javascript/remover-foto.js"></script>     
 
 

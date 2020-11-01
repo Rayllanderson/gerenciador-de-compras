@@ -159,7 +159,7 @@
 </body>
 
 <script src="resource/javascript/ajax/searchProdutosHome.js"></script>
-<script src="resource/javascript/alert.js"></script>
+<script src="resource/javascript/util/alert.js"></script>
 
 
 <script type="text/javascript">
@@ -167,14 +167,7 @@ if ( window.history.replaceState ) {
 	  window.history.replaceState( null, null, window.location.href );
 	}
 
-
-
     var oi = "${b80bb7740288fda1f201890375a60c8f}"
-    	$("form").on("submit", function() { 
-    		 listar(true);
-    		 alert('a')
-    		  return false;
-    		});
 
 </script>
 
