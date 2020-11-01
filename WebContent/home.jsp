@@ -140,7 +140,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="#">
+                        <a href="about.jsp">
                         <button class="botao btn btn-outline"><i class="fas fa-info"></i> Sobre </button></a>
                     </div>
 

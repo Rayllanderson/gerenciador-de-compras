@@ -197,7 +197,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Sobre</a>
+                        <a href="about.jsp">Sobre</a>
                     </h6>
                 </div>
                 <!-- Grid column -->

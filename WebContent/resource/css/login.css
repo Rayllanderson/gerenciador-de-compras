@@ -256,7 +256,13 @@ input.form-control{
 }*/
 
 
+.panel a{
+	color: #00E8EF;
+}
 
+.panel a:visited {
+	color:#00E8EF;
+}
 
 
 

@@ -99,8 +99,9 @@
                         Clique abaixo para realizar seu login
                     </p>
                      <button class="botao" id="sign-in-btn">
-              Login
-            </button>
+			           Login
+			          </button>
+			          <p>Quer saber mais detalhes? clique <a href="about.jsp" style="color:#00E8EF" >aqui</a></p>
                 </div>
                 <img src="resource/img/register.png" class="image" alt="" />
             </div>
