@@ -159,13 +159,13 @@
 				<span class="input-text"> Nome </span>
 					<div class="form-group input-group">
 						<input name="nome" class="form-control" placeholder="Nome"
-							type="text" value="${user.name}" name="nome" id="nome">
+							type="text" value="${user.name}" name="nome" id="nome" maxlength="130">
 					</div>
 					<!-- form-group// -->
 					<span class="input-text"> Username</span>
 					<div class="form-group input-group">
 						<input name="username" class="form-control" placeholder="Username"
-							type="text" value="${user.username}" required="required" name="username" id="username">
+							type="text" value="${user.username}" required="required" name="username" id="username" maxlength="180">
 					</div>
 					
 					<div style="display: flex; justify-content: space-between;">
@@ -213,31 +213,6 @@
 </div>
 
 
-<!--  
-
-<hr>
-<div class="container">
-	
-	
-		<div class="card card-signin my-5" style="border-radius: 1em">
-			<article class="card-body mx-auto">
-			<h4 class="card-title mt-3 text-center">Informações Gerais</h4>
-			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
-			<p>Você possui ${tListas} listas no total </p>
-			<p>Você comprou ${nProdutosComprados} produtos de um total de ${tProdutos} </p>
-			<p>Você já gastou ${tGasto} </p>
-			<p>Você pretende gastar ${tEstipulado} </p>
-			</article>
-			</div>
-			</div>
-			
-			
-			 -->
-		
-
-
-
-
 
 <!-- MODAL DE MUDAR SENHA -->
 
@@ -277,19 +252,19 @@
 						      
                                         <div class="form-group">
                                             <label for="old" class="control-label" style="text-align: center">Senha Atual:</label>
-                                            <input type="password" name="old" type="text" class="form-control" id="old" required="required">
+                                            <input type="password" name="old" type="text" class="form-control" id="old" required="required" maxlength="130">
                                         </div>
 
 
                                         <div class="form-group">
                                             <label for="new1" class="control-label" style="text-align: center">Nova Senha:</label>
-                                            <input type="password" name="new1" type="text" class="form-control" id="new1" required="required">
+                                            <input type="password" name="new1" type="text" class="form-control" id="new1" required="required" maxlength="130">
                                         </div>
 
 
                                          <div class="form-group">
                                             <label for="new2" class="control-label" style="text-align: center">Confirme a Nova Senha:</label>
-                                            <input type="password" name="new2" type="text" class="form-control" id="new2" required="required">
+                                            <input type="password" name="new2" type="text" class="form-control" id="new2" required="required" maxlength="130">
                                         </div>
                                        
                                 </div>

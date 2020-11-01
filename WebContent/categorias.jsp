@@ -310,11 +310,11 @@
 			  <div class="modal-body">
 				  <div class="form-group">
 					<label for="recipient-name" class="control-label">Nome:</label>
-					<input name="nomeLista" type="text" class="form-control" id="categoriaName" value="${cat.name}" required/>
+					<input name="nomeLista" type="text" class="form-control" id="categoriaName" value="${cat.name}" required maxlength="255"/>
 				  </div>
 				  <div class="form-group">
 					<label for="message-text" class="control-label">Orcamento:</label>
-					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric">
+					<input name="orcamento" type="text" class="form-control" id="orcamento" style="width: 50%" inputmode="numeric" maxlength="12">
 				  </div>
 				<input name="id" type="hidden" class="form-control" id="idCat" value="${cat.id}">
 				<button type="button" id="save1" class="btn btn-success" onclick="saveAjax();" >&nbsp; Salvar &nbsp;</button> 

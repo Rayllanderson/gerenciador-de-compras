@@ -67,7 +67,7 @@ public class ProdutoServlet extends HttpServlet {
 	    request.getRequestDispatcher("categorias?acao=listar").forward(request, response);;
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
-	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
+	    setResponseBody(request, response, "Ocorreu um erro", 502);
 	}
     }
 
@@ -92,7 +92,7 @@ public class ProdutoServlet extends HttpServlet {
 	    }
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
-	    setResponseBody(request, response, "Ocorreu um erro inesperado", 502);
+	    setResponseBody(request, response, "Ocorreu um erro", 502);
 	}
     }
 

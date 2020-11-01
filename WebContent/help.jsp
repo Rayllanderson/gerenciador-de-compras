@@ -345,7 +345,7 @@
 
 
             <h1 class="mt-4 mb-3 text-primary" id="duvidas">Duvidas?</h1>
-            <p>Ficou com alguma dúvida? Encontrou algum bug? Entre em contato comigo aqui>!
+            <p>Ficou com alguma dúvida? Encontrou algum bug? Entre em contato comigo <a href="contact.jsp">aqui</a>
             </p>
                   
             

@@ -34,12 +34,6 @@
 			
 		}
 		
-		 img {
-            display: block;
-			margin: 10px auto;
-            margin-top: 10px; margin-bottom: 10px;
-        }
-        
         .content{
 			min-height: 100%;
 			position: relative;
@@ -61,6 +55,7 @@
 			font-size: 18px;
 			color: gray;	
 		}
+		
     </style>
     
 </head>

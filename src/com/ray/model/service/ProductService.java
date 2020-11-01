@@ -2,7 +2,6 @@ package com.ray.model.service;
 
 import java.util.List;
 
-import com.ray.db.DbException;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
@@ -37,44 +36,33 @@ public class ProductService {
      *                                  estejam vazios ou nulos
      */
     public boolean save(Product p) throws EntradaInvalidaException {
-	try {
-	    Validacao.validarNome(p.getNome());
-	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
-	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
-	    dao.save(p);
-	    cat.adicionarProduto(p);
-	    return true;
-	} catch (DbException e) {
-	    e.printStackTrace();
-	    return false;
-	}
+	Validacao.validarNome(p.getNome());
+	p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+	p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
+	dao.save(p);
+	cat.adicionarProduto(p);
+	return true;
     }
 
-    
-    
     /**
      * Atualiza o produto. Passa por 3 verificações. Primeiro checa se o produto de
      * fato pertence ao usuário atual, caso seja, verifica se o nome não é nulo, se
      * for throw exception. E, os preços, se forem nulos, seta para 0.0
+     * 
      * @param p
      * @return
      * @throws EntradaInvalidaException - caso o campo nome esteja nulo
      * @throws ProdutoException         - caso o produto não pertenca ao usuário
      */
     public boolean update(Product p) throws EntradaInvalidaException, ProdutoException {
-	try {
-	    if (dao.productIsValid(p.getId())) {
-		Validacao.validarNome(p.getNome());
-		p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
-		p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
-		dao.update(p);
-		return true;
-	    } else {
-		throw new ProdutoException("Ocorreu um inesperado");
-	    }
-	} catch (DbException e) {
-	    e.printStackTrace();
-	    return false;
+	if (dao.productIsValid(p.getId())) {
+	    Validacao.validarNome(p.getNome());
+	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
+	    dao.update(p);
+	    return true;
+	} else {
+	    throw new ProdutoException("Ocorreu um inesperado");
 	}
     }
 
@@ -86,15 +74,9 @@ public class ProductService {
      * @return true caso ok, false caso dê erro.
      */
     public boolean deleteById(Long id) {
-	try {
-	    if (dao.productIsValid(id)) {
-		dao.deletById(id);
-		return true;
-	    } else {
-		return false;
-	    }
-	} catch (DbException e) {
-	    e.printStackTrace();
+	if (dao.productIsValid(id)) {
+	    dao.deletById(id);
+	    return true;
 	}
 	return false;
     }
@@ -117,7 +99,10 @@ public class ProductService {
     }
 
     /**
-     * Procura o produto na lista atual. <br> SQL: where produtos.nome LIKE '%name%' <br> Ou seja, todos os produtos que conter o "nome" em qualquer lugar
+     * Procura o produto na lista atual. <br>
+     * SQL: where produtos.nome LIKE '%name%' <br>
+     * Ou seja, todos os produtos que conter o "nome" em qualquer lugar
+     * 
      * @param name
      * @return
      * @throws ListaVaziaException
