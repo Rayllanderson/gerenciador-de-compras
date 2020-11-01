@@ -390,7 +390,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Contato</a>
+                        <a href="contact.jsp">Contato</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -519,7 +519,7 @@ const msg = "${catNula}"
     console.log(msg)
     if (msg != null && msg != '') {
     	$(document).ready(function() {  	
-    	$.getScript("resource/javascript/alert.js", function() {
+    	$.getScript("resource/javascript/util/alert.js", function() {
     		alertBoostrap(msg, 'alert alert-warning', "Ei!")
     	});
     });

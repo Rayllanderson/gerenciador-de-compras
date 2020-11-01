@@ -135,26 +135,40 @@
 </nav>
 </header>
 
+
+<!-- ALERT -->
+				 	 <div class="fixed-top">
+				 		<div class="alert alert-success" id="success-alert">
+				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
+				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
+				  		</div>
+					</div>
+
 	<div class="container mt-5 ">
 		
 		<div class="card p-5">
 		
 			<h2 class="text-center mb-4">Entre em contato</h2>
 			
-			<form action="mailto:rayllanderson@gmail.com" method="post" enctype="text/plain">
-			  <div class="form-group">
+			<div class="form-group">
 		    <label for="exampleInputEmail1">Seu Email</label>
-		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+		    <input type="email" name="email" id="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
 		    </div>
     
 			 <div class="form-group">
 			    <label for="exampleFormControlTextarea1">Escreva aqui</label>
-			    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+			    <textarea class="form-control" name="message" id="message" rows="7"></textarea>
 			  </div>
 			
-			 <button type="submit" class="btn btn-primary">Enviar</button>
-			</form>
-						
+			<div class="form-group">
+			 <button type="submit" id="submit" class="btn btn-primary">Enviar</button>
+			 </div>
+					
+					<div class="d-flex justify-content-center" >
+					  <div class="spinner-border" role="status" id="loading">
+					    <span class="sr-only">Enviando...</span>
+					  </div>
+				</div>	
 
 			
 			
@@ -254,46 +268,9 @@
         <!-- Footer -->
 
 
-
-
-    <script type="text/javascript">
-   
-    (function($) {
-
-	"use strict";
-
-	var fullHeight = function() {
-
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
-
-	};
-	fullHeight();
-
-	$('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
- 	 });
-
-	})(jQuery);
-
+	<script src="resource/javascript/util/alert.js"></script>
+	<script src="resource/javascript/ajax/emailAjax.js"></script>
 	
-    
-   
-    </script>
-    
-    <script type="text/javascript">
-   
-   
-		$(".menu-sub-item").on('click', function(){
-			 $('#sidebarCollapse').click();
-			 });
-
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-        		$('p').css('width', '75vw')
-        	}
-    </script>
 </body>
 
 </html>

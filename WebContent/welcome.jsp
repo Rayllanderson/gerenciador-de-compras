@@ -83,10 +83,11 @@
             <div class="panel left-panel">
                 <div class="content">
                     <h3>Novo por aqui?</h3>
-                    <p style="font-size: 15px;">
+                    <p style="font-size: 14px;">
                         Junte-se a nós! Experimente gerenciar sua lista de compras aqui!
+                        Quer saber mais detalhes? clique <a href="about.jsp" style="color:#00E8EF" >aqui</a>
                     </p>
-                    <button class="botao" id="sign-up-btn">
+                    <button class="botao" id="sign-up-btn" style="margin-top: -1%">
               Cadastre-se
             </button>
                 </div>
@@ -94,14 +95,14 @@
             </div>
             <div class="panel right-panel">
                 <div class="content">
-                    <h3>Já possui uma conta?</h3>
-                    <p style="font-size: 15px;">
+                    <h3 >Já possui uma conta?</h3>
+                    <p style="font-size: 14px;" >
                         Clique abaixo para realizar seu login
                     </p>
                      <button class="botao" id="sign-in-btn">
 			           Login
 			          </button>
-			          <p>Quer saber mais detalhes? clique <a href="about.jsp" style="color:#00E8EF" >aqui</a></p>
+			        
                 </div>
                 <img src="resource/img/register.png" class="image" alt="" />
             </div>

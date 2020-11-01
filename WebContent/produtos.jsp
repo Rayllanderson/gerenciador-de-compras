@@ -518,7 +518,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Contato</a>
+                        <a href="contact.jsp">Contato</a>
                     </h6>
                 </div>
                 <!-- Grid column -->
