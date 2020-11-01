@@ -6,7 +6,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Sobre</title>
+    <title>Contato</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.85, shrink-to-fit=no">
 
@@ -61,6 +61,8 @@
 			font-size: 18px;
 			color: gray;	
 		}
+		
+
     </style>
     
 </head>
@@ -137,22 +139,23 @@
 		
 		<div class="card p-5">
 		
-			<h2 class="text-center mb-4">Sobre</h2>
+			<h2 class="text-center mb-4">Entre em contato</h2>
 			
+			<form action="mailto:rayllanderson@gmail.com" method="post" enctype="text/plain">
+			  <div class="form-group">
+		    <label for="exampleInputEmail1">Seu Email</label>
+		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+		    </div>
+    
+			 <div class="form-group">
+			    <label for="exampleFormControlTextarea1">Escreva aqui</label>
+			    <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+			  </div>
 			
-			<p class="">
-			Este website é um gerenciador de listas de compra! Este, por sua vez, tem como objetivo gerenciar suas listas
-			de compras de forma mais organizada e controlada, possibilitando adicionar várias listas e vários produtos,
-			e, gerando dados e gráficos úteis para ter mais controle sobre sua lista de compras.
-			</p>
-			
-			<p>Você cria uma lista, ela pode possuir ou não um orçamento, dentro dela você adiciona os produtos. Os produtos 
-			podem ser editados, excluídos, marcados como concluídos e movidos para outras listas. As listas também podem ser 
-			editadas ou excluídas.</p>
-			
-			<p class="rodape">Vale ressaltar que este é apenas um projeto pessoal desenvolvido para treinar tecnologias especialmente do
-			 front-end, visto que a versão 1.0 o foco foi o back-end. Portanto, não é algo inovador, também não é algo extraordinário,
-			  apenas um projeto desenvolvido pra uso pessoal.</p>
+			 <button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+						
+
 			
 			
 		</div>
@@ -171,7 +174,7 @@
                     <!-- Grid column -->
                     <div class="col-md-2 mb-3">
                         <h6 class="text-uppercase font-weight-bold">
-                            <a>Sobre</a>
+                            <a href="about.jsp">Sobre</a>
                         </h6>
                     </div>
                     <!-- Grid column -->
@@ -187,7 +190,7 @@
                     <!-- Grid column -->
                     <div class="col-md-2 mb-3">
                         <h6 class="text-uppercase font-weight-bold">
-                            <a href="#!">Contato</a>
+                            <a>Contato</a>
                         </h6>
                     </div>
                     <!-- Grid column -->
