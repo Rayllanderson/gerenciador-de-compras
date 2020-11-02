@@ -36,7 +36,12 @@
 						.content{
 						min-height: 100%;
 						position: relative;
-						}				
+						}
+						
+						#gerais p{
+						line-height: 15px;
+						}
+										
                     </style>
 
                 </head>
@@ -202,18 +207,16 @@
                                             </h2>
                                         </div>
                                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px">
-                                            	 <p class="text-center"> Você possui ${totalProdutos} produtos em ${totalListas} listas</p>
-                                            	 <p class="text-center"> Você comprou ${numProdutosComprados} produtos </p>
-                                            	 <p class="text-center"> Faltam ${numProdutosNComprados} produtos para comprar </p>
-                                            	 <p class="text-center"> Você já gastou R$ ${valorGastoComprados} </p>
-                                            	 <p class="text-center"> Você planeja gastar R$ ${valorEstip} </p>
-                                            	 <p class="text-center"> Falta gastar R$ ${restante } </p>
-                                            	 <p class="text-center"> Valor total R$ ${total} </p>
+                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px;">
+                                            	 <p> Você possui <span class="text-primary font-weight-bold"> ${totalProdutos} </span>  produtos em <span style="color:deeppink;" class="font-weight-bold"> ${totalListas} </span> listas</p>
+                                            	 <p> Você comprou <span class="text-primary font-weight-bold"> ${numProdutosComprados} </span> produtos </p>
+                                            	 <p> Faltam <span style="color:deeppink;" class="font-weight-bold" > ${numProdutosNComprados} </span> produtos para comprar </p>
+                                            	 <p> Você já gastou <span class="text-primary font-weight-bold"> ${valorGastoComprados} </span> </p>
+                                            	 <p> Você planeja gastar <span style="color:deeppink;" class="font-weight-bold"> ${valorEstip} </span> </p>
+                                            	 <p> Falta gastar <span style="color:deeppink;" class="font-weight-bold"> ${restante } </span> </p>
+                                            	 <p> Valor total <span class="text-primary font-weight-bold"> ${total} </span> </p>
                                             
                                             </div>
-                                            <br>
-                                            Acessar gráfico dessa lista (comming soon...)
                                         </div>
                                     </div>
 

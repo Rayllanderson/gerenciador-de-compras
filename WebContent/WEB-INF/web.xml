@@ -4,12 +4,13 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
 
-
 	<filter>
 		<filter-name>filter</filter-name>
 		<filter-class>com.ray.filters.DBFilter</filter-class>
 	</filter>
+	
 	<display-name>gerenciador-compra</display-name>
+	
 	<welcome-file-list>
 		<welcome-file>welcome.jsp</welcome-file>
 	</welcome-file-list>

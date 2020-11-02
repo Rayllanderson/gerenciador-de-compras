@@ -1,6 +1,7 @@
 package com.ray.controller;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ import com.ray.model.validacoes.Validacao;
  * Servlet implementation class Login
  */
 @WebServlet("/all-products")
-public class FindAllProductsServlet extends HttpServlet {
+public class AllProductsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private AllProductJDBC productRepository = null;
@@ -36,8 +37,9 @@ public class FindAllProductsServlet extends HttpServlet {
     private User user = null;
     private Categoria cat = null;
     private TotalProdutos totalProdutos = null;
-
-    public FindAllProductsServlet() {
+    private NumberFormat format = NumberFormat.getCurrencyInstance();
+    
+    public AllProductsServlet() {
 	super();
     }
 
@@ -210,13 +212,13 @@ public class FindAllProductsServlet extends HttpServlet {
 	request.getSession().setAttribute("totalProdutos", infos.getNumProdutos());
 	request.getSession().setAttribute("numProdutosComprados", infos.getNumProdutosComprados());
 	request.getSession().setAttribute("numProdutosNComprados", infos.getNumProdutos() - infos.getNumProdutosComprados());
-	request.getSession().setAttribute("valorGastoComprados", infos.getGastoComprados());
-	request.getSession().setAttribute("valorEstipComprados", infos.getEstipuladoComprados());
-	request.getSession().setAttribute("valorGasto", infos.getValorGasto());
-	request.getSession().setAttribute("valorEstip", infos.getEstipulado());
-	request.getSession().setAttribute("economizado", infos.getEconomizado());
-	request.getSession().setAttribute("restante", infos.getRestante());
-	request.getSession().setAttribute("total", infos.getTotal());
+	request.getSession().setAttribute("valorGastoComprados", format.format(infos.getGastoComprados()));
+	request.getSession().setAttribute("valorEstipComprados", format.format(infos.getEstipuladoComprados()));
+	request.getSession().setAttribute("valorGasto", format.format(infos.getValorGasto()));
+	request.getSession().setAttribute("valorEstip", format.format(infos.getEstipulado()));
+	request.getSession().setAttribute("economizado", format.format(infos.getEconomizado()));
+	request.getSession().setAttribute("restante", format.format(infos.getRestante()));
+	request.getSession().setAttribute("total", format.format(infos.getTotal()));
     }
 
     
