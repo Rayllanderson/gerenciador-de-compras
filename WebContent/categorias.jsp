@@ -85,15 +85,11 @@
 							</c:if>
 	
                             <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                            
-                           
-                            
-                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                                <a class="dropdown-item" href="estatisticas">Estatísticas</a>
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                       			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
                                 <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Temas</h6>
+                                <h6 class="dropdown-header"><i class="fas fa-palette"></i> Temas</h6>
                                 <div class= "items">
-                               <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
 	                                <div class="theme blue" onclick="swapColor('blue', true, 'categoria')"></div>
 									<div class="theme pink" onclick="swapColor('pink', true, 'categoria')"></div>
 									<div class="theme red" onclick="swapColor('red', true, 'categoria')"></div>
@@ -108,7 +104,7 @@
 									<div class="theme icon-default" onclick="swapColor('default', true, 'categoria')"></div>
 								</div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
                         </nav>
 
@@ -197,7 +193,7 @@
 		</thead>
 		<tbody id="tabela">
 			<tr>
-					<td data-label="Nome">
+					 <!-- <td data-label="Nome">
 					<a class="btn btn-light" href="all-products"
 					style="width: 100%; color: dodgerblue; border-radius: 1rem;">Todos os produtos</a>
 					</td>
@@ -223,8 +219,8 @@
 </svg>
 					</button>
 				</tr>
-		
-		
+		 -->
+		 
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
@@ -281,7 +277,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Atenção</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Atenção <i class="fas fa-exclamation-triangle"></i></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -326,38 +322,6 @@
 	
 	
 	<!-- Fim Tela Modal -->
-	
-	
-	
-	
-	
-	
-	<!-- Tela Modal EDITAR CATEGORIA -->
-	
-					
-		<div class="modal fade" id="temaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Temas</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  </div>
-			  <div class="modal-body">
-				  <div class="form-group">
-					<div class="pink" onclick="teste('pink')"></div>
-					<div class="blue" onclick="teste('blue')"></div>
-					<div class="pink" onclick="teste('pink')"></div>
-					<div class="blue" onclick="teste('blue')"></div>
-					<div class="pink" onclick="teste('pink')"></div>
-					<div class="blue" onclick="teste('blue')"></div>
-				  </div>
-				 
-				<button type="button" id="save1" class="btn btn-success" >&nbsp; Salvar &nbsp;</button> 
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-			  </div>
-			</div>
-		  </div>
-		  </div>
 	
  </div>
 
@@ -427,7 +391,6 @@
                         <a href="https://github.com/Rayllanderson">
                             <i class="fab fa-github fa-lg white-text mr-3"></i>
                         </a>
-                        <!-- Google +-->
 
                         <a href="www.instagram.com/_ray_goncalves_/">
                             <i class="fab fa-instagram fa-lg white-text mr-3"> </i>
@@ -454,10 +417,6 @@
     </footer>
     <!-- Footer -->
 
-
-
-
-	
 
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -497,7 +456,6 @@
 
 <script type="text/javascript">
 	var theme = "${theme}"
-	console.log('hey..body')
 	categoriaThemeSwitch(theme);
 </script>
 

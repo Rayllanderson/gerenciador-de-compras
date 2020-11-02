@@ -39,7 +39,7 @@
 						}
 						
 						#gerais p{
-						line-height: 15px;
+						line-height: 19px;
 						}
 										
                     </style>
@@ -97,9 +97,9 @@
 						</c:if>
 							
                             <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                                <a class="dropdown-item" href="estatisticas">Estatísticas</a>
-                                <h6 class="dropdown-header">Temas</h6>
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                       			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
+                                <h6 class="dropdown-header"><i class="fas fa-palette"></i> Temas</h6>
                                 <div class= "items">
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
 	                                <div class="theme blue" onclick="swapColor('blue', true)"></div>
@@ -115,7 +115,7 @@
 									<div class="theme icon-default" onclick="swapColor('default', true)"></div>
 								</div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
                         </nav>
 
@@ -169,21 +169,10 @@
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                             <article class="card-body mx-auto" style="max-width: 400px;">
-                                <h4 id="catTitulo" class="card-title mt-3 text-center"> Todos os produtos <a
-                                class="text-decoration-none" type="button" title="Editar Lista" id="editCat"
-					data-toggle="modal" data-target="#categoriaModal" 
-					data-title="Editar"
-					data-id="${categoria.id}" 
-					data-nome="${categoria.name}"
-					data-orcamento="${categoria.getOrcamentoEmReal()}">
+                                <h4 id="catTitulo" class="card-title mt-3 text-center"> Todos os produtos</h4>	
 					
-<svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-					</a> </h4>	
-					
-                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
-                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
+                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: <span class="text-primary"> ${total} </span> </p>
+                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado:  <span style="color:deeppink"> ${valorEstip} </span> </p>
 
                             </article>
                         </div>
@@ -207,7 +196,7 @@
                                             </h2>
                                         </div>
                                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px;">
+                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left;">
                                             	 <p> Você possui <span class="text-primary font-weight-bold"> ${totalProdutos} </span>  produtos em <span style="color:deeppink;" class="font-weight-bold"> ${totalListas} </span> listas</p>
                                             	 <p> Você comprou <span class="text-primary font-weight-bold"> ${numProdutosComprados} </span> produtos </p>
                                             	 <p> Faltam <span style="color:deeppink;" class="font-weight-bold" > ${numProdutosNComprados} </span> produtos para comprar </p>
@@ -220,7 +209,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="accordion" id="accordionExample">
                                         <div class="card">
                                             <div class="card-header" id="headingOne">
@@ -231,21 +219,6 @@
                                             </div>
                                             <div id="collapse3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
                                                 <div class="card-body" id="economizado" style="display: inline-block; text-align: left; font-size: 17px">${economizado}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Quanto disponível você
-										tem pra gastar</button>
-                                                </h2>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                                <div class="card-body" id="disponivel" style="display: inline-block; text-align: left; font-size: 17px">${disponivel}</div>
                                             </div>
                                         </div>
                                     </div>

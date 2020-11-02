@@ -77,39 +77,15 @@
 							</button>
 							</c:if>
 							
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="my-account">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Estatísticas</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em">
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                       			<a class="dropdown-item" href="#"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
 
 </nav>
-</header> 	<!--  END NAVBAR  -->
-				
-				
-	<!--  
-
-<hr>
-<div class="container">
-	
-	
-		<div class="card card-signin my-5" style="border-radius: 1em">
-			<article class="card-body mx-auto">
-			<h4 class="card-title mt-3 text-center">Informações Gerais</h4>
-			<p id="pName">Olá, <strong> ${user.name}</strong>! </p>
-			<p>Você possui ${tListas} listas no total </p>
-			<p>Você comprou produtos de um total de ${tProdutos} </p>
-			<p>Você já gastou ${tGasto} </p>
-			<p>Você pretende gastar ${tEstipulado} </p>
-			</article>
-			</div>
-			</div>
-			
-			
-			 -->			
-				
+</header> 	<!--  END NAVBAR  -->				
 
 
 	<div class="container" style="margin-top: 5%">

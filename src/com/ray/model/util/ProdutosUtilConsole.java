@@ -18,7 +18,7 @@ public class ProdutosUtilConsole extends ProdutosUtil {
      *                                   lista.");
      */
     public void listarPordutosConsole() throws ListaVaziaException {
-	List<Product> list = getList();
+	List<Product> list = getAll();
 	if (list.isEmpty()) {
 	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
 	}

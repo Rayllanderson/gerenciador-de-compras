@@ -79,7 +79,7 @@ public class ProdutosUtil {
 	}
     }
 
-    public List<Product> getList() {
+    public List<Product> getAll() {
 	return service.findAll();
     }
 

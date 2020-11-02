@@ -92,9 +92,9 @@
 						</c:if>
 							
                             <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                                <a class="dropdown-item" href="my-account?action=view">Minha Conta</a>
-                                <a class="dropdown-item" href="estatisticas">Estatísticas</a>
-                                <h6 class="dropdown-header">Temas</h6>
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                     			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
+                                <h6 class="dropdown-header"><i class="fas fa-palette"></i> Temas</h6>
                                 <div class= "items">
                                <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
 	                                <div class="theme blue" onclick="swapColor('blue', true)"></div>
@@ -110,7 +110,7 @@
 									<div class="theme icon-default" onclick="swapColor('default', true)"></div>
 								</div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
                         </nav>
 
@@ -202,9 +202,7 @@
                                             </h2>
                                         </div>
                                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 19px">${gerais}</div>
-                                            <br>
-                                            Acessar gráfico dessa lista (comming soon...)
+                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 17px">${gerais}</div>
                                         </div>
                                     </div>
 
@@ -330,11 +328,6 @@
                                                 </td>
                                                 <td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
 
-
-                                                <!-- onclick="sendPost('produtos?acao=editar', {id: '${prod.id}'});" -->
-
-                                            <!-- style="
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" -->
 
                                                 <td data-label="Editar"><button class="btn btn-outline-info" 
 

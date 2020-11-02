@@ -126,11 +126,10 @@
 							
 							
                             <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                                <a class="dropdown-item" href="#">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                      			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
 </nav>
 </header>

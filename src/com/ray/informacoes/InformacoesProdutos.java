@@ -49,7 +49,7 @@ public class InformacoesProdutos {
     public static String getDisponivel(ProdutosUtil util, Categoria cat) {
 	 Double orcamento = 0.0;
 	 double somaTotalNaoConcluidos = util.getEstipuladoRestante();
-	 if(somaTotalNaoConcluidos == 0 && !util.getList().isEmpty() && util.sizeOfConcluidos() >0) {
+	 if(somaTotalNaoConcluidos == 0 && !util.getAll().isEmpty() && util.sizeOfConcluidos() >0) {
 	     return "Todos os produtos foram comprados :)";
 	 }
 	try {
@@ -142,7 +142,7 @@ public class InformacoesProdutos {
 	    valorEstipulado = 0;
 	}
 	try {
-	    qntProdutos = util.getList().size();
+	    qntProdutos = util.getAll().size();
 	}catch (ListaVaziaException e) {
 	    qntProdutos = 0;
 	}
@@ -163,19 +163,19 @@ public class InformacoesProdutos {
 	}
 		
 	StringBuilder infos = new StringBuilder();
-	infos.append(!(qntProdutos == 1) ? "Você possui <strong>" + qntProdutos + "</strong> produtos na lista atual" : "Você possui <strong>" + qntProdutos + "</strong> produto na lista atual");
+	infos.append(!(qntProdutos == 1) ? "Você possui <strong>" + HtmlColors.BLUE  + qntProdutos + HtmlColors.BLACK + "</strong> produtos na lista atual": "Você possui <strong>"  + HtmlColors.BLUE  + qntProdutos  + HtmlColors.BLACK + "</strong> produto na lista atual" );
 	infos.append("<br>");
-	infos.append(!(qntProdutosComprados == 1) ? "Você já comprou <strong>" + qntProdutosComprados + "</strong> produtos de um total de <strong>" + qntProdutos + "</strong>" : "Você já comprou <strong>" + qntProdutosComprados + "</strong> produto de um total de <strong>" + qntProdutos + "</strong>" );
+	infos.append(!(qntProdutosComprados == 1) ? "Você já comprou <strong>" + HtmlColors.BLUE  + qntProdutosComprados + HtmlColors.BLACK  +"</strong> produtos de um total de <strong>" + HtmlColors.PINK  + qntProdutos + HtmlColors.BLACK  +"</strong>" : "Você já comprou <strong>" +HtmlColors.BLUE  + qntProdutosComprados + HtmlColors.BLACK  +"</strong> produto de um total de <strong>" + HtmlColors.PINK  +qntProdutos + HtmlColors.BLACK  +"</strong>" );
 	infos.append("<br>");
-	infos.append("Você já gastou <strong>" + currencyFormatter.format(valorRealGasto)+ "</strong>");
+	infos.append("Você já gastou <strong>" + HtmlColors.BLUE  +currencyFormatter.format(valorRealGasto)+ HtmlColors.BLACK  +"</strong>");
 	infos.append("<br>");
-	infos.append("Falta gastar <strong>" + currencyFormatter.format(valorEstipuladoRestante) + "</strong>");
+	infos.append("Falta gastar <strong>" + HtmlColors.PINK  +currencyFormatter.format(valorEstipuladoRestante) + HtmlColors.BLACK  +"</strong>");
 	infos.append("<br>");
-	infos.append("O valor estipulado atual é de <strong>" + currencyFormatter.format(valorEstipulado) + "</strong>");
+	infos.append("O valor estipulado atual é de <strong>" + HtmlColors.PINK  +currencyFormatter.format(valorEstipulado) + HtmlColors.BLACK  + "</strong>");
 	infos.append("<br>");
-	infos.append("O valor total atual é de <strong>" + currencyFormatter.format(totalAtual) + "</strong>");
+	infos.append("O valor total atual é de <strong>" + HtmlColors.BLUE  +currencyFormatter.format(totalAtual) + HtmlColors.BLACK  +"</strong>");
 	infos.append("<br>");
-	infos.append("Orçamento: <strong>" + currencyFormatter.format(orcamento) + "</strong>");
+	infos.append("Orçamento: <strong>" + HtmlColors.PURPLE  + currencyFormatter.format(orcamento) + HtmlColors.BLACK  +"</strong>");
 	infos.append("<br>");
 	return infos.toString();
     }
@@ -186,4 +186,5 @@ public class InformacoesProdutos {
 	System.out.println("Valor Total Estipulado: " + currencyFormatter.format(util.getTotalEstipulado()));
 	System.out.println("Valor Total: " + currencyFormatter.format(util.getTotalAtual()));
     }
+    
 }

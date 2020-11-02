@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -6,7 +6,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Sidebar 04</title>
+    <title>Ajuda</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, shrink-to-fit=no">
 
@@ -51,10 +51,8 @@
                             <a class="navbar-brand" href="home.jsp">
                             
                            <i class="fas fa-arrow-left fa-md"></i>
-                            
-                          <!-- <img src="resource/img/back.png" width="25px" height="20px" /></a>  -->  
+                         
                           </a>
-
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
       							 <span class="navbar-toggler-icon"></span>
      						 </button>
@@ -99,11 +97,10 @@
 							
 							
                             <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                                <a class="dropdown-item" href="#">Minha Conta</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
+                      			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                             </div>
 </nav>
 </header>
@@ -222,10 +219,10 @@
         <div id="content" class="p-4 p-md-5 pt-5">
          <h1 class="mt-4 mb-3 text-primary">Listas</h1>
             <h2 id="listas-vazias" class="mb-4">Acessei minhas listas, mas não tem nada. O que isso significa?</h2>
-            <p>Significa que sua lista de listas (lol) está vazia. Você não possui nenhuma lista. Mas, tudo bem, basta adicionar uma!</p>
+            <p>Significa que sua lista de listas está vazia. Você não possui nenhuma lista. Mas, tudo bem, basta adicionar uma!</p>
             
             <h2 id="Como-adicionar-uma-nova-lista">Como adicionar uma nova lista?</h2>
-            <p>Para adicionar uma nova lista, apenas o nome é obrigatório. Orçamento pode ser qualquer valor, incluindo sem valor. No entanto, não terá como calcular o valor disponível para gastar de uma lista sem orçamento. imagem>
+            <p>Para adicionar uma nova lista, apenas o nome é obrigatório. Orçamento pode ser qualquer valor, incluindo sem valor. No entanto, não terá como calcular o valor disponível para gastar de uma lista sem orçamento.
             </p>
             
 
@@ -251,7 +248,7 @@
             <p>Significa que sua lista de produtos está vazia. Você não possui nenhum produto na lista atual selecionada. Mas, tudo bem, basta adicionar um produto! </p>
 
             <h2 id="Como-adiciono-um-produto" class="mb-4">Como eu adiciono um produto?</h2>
-            <p>Para adicionar um produto, clique no canto superior direito, no ícone de ‘Add’>
+            <p>Para adicionar um produto, clique no canto superior direito, no ícone de Add>
                 <img src="resource/img/help/adicionando-novo-prod.png"  class="img-fluid"/>
             </p>
 
@@ -340,7 +337,7 @@
 
             <h2 id="tema-outras-paginas" class="mb-4">Por que não posso mudar o tema em outras páginas?</h2>
             <p>Infelizmente o intuito dos temas não era algo tão grande. Os temas servem apenas para dar uma pequena mudada no visual nessas 2 páginas, que as quais eu estava sem ideia de qual tema definitivo implementar. Então eu decidi deixar que o próprio
-                usuário escolha qual ele preferir. ~o meu preferido é o galaxy~
+                usuário escolha qual ele preferir. <span style="text-decoration-line: line-through" > o meu preferido é o galaxy </span>
             </p>
 
 
