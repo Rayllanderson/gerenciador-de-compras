@@ -33,7 +33,7 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 				tupi(); //kkk tupi guarani
 			});
 		}).fail(function(xhr) {
-			$('#exampleModal').modal('hide')
+			$('#exampleModalCenter').modal('hide')
 			alertBoostrap(xhr.responseText, 'alert alert-danger', "Erro")
 		});
 });

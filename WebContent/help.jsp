@@ -233,7 +233,7 @@
 
 
             <h2 id="Editando-uma-lista" class="mb-4">Editando uma lista</h2>
-            <p> Para editar, basta clicar no lápis imae maybe>. Depois de clicar, abrirá uma janela contendo os dados da lista selecionada. Você pode editar o nome e orçamento. Apenas o nome é obrigatório.</p>
+            <p> Para editar, basta clicar no lápis. Depois de clicar, abrirá uma janela contendo os dados da lista selecionada. Você pode editar o nome e orçamento. Apenas o nome é obrigatório.</p>
 
 
             <h2 id="Excluindo-uma-lista" class="mb-4">Excluindo uma lista</h2>
@@ -248,7 +248,7 @@
             <p>Significa que sua lista de produtos está vazia. Você não possui nenhum produto na lista atual selecionada. Mas, tudo bem, basta adicionar um produto! </p>
 
             <h2 id="Como-adiciono-um-produto" class="mb-4">Como eu adiciono um produto?</h2>
-            <p>Para adicionar um produto, clique no canto superior direito, no ícone de Add>
+            <p>Para adicionar um produto, clique no canto superior direito, no ícone de Add
                 <img src="resource/img/help/adicionando-novo-prod.png"  class="img-fluid"/>
             </p>
 

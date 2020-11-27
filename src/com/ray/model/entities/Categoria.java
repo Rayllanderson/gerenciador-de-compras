@@ -4,21 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 
 public class Categoria implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
-    @SerializedName(value = "catId")
     private Long id;
     
-    @SerializedName(value = "catName")
     private String name;
     
     private User user;
     
-    @SerializedName(value = "catOrcamento")
     private Double orcamento;
     
     private List <Product> productList = new ArrayList<>();

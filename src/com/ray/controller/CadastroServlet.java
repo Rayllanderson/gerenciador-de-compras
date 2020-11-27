@@ -13,9 +13,6 @@ import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
 import com.ray.model.util.Theme;
 
-/**
- * Servlet implementation class Login
- */
 @WebServlet("/cadastro")
 public class CadastroServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

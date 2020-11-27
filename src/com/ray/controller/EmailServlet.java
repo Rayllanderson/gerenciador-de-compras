@@ -73,7 +73,7 @@ public class EmailServlet extends HttpServlet {
           message.setSubject("Gerenciador-Compras- Novo email de " + emailUser); 
           
           // Now set the actual message
-          message.setText("Email do usuario: " + emailUser + "<br>Corpo: " + request.getParameter("message"));
+          message.setText("Email do usuario: " + emailUser + ". Corpo: " + request.getParameter("message"));
           
           // Send message
           Transport.send(message);

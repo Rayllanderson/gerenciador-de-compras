@@ -27,7 +27,7 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 				tupi();
 			});
 		}).fail(function(xhr) {
-			$('#exampleModal').modal('hide')
+			$('#exampleModalCenter').modal('hide')
 			alertBoostrap(xhr.responseText, 'alert alert-danger', "Erro")
 		});
 });

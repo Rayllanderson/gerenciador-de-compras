@@ -78,7 +78,6 @@ public class CategoriaServlet extends HttpServlet {
 		    salvarLista(request, response, user);
 		}else if (acao.equals("editar")) { //pra editar a categoria via tela de produtos
 		    Categoria cat = salvarLista(request, response, user);
-		    System.out.println(cat);
 		    request.getSession().setAttribute("categoria", cat);
 		}
 	    }
@@ -183,7 +182,6 @@ public class CategoriaServlet extends HttpServlet {
 		flag = true; // pode pesquisar com campo nulo que vai listar todas as categorias
 	    } else if (flag) {
 		listarTodasCategorias(request, response);
-		System.out.println("entrou aqui haha");
 		flag = false; // desativando a funcao para evitar listar sem necessidade
 	    }
 	} catch (ListaVaziaException e) {

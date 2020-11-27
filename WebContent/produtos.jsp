@@ -302,8 +302,8 @@
                             <div class="table-responsive" id="tabela-produtos">
                                 <table class="table" id="tabela" style="
                                  border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" >
+								  border-radius: 1rem;
+								  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" >
 
                                     <thead>
                                         <tr class="text-primary">

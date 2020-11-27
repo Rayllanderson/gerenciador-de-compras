@@ -43,9 +43,7 @@ public class ProdutoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	try {
-//	    System.out.println("método GET...");
 	    String acao = request.getParameter("acao");
-	    System.out.println(acao);
 	    startServiceAndRepository(request, response);
 	    if (acao != null) {
 		if (acao.equals("listar")) {
@@ -77,14 +75,9 @@ public class ProdutoServlet extends HttpServlet {
 	    startServiceAndRepository(request, response);
 	    String acao = request.getParameter("acao");
 	    if (acao != null) {
-//	    System.out.println(acao + " método POST");
 		if (acao.equals("listar")) {
 		    listarTodosProdutos(request, response);
-		} else if (acao.equals("selecionar")) {
-		    String id = request.getParameter("id");
-		    Product p = repository.findById(Long.parseLong(id));
-		    System.out.println(p);
-		} else if (acao.equals("salvar")) {
+		}  else if (acao.equals("salvar")) {
 		    salvarProduto(request, response);
 		}
 	    } else {
@@ -121,7 +114,6 @@ public class ProdutoServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_CREATED);
 	    } else {
 		Long catId = Long.parseLong(request.getParameter("cat_id"));
-//		System.out.println("ci " + catId);
 		if (catOriginal != catId) { // verificando para ver se o user mudou a categoria
 		    // movendo a categoria
 		    cat.setId(catId);

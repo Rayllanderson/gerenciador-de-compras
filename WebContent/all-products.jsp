@@ -76,13 +76,9 @@
                                                        
                           
                             <c:if test="${!user.miniatura.isEmpty() && user.miniatura != null}">
-                            	 	
-                            		
                             		<div class="icon-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             			<input  class="img-perfil" type="image" src="${user.miniatura }" />
                             		</div>
-                            	
-                            		
                             </c:if>
                             
                              <c:if test="${user.miniatura.isEmpty() || user.miniatura == null}">
