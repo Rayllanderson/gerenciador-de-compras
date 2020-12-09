@@ -33,7 +33,6 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	System.out.println("get");
 	listarTudo(request, response);
     }
 
@@ -41,7 +40,6 @@ public class AccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String action = request.getParameter("action");
-	System.out.println("POST" + action);
 	try {
 	    if (action != null) {
 		response.setContentType("text/plain");

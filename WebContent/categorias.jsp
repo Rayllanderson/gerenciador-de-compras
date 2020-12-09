@@ -10,7 +10,10 @@
                     <meta name="viewport" content="width=device-width, initial-scale=0.88">
                     <title>Suas Listas</title>
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+					<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+					
 
+					
                     <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
                     <link href="resource/css/custom-categoria-theme.css" type="text/css" rel="stylesheet" />
                     <link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
@@ -18,6 +21,11 @@
                     <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />
 
                     <script src="resource/javascript/util/fa.js"></script>
+                    <!-- JQuery -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
                     <style type="text/css">
                         body {
@@ -33,6 +41,15 @@
                             min-height: 100%;
                             position: relative;
                         }
+                        
+                        #tabela_wrapper{
+                        border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); padding: 10px;
+                        }
+                        
+                        table.dataTable thead th {
+						  border-bottom: 0;
+						}
+
                     </style>
 
                 </head>
@@ -183,18 +200,17 @@
 
                                 <data>
      <div class="table-responsive-lg" id="divtable">	
-	<table class="table" id="tabela" style="border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-		<thead>
-			<tr class="text-primary">
-				<th scope="col" style="text-align: center">Nome</th>
+	
+	<table class="table" id="tabela">
+		<thead >
+			<tr class="text-primary" style="border-bottom: none">
+				<th scope="col" style="text-align: center" >Nome</th>
 				<th scope="col">Orçamento</th>
 				<th scope="col">Editar</th>
 				<th scope="col">Excluir</th>
 			</tr>
 		</thead>
-		<tbody id="tabela">
-			<tr>
-		 
+		<tbody >
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
 					<td data-label="Nome">
@@ -203,9 +219,7 @@
 					style="width: 100%; color: dodgerblue; border-radius: 1rem;">${cat.name}</button>
 					</td>
 					
-					<td data-label="Orçamento" style="color: deeppink">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
-					
-					
+					<td data-label="Orçamento" style="color: deeppink">R$ ${cat.getOrcamentoString()}</td>
 					
 					<td data-label="Editar">
 					<button
@@ -215,12 +229,13 @@
 					data-id="${cat.id}" 
 					data-nome="${cat.name}"
 					data-orcamento="${cat.getOrcamentoEmReal()}" style="
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+  					box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
 					
 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
 </svg>
-					</button> </td>
+					</button>
+					</td>
 
 
 					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger" style="
@@ -228,16 +243,17 @@
 					 data-toggle="modal" data-target="#exampleModalCenter" data-id="${cat.id}" 
 					 data-nome="${cat.name}">
 											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-</svg>
+					  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+					</svg>
 					
 					</button>
-					
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	</div>
+				<script src="resource/javascript/util/categoria.table.js"></script>	
 </data>
 
                             </main>
@@ -393,11 +409,8 @@
 
 
 
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                    <script src="resource/javascript/jquery.mask.min.js"></script>
-
+                    
+					<script src="resource/javascript/jquery.mask.min.js"></script>
                     <script src="resource/javascript/esconderUrl.js"></script>
                     <script src="resource/javascript/ajax/salvarCategoriaAjax.js"></script>
                     <script src="resource/javascript/ajax/excluirCategoriaAjax.js"></script>
@@ -407,13 +420,14 @@
                     <script src="resource/javascript/switchThemeCategoria.js"></script>
                     <script src="resource/javascript/util/getYear.js"></script>
                     <script src="resource/javascript/categorias.js"></script>
-
+					
 
                         <script type="text/javascript">
                      	   $(".alert").hide();
                             var theme = "${theme}"
                             categoriaThemeSwitch(theme);
                         </script>
+                        
                 </body>
 
                 <script type="text/javascript">
@@ -427,8 +441,9 @@
                             });
                         });
                     }
-                </script>
+                    
 
+                </script>
 
 
                 </html>
