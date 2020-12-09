@@ -310,27 +310,27 @@
                             <div class="row text-center d-flex justify-content-center mb-1" style="padding-top: 4%;">
 
                                 <!-- Grid column -->
-                                <div class="col-md-2 mb-3">
-                                    <h6 class="text-uppercase font-weight-bold">
-                                        <a href="about.jsp">Sobre</a>
-                                    </h6>
-                                </div>
-                                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="about.jsp">Sobre <i class="fas fa-info-circle"></i></a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
 
-                                <!-- Grid column -->
-                                <div class="col-md-2 mb-3">
-                                    <h6 class="text-uppercase font-weight-bold">
-                                        <a href="help.jsp">Ajuda</a>
-                                    </h6>
-                                </div>
-                                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="help.jsp">Ajuda <i class="fas fa-question-circle"></i></a>
+                    </h6>
+                </div>
+                <!-- Grid column -->
 
-                                <!-- Grid column -->
-                                <div class="col-md-2 mb-3">
-                                    <h6 class="text-uppercase font-weight-bold">
-                                        <a href="contact.jsp">Contato</a>
-                                    </h6>
-                                </div>
+                <!-- Grid column -->
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="contact.jsp">Contato <i class="fas fa-envelope"></i></a>
+                    </h6>
+                </div>
                                 <!-- Grid column -->
 
                             </div>

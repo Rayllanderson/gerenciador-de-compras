@@ -454,7 +454,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="about.jsp">Sobre</a>
+                        <a href="about.jsp">Sobre <i class="fas fa-info-circle"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -462,7 +462,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                       <a href="help.jsp">Ajuda</a>
+                        <a href="help.jsp">Ajuda <i class="fas fa-question-circle"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -470,7 +470,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="contact.jsp">Contato</a>
+                        <a href="contact.jsp">Contato <i class="fas fa-envelope"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -507,7 +507,6 @@
                         <a href="https://github.com/Rayllanderson">
                             <i class="fab fa-github fa-lg white-text mr-3"></i>
                         </a>
-                        <!-- Google +-->
 
                         <a href="www.instagram.com/_ray_goncalves_/">
                             <i class="fab fa-instagram fa-lg white-text mr-3"> </i>

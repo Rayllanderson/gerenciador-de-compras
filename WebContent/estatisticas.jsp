@@ -173,7 +173,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="about.jsp">Sobre</a>
+                        <a href="about.jsp">Sobre <i class="fas fa-info-circle"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -181,7 +181,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="help.jsp">Ajuda</a>
+                        <a href="help.jsp">Ajuda <i class="fas fa-question-circle"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
@@ -189,7 +189,7 @@
                 <!-- Grid column -->
                 <div class="col-md-2 mb-3">
                     <h6 class="text-uppercase font-weight-bold">
-                        <a href="contact.jsp">Contato</a>
+                        <a href="contact.jsp">Contato <i class="fas fa-envelope"></i></a>
                     </h6>
                 </div>
                 <!-- Grid column -->
