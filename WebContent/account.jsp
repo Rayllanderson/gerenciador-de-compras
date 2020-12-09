@@ -326,68 +326,12 @@
 	
 	</script>
 	
-	<script type="text/javascript">
-	$(".alert").hide();
-	if ( window.history.replaceState ) {
-		  window.history.replaceState( null, null, window.location.href );
-		}
-        	</script>
-  
-  <script type="text/javascript">
-  $(".alert").hide();
-	function upload() {
-	    console.log('ola1')
-	    var target = document.querySelector("#target");
-	    var file = document.querySelector("#file").files[0];
-	    var reader = new FileReader();
-	    reader.onloadend = function() {
-	        target.src = reader.result;
-		 console.log('ola3')
-	    };
-	    if (file) {
-	        console.log('ola2')
-	        target.style.width = '260px';
-	        target.style.height = '260px';
-	        target.style.borderRadius = '50%';
-	        reader.readAsDataURL(file)
-	    } else {
-	        target.src = "resource/img/user.png"
-	    }
-	}
-  </script>  
 
-
-
-<script type="text/javascript">
-$(".alert").hide();
-
-
-$('#exampleModal').on('show.bs.modal',
-    function(event) {
-	$("#alertE").hide();
-        var button = $(event.relatedTarget)
-    })
-</script>
-
-<script type="text/javascript">
-
-let menu = document.getElementById("menu");
-
-$(window).on('click', function() {
-	menu.style.opacity = 0;
-	});
-
-	$('#btn').on('click', function(event){
-		event.stopPropagation();
-	    menu.style.opacity= 1;
-	    menu.style.zIndex = 999;
-	});
-
-</script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="resource/javascript/ajax/accountAjax.js"></script> 
 <script src="resource/javascript/remover-foto.js"></script>     
+<script src="resource/javascript/account.js"></script>     
 
 
 </body>

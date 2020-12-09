@@ -247,44 +247,7 @@
 
 
 
-    <script type="text/javascript">
-   
-    (function($) {
-
-	"use strict";
-
-	var fullHeight = function() {
-
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
-
-	};
-	fullHeight();
-
-	$('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
- 	 });
-
-	})(jQuery);
-
-	
-    
-   
-    </script>
-    
-    <script type="text/javascript">
-   
-   
-		$(".menu-sub-item").on('click', function(){
-			 $('#sidebarCollapse').click();
-			 });
-
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-        		$('p').css('width', '75vw')
-        	}
-    </script>
+    <script src="resource/javascript/about.js"></script>
 </body>
 
 </html>

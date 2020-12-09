@@ -10,7 +10,6 @@ function produtosThemeSwitch(colorTheme, animation) {
 
 	changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar)
 
-
 	switch (colorTheme.toUpperCase()) {
 		case 'PINK':
 			//muda nome do class wall e carrega css 
@@ -29,7 +28,6 @@ function produtosThemeSwitch(colorTheme, animation) {
 			wall.className = "wall cianP";
 			break;
 		case 'GREEN':
-			console.log('AAAAAA')
 			wall.className = "wall greenP";
 			break;
 		case 'BLACK':
@@ -39,7 +37,6 @@ function produtosThemeSwitch(colorTheme, animation) {
 			wall.className = "wall orangeP";
 			break;
 		case 'GALAXY':
-		
 			wall.className = "wall galaxyP";
 			break;
 		case 'DEFAULT':

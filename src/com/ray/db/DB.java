@@ -11,24 +11,24 @@ public class DB {
     private static Connection conn = null;
 
     public static Connection getConnection() {
+	try {
+	    if (conn == null || conn.isClosed()) {
 
-	if (conn == null) {
-	    try {
-		String url = "jdbc:mysql://localhost:3306/gerenciador_compras?useTimezone=true&serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3306/gerenciador_compras?useTimezone=true&serverTimezone=UTC&autoReconnect=true";
 		String user = "root";
 		String password = "12345";
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		conn = DriverManager.getConnection(url, user, password);
 		System.out.println("Conectado com sucesso!");
-	    } catch (SQLException e) {
-		throw new DbException(e.getMessage());
-	    } catch (ClassNotFoundException e) {
-		e.printStackTrace();
 	    }
+	} catch (SQLException e) {
+	    throw new DbException(e.getMessage());
+	} catch (ClassNotFoundException e) {
+	    e.printStackTrace();
 	}
 	return conn;
     }
-    
+
     public static void closeConnection() {
 	try {
 	    if (conn != null) {
@@ -38,8 +38,8 @@ public class DB {
 	    throw new DbException(e.getMessage());
 	}
     }
-    
-    public static void closeStatement (Statement st) {
+
+    public static void closeStatement(Statement st) {
 	if (st != null) {
 	    try {
 		st.close();
@@ -48,7 +48,7 @@ public class DB {
 	    }
 	}
     }
-    
+
     public static void closeResultSet(ResultSet rs) {
 	if (rs != null) {
 	    try {

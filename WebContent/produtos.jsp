@@ -559,13 +559,10 @@
 
                 </div>
                 <!-- Grid column -->
-
             </div>
             <!-- Grid row-->
-
         </div>
         <!-- Footer Links -->
-
         <!-- Copyright -->
         <div class="copyright footer-copyright text-center py-3">© <span id="year"></span>
             <p style="display: inline-block;"> Made with <i class="fab fa-java fa-md" title="Java"></i> and <i class="fab fa-bootstrap fa-md" title="Bootstrap"></i></p>
@@ -589,148 +586,50 @@
 					<script src="resource/javascript/ajax/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/util/getYear.js"></script>
+					<script src="resource/javascript/produtos.js"></script>
 					
 <script type="text/javascript">
-
 var theme = "${theme}"
-	console.log('hey..body')
 	produtosThemeSwitch(theme);
 </script>
 
 <script type="text/javascript">
-$(".alert").hide();
-//modal de editar categoria
-		$('#categoriaModal').on('show.bs.modal', function (event) {
-		  var button = $(event.relatedTarget) // Button that triggered the modal
-		  var title = button.data('title')
-		  var id = button.data('id') // Extract info from data-* attributes
-		  var recipientnome = button.data('nome')
-		  var recipientOrcamento = button.data('orcamento')
-		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		  var modal = $(this)
-		  modal.find('.modal-title').text(title)
-		  modal.find('#idCat').val(id)
-		  modal.find('#categoriaName').val(recipientnome)
-		  modal.find('#orcamento').val(recipientOrcamento)
-		})
+
 </script>  
-
-<script type="text/javascript">
-	var theme = "${theme}"
-	console.log(theme)
-</script>
-
-
                     <script type="text/javascript">
-                    
-                        function setCheckedIfTrue(funcao) {                	
-                        	
-                            if (funcao == 'true') {
-                                document.getElementById("comprado").checked = true;
-                                myFunction();
-                            } else {
-                                document.getElementById("comprado").checked = false;
-                                myFunction();
-                            }
-                        }
-
                         myFunction();
+                        tupi();
+                        
 
-                        function myFunction() {
-                            var checkBox = document.getElementById("comprado");
-                            var text = document.getElementById("text");
-                            if (checkBox.checked == true) {                           	
-                                text.innerHTML = 'Sim'
-                            } else {      
-                                text.innerHTML = 'Não'
-                            }
-                        }
+                      //modal de add e editar prod
+                      $('#exampleModal').on('show.bs.modal',
+                      		function(event) {
+                      			var button = $(event.relatedTarget)
+                      			var title = button.data('title')
+                      			var id = button.data('id')
+                      			var recipientnome = button.data('nome')
+                      			var estipulado = button.data('estipulado')
+                      			var real = button.data('real')
+                      			var comprado = button.data('comprado')
+                      			var cat = button.data('cat-id')
+                      			$('#categoria').val(cat)
 
-                        function disableCheckBox() {
-                            document.getElementById("comprado").checked = false;
-                            myFunction();
-                        }
+                      			if (title == 'Editar') {
+                      				document.getElementById("lista").style.display = 'block';
+                      			} else {
+                      				document.getElementById("lista").style.display = 'none';
+                      			}
+
+                      			var modal = $(this)
+                      			modal.find('.modal-title').text(title)
+                      			modal.find('#id').val(id)
+                      			modal.find('#recipient-name').val(recipientnome)
+                      			modal.find('#estipulado').val(estipulado)
+                      			modal.find('#real').val(real)
+                      		})
+
+
+
                     </script>
-
-                    <script type="text/javascript">
-                    //modal de add e editar prod
-                        $('#exampleModal')
-                            .on(
-                                'show.bs.modal',
-                                function(event) {
-                                    var button = $(event.relatedTarget)
-                                    var title = button.data('title')
-                                    var id = button.data('id')
-                                    var recipientnome = button.data('nome')
-                                    var estipulado = button.data('estipulado')
-                                    var real = button.data('real')
-                                    var comprado = button.data('comprado')
-									var cat = button.data('cat-id')    
- 									$('#categoria').val(cat)
-                                    
-                                    if (title == 'Editar') {
-                                        const showList = document
-                                            .getElementById("lista").style.display = 'block';
-                                    } else {
-                                        const showList = document
-                                            .getElementById("lista").style.display = 'none';
-                                    }
-
-                                    var modal = $(this)
-                                    modal.find('.modal-title').text(title)
-                                    modal.find('#id').val(id)
-                                    modal.find('#recipient-name').val(recipientnome)
-                                    modal.find('#estipulado').val(estipulado)
-                                    modal.find('#real').val(real)
-                                })
-                    </script>
-
-                </body>
-
-                <script>
-                
-                function f1() {
-                    window.open(document.getElementById("teste").href, "#editCat");
-                }
-                
-                $(".alert").hide();
-                
-                    $(document).ready(function() {
-                        $('#real').mask('000.000.000.000.000,00', {
-                            reverse: true
-                        });
-                    });
-                    $(document).ready(function() {
-                        $('#estipulado').mask('#.##0,00', {
-                            reverse: true
-                        });
-                    });
-                    
-                    
-                    $(document).ready(function(){
-                       $('#orcamento').mask('000.000.000.000.000,00', {reverse: true});
-                    });
-                    	
-                    
-                </script>
-                
-                
-              <script type="text/javascript">
-	                function tupi(){
-	            	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-	            		document.getElementById('tabela').className = "table table-sm";
-	            		document.getElementById('search').style.marginLeft = "2%"
-	            		document.getElementById('search').style.marginRight = "2%"
-	            	}else{
-	            		document.getElementById('tabela').className = "table";
-	            	}
-	                }
-
-	                tupi();
-                </script>
-                
-
-                
-                
-                </html>
+       </body>
+</html>

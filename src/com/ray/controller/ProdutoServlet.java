@@ -22,9 +22,7 @@ import com.ray.model.service.ProductService;
 import com.ray.model.util.ProdutosUtil;
 import com.ray.model.validacoes.Validacao;
 
-/**
- * Servlet implementation class Login
- */
+
 @WebServlet("/produtos")
 public class ProdutoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

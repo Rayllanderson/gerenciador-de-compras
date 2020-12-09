@@ -547,6 +547,7 @@
 					<script src="resource/javascript/ajax/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/util/getYear.js"></script>
+					<script src="resource/javascript/produtos.js"></script>
 					
 <script type="text/javascript">
 
@@ -555,103 +556,35 @@ var theme = "${theme}"
 </script>
 
                     <script type="text/javascript">
-                    
-                        function setCheckedIfTrue(funcao) {                	
-                        	
-                            if (funcao == 'true') {
-                                document.getElementById("comprado").checked = true;
-                                myFunction();
-                            } else {
-                                document.getElementById("comprado").checked = false;
-                                myFunction();
-                            }
-                        }
-
+                    $(".alert").hide();
                         myFunction();
-
-                        function myFunction() {
-                            var checkBox = document.getElementById("comprado");
-                            var text = document.getElementById("text");
-                            if (checkBox.checked == true) {                           	
-                                text.innerHTML = 'Sim'
-                            } else {      
-                                text.innerHTML = 'Não'
-                            }
-                        }
-
-                        function disableCheckBox() {
-                            document.getElementById("comprado").checked = false;
-                            myFunction();
-                        }
-                    </script>
-
-                    <script type="text/javascript">
-                    //modal de add e editar prod
+                        tupi();
+                      //modal de add e editar prod
                         $('#exampleModal')
-                            .on(
-                                'show.bs.modal',
-                                function(event) {
-                                    $('#alertE').hide();
-                                    var button = $(event.relatedTarget)
-                                    var title = button.data('title')
-                                    var id = button.data('id')
-                                    var recipientnome = button.data('nome')
-                                    var estipulado = button.data('estipulado')
-                                    var real = button.data('real')
-                                    var comprado = button.data('comprado')
-									const showList = document.getElementById("lista").style.display = 'block';
-                                    var cat = button.data('cat-id')    
- 									$('#categoria').val(cat)
-                                    
-                                    var modal = $(this)
-                                    modal.find('.modal-title').text(title)
-                                    modal.find('#id').val(id)
-                                    modal.find('#recipient-name').val(recipientnome)
-                                    modal.find('#estipulado').val(estipulado)
-                                    modal.find('#real').val(real)
-                                })
+                        	.on(
+                        		'show.bs.modal',
+                        		function(event) {
+                        			$('#alertE').hide();
+                        			var button = $(event.relatedTarget)
+                        			var title = button.data('title')
+                        			var id = button.data('id')
+                        			var recipientnome = button.data('nome')
+                        			var estipulado = button.data('estipulado')
+                        			var real = button.data('real')
+                        			var comprado = button.data('comprado')
+                        			const showList = document.getElementById("lista").style.display = 'block';
+                        			var cat = button.data('cat-id')
+                        			$('#categoria').val(cat)
+
+                        			var modal = $(this)
+                        			modal.find('.modal-title').text(title)
+                        			modal.find('#id').val(id)
+                        			modal.find('#recipient-name').val(recipientnome)
+                        			modal.find('#estipulado').val(estipulado)
+                        			modal.find('#real').val(real)
+                        		})
+
                     </script>
 
                 </body>
-
-                <script>
-                
-                function f1() {
-                    window.open(document.getElementById("teste").href, "#editCat");
-                }
-                
-                $(".alert").hide();
-                
-                    $(document).ready(function() {
-                        $('#real').mask('000.000.000.000.000,00', {
-                            reverse: true
-                        });
-                    });
-                    $(document).ready(function() {
-                        $('#estipulado').mask('#.##0,00', {
-                            reverse: true
-                        });
-                    });
-                                        	
-                    
-                </script>
-                
-                
-              <script type="text/javascript">
-	                function tupi(){
-	            	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-	            		document.getElementById('tabela').className = "table table-sm";
-	            		document.getElementById('search').style.marginLeft = "2%"
-	            		document.getElementById('search').style.marginRight = "2%"
-	            	}else{
-	            		document.getElementById('tabela').className = "table";
-	            	}
-	                }
-
-	                tupi();
-                </script>
-                
-
-                
-                
                 </html>

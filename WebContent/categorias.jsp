@@ -194,33 +194,6 @@
 		</thead>
 		<tbody id="tabela">
 			<tr>
-					 <!-- <td data-label="Nome">
-					<a class="btn btn-light" href="all-products"
-					style="width: 100%; color: dodgerblue; border-radius: 1rem;">Todos os produtos</a>
-					</td>
-					
-					<td data-label="Orçamento" style="color: deeppink">#####</td>
-					
-					<td data-label="Editar">
-					<button
-					class="btn btn-outline-info disabled" style="
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-					
-<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-					</button> </td>
-
-
-					<td data-label="Excluir"><button type="submit"class="btn btn-outline-danger disabled" style="
- 					 box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);"
-					 >
-											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-</svg>
-					</button>
-				</tr>
-		 -->
 		 
 			<c:forEach items="${categorias}" var="cat">
 				<tr>
@@ -433,43 +406,17 @@
                     <script src="resource/javascript/ajax/sendThemeAjax.js"></script>
                     <script src="resource/javascript/switchThemeCategoria.js"></script>
                     <script src="resource/javascript/util/getYear.js"></script>
+                    <script src="resource/javascript/categorias.js"></script>
 
-
-                    <script type="text/javascript">
-                        $('#categoriaModal').on('show.bs.modal', function(event) {
-                            var button = $(event.relatedTarget) // Button that triggered the modal
-                            var title = button.data('title')
-                            var id = button.data('id') // Extract info from data-* attributes
-                            var recipientnome = button.data('nome')
-                            var recipientOrcamento = button.data('orcamento')
-                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                            var modal = $(this)
-                            modal.find('.modal-title').text(title)
-                            modal.find('#idCat').val(id)
-                            modal.find('#categoriaName').val(recipientnome)
-                            modal.find('#orcamento').val(recipientOrcamento)
-                        })
-                    </script>
-
-                    <div id="#script">
 
                         <script type="text/javascript">
+                     	   $(".alert").hide();
                             var theme = "${theme}"
                             categoriaThemeSwitch(theme);
                         </script>
-
-
-                    </div>
-
-
                 </body>
 
                 <script type="text/javascript">
-                    if (window.history.replaceState) {
-                        window.history.replaceState(null, null, window.location.href);
-                    }
-
 
                     const msg = "${catNula}"
                     console.log(msg)
@@ -479,24 +426,6 @@
                                 alertBoostrap(msg, 'alert alert-warning', "Ei!")
                             });
                         });
-                    }
-                </script>
-
-
-                <script>
-                    $(".alert").hide();
-
-                    $(document).ready(function() {
-                        $('#orcamento').mask('000.000.000.000.000,00', {
-                            reverse: true
-                        });
-                    });
-                </script>
-
-                <script type="text/javascript">
-                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                        document.getElementById('search').style.marginLeft = "2%"
-                        document.getElementById('search').style.marginRight = "2%"
                     }
                 </script>
 
