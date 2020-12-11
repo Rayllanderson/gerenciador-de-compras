@@ -49,7 +49,6 @@
                         table.dataTable thead th {
 						  border-bottom: 0;
 						}
-
                     </style>
 
                 </head>
@@ -219,7 +218,7 @@
 					style="width: 100%; color: dodgerblue; border-radius: 1rem;">${cat.name}</button>
 					</td>
 					
-					<td data-label="Orçamento" style="color: deeppink">R$ ${cat.getOrcamentoString()}</td>
+					<td data-label="Orçamento" style="color: deeppink">R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cat.orcamento}"/></td>
 					
 					<td data-label="Editar">
 					<button

@@ -14,13 +14,13 @@
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+                  
+					<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
                     <script src="resource/javascript/jquery.mask.min.js"></script>
 					<script src="resource/javascript/util/fa.js"></script>
 					
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-					<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
-					
+					<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -273,33 +273,46 @@
                                 </div>
 
                                 
-                                        <button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+                           <button class="btn btn-light" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
 								  border-radius: 0.9rem;">
-										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-								</svg>
-								</button>									
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+							</svg>
+							</button>									
 
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" style="
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+											border-radius: 1rem;
+											box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
                                             <a class="dropdown-item" type="button" onclick="listar('all-products?action=listar')">Todos os Produtos</a>
                                             <a class="dropdown-item" type="button" onclick="listar('all-products?action=comprados')">Produtos Comprados</a>
                                             <a class="dropdown-item" type="button" onclick="listar('all-products?action=nao_comprados')">Produtos Não Comprados</a>
                                         </div>
-                                        </div>
+                              </div>
 
   <data>
 
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive" id="tabela-produtos">
-                                <table class="table" id="tabela" >
+                                <table class="table" id="tabela" 
+                                data-toggle="table" 
+                                 data-search="true"
+                                 data-pagination="true"
+                                 data-show-columns="true"
+                                 data-toolbar="#toolbar"
+                                 data-search-accent-neutralise="true"
+                                 data-search-align="left"
+                                 data-pagination="true"
+                                 data-pagination-h-align="left"
+  								 data-pagination-detail-h-align="right"
+  								 data-buttons="buttons"
+  								
+  								 data-filter-control="true">
 
                                     <thead>
                                         <tr class="text-primary">
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Preço Estipulado</th>
-                                            <th scope="col">Preço Real</th>
+                                            <th scope="col" data-field="name" data-sortable="true">Nome</th>
+                                            <th scope="col" data-sortable="true" data-sorter="customSort">Preço Estipulado</th>
+                                            <th scope="col" data-sortable="true" data-sorter="customSort">Preço Real</th>
                                             <th scope="col" style="text-align: center">Comprado</th>
                                             <th scope="col">Editar</th>
                                             <th scope="col">Excluir</th>
@@ -311,10 +324,10 @@
                                             <tr>
                                                 <td data-label="Nome" >${prod.nome}</td>
                                                 <td data-label="Preço Estipulado" style="color: deeppink">R$
-                                                    <fmt:formatNumber type="number" maxFractionDigits="3" value="${prod.precoEstipulado}" />
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoEstipulado}" />
                                                 </td>
-                                                <td data-label="Preço Real" class="text-primary">R$
-                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
+                                                <td data-label="Preço Real" class="text-primary" id="precoReal" >
+                                                 R$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
                                                 </td>
                                                 <td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
 
@@ -349,8 +362,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <script src="resource/javascript/util/produto.table.js"></script>	
-          </data> 
+                           <script src="resource/javascript/util/custom.table.js"></script>
+         				</data> 
                         </main>
                     </div>
                    <!-- FIM TABLE -->
@@ -555,6 +568,7 @@
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/util/getYear.js"></script>
 					<script src="resource/javascript/produtos.js"></script>
+					<script src="resource/javascript/util/customSort.js"></script>
 					
 <script type="text/javascript">
 
@@ -592,6 +606,7 @@ var theme = "${theme}"
                         		})
 
                     </script>
+
 
                 </body>
                 </html>

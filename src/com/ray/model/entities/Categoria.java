@@ -1,7 +1,6 @@
 package com.ray.model.entities;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,10 +104,5 @@ public class Categoria implements Serializable{
 
     public String getOrcamentoEmReal() {
  	return Double.toString(this.orcamento).replace('.', ',');
-     }
-    
-    public String getOrcamentoString() {
- 	NumberFormat format = NumberFormat.getInstance();
- 	return format.format(this.orcamento);
      }
 }
