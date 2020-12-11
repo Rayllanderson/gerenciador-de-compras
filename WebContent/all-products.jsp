@@ -44,13 +44,6 @@
 						line-height: 19px;
 						}
 						
-						#tabela_wrapper{
-                        border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); padding: 10px;
-                        }
-                        
-                        table.dataTable thead th {
-						  border-bottom: 0;
-						}
 										
                     </style>
 
@@ -294,7 +287,7 @@
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive" id="tabela-produtos">
                                 <table class="table" id="tabela" 
-                                data-toggle="table" 
+                                 data-toggle="table" 
                                  data-search="true"
                                  data-pagination="true"
                                  data-show-columns="true"
@@ -305,7 +298,6 @@
                                  data-pagination-h-align="left"
   								 data-pagination-detail-h-align="right"
   								 data-buttons="buttons"
-  								
   								 data-filter-control="true">
 
                                     <thead>

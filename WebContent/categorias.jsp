@@ -9,10 +9,16 @@
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=0.88">
                     <title>Suas Listas</title>
+                    
+                    <script src="resource/javascript/util/fa.js"></script>
+                    <!-- JQuery -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+                    
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-					<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
-					
-
+					<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
 					
                     <link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
                     <link href="resource/css/custom-categoria-theme.css" type="text/css" rel="stylesheet" />
@@ -20,12 +26,8 @@
                     <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
                     <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />
 
-                    <script src="resource/javascript/util/fa.js"></script>
-                    <!-- JQuery -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+                   
+                   
 
                     <style type="text/css">
                         body {
@@ -41,14 +43,8 @@
                             min-height: 100%;
                             position: relative;
                         }
-                        
-                        #tabela_wrapper{
-                        border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); padding: 10px;
-                        }
-                        
-                        table.dataTable thead th {
-						  border-bottom: 0;
-						}
+                      
+
                     </style>
 
                 </head>
@@ -197,14 +193,25 @@
                                     <div>&nbsp;</div>
                                 </div>
 
-                                <data>
-     <div class="table-responsive-lg" id="divtable">	
-	
-	<table class="table" id="tabela">
+<data>
+   <div class="table-responsive" id="divTable">	
+	<table class="table" id="tabela"
+	   data-toggle="table" 
+       data-search="true"
+       data-pagination="true"
+       data-show-columns="true"
+       data-toolbar="#toolbar"
+       data-search-accent-neutralise="true"
+       data-search-align="left"                         
+       data-pagination="true"                          
+       data-pagination-h-align="left"                         
+  	   data-pagination-detail-h-align="right"
+  	   data-buttons="buttons"
+  	   data-filter-control="true">
 		<thead >
-			<tr class="text-primary" style="border-bottom: none">
+			<tr class="text-primary">
 				<th scope="col" style="text-align: center" >Nome</th>
-				<th scope="col">Orçamento</th>
+				<th scope="col" data-sortable="true" data-sorter="customSort">Orçamento</th>
 				<th scope="col">Editar</th>
 				<th scope="col">Excluir</th>
 			</tr>
@@ -252,7 +259,7 @@
 		</tbody>
 	</table>
 	</div>
-				<script src="resource/javascript/util/categoria.table.js"></script>	
+				<script src="resource/javascript/util/custom.table.js"></script>
 </data>
 
                             </main>
@@ -419,6 +426,7 @@
                     <script src="resource/javascript/switchThemeCategoria.js"></script>
                     <script src="resource/javascript/util/getYear.js"></script>
                     <script src="resource/javascript/categorias.js"></script>
+                    <script src="resource/javascript/util/customSort.js"></script>
 					
 
                         <script type="text/javascript">
@@ -441,7 +449,8 @@
                         });
                     }
                     
-
+                    console.log('.dd')
+				$('#tabela').removeClass('table-bordered table-hover');
                 </script>
 
 

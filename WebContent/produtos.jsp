@@ -45,13 +45,6 @@
 								position: relative;
 							}	
 							
-						#tabela_wrapper{
-                        border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); padding: 10px;
-                        }
-                        
-                        table.dataTable thead th {
-						  border-bottom: 0;
-						}			
                     </style>
 
                 </head>
@@ -315,13 +308,25 @@
 
                             <!--  INICIO TABELA  -->
                             <div class="table-responsive" id="tabela-produtos">
-                                <table class="table" id="tabela"   data-toggle="table" >
+                                <table class="table" id="tabela"
+                               	   data-toggle="table" 
+							       data-search="true"
+							       data-pagination="true"
+							       data-show-columns="true"
+							       data-toolbar="#toolbar"
+							       data-search-accent-neutralise="true"
+							       data-search-align="left"                         
+							       data-pagination="true"                          
+							       data-pagination-h-align="left"                         
+							  	   data-pagination-detail-h-align="right"
+							  	   data-buttons="buttons"
+							  	   data-filter-control="true">
 
                                     <thead>
                                         <tr class="text-primary">
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Preço Estipulado</th>
-                                            <th scope="col">Preço Real</th>
+                                            <th scope="col" data-sortable="true">Nome</th>
+                                            <th scope="col" data-sortable="true" data-sorter="customSort">Preço Estipulado</th>
+                                            <th scope="col" data-sortable="true" data-sorter="customSort">Preço Real</th>
                                             <th scope="col" style="text-align: center">Comprado</th>
                                             <th scope="col">Editar</th>
                                             <th scope="col">Excluir</th>
@@ -333,7 +338,7 @@
                                             <tr>
                                                 <td data-label="Nome" >${prod.nome}</td>
                                                 <td data-label="Preço Estipulado" style="color: deeppink">R$
-                                                    <fmt:formatNumber type="number" maxFractionDigits="3" value="${prod.precoEstipulado}" />
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoEstipulado}" />
                                                 </td>
                                                 <td data-label="Preço Real" class="text-primary">R$
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
@@ -372,7 +377,7 @@
                                 </table>
                             </div>
                              <script> $('#tabela').bootstrapTable();</script>	
-                            	<script src="resource/javascript/util/produto.table.js"></script>
+                            	<script src="resource/javascript/util/custom.table.js"></script>
                             	 
           </data> 
                         </main>
@@ -601,6 +606,7 @@
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>
 					<script src="resource/javascript/util/getYear.js"></script>
 					<script src="resource/javascript/produtos.js"></script>
+					<script src="resource/javascript/util/customSort.js"></script>
 					
 <script type="text/javascript">
 var theme = "${theme}"
@@ -641,8 +647,6 @@ var theme = "${theme}"
                       			modal.find('#estipulado').val(estipulado)
                       			modal.find('#real').val(real)
                       		})
-
-
 
                     </script>
        </body>

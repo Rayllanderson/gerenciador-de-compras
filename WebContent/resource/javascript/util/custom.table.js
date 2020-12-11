@@ -38,6 +38,11 @@ function removeBorder() {
 }
 
 
-
-createDropdown();
-removeBorder();
+var onProductPage = !window.location.href.includes('categorias');
+if (onProductPage) {
+	$('[name="btnFilter"]').show();
+	createDropdown();
+	removeBorder();
+} else {
+	$('[name="btnFilter"]').hide();
+}
