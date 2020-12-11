@@ -256,8 +256,8 @@ html, body {
 											</p>
 											<p>
 												Faltam <span style="color: deeppink;"
-													class="font-weight-bold"> ${numProdutosNComprados}
-												</span> produtos para comprar
+													class="font-weight-bold"> ${numProdutosNComprados} </span>
+												produtos para comprar
 											</p>
 											<p>
 												Você já gastou <span class="text-primary font-weight-bold">
@@ -314,60 +314,7 @@ html, body {
 		</div>
 
 		<div class="container-xl">
-			<main role="main" class="">
-
-				<!-- TELA DE FILTRO DE PRODUTOS -->
-
-				<div class="box"
-					style="display: flex; justify-content: space-between; margin-top: 5%; margin-bottom: 1%;">
-					<div></div>
-					<div>
-						<div class="form-inline">
-							<input class="form-control mr-sm-2" type="search" name="search"
-								id="search" placeholder="Search" aria-label="Search"
-								title="procure algum produto que queira encontrar"
-								style="border-radius: 0.9rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); width: 80%">
-							<button type="submit"
-								class="btn btn-outline-primary my-2 my-sm-0" onclick="search()"
-								style="border: 0.5px solid; border-radius: 0.9rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-
-								<svg width="1em" height="1em" viewBox="0 0 16 16"
-									class="bi bi-search" fill="currentColor"
-									xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd"
-										d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-  <path fill-rule="evenodd"
-										d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-</svg>
-
-							</button>
-						</div>
-					</div>
-
-
-					<button class="btn btn-light" id="dropdownMenuButton"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-						style="border-radius: 0.9rem;">
-						<svg width="1em" height="1em" viewBox="0 0 16 16"
-							class="bi bi-three-dots-vertical" fill="currentColor"
-							xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-								d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-							</svg>
-					</button>
-
-					<div
-						class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left"
-						style="border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-						<a class="dropdown-item" type="button"
-							onclick="listar('all-products?action=listar')">Todos os
-							Produtos</a> <a class="dropdown-item" type="button"
-							onclick="listar('all-products?action=comprados')">Produtos
-							Comprados</a> <a class="dropdown-item" type="button"
-							onclick="listar('all-products?action=nao_comprados')">Produtos
-							Não Comprados</a>
-					</div>
-				</div>
+			<main role="main" class="mt-5">
 
 				<data> <!--  INICIO TABELA  -->
 				<div class="table-responsive" id="tabela-produtos">

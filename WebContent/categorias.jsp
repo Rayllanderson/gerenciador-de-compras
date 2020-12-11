@@ -203,38 +203,7 @@ html, body {
 
 
 
-			<main role="main" class="">
-
-				<div class="box"
-					style="display: flex; justify-content: space-between; margin-top: 10%; margin-bottom: 1%;">
-					<div></div>
-					<div>
-
-						<!-- SEARCH -->
-						<div class="form-inline" id="searchForm">
-							<input class="form-control mr-sm-2" type="search" name="search"
-								placeholder="Search" aria-label="Search" id="search"
-								title="procure alguma categoria que queira encontrar"
-								style="width: 80%; border-radius: 0.9rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-							<button type="button" onclick="search()"
-								class="btn btn-outline-primary my-2 my-sm-0"
-								style="border: 0.5px solid; border-radius: 0.9rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-
-								<svg width="1em" height="1em" viewBox="0 0 16 16"
-									class="bi bi-search" fill="currentColor"
-									xmlns="http://www.w3.org/2000/svg">
-	  <path fill-rule="evenodd"
-										d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-	  <path fill-rule="evenodd"
-										d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-	</svg>
-
-							</button>
-						</div>
-					</div>
-					<div>&nbsp;</div>
-				</div>
-
+			<main role="main" class="mt-5">
 				<data>
 				<div class="table-responsive" id="divTable">
 					<table class="table" id="tabela" data-toggle="table"
