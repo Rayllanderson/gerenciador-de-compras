@@ -15,23 +15,6 @@ public class UserService {
 	this.dao = DaoFactory.createUserDao();
     }
 
-    public boolean usernameValidation(Long id, String newUsername) {
-	User user = dao.findById(id);
-	if (user != null) {
-	    // Verificando se o username atual não é igual ao username dele mesmo
-	    if (!newUsername.equals(user.getUsername())) {
-		// se nao for, verificar se o username já existe
-		UserValidation.validarUsername(newUsername, dao);
-		user.setUsername(newUsername);
-		dao.update(user);
-		return true;
-	    }
-	    return true; // caso o username for igual o atual não fazer nada, apenas retorna mensagem de
-			 // sucesso
-	}
-	return false; // usuário não existe
-    }
-
     /**
      * update name e username (verifica se o username ja existe)
      * 
@@ -51,7 +34,7 @@ public class UserService {
 	    if (foto.equals("") && user.getFoto() != null) {
 		foto = user.getFoto();
 	    }
-	    usernameValidation(id, newUsername); // throw exception caso username exista
+	    UserValidation.usernameValidation(user, newUsername);// throw exception caso username exista
 	    user.setUsername(newUsername);
 	    user.setName(newName);
 	    user.setMiniatura(miniatura);
@@ -69,7 +52,7 @@ public class UserService {
      * @throws MyLoginException caso username já exista (throws já possui mensagem)
      */
     public boolean cadastrar(User user) throws MyLoginException {
-	UserValidation.validarUsername(user.getUsername(), dao); // caso username já exista, throw MyLoginException;
+	UserValidation.usernameIsValid(user.getUsername()); // caso username já exista, throw MyLoginException;
 	dao.cadastrar(user);
 	return true;
     }
@@ -77,9 +60,6 @@ public class UserService {
     /**
      * método verifica a senha antes de alterar
      * 
-     * @param user
-     * @param senhaAtual
-     * @param newPassword
      * @return true caso ocorra tudo ok
      * @throws MyLoginException caso a senha não corresponda
      */
@@ -102,7 +82,6 @@ public class UserService {
 
     /**
      * update sem verificação, apenas atualiza
-     * 
      * @param user
      */
     public void update(User user) {
@@ -111,7 +90,6 @@ public class UserService {
 
     /**
      * muda o tema do usuário.
-     * 
      * @param user
      * @param theme - recebe o tema em string, tenta converter para enum, caso
      *              ocorra algum erro, seta pra default
