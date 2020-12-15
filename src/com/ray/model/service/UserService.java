@@ -15,7 +15,7 @@ public class UserService {
 	this.dao = DaoFactory.createUserDao();
     }
 
-    public boolean alterarUsername(Long id, String newUsername) {
+    public boolean usernameValidation(Long id, String newUsername) {
 	User user = dao.findById(id);
 	if (user != null) {
 	    // Verificando se o username atual não é igual ao username dele mesmo
@@ -51,7 +51,8 @@ public class UserService {
 	    if (foto.equals("") && user.getFoto() != null) {
 		foto = user.getFoto();
 	    }
-	    alterarUsername(id, newUsername); // throw exception caso username exista
+	    usernameValidation(id, newUsername); // throw exception caso username exista
+	    user.setUsername(newUsername);
 	    user.setName(newName);
 	    user.setMiniatura(miniatura);
 	    user.setFoto(foto);

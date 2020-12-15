@@ -256,8 +256,8 @@ html, body {
 											</p>
 											<p>
 												Faltam <span style="color: deeppink;"
-													class="font-weight-bold"> ${numProdutosNComprados} </span>
-												produtos para comprar
+													class="font-weight-bold"> ${numProdutosNComprados}
+												</span> produtos para comprar
 											</p>
 											<p>
 												Você já gastou <span class="text-primary font-weight-bold">
@@ -315,7 +315,6 @@ html, body {
 
 		<div class="container-xl">
 			<main role="main" class="mt-5">
-
 				<data> <!--  INICIO TABELA  -->
 				<div class="table-responsive" id="tabela-produtos">
 					<table class="table" id="tabela" data-toggle="table"
@@ -629,7 +628,7 @@ html, body {
 	<script type="text/javascript">
 	$(".alert").hide();
 	myFunction();
-	tupi();
+//	tupi();
 	//modal de add e editar prod
 	$('#exampleModal')
 		.on(

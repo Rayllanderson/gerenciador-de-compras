@@ -205,7 +205,7 @@ html, body {
 
 			<main role="main" class="mt-5">
 				<data>
-				<div class="table-responsive" id="divTable">
+				<div class="table-responsive" id="divtable">
 					<table class="table" id="tabela" data-toggle="table"
 						data-search="true" data-pagination="true" data-show-columns="true"
 						data-toolbar="#toolbar" data-search-accent-neutralise="true"

@@ -28,17 +28,6 @@ $(document).ready(function() {
 });
 
 
-function tupi() {
-	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-		document.getElementById('tabela').className = "table table-sm";
-		document.getElementById('search').style.marginLeft = "2%"
-		document.getElementById('search').style.marginRight = "2%";
-	} else {
-		document.getElementById('tabela').className = "table";
-	}
-
-}
-
 
 $(document).ready(function() {
 	$('#orcamento').mask('000.000.000.000.000,00', { reverse: true });

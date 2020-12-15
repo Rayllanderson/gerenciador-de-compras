@@ -53,13 +53,11 @@ public class AccountServlet extends HttpServlet {
 		    if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
 			if (!UserValidation.fieldsAreValids(name, username)) { // validando os campos
 			    redirect(request, response, 400, "Um ou mais campos estãos vazios");
-			    System.out.println("user válido...");
 			} else {
 			    // verificando se modificou pra evitar requisição desnecessária
 			    if (UserValidation.userIsModified(name, username, foto64, request)) {
 				System.out.println("user modificado...");
 				if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
-				    System.out.println("upou!");
 				    response.setStatus(200);
 				    request.getSession().setAttribute("success", "Editado com sucesso!");
 				    User user = repository.findById(Long.valueOf(id));
