@@ -28,7 +28,8 @@ public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDao repository;
     private CategoriaService service;
-    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas uma vez
+    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas
+			  // uma vez
 
     public CategoriaServlet() {
 	super();
@@ -76,7 +77,7 @@ public class CategoriaServlet extends HttpServlet {
 		    selecionarLista(request, response);
 		} else if (acao.equals("salvar")) {
 		    salvarLista(request, response, user);
-		}else if (acao.equals("editar")) { //pra editar a categoria via tela de produtos
+		} else if (acao.equals("editar")) { // pra editar a categoria via tela de produtos
 		    Categoria cat = salvarLista(request, response, user);
 		    request.getSession().setAttribute("categoria", cat);
 		}
@@ -89,8 +90,9 @@ public class CategoriaServlet extends HttpServlet {
 	}
     }
 
-    //----------------------------------- Private methods -------------------------------------//
-    
+    // ----------------------------------- Private methods
+    // -------------------------------------//
+
     private Categoria salvarLista(HttpServletRequest request, HttpServletResponse response, User user)
 	    throws IOException, ServletException {
 	String id = request.getParameter("id");
@@ -119,11 +121,16 @@ public class CategoriaServlet extends HttpServlet {
 	}
 	return null;
     }
-    
+
     private void deletarCategoria(HttpServletRequest request, HttpServletResponse response)
 	    throws IOException, ServletException {
 	String id = request.getParameter("id1");
+	Categoria deletada = repository.findById(Long.parseLong(id));
+	Categoria setada = (Categoria) request.getSession().getAttribute("categoria");
 	if (service.deleteById(Long.parseLong(id))) {
+	    if (deletada.equals(setada)) {
+		request.getSession().setAttribute("categoria", null);
+	    }
 	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	    request.getRequestDispatcher("categorias.jsp").forward(request, response);
 	} else {
@@ -143,8 +150,6 @@ public class CategoriaServlet extends HttpServlet {
 	request.getSession().setAttribute("categoria", cat);
 	response.sendRedirect("produtos");
     }
-
-    
 
     private void setResponseBody(HttpServletResponse response, String mensagem, int codigo) throws IOException {
 	response.setContentType("text/plain");

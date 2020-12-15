@@ -56,7 +56,6 @@ public class AccountServlet extends HttpServlet {
 			} else {
 			    // verificando se modificou pra evitar requisição desnecessária
 			    if (UserValidation.userIsModified(name, username, foto64, request)) {
-				System.out.println("user modificado...");
 				if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
 				    response.setStatus(200);
 				    request.getSession().setAttribute("success", "Editado com sucesso!");
