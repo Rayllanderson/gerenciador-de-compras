@@ -28,10 +28,13 @@
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-					<link href="resource/css/theme/${theme}.css" type="text/css" rel="stylesheet"/>
+					<link id="tema" href="resource/css/theme/produtos/${theme}.css" type="text/css" rel="stylesheet"/>
                     <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	
 
                     <style type="text/css">
+		                    body {
+								background-color: #f8f9fa;
+							}
                             html, body{
                            	 height: 100%;
 							
@@ -49,7 +52,7 @@
                 <body>
  <!-- Início navbar -->
  <div class="content">
- 			<div class="wall" id="wall">
+ 			<div class="wall ${theme.toLowerCase()}P" id="wall">
                     <header>
 
 					<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
@@ -138,14 +141,14 @@
                             <li class="nav-item">
                                 <div class="container" style="height: 50px;">
 
-                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" id="btn-new" data-target="#exampleModal" class="btn btn-outline-success" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
+                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" id="btn-new" data-target="#exampleModal" class="btn" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
 									<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 									  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
 									</svg> Add
 									</button><!-- botao add novo produto -->
 
 									
-                                    <a class="btn btn-outline-primary" data-toggle="collapse" id="btn-info" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a class="btn" data-toggle="collapse" id="btn-info" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         <svg width="1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 </svg> Infos <!-- botao infos -->
@@ -564,7 +567,6 @@
 					
 <script type="text/javascript">
 var theme = "${theme}"
-	produtosThemeSwitch(theme);
 </script>
 
 <script type="text/javascript">

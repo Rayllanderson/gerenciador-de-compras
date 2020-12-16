@@ -6,9 +6,8 @@ function produtosThemeSwitch(colorTheme, animation) {
 	let btnNew = document.getElementById('btn-new');
 	let btnInfo = document.getElementById('btn-info');
 	let navbar = document.getElementById('navbar');
-	let seccondNavbar = document.getElementById('seccond-navbar');
 
-	changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar)
+	changeClassName(wall, btnNew, btnInfo, navbar)
 
 	switch (colorTheme.toUpperCase()) {
 		case 'PINK':
@@ -44,25 +43,22 @@ function produtosThemeSwitch(colorTheme, animation) {
 			btnNew.className = 'btn btn-success';
 			btnInfo.className = 'btn btn-primary';
 			navbar.className = 'navbar navbar-expand navbar-dark bg-primary';
-			seccondNavbar.className = 'card card-signin';
 			wall.className = "default";
-			document.querySelector("link[href='resource/css/custom-produto-theme.css']").href = "resource/css/default-produto-theme.css";
+			$("#tema").attr("href", 'resource/css/theme/produtos/DEFAULT.css')
 			break;
 	}
+	$("#tema").attr("href", 'resource/css/theme/produtos/' + colorTheme.toUpperCase() + '.css');
 	activeAnimation(animation);
 }
 
 /**
 	muda o nome das classes e o css se houver necessidade
  */
-function changeClassName(wall, btnNew, btnInfo, navbar, seccondNavbar) {
-	if (wall.className == 'default' || wall.className == "default animate") { //está no defaultT-theme
-		console.log('ce ta de sacanagem?')
+function changeClassName(wall, btnNew, btnInfo, navbar) {
+	if (wall.className == 'default' || wall.className == "default animate" || wall.className.includes('default')) { //está no default-theme
 		btnNew.className = 'btn btn-outline-success';
 		btnInfo.className = 'btn btn-outline-primary';
 		navbar.className = 'navbar navbar-expand navbar-dark';
-		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-produto-theme.css']").href = "resource/css/custom-produto-theme.css";
 	}
 }
 
