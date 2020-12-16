@@ -290,6 +290,7 @@
                                     </thead>
 
                                     <tbody>
+                                   		<fmt:setLocale value="pt_BR" />
                                         <c:forEach items="${produtos}" var="prod">
                                             <tr>
                                                 <td data-label="Nome" >${prod.nome}</td>
@@ -297,7 +298,7 @@
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoEstipulado}" />
                                                 </td>
                                                 <td data-label="Preço Real" class="text-primary">R$
-                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}" />
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.precoReal}"/>
                                                 </td>
                                                 <td data-label="Comprado" style="text-align:center;">${prod.comprado()}</td>
 

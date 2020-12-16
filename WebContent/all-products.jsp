@@ -339,6 +339,7 @@ html, body {
 						</thead>
 
 						<tbody>
+							<fmt:setLocale value="pt_BR" />
 							<c:forEach items="${produtos}" var="prod">
 								<tr>
 									<td data-label="Nome">${prod.nome}</td>

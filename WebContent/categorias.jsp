@@ -222,6 +222,7 @@ html, body {
 							</tr>
 						</thead>
 						<tbody>
+							<fmt:setLocale value="pt_BR" />
 							<c:forEach items="${categorias}" var="cat">
 								<tr>
 									<td data-label="Nome">

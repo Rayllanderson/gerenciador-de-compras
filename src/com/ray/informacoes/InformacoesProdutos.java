@@ -1,6 +1,7 @@
 package com.ray.informacoes;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
@@ -11,7 +12,7 @@ import com.ray.model.util.ProdutosUtil;
 
 public class InformacoesProdutos {
     
-    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
    
     // ---------------------------------------------------------------------//
     

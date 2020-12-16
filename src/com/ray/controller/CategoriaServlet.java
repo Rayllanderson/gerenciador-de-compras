@@ -105,10 +105,6 @@ public class CategoriaServlet extends HttpServlet {
 		cat = service.save(cat);
 		response.setStatus(HttpServletResponse.SC_CREATED);
 		return cat;
-//	    String json = new Gson().toJson(cat);
-//	    System.out.println(json);
-//	    response.setContentType("application/json");
-//	    response.getWriter().write(json);
 	    } else {
 		service.update(cat);
 		response.setStatus(HttpServletResponse.SC_OK);
