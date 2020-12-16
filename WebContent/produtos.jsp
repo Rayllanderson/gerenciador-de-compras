@@ -9,7 +9,7 @@
                 <head>
                     <meta charset="ISO-8859-1">
 
-                    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+                    <meta name="viewport" content="width=device-width, initial-scale=0.72">
                     <title>Seus Produtos</title>
                                         
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -333,6 +333,7 @@
                                 </table>
                             </div>
                             	<script src="resource/javascript/util/custom.table.js"></script>
+                            	<script> if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) $('#tabela').addClass("table-sm");</script>
                             	 
           </data> 
                         </main>
@@ -601,12 +602,6 @@ var theme = "${theme}"
                       			modal.find('#estipulado').val(estipulado)
                       			modal.find('#real').val(real)
                       		})
-
-                      			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-							document.getElementById('tabela').className = "table table-sm";
-							document.getElementById('search').style.marginLeft = "2%"
-							document.getElementById('search').style.marginRight = "2%";
-						}
                     </script>
        </body>
 </html>

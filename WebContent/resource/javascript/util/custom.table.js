@@ -1,4 +1,5 @@
-$('#tabela').bootstrapTable(); $('.fixed-table-toolbar').css('padding', '10px')
+$('#tabela').bootstrapTable(); 
+$('.fixed-table-toolbar').css('padding', '10px')
 
 var searchBtn = $('.search-input');
 searchBtn.css('border-radius', '0.5rem'); searchBtn.css('box-shadow', '0 0.5rem 1rem 0 rgba(0, 0, 0, 0.05)');
@@ -14,7 +15,6 @@ function buttons() {
 		}
 	}
 }
-
 
 function createDropdown() {
 	var drop = $('[name="btnFilter"]');

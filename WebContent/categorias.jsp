@@ -268,7 +268,9 @@ html, body {
 						</tbody>
 					</table>
 				</div>
-				<script src="resource/javascript/util/custom.table.js"></script> </data>
+				<script src="resource/javascript/util/custom.table.js"></script>
+				<script>$('#tabela').removeClass('table-bordered table-hover');</script>
+				 </data>
 
 			</main>
 		</div>
@@ -471,9 +473,6 @@ html, body {
 	    });
 	});
     }
-
-    console.log('.dd')
-    $('#tabela').removeClass('table-bordered table-hover');
 </script>
 
 

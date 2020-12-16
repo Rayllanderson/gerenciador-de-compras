@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<meta name="viewport" content="width=device-width, initial-scale=0.8">
+<meta name="viewport" content="width=device-width, initial-scale=0.72">
 <title>Seus Produtos</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -392,7 +392,9 @@ html, body {
 						</tbody>
 					</table>
 				</div>
-				<script src="resource/javascript/util/custom.table.js"></script> </data>
+				<script src="resource/javascript/util/custom.table.js"></script> 
+				<script> if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) $('#tabela').addClass("table-sm");</script>
+				</data>
 			</main>
 		</div>
 		<!-- FIM TABLE -->
