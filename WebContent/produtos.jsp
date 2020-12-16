@@ -28,13 +28,10 @@
 					<link href="resource/css/icon-perfil.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/icons-themes.css" type="text/css" rel="stylesheet" />
 					<link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-					<link href="resource/css/custom-produto-theme.css" type="text/css" rel="stylesheet" />	
+					<link href="resource/css/theme/${theme}.css" type="text/css" rel="stylesheet"/>
                     <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />	
 
                     <style type="text/css">
-                        body {
-                           	 background-color: #f8f9fa;
-                            }
                             html, body{
                            	 height: 100%;
 							

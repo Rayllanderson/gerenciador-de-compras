@@ -2,16 +2,13 @@
 
 function categoriaThemeSwitch(colorTheme, animation) {
 
-	console.log('animation = ', animation)
-
 	var wall = document.getElementById("wall");
 	wall.style.backgroundImage = "none"
 
 	let btnList = document.getElementById('btn-new-list');
 	let navbar = document.getElementById('navbar');
-	let seccondNavbar = document.getElementById('seccond-navbar');
 
-	changeClassName(btnList, navbar, seccondNavbar)
+	changeClassName(btnList, navbar, colorTheme)
 
 
 	switch (colorTheme.toUpperCase()) {
@@ -47,10 +44,8 @@ function categoriaThemeSwitch(colorTheme, animation) {
 		case 'DEFAULT':
 			btnList.className = 'btn btn-success';
 			navbar.className = 'navbar navbar-expand navbar-dark bg-primary';
-			seccondNavbar.className = 'card card-signin';
 			wall.className = "default";
-			document.querySelector("link[href='resource/css/custom-categoria-theme.css']").href = "resource/css/default-categoria-theme.css";
-			//aq
+			$("#tema").attr("href", 'resource/css/theme/categoria/DEFAULT.css')
 			break;
 	}
 	activeAnimation(animation);
@@ -59,13 +54,12 @@ function categoriaThemeSwitch(colorTheme, animation) {
 /**
 	muda o nome das classes e o css se houver necessidade
  */
-function changeClassName(btnList, navbar, seccondNavbar) {
+function changeClassName(btnList, navbar, colorTheme) {
 
-	if (wall.className == 'default' || wall.className == "default animate") { //está no defaultT-theme
+	if (wall.className == 'default' || wall.className == "default animate" || wall.className.includes('default')) { //está no defaultT-theme
 		btnList.className = 'btn btn-outline-success';
 		navbar.className = 'navbar navbar-expand navbar-dark';
-		seccondNavbar.className = 'navbar navbar-expand navbar-dark justify-content-end';
-		document.querySelector("link[href='resource/css/default-categoria-theme.css']").href = "resource/css/custom-categoria-theme.css";
+		$("#tema").attr("href", 'resource/css/theme/categoria/'+ colorTheme.toUpperCase() + '.css');
 	}//senao, nao tem necessidade de mudar, já que já estão no tema
 }
 

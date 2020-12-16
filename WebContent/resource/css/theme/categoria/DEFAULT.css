@@ -1,0 +1,43 @@
+@import url("../animation.css");
+
+.default.animate {
+	animation: 5s wobble;
+}
+
+#navbar{
+	background-color:#007bff!important
+}
+
+#seccond-navbar {
+	height: 5%;
+	border: 0;
+	border-radius: 1rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+#btn-new-list {
+	margin-top: 3%;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	color:#fff!important;background-color:#28a745!important;border-color:#28a745!important;
+}
+
+#list-titulo {
+	text-align: center;
+	margin-top: 2%;
+	margin-bottom: -2.5%;
+}
+
+body {
+	background-color: #f8f9fa;
+}
+
+#btn-new-list:hover{color:#fff!important;background-color:#218838!important;border-color:#1e7e34!important}
+#btn-new-list.focus,#btn-new-list:focus{color:#fff!important;background-color:#218838!important;border-color:#1e7e34!important;box-shadow:0 0 0 .2rem rgba(72,180,97,.5)!important}
+
+.galaxy{
+	background-image: url('../../../img/galaxy.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+

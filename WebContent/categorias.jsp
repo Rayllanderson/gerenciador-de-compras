@@ -28,8 +28,7 @@
 
 <link href="resource/css/icons-themes.css" type="text/css"
 	rel="stylesheet" />
-<link href="resource/css/custom-categoria-theme.css" type="text/css"
-	rel="stylesheet" />
+<link id="tema" href="resource/css/theme/categoria/${theme}.css" type="text/css" rel="stylesheet"/>
 <link href="resource/css/icon-perfil.css" type="text/css"
 	rel="stylesheet" />
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
@@ -60,7 +59,7 @@ html, body {
 	<div class="content">
 
 
-		<div class="wall" id="wall">
+		<div class="wall ${theme.toLowerCase()}" id="wall">
 
 			<header>
 				<nav class="navbar navbar-expand navbar-dark" id="navbar">
@@ -176,7 +175,7 @@ html, body {
 						<div class="container" style="height: 50px;">
 
 							<button type="submit" id="btn-new-list" data-toggle="modal"
-								data-title="Nova Lista" class="btn btn-outline-success"
+								data-title="Nova Lista" class="btn"
 								data-target="#categoriaModal">
 
 								<svg width="1em" height="1em" viewBox="0 0 16 16"
@@ -458,8 +457,6 @@ html, body {
 
 	<script type="text/javascript">
 	$(".alert").hide();
-	var theme = "${theme}"
-	categoriaThemeSwitch(theme);
     </script>
 
 </body>

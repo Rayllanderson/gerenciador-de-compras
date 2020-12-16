@@ -1,0 +1,36 @@
+@import url("../animation.css");
+
+#navbar {
+	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+	background-color: transparent!important;
+}
+
+#seccond-navbar{position:relative;display:-ms-flexbox;display:flex;
+-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;
+-ms-flex-pack:justify;justify-content:space-between;padding:.5rem 1rem}
+
+#seccond-navbar {
+	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.05);
+	height: 5%;
+}
+
+#btn-new-list {
+	margin-top: 3%;
+	border: none;
+	color: white!important;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	border-color:transparent!important
+}
+
+#list-titulo {
+	text-align: center;
+	margin-top: 4%;
+	color: white;
+}
+
+.wall.animate{
+	 animation: 5s wobble linear;
+}
+
+#btn-new-list:hover{color:#fff!important;background-color:#28a745!important;border-color:transparent!important}
+
