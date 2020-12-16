@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<meta name="viewport" content="width=device-width, initial-scale=0.72">
+<meta name="viewport" content="width=device-width, initial-scale=0.726">
 <title>Seus Produtos</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -313,7 +313,7 @@ html, body {
 
 		</div>
 
-		<div class="container-xl">
+		<div class="container">
 			<main role="main" class="mt-5">
 				<data> <!--  INICIO TABELA  -->
 				<div class="table-responsive" id="tabela-produtos">
@@ -329,7 +329,7 @@ html, body {
 							<tr class="text-primary">
 								<th scope="col" data-field="name" data-sortable="true">Nome</th>
 								<th scope="col" data-sortable="true" data-sorter="customSort">Preço
-									Estipulado</th>
+									Estip.</th>
 								<th scope="col" data-sortable="true" data-sorter="customSort">Preço
 									Real</th>
 								<th scope="col" style="text-align: center">Comprado</th>
@@ -656,6 +656,7 @@ html, body {
 			    modal.find('#estipulado').val(estipulado)
 			    modal.find('#real').val(real)
 			})
+			$('#tabela').removeClass('table-bordered table-hover');
     </script>
 
 

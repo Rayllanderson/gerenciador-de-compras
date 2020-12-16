@@ -9,7 +9,7 @@
                 <head>
                     <meta charset="ISO-8859-1">
 
-                    <meta name="viewport" content="width=device-width, initial-scale=0.72">
+                    <meta name="viewport" content="width=device-width, initial-scale=0.7254">
                     <title>Seus Produtos</title>
                                         
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -257,7 +257,7 @@
  
 </div>
 
-                    <div class="container-xl">
+                    <div class="container">
                         <main role="main" class="mt-5">
 
   <data>
@@ -603,6 +603,7 @@ var theme = "${theme}"
                       			modal.find('#estipulado').val(estipulado)
                       			modal.find('#real').val(real)
                       		})
+                      	$('#tabela').removeClass('table-bordered table-hover');
                     </script>
        </body>
 </html>

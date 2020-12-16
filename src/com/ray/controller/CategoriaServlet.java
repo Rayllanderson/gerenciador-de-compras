@@ -16,7 +16,6 @@ import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 import com.ray.model.exception.CategoriaInexistenteException;
 import com.ray.model.exception.EntradaInvalidaException;
-import com.ray.model.exception.ListaVaziaException;
 import com.ray.model.service.CategoriaService;
 
 /**
@@ -28,11 +27,8 @@ public class CategoriaServlet extends HttpServlet {
 
     private CategoriaDao repository;
     private CategoriaService service;
-    private boolean flag; // para permitir pesquisar nulo e listar todas as categorias, mas isso apenas
-			  // uma vez
 
     public CategoriaServlet() {
-	super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,8 +43,6 @@ public class CategoriaServlet extends HttpServlet {
 		    listarTodasCategorias(request, response);
 		} else if (acao.equals("excluir")) {
 		    deletarCategoria(request, response);
-		} else if (acao.equals("search")) {
-		    search(request, response);
 		} else {
 		    listarTodasCategorias(request, response);
 		}
@@ -173,21 +167,4 @@ public class CategoriaServlet extends HttpServlet {
 	String valorParse = value.replaceAll("\\.", "");// retirando os pontos por nada
 	return valorParse.replaceAll("\\,", "."); // agora só sobra a virgula, da só mudar pra .
     }
-
-    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String serch = request.getParameter("search");
-	try {
-	    if (!serch.isEmpty()) {
-		response.setStatus(HttpServletResponse.SC_OK);
-		request.getSession().setAttribute("categorias", service.findCategoriaByName(serch));
-		flag = true; // pode pesquisar com campo nulo que vai listar todas as categorias
-	    } else if (flag) {
-		listarTodasCategorias(request, response);
-		flag = false; // desativando a funcao para evitar listar sem necessidade
-	    }
-	} catch (ListaVaziaException e) {
-	    setResponseBody(response, e.getMessage(), HttpServletResponse.SC_NOT_FOUND);
-	}
-    }
-
 }

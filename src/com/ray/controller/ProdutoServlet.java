@@ -30,7 +30,6 @@ public class ProdutoServlet extends HttpServlet {
     private ProductDao repository = null;
     private ProductService service = null;
     private Categoria cat = null;
-    private boolean flag = false;
     private ProdutosUtil util = null;
 
     public ProdutoServlet() {
@@ -52,8 +51,6 @@ public class ProdutoServlet extends HttpServlet {
 		    listarNaoComprados(request, response);
 		} else if (acao.equals("excluir")) {
 		    excluir(request, response);
-		} else if (acao.equals("search")) {
-		    search(request, response);
 		}
 	    } else {
 		listarTodosProdutos(request, response);
@@ -176,22 +173,6 @@ public class ProdutoServlet extends HttpServlet {
 	}
     }
 
-    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String serch = request.getParameter("search");
-	try {
-	    if (!serch.isEmpty()) {
-		request.getSession().setAttribute("produtos", service.findProductByName(serch));
-		response.setStatus(200);
-		flag = true;
-	    } else if (flag) {
-		listarTodosProdutos(request, response);
-		flag = false;
-	    }
-	} catch (ListaVaziaException e) {
-	    setResponseBody(request, response, e.getMessage(), 400);
-	}
-    }
-      
     //-----------------------------------------------------------------------------------------//
    
     private Categoria instanciarCategoria(HttpServletRequest request) {
