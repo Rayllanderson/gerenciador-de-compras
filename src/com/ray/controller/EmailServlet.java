@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EmailServlet extends HttpServlet {
     
     private final String USERNAME = "rayllandersonemailjava@gmail.com";
-    private final String PASSWORD = "***";
+    private final String PASSWORD = "JavaEmail321";
 
     private static final long serialVersionUID = 1L;
 

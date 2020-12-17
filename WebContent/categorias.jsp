@@ -28,7 +28,8 @@
 
 <link href="resource/css/icons-themes.css" type="text/css"
 	rel="stylesheet" />
-<link id="tema" href="resource/css/theme/categoria/${theme}.css" type="text/css" rel="stylesheet"/>
+<link id="tema" href="resource/css/theme/categoria/${theme}.css"
+	type="text/css" rel="stylesheet" />
 <link href="resource/css/icon-perfil.css" type="text/css"
 	rel="stylesheet" />
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />

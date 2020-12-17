@@ -193,8 +193,8 @@ html, body {
 			</div>
 
 			<!-- FIM 2NAV -->
+	
 			<infos>
-
 
 			<div id="info">
 

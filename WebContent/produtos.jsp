@@ -52,212 +52,263 @@
                 <body>
  <!-- Início navbar -->
  <div class="content">
- 			<div class="wall ${theme.toLowerCase()}P" id="wall">
-                    <header>
+		<div class="wall ${theme.toLowerCase()}P" id="wall">
+			<header>
 
-					<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
-                        <nav class="navbar navbar-expand navbar-dark" id="navbar" >
-                            <a class="navbar-brand" href="categorias.jsp"> <i class="fas fa-arrow-left fa-md"> </i></a>
+				<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
+				<nav class="navbar navbar-expand navbar-dark" id="navbar">
+					<a class="navbar-brand" href="categorias.jsp"> <i
+						class="fas fa-arrow-left fa-md"> </i></a>
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-					        <span class="navbar-toggler-icon"></span>
-					      </button>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarsExample02" aria-controls="navbarsExample02"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-                            <div class="collapse navbar-collapse" id="navbarsExample02">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="home.jsp"> <i class="fas fa-home fa-sm"></i> Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="categorias"><i class="fas fa-clipboard fa-sm"></i> Listas</a>
-                                    </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#"><i class="fas fa-shopping-cart fa-md"></i> Produtos</a>
-                                    </li>
-                                </ul>
-                            </div>
-                                                       
-                          
-                            <c:if test="${!user.miniatura.isEmpty() && user.miniatura != null}">
-                            	 	
-                            		
-                            		<div class="icon-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            			<input  class="img-perfil" type="image" src="${user.miniatura }" />
-                            		</div>
-                            	
-                            		
-                            </c:if>
-                            
-                             <c:if test="${user.miniatura.isEmpty() || user.miniatura == null}">
-                            <button type="button" class="btn btn-outline-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <!-- botao user -->
-							    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									  <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-									  <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-									  <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-								</svg>
-							  </button>
-
-						</c:if>
-							
-                            <div class="dropdown-menu dropdown-menu-right" style="border-radius: 1em;">
-                                <a class="dropdown-item" href="my-account?action=view"> <i class="fas fa-user-circle"></i> Minha Conta</a>
-                     			<a class="dropdown-item" href="estatisticas"> <i class="fas fa-chart-pie"></i>  Estatísticas</a>
-                                <h6 class="dropdown-header"><i class="fas fa-palette"></i> Temas</h6>
-                                <div class= "items">
-                               <!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
-	                                <div class="theme blue" onclick="swapColor('blue', true)"></div>
-									<div class="theme pink" onclick="swapColor('pink', true)"></div>
-									<div class="theme red" onclick="swapColor('red', true)"></div>
-									<div class="theme purple" onclick="swapColor('purple', true)"></div>
-									<div class="theme cian" onclick="swapColor('cian', true)"></div>
-									<br>
-									<div class="theme green" onclick="swapColor('green', true)"></div>
-									<div class="theme orange" onclick="swapColor('orange', true)"></div>
-									<div class="theme black" onclick="swapColor('black', true)"></div>
-									<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
-									<div class="theme icon-default" onclick="swapColor('default', true)"></div>
-								</div>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                            </div>
-                        </nav>
-
-                    	<!-- ALERT -->
-				 	 <div class="fixed-top">
-				 		<div class="alert alert-success" id="success-alert">
-				   			 <button type="button" class="close" onclick="$('.alert').hide();">x</button>
-				   				<h4 id="titulo"></h4> <p id="alertMsg"></p>
-				  		</div>
+					<div class="collapse navbar-collapse" id="navbarsExample02">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item"><a class="nav-link" href="home.jsp">
+									<i class="fas fa-home fa-sm"></i> Home
+							</a></li>
+							<li class="nav-item"><a class="nav-link" href="categorias"><i
+									class="fas fa-clipboard fa-sm"></i> Listas</a></li>
+							<li class="nav-item active"><a class="nav-link" href="#"><i
+									class="fas fa-shopping-cart fa-md"></i> Produtos</a></li>
+						</ul>
 					</div>
 
-                    </header>
- <!-- FIM navbar -->
- 
- <!-- INICIO 2NAV -->
 
-<!--  <div class="card card-signin" style="height: 5%"> -->
-                 <div class="navbar navbar-expand navbar-dark justify-content-end" id="seccond-navbar" >
-                           <ul class="nav justify-content-end">
-                            <li class="nav-item">
-                                <div class="container" style="height: 50px;">
+					<c:if test="${!user.miniatura.isEmpty() && user.miniatura != null}">
 
-                                    <button type="submit" data-toggle="modal" data-title="Novo Produto" id="btn-new" data-target="#exampleModal" class="btn" onclick="disableCheckBox()" title="Adicionar Novo Produto" >
-									<svg width="1.4em" height="1.1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									  <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
-									</svg> Add
-									</button><!-- botao add novo produto -->
 
-									
-                                    <a class="btn" data-toggle="collapse" id="btn-info" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        <svg width="1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+						<div class="icon-perfil" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<input class="img-perfil" type="image" src="${user.miniatura }" />
+						</div>
+
+
+					</c:if>
+
+					<c:if test="${user.miniatura.isEmpty() || user.miniatura == null}">
+						<button type="button" class="btn btn-outline-light"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<!-- botao user -->
+							<svg width="1em" height="1em" viewBox="0 0 16 16"
+								class="bi bi-person-circle" fill="currentColor"
+								xmlns="http://www.w3.org/2000/svg">
+									  <path
+									d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+									  <path fill-rule="evenodd"
+									d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+									  <path fill-rule="evenodd"
+									d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+								</svg>
+						</button>
+
+					</c:if>
+
+					<div class="dropdown-menu dropdown-menu-right"
+						style="border-radius: 1em;">
+						<a class="dropdown-item" href="my-account?action=view"> <i
+							class="fas fa-user-circle"></i> Minha Conta
+						</a> <a class="dropdown-item" href="estatisticas"> <i
+							class="fas fa-chart-pie"></i> Estatísticas
+						</a>
+						<h6 class="dropdown-header">
+							<i class="fas fa-palette"></i> Temas
+						</h6>
+						<div class="items">
+							<!-- <a class="dropdown-item disabled" data-toggle="modal" data-target="#temaModal">Temas</a> -->
+							<div class="theme blue" onclick="swapColor('blue', true)"></div>
+							<div class="theme pink" onclick="swapColor('pink', true)"></div>
+							<div class="theme red" onclick="swapColor('red', true)"></div>
+							<div class="theme purple" onclick="swapColor('purple', true)"></div>
+							<div class="theme cian" onclick="swapColor('cian', true)"></div>
+							<br>
+							<div class="theme green" onclick="swapColor('green', true)"></div>
+							<div class="theme orange" onclick="swapColor('orange', true)"></div>
+							<div class="theme black" onclick="swapColor('black', true)"></div>
+							<div class="theme galaxy" onclick="swapColor('galaxy', true)"></div>
+							<div class="theme icon-default"
+								onclick="swapColor('default', true)"></div>
+						</div>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="logout"><i
+							class="fas fa-sign-out-alt"></i>Logout</a>
+					</div>
+				</nav>
+
+				<!-- ALERT -->
+				<div class="fixed-top">
+					<div class="alert alert-success" id="success-alert">
+						<button type="button" class="close" onclick="$('.alert').hide();">x</button>
+						<h4 id="titulo"></h4>
+						<p id="alertMsg"></p>
+					</div>
+				</div>
+
+			</header>
+			<!-- FIM navbar -->
+
+			<!-- INICIO 2NAV -->
+
+			<!--  <div class="card card-signin" style="height: 5%"> -->
+			<div class="navbar navbar-expand navbar-dark justify-content-end"
+				id="seccond-navbar">
+				<ul class="nav justify-content-end">
+					<li class="nav-item">
+						<div class="container" style="height: 50px;">
+
+							<button type="submit" data-toggle="modal"
+								data-title="Novo Produto" id="btn-new"
+								data-target="#exampleModal" class="btn"
+								onclick="disableCheckBox()" title="Adicionar Novo Produto">
+								<svg width="1.4em" height="1.1em" viewBox="0 0 16 16"
+									class="bi bi-bag-plus-fill" fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd"
+										d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z" />
+									</svg>
+								Add
+							</button>
+							<!-- botao add novo produto -->
+
+
+							<a class="btn" data-toggle="collapse" id="btn-info"
+								href="#collapseExample" role="button" aria-expanded="false"
+								aria-controls="collapseExample"> <svg width="1em"
+									height="1.1em" viewBox="0 0 16 16"
+									class="bi bi-info-circle-fill" fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+										d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
 </svg> Infos <!-- botao infos -->
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
 
- <!-- FIM 2NAV -->
-
-
-<infos>
+			<!-- FIM 2NAV -->
 
 
-<div  id="info">
+			<infos>
 
-<div class="container">
 
-                        <div class="card card-signin my-5" style=" border: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-                            <article class="card-body mx-auto" style="max-width: 400px;">
-                                <h4 id="catTitulo" class="card-title mt-3 text-center">${categoria.name} <a
-                                class="text-decoration-none" type="button" title="Editar Lista" id="editCat"
-					data-toggle="modal" data-target="#categoriaModal" 
-					data-title="Editar"
-					data-id="${categoria.id}" 
-					data-nome="${categoria.name}"
-					data-orcamento="${categoria.getOrcamentoEmReal()}">
-					
-<svg width="0.5em" height="0.5em" viewBox="0 0 16 16" class="bi bi-pen-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+			<div id="info">
+
+				<div class="container">
+
+					<div class="card card-signin my-5"
+						style="border: 0; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+						<article class="card-body mx-auto" style="max-width: 400px;">
+							<h4 id="catTitulo" class="card-title mt-3 text-center">${categoria.name}
+								<a class="text-decoration-none" type="button"
+									title="Editar Lista" id="editCat" data-toggle="modal"
+									data-target="#categoriaModal" data-title="Editar"
+									data-id="${categoria.id}" data-nome="${categoria.name}"
+									data-orcamento="${categoria.getOrcamentoEmReal()}"> <svg
+										width="0.5em" height="0.5em" viewBox="0 0 16 16"
+										class="bi bi-pen-fill" fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+											d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
 </svg>
-					</a> </h4>	
-					
-                                <p class="text-center" id="total"title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados"> Valor Total: ${tTotal} </p>
-                                <p class="text-center" id="vtEstipulado" title="soma total dos produtos com preço estipulado"> Valor Total Estipulado: ${tEstipulado} </p>
+								</a>
+							</h4>
 
-                            </article>
-                        </div>
-                    </div>
+							<p class="text-center" id="total"
+								title="valor somando todos os seus produtos comprados + preço estipulado dos que não foram comprados">
+								Valor Total: ${tTotal}</p>
+							<p class="text-center" id="vtEstipulado"
+								title="soma total dos produtos com preço estipulado">Valor
+								Total Estipulado: ${tEstipulado}</p>
 
-
-                    <!-- INÍCIO CARD INFOS -->
-                    <div class="container" style="">
-                        <div class="collapse" id="collapseExample">
-                            <div id="cardCol" class="card card-body" style="
-                             border: 0;
-  border-radius: 1rem;
-  margin-bottom: 4%;
- 
-  line-height: 1.6;">
-                                <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-header" id="headingOne">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gerais</button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                            <div class="card-body" id="gerais" style="display: inline-block; text-align: left; font-size: 17px">${gerais}</div>
-                                        </div>
-                                    </div>
+						</article>
+					</div>
+				</div>
 
 
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseOne">
-										Quanto você Já economizou</button>
-                                                </h2>
-                                            </div>
-                                            <div id="collapse3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                                <div class="card-body" id="economizado" style="display: inline-block; text-align: left; font-size: 17px">${economizado}</div>
-                                            </div>
-                                        </div>
-                                    </div>
+				<!-- INÍCIO CARD INFOS -->
+				<div class="container" style="">
+					<div class="collapse" id="collapseExample">
+						<div id="cardCol" class="card card-body"
+							style="border: 0; border-radius: 1rem; margin-bottom: 4%; line-height: 1.6;">
+							<div class="accordion" id="accordionExample">
+								<div class="card">
+									<div class="card-header" id="headingOne">
+										<h2 class="mb-0">
+											<button class="btn btn-link btn-block text-center"
+												type="button" data-toggle="collapse"
+												data-target="#collapseOne" aria-expanded="true"
+												aria-controls="collapseOne">Gerais</button>
+										</h2>
+									</div>
+									<div id="collapseOne" class="collapse show"
+										aria-labelledby="headingOne" data-parent="#accordionExample"
+										style="text-align: center;">
+										<div class="card-body" id="gerais"
+											style="display: inline-block; text-align: left; font-size: 17px">${gerais}</div>
+									</div>
+								</div>
 
 
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Quanto disponível você
-										tem pra gastar</button>
-                                                </h2>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample" style="text-align: center;">
-                                                <div class="card-body" id="disponivel" style="display: inline-block; text-align: left; font-size: 17px">${disponivel}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- fim card -->
-                        </div>
-                    </div>
-                    <!-- FIM INFORMAÇÕES -->
-                    </div>
-</infos>
+								<div class="accordion" id="accordionExample">
+									<div class="card">
+										<div class="card-header" id="headingOne">
+											<h2 class="mb-0">
+												<button class="btn btn-link btn-block text-center"
+													type="button" data-toggle="collapse"
+													data-target="#collapse3" aria-expanded="true"
+													aria-controls="collapseOne">Quanto você Já
+													economizou</button>
+											</h2>
+										</div>
+										<div id="collapse3" class="collapse hide"
+											aria-labelledby="headingOne" data-parent="#accordionExample"
+											style="text-align: center;">
+											<div class="card-body" id="economizado"
+												style="display: inline-block; text-align: left; font-size: 17px">${economizado}</div>
+										</div>
+									</div>
+								</div>
 
- 
- <div>&nbsp;</div>
- 
-</div>
 
-                    <div class="container">
+								<div class="accordion" id="accordionExample">
+									<div class="card">
+										<div class="card-header" id="headingOne">
+											<h2 class="mb-0">
+												<button class="btn btn-link btn-block text-center"
+													type="button" data-toggle="collapse"
+													data-target="#collapseTwo" aria-expanded="true"
+													aria-controls="collapseOne">Quanto disponível você
+													tem pra gastar</button>
+											</h2>
+										</div>
+										<div id="collapseTwo" class="collapse hide"
+											aria-labelledby="headingOne" data-parent="#accordionExample"
+											style="text-align: center;">
+											<div class="card-body" id="disponivel"
+												style="display: inline-block; text-align: left; font-size: 17px">${disponivel}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- fim card -->
+					</div>
+				</div>
+				<!-- FIM INFORMAÇÕES -->
+			</div>
+			</infos>
+
+
+			<div>&nbsp;</div>
+
+		</div>
+
+		<div class="container">
                         <main role="main" class="mt-5">
 
   <data>
@@ -547,8 +598,6 @@
 
     </footer>
     <!-- Footer -->
-
-
 
                     <!-- ---------------------------------------------- -->
 
