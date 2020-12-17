@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/email")
 public class EmailServlet extends HttpServlet {
     
-    private final String USERNAME = "rayllandersonemailjava@gmail.com";
-    private final String PASSWORD = "JavaEmail321";
+    private final String USERNAME = "youremail";
+    private final String PASSWORD = "***";
 
     private static final long serialVersionUID = 1L;
 
