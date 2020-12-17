@@ -65,7 +65,6 @@ function changeClassName(btnList, navbar, colorTheme) {
 
 function activeAnimation(animation) {
 	if (animation) {
-			
 		let wall = document.getElementById("wall");
 		wall.classList.add('animate');
 		setTimeout(() => wall.classList.remove('animate'), 999);

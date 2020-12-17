@@ -32,8 +32,7 @@
 <link href="resource/css/icons-themes.css" type="text/css"
 	rel="stylesheet" />
 <link href="resource/css/alert.css" type="text/css" rel="stylesheet" />
-<link href="resource/css/custom-produto-theme.css" type="text/css"
-	rel="stylesheet" />
+<link id="tema" href="resource/css/theme/produtos/${theme}.css" type="text/css" rel="stylesheet"/>
 <link href="resource/css/footer.css" type="text/css" rel="stylesheet" />
 <style type="text/css">
 body {
@@ -59,7 +58,7 @@ html, body {
 <body>
 	<!-- Início navbar -->
 	<div class="content">
-		<div class="wall" id="wall">
+		<div class="wall ${theme.toLowerCase()}P" id="wall">
 			<header>
 
 				<!-- <nav class="navbar navbar-expand navbar-dark bg-primary"> -->
@@ -165,7 +164,7 @@ html, body {
 
 							<button type="submit" data-toggle="modal"
 								data-title="Novo Produto" id="btn-new"
-								data-target="#exampleModal" class="btn btn-outline-success"
+								data-target="#exampleModal" class="btn"
 								onclick="disableCheckBox()" title="Adicionar Novo Produto">
 								<svg width="1.4em" height="1.1em" viewBox="0 0 16 16"
 									class="bi bi-bag-plus-fill" fill="currentColor"
@@ -178,7 +177,7 @@ html, body {
 							<!-- botao add novo produto -->
 
 
-							<a class="btn btn-outline-primary" data-toggle="collapse"
+							<a class="btn" data-toggle="collapse"
 								id="btn-info" href="#collapseExample" role="button"
 								aria-expanded="false" aria-controls="collapseExample"> <svg
 									width="1em" height="1.1em" viewBox="0 0 16 16"
@@ -194,10 +193,8 @@ html, body {
 			</div>
 
 			<!-- FIM 2NAV -->
-
-
+	
 			<infos>
-
 
 			<div id="info">
 
@@ -625,7 +622,6 @@ html, body {
 
 	<script type="text/javascript">
 	var theme = "${theme}"
-	produtosThemeSwitch(theme);
     </script>
 
 	<script type="text/javascript">

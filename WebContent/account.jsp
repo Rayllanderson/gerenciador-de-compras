@@ -285,41 +285,49 @@
 							<div class="form-group">
 								<label for="old" class="control-label"
 									style="text-align: center">Senha Atual:</label>
-									 <div class="input-group" id="show_hide_password">
-										 <input type="password" name="old" type="text" class="form-control"
-										id="old" required="required" maxlength="130">
-										<div class="input-group-append">
-	     										  <a class="input-group-text" style="cursor: pointer; text-decoration: none"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-	      								</div>
-      								</div>
+								<div class="input-group" id="show_hide_password">
+									<input type="password" name="old" type="text"
+										class="form-control" id="old" required="required"
+										maxlength="130">
+									<div class="input-group-append">
+										<a class="input-group-text"
+											style="cursor: pointer; text-decoration: none"><i
+											class="fa fa-eye-slash" aria-hidden="true"></i></a>
+									</div>
+								</div>
 							</div>
 
 
 							<div class="form-group">
 								<label for="new1" class="control-label"
 									style="text-align: center">Nova Senha:</label>
-									<div class="input-group" id="show_hide_password2">
-										 <input type="password" name="new1" type="text" class="form-control"
-											id="new1" required="required" maxlength="130">
-											 <div class="input-group-append">
-		     										  <a class="input-group-text" style="cursor: pointer; text-decoration: none"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-		      								</div>
-      								</div>
+								<div class="input-group" id="show_hide_password2">
+									<input type="password" name="new1" type="text"
+										class="form-control" id="new1" required="required"
+										maxlength="130">
+									<div class="input-group-append">
+										<a class="input-group-text"
+											style="cursor: pointer; text-decoration: none"><i
+											class="fa fa-eye-slash" aria-hidden="true"></i></a>
+									</div>
+								</div>
 							</div>
 
 
 							<div class="form-group">
 								<label for="new2" class="control-label"
 									style="text-align: center">Confirme a Nova Senha:</label>
-									<div class="input-group" id="show_hide_password3">
-										<input
-										type="password" name="new2" type="text" class="form-control"
-										id="new2" required="required" maxlength="130">
-										 <div class="input-group-append">
-     										  <a class="input-group-text" style="cursor: pointer; text-decoration: none"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-      									</div>
-      								</div>
-										
+								<div class="input-group" id="show_hide_password3">
+									<input type="password" name="new2" type="text"
+										class="form-control" id="new2" required="required"
+										maxlength="130">
+									<div class="input-group-append">
+										<a class="input-group-text"
+											style="cursor: pointer; text-decoration: none"><i
+											class="fa fa-eye-slash" aria-hidden="true"></i></a>
+									</div>
+								</div>
+
 							</div>
 
 						</div>

@@ -1,0 +1,5 @@
+@import url("custom-produto.css");
+
+.blueP {
+	background-image: url('../../../img/blue.svg')
+}

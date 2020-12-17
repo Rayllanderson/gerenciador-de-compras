@@ -10,14 +10,16 @@
 	height: 5%;
 }
 
-#btn-new-list {
+#btn-new, #btn-info {
 	margin-top: 3%;
 	border: none;
 	color: white!important;
 	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 	border-color:transparent!important
 }
-
+#btn-new {
+	margin-right:5px;
+}
 #list-titulo {
 	text-align: center;
 	margin-top: 4%;
@@ -28,5 +30,15 @@
 	 animation: 5s wobble linear;
 }
 
-#btn-new-list:hover{color:#fff!important;background-color:#28a745!important;border-color:transparent!important}
+#btn-new:hover{color:#fff!important;background-color:#28a745!important;border-color:transparent!important}
+
+#btn-info{color:#007bff;border-color:#007bff}
+#btn-info:hover{color:#fff;background-color:#007bff;border-color:#007bff}
+
+
+.wall {
+	background-size:cover;
+	background-repeat: no-repeat;
+}
+
 

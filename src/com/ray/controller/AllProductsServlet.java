@@ -3,6 +3,7 @@ package com.ray.controller;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,8 +35,8 @@ public class AllProductsServlet extends HttpServlet {
     private User user = null;
     private Categoria cat = null;
     private TotalProdutos totalProdutos = null;
-    private NumberFormat format = NumberFormat.getCurrencyInstance();
-    
+    private static NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
     public AllProductsServlet() {
 	super();
     }
@@ -187,10 +188,8 @@ public class AllProductsServlet extends HttpServlet {
 		setResponseBody(request, response, "Nenhum produto encontrado", 400);
 	    } else {
 		request.getSession().setAttribute("produtos", list);
-		if(request.getParameter("home") != null) { //fazendo pesquisa via home
-		    setInformacoes(request);
-		    request.getSession().setAttribute("categorias", categoriaRepository.findAll());
-		}
+		setInformacoes(request);
+		request.getSession().setAttribute("categorias", categoriaRepository.findAll());
 		response.setStatus(200);
 		flag = true;
 	    }
@@ -202,7 +201,6 @@ public class AllProductsServlet extends HttpServlet {
 
     // -----------------------------------------------------------------------------------------//
 
-    
     private void setInformacoes(HttpServletRequest request) {
 	TotalProdutos infos = new TotalProdutos(user);
 	request.getSession().setAttribute("totalListas", infos.getNumCategorias());
@@ -217,8 +215,6 @@ public class AllProductsServlet extends HttpServlet {
 	request.getSession().setAttribute("restante", format.format(infos.getRestante()));
 	request.getSession().setAttribute("total", format.format(infos.getTotal()));
     }
-
-    
 
     /**
      * Apenas pra diminuir codigo. <br>
