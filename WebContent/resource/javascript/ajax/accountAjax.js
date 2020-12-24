@@ -34,13 +34,11 @@ $('#change-pass').on('click', function (){
 
 
 if (error) {
-		console.log("yes, fail", error)
 		alertBoostrap(error, 'alert alert-danger')
 		error= '';
 	}
 
 	if (success) {
-		console.log("yes success", success)
 		alertBoostrap(success, 'alert alert-success')
 		success = '';
 	}

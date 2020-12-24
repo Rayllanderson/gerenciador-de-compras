@@ -13,7 +13,6 @@ function saveAjax() {
 		message = "Sua lista foi editada com sucesso!"
 	}
 	
-	console.log(nome, orcamento, id)
 
 	if (nome.trim() != ''){
 		

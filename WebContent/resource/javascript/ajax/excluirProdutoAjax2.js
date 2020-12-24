@@ -14,11 +14,9 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 	modal.find('#nomeProd').text(nome)
 	id1 = idProd;
 	catId = cat_id;
-	console.log(cat_id)
 	});
 	
 	$(document).on("click", "#excluir", function() {	
-		console.log('dentro do metodo excluir: ', catId)
 		$.ajax({
 			method: "GET",
 			url: "all-products?action=delete",
@@ -39,8 +37,9 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 });
  //carregar as paginas certas aq
 function atualizarValoresAll(){
-	$('#total').load('resource/jsp/total2.jsp').html;
-	$('#vtEstipulado').load('resource/jsp/vtEstipulado2.jsp').html;
+	$('#total').load('resource/jsp/all-products/total2.jsp').html;
+	$('#vtEstipulado').load('resource/jsp/all-products/vtEstipulado2.jsp').html;
+	$('#gerais').load('resource/jsp/all-products/gerais2.jsp').html;
 }
 
 

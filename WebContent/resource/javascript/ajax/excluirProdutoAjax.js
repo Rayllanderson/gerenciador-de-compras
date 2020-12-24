@@ -13,7 +13,6 @@ $('#exampleModalCenter').on('show.bs.modal', function(event) {
 	});
 	
 	$(document).on("click", "#excluir", function() {	
-		console.log('dentro do metodo excluir: ', id1)
 		$.ajax({
 			method: "GET",
 			url: "produtos?acao=excluir",

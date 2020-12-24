@@ -2,7 +2,6 @@ $('.alert').hide();
 
 $('.SearchBox-button').on('click', function() {
 	const search = $('#search').val();
-	console.log(search)
 	if (search) {
 		$.ajax({
 			method: "GET",

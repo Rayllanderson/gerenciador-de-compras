@@ -3,7 +3,6 @@ $(".alert").hide();
 $('#submit').click(function(e){
   	let email = $('#email').val();
 	let message = $('#message').val();
-	console.log(email, message)
 	if(email && message){
 			$.ajax({
 				method: "POST",
