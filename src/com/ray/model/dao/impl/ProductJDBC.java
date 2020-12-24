@@ -32,8 +32,7 @@ public class ProductJDBC implements ProductDao {
     public void save(Product obj) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("\r\n"
-		    + "insert into produtos (nome, preco_estipulado, preco_real, id_categoria, comprado) values (?, ?, ?, ?, ?)",
+	    st = conn.prepareStatement("insert into produtos (nome, preco_estipulado, preco_real, id_categoria, comprado) values (?, ?, ?, ?, ?)",
 		    Statement.RETURN_GENERATED_KEYS);
 	    this.inserirProduto(st, obj);
 	    if (st.executeUpdate() > 0) {

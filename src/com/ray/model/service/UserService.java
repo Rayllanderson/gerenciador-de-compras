@@ -18,9 +18,6 @@ public class UserService {
     /**
      * update name e username (verifica se o username ja existe)
      * 
-     * @param id
-     * @param newName
-     * @param newUsername
      * @return true caso dê tudo ok, false se o usuário com id passado não exista
      * @throws MyLoginException caso login já exista
      */

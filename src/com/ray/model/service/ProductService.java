@@ -2,6 +2,7 @@ package com.ray.model.service;
 
 import java.util.List;
 
+import com.ray.db.DbException;
 import com.ray.model.dao.DaoFactory;
 import com.ray.model.dao.ProductDao;
 import com.ray.model.entities.Categoria;
@@ -36,12 +37,17 @@ public class ProductService {
      *                                  estejam vazios ou nulos
      */
     public boolean save(Product p) throws EntradaInvalidaException {
-	Validacao.validarNome(p.getNome());
-	p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
-	p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
-	dao.save(p);
-	cat.adicionarProduto(p);
-	return true;
+	try {
+	    Validacao.validarNome(p.getNome());
+	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
+	    dao.save(p);
+	    cat.adicionarProduto(p);
+	    return true;
+	} catch (DbException e) {
+	    e.printStackTrace();
+	}
+	return false;
     }
 
     /**
@@ -74,9 +80,13 @@ public class ProductService {
      * @return true caso ok, false caso dê erro.
      */
     public boolean deleteById(Long id) {
-	if (dao.productIsValid(id)) {
-	    dao.deletById(id);
-	    return true;
+	try {
+	    if (dao.productIsValid(id)) {
+		dao.deletById(id);
+		return true;
+	    }
+	} catch (DbException e) {
+	    e.printStackTrace();
 	}
 	return false;
     }

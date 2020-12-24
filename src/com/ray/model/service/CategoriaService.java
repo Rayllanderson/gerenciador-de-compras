@@ -35,6 +35,7 @@ public class CategoriaService {
 	    Validacao.validarNome(cat.getName());
 	    return categoriaDao.save(cat);
 	} catch (DbException e) {
+	    e.printStackTrace();
 	    return null;
 	}
     }
@@ -50,6 +51,7 @@ public class CategoriaService {
 	    categoriaDao.deletById(id);
 	    return true;
 	} catch (DbException | CategoriaInexistenteException e) {
+	    e.printStackTrace();
 	    return false;
 	}
     }
@@ -58,7 +60,6 @@ public class CategoriaService {
      * Para atualizar, passa por 3 verificações. Se a categoria, de fato, pertence ao usuario atual. Verifica se o preço é nulo, se for,  seta para 0. E, verifica se
      * o nome é nulo, se for, throw exception.
      * 
-     * @param cat
      * @return true caso dê tudo ok
      * @throws CategoriaInexistenteException caso a categoria editada não exista
      *                                       (questão de segurança apenas, para não
@@ -74,6 +75,7 @@ public class CategoriaService {
 	    categoriaDao.update(cat);
 	    return true;
 	} catch (DbException e) {
+	    e.printStackTrace();
 	    return false;
 	}
     }

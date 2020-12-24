@@ -606,7 +606,6 @@
                     <script src="resource/javascript/esconderUrl.js"></script>
 					<script src="resource/javascript/util/alert.js"></script>
 					<script src="resource/javascript/ajax/listarProdutos.js"></script>
-					<script src="resource/javascript/ajax/searchProdutosAjax.js"></script>
 					<script src="resource/javascript/ajax/salvarCategoriaAjax2.js" ></script>
 					<script src="resource/javascript/ajax/sendThemeAjax.js" ></script>
 					<script src="resource/javascript/switchThemeProdutos.js" ></script>

@@ -1,0 +1,1 @@
+Valor Total: <span class="text-primary"> ${total} </span>

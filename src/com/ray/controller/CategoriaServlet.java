@@ -53,6 +53,7 @@ public class CategoriaServlet extends HttpServlet {
 	    setResponseBody(response, "Há um caractere inválido em um de seus campos",
 		    HttpServletResponse.SC_BAD_REQUEST);
 	} catch (RuntimeException e) {
+	    e.printStackTrace();
 	    setResponseBody(response, "Algo deu errado x_x", HttpServletResponse.SC_BAD_GATEWAY);
 	}
     }

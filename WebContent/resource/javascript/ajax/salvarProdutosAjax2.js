@@ -51,7 +51,7 @@ function saveProduct() {
 			$.get("all-products", function(responseXml) {                // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response XML...
 				$("#tabela-produtos").html($(responseXml).find("data").html());
 				tupi();
-				atualizarValores()
+				atualizarValoresAll()
 			});
 
 		}).fail(function(xhr) {
@@ -61,16 +61,6 @@ function saveProduct() {
 
 	}
 }
-
-function atualizarValores() {
-	$('#disponivel').load('resource/jsp/disponivel.jsp').html;
-	$('#economizado').load('resource/jsp/economizado.jsp').html;
-	$('#gerais').load('resource/jsp/gerais.jsp').html;
-	$('#total').load('resource/jsp/total.jsp').html;
-	$('#vtEstipulado').load('resource/jsp/vtEstipulado.jsp').html;
-}
-
-
 
 function tupi() {
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {

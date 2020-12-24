@@ -613,7 +613,6 @@ html, body {
 	<script src="resource/javascript/esconderUrl.js"></script>
 	<script src="resource/javascript/util/alert.js"></script>
 	<script src="resource/javascript/ajax/listarProdutos2.js"></script>
-	<script src="resource/javascript/ajax/searchProdutosAjax2.js"></script>
 	<script src="resource/javascript/ajax/sendThemeAjax.js"></script>
 	<script src="resource/javascript/switchThemeProdutos.js"></script>
 	<script src="resource/javascript/util/getYear.js"></script>

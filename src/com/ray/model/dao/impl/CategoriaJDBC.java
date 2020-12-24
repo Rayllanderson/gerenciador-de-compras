@@ -58,7 +58,7 @@ public class CategoriaJDBC implements CategoriaDao {
     public void deletById(Long id) {
 	PreparedStatement st = null;
 	try {
-	    st = conn.prepareStatement("DELETE FROM CATEGORIA where id = " + id);
+	    st = conn.prepareStatement("DELETE FROM categoria where id = " + id);
 	    if (!(st.executeUpdate() > 0)) {
 		throw new DbException("Erro ao deletar: id não existe");
 	    }

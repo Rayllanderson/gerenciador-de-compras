@@ -10,7 +10,6 @@ function customSort(a, b, sortOrder) {
     var order = sortOrder === 'desc' ? -1 : 1
     var aa = +((retnum(a) + ''))
     var bb = +((retnum(b) + ''))
-    console.log(aa)
     if (aa < bb) {
         return order * -1
     }

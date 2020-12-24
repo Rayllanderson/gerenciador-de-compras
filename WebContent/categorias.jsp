@@ -447,7 +447,6 @@ html, body {
 	<script src="resource/javascript/esconderUrl.js"></script>
 	<script src="resource/javascript/ajax/salvarCategoriaAjax.js"></script>
 	<script src="resource/javascript/ajax/excluirCategoriaAjax.js"></script>
-	<script src="resource/javascript/ajax/searchCategoriaAjax.js"></script>
 	<script src="resource/javascript/util/alert.js"></script>
 	<script src="resource/javascript/ajax/sendThemeAjax.js"></script>
 	<script src="resource/javascript/switchThemeCategoria.js"></script>
