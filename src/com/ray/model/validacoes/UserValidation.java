@@ -52,10 +52,22 @@ public class UserValidation {
      * 
      * @param name
      * @param username
-     * @return true caso os campos sejam válidos
+     * @return true caso os campos estejam vazios
      */
-    public static boolean fieldsAreValids(String name, String username) {
+    public static boolean fieldsAreEmpty(String name, String username) {
 	return !(name.isEmpty() || username.isEmpty());
+    }
+    
+    /**
+     * verifica se um dos campos estão vazios
+     * 
+     * @param username
+     * @param pass1
+     * @param pass2
+     * @return true caso os campos estejam vazios
+     */
+    public static boolean fieldsAreEmpty(String username, String pass1, String pass2) {
+	return !(username.isEmpty() || pass1.isEmpty() || pass2.isEmpty());
     }
 
     /**

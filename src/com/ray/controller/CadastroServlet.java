@@ -12,6 +12,7 @@ import com.ray.model.entities.User;
 import com.ray.model.exception.MyLoginException;
 import com.ray.model.service.UserService;
 import com.ray.model.util.Theme;
+import com.ray.model.validacoes.UserValidation;
 
 @WebServlet("/cadastro")
 public class CadastroServlet extends HttpServlet {
@@ -30,16 +31,23 @@ public class CadastroServlet extends HttpServlet {
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 	    String password2 = request.getParameter("password2");
-	    if (validarCampos(request, response, name, username, password, password2)) {
+	    boolean validPassword = UserValidation.passwordIsValid(password, password2);
+	    boolean fieldsNotEmpty = UserValidation.fieldsAreEmpty(username, password, password2);
+	    if (fieldsNotEmpty) {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		try {
-		    User user = new User(null, name, username, password, null, null, Theme.DEFAULT);
-		    service.cadastrar(user);
-		    setResponse(response, HttpServletResponse.SC_OK,
-			    "Cadastro realizado com sucesso! Faça login para continuar");
-		} catch (MyLoginException e) { // username ja em uso
-		    setResponse(response, HttpServletResponse.SC_CONFLICT, e.getMessage());
+		if (validPassword) {
+		    try {
+			name = name == null || name.isEmpty() ? "Convidado" : name;
+			User user = new User(null, name, username, password, null, null, Theme.DEFAULT);
+			service.cadastrar(user);
+			setResponse(response, HttpServletResponse.SC_OK,
+				"Cadastro realizado com sucesso! Faça login para continuar");
+		    } catch (MyLoginException e) { // username ja em uso
+			setResponse(response, HttpServletResponse.SC_CONFLICT, e.getMessage());
+		    }
+		} else {
+		    setResponse(response, HttpServletResponse.SC_BAD_REQUEST, "As senhas não correspodem");
 		}
 	    } else {
 		setResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Um ou mais campos estão vazios");
@@ -48,24 +56,6 @@ public class CadastroServlet extends HttpServlet {
 	    setResponse(response, HttpServletResponse.SC_BAD_GATEWAY, "Ocorreu um erro inesperado x_x");
 	    e.printStackTrace();
 	}
-    }
-
-    /**
-     * @return true caso os campos estejam válidos
-     */
-    private boolean validarCampos(HttpServletRequest request, HttpServletResponse response, String name,
-	    String username, String password, String password2) throws ServletException, IOException {
-	if (name.isEmpty() || name == null) {
-	    name = "Convidado";
-	}
-	if (username.isEmpty() || password.isEmpty() || password2.isEmpty()) {
-	    request.setAttribute("msg", "Um ou mais campos estão vazios");
-	    return false;
-	} else if (!password.equals(password2)) {
-	    request.setAttribute("msg", "As senhas não correspodem");
-	    return false;
-	}
-	return true;
     }
 
     private void setResponse(HttpServletResponse response, int codigo, String msg) throws IOException {
