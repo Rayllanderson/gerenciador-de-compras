@@ -151,16 +151,18 @@ body {
 				<h2 class="text-center mb-4">Sobre</h2>
 
 
-				<p class="">Este website é um gerenciador de listas de compra!
-					Este, por sua vez, tem como objetivo gerenciar suas listas de
+				<p class="">Esta aplicação web é um gerenciador de listas de compra!
+					Esta, por sua vez, tem como objetivo gerenciar suas listas de
 					compras de forma mais organizada e controlada, possibilitando
 					adicionar várias listas e vários produtos, e, gerando dados e
 					gráficos úteis para ter mais controle sobre sua lista de compras.</p>
 
-				<p>Você cria uma lista, ela pode possuir ou não um orçamento,
-					dentro dela você adiciona os produtos. Os produtos podem ser
-					editados, excluídos, marcados como concluídos e movidos para outras
-					listas. As listas também podem ser editadas ou excluídas.</p>
+				<p> Seu uso é bem simples: Basta você criar uma lista, adicionar os produtos e
+					pronto! A aplicação já gerará gráficos e informações para você.
+					Seu uso fica mais interessante se você for atualizando os produtos adicionados em suas listas conforme você os compra.
+					Os produtos podem ser editados, excluídos, marcados como concluídos
+					e movidos para outras listas. As listas também podem ser editadas ou 
+					excluídas.</p>
 
 				<p class="rodape">Vale ressaltar que este é apenas um projeto
 					pessoal desenvolvido para treinar tecnologias especialmente do

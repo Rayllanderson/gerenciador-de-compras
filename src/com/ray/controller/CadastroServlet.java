@@ -31,12 +31,12 @@ public class CadastroServlet extends HttpServlet {
 	    String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 	    String password2 = request.getParameter("password2");
-	    boolean validPassword = UserValidation.passwordIsValid(password, password2);
-	    boolean fieldsNotEmpty = UserValidation.fieldsAreEmpty(username, password, password2);
-	    if (fieldsNotEmpty) {
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("UTF-8");
-		if (validPassword) {
+	    boolean passwordIsValid = UserValidation.passwordIsValid(password, password2);
+	    boolean fieldsAreNotEmpty = UserValidation.fieldsAreNotEmpty(username, password, password2);
+	    response.setContentType("text/plain");
+	    response.setCharacterEncoding("UTF-8");
+	    if (fieldsAreNotEmpty) {
+		if (passwordIsValid) {
 		    try {
 			name = name == null || name.isEmpty() ? "Convidado" : name;
 			User user = new User(null, name, username, password, null, null, Theme.DEFAULT);

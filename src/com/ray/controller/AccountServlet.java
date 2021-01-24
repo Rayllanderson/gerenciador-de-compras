@@ -51,7 +51,7 @@ public class AccountServlet extends HttpServlet {
 		String miniatura = ArquivosUtil.createMiniatureBase64(request);
 		if (action.equals("editar")) {
 		    if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
-			if (!UserValidation.fieldsAreEmpty(name, username)) { // validando os campos
+			if (UserValidation.fieldsAreNotEmpty(name, username)) { // validando os campos
 			    redirect(request, response, 400, "Um ou mais campos estãos vazios");
 			} else {
 			    // verificando se modificou pra evitar requisição desnecessária
@@ -119,7 +119,8 @@ public class AccountServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	response.setStatus(codigo);
 	String tipo = null;
-	if (codigo >= 200 && codigo < 400) { // success
+	boolean sucess = codigo >= 200 && codigo < 400;
+	if (sucess) {
 	    tipo = "success";
 	    request.getSession().setAttribute("error", ""); // resetando o atributo error
 	} else { // fail
