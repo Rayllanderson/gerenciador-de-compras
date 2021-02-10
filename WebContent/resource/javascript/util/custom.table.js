@@ -17,6 +17,12 @@ function buttons() {
 }
 
 function createDropdown() {
+	const currentUrl = window.location.href;
+	const urlContainsAll = currentUrl.includes("all");
+	const listAllLink = urlContainsAll ? 'all-products?action=listar' : 'produtos?acao=listar';
+	const listPurchasedLink =  urlContainsAll ? 'all-products?action=comprados' : 'produtos?acao=comprados';
+	const listNotPurchasedLink =  urlContainsAll ? 'all-products?action=nao_comprados' : 'produtos?acao=nao_comprados';
+	
 	var drop = $('[name="btnFilter"]');
 	const div = '<div class="dropdown" id="dropdown"></div>'
 	$('.keep-open').after(div);
@@ -24,11 +30,11 @@ function createDropdown() {
 	dropdown.html(drop);
 	drop.attr('data-toggle', 'dropdown');
 	drop.after(`<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" id="teste" style="
-border-radius: 1rem;
-box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
-<a class="dropdown-item" type="button" onclick="listar('all-products?action=listar')">Todos os Produtos</a>
-<a class="dropdown-item" type="button" onclick="listar('all-products?action=comprados')">Produtos Comprados</a>
-<a class="dropdown-item" type="button" onclick="listar('all-products?action=nao_comprados')">Produtos Não Comprados</a>
+	border-radius: 1rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+	<a class="dropdown-item" type="button" onclick="listar('${listAllLink}')">Todos os Produtos</a>
+	<a class="dropdown-item" type="button" onclick="listar('${listPurchasedLink}')">Produtos Comprados</a>
+	<a class="dropdown-item" type="button" onclick="listar('${listNotPurchasedLink}')">Produtos Não Comprados</a>
 </div>`)
 }
 

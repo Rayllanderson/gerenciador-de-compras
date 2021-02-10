@@ -13,8 +13,7 @@ public class DB {
     public static Connection getConnection() {
 	try {
 	    if (conn == null || conn.isClosed()) {
-
-		String url = "jdbc:mysql://localhost:3306/gerenciador_compras?useTimezone=true&serverTimezone=UTC&autoReconnect=true";
+		String url = "jdbc:mysql://localhost:3306/gerenciador_compras?useTimezone=true&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false";
 		String user = "root";
 		String password = "12345";
 		Class.forName("com.mysql.cj.jdbc.Driver");
