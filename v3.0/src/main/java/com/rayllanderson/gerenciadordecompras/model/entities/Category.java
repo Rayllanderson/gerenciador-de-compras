@@ -28,4 +28,8 @@ public class Category {
 
     @ManyToOne
     private User user;
+
+    public Category(Long id) {
+        this.id = id;
+    }
 }
