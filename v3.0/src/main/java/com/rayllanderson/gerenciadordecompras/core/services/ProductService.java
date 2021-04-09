@@ -77,6 +77,16 @@ public class ProductService {
         });
     }
 
+    @Transactional
+    public void moveProductsToAnotherCategory(TransferProductRequestBody data){
+        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), data.getCurrentCategoryId());
+        products.forEach(product -> {
+            Product productToBeMoved = ProductMapper.createANewProduct(product);
+            productToBeMoved.setCategory(new Category(data.getNewCategoryId()));
+            productRepository.save(productToBeMoved);
+        });
+    }
+
     private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long currentCategoryId){
         return items.stream()
                 .map(req -> findById(req.getId(), currentCategoryId))

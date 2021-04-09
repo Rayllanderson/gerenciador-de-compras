@@ -66,9 +66,17 @@ public class ProductController {
     }
 
     @PostMapping("/copy")
-    public ResponseEntity<Void> copyProducts(@PathVariable Long categoryId, @RequestBody TransferProductRequestBody data){
+    public ResponseEntity<Void> copyProductsToAnotherCategory(@PathVariable Long categoryId, @RequestBody TransferProductRequestBody data){
         data.setCurrentCategoryId(categoryId);
         productService.copyProductsToAnotherCategory(data);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/move")
+    public ResponseEntity<Void> moveProductsToAnotherCategory(@PathVariable Long categoryId,
+                                                           @RequestBody TransferProductRequestBody data){
+        data.setCurrentCategoryId(categoryId);
+        productService.moveProductsToAnotherCategory(data);
         return ResponseEntity.noContent().build();
     }
 }
