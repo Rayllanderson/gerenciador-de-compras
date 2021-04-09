@@ -24,7 +24,7 @@ public class Category {
     private String name;
 
     @Size(max = 999999)
-    private BigDecimal estimate;
+    private BigDecimal estimation;
 
     @ManyToOne
     private User user;
