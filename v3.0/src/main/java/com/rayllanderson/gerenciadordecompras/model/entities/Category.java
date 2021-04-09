@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.entities;
+package com.rayllanderson.gerenciadordecompras.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Product {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,13 +24,8 @@ public class Product {
     private String name;
 
     @Size(max = 999999)
-    private BigDecimal stipulatedPrice;
-
-    @Size(max = 999999)
-    private BigDecimal spentPrice;
-
-    private Boolean purchased;
+    private BigDecimal estimation;
 
     @ManyToOne
-    private Category category;
+    private User user;
 }

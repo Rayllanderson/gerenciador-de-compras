@@ -1,7 +1,7 @@
-package com.rayllanderson.gerenciadordecompras.domain.repositories;
+package com.rayllanderson.gerenciadordecompras.model.repositories;
 
-import com.rayllanderson.gerenciadordecompras.domain.entities.Category;
-import com.rayllanderson.gerenciadordecompras.domain.entities.Product;
+import com.rayllanderson.gerenciadordecompras.model.entities.Category;
+import com.rayllanderson.gerenciadordecompras.model.entities.Product;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
 import org.assertj.core.api.Assertions;

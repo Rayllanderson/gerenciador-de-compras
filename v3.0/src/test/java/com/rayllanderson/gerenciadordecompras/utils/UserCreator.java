@@ -1,6 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
-import com.rayllanderson.gerenciadordecompras.domain.entities.User;
+import com.rayllanderson.gerenciadordecompras.model.entities.User;
 
 public class UserCreator {
 

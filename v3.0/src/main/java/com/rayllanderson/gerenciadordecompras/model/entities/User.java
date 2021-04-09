@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.entities;
+package com.rayllanderson.gerenciadordecompras.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,4 +38,7 @@ public class User {
     @Size(max = 100)
     private String name;
 
+    public User(Long id) {
+        this.id = id;
+    }
 }

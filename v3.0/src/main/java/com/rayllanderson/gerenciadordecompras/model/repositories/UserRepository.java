@@ -1,6 +1,6 @@
-package com.rayllanderson.gerenciadordecompras.domain.repositories;
+package com.rayllanderson.gerenciadordecompras.model.repositories;
 
-import com.rayllanderson.gerenciadordecompras.domain.entities.User;
+import com.rayllanderson.gerenciadordecompras.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

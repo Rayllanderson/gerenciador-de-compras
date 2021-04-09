@@ -1,9 +1,8 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
-import com.rayllanderson.gerenciadordecompras.domain.entities.Category;
-import com.rayllanderson.gerenciadordecompras.domain.entities.Product;
+import com.rayllanderson.gerenciadordecompras.model.entities.Category;
+import com.rayllanderson.gerenciadordecompras.model.entities.Product;
 
-import javax.persistence.Id;
 import java.math.BigDecimal;
 
 public class ProductCreator {

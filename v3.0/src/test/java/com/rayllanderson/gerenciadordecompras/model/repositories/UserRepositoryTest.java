@@ -1,6 +1,6 @@
-package com.rayllanderson.gerenciadordecompras.domain.repositories;
+package com.rayllanderson.gerenciadordecompras.model.repositories;
 
-import com.rayllanderson.gerenciadordecompras.domain.entities.User;
+import com.rayllanderson.gerenciadordecompras.model.entities.User;
 import com.rayllanderson.gerenciadordecompras.utils.UserCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
