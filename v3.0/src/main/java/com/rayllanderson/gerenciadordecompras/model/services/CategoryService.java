@@ -23,7 +23,7 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<Category> findAll(Long userId, Pageable pageable){
+    public Page<Category> findAllByUserId(Long userId, Pageable pageable){
         return categoryRepository.findAllByUserId(userId, pageable);
     }
 
@@ -40,11 +40,11 @@ public class CategoryService {
     }
 
     @Transactional
-    public Category update(CategoryPutRequestBody categoryPutRequestBody, Long userId){
+    public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId){
         Category categoryToBeUpdated = findById(categoryPutRequestBody.getId(), userId);
         UpdateData.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
         categoryToBeUpdated.setId(userId);
-        return categoryRepository.save(categoryToBeUpdated);
+        categoryRepository.save(categoryToBeUpdated);
     }
 
     @Transactional
