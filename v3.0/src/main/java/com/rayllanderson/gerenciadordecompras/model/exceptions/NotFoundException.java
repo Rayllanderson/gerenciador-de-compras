@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.exceptions;
+package com.rayllanderson.gerenciadordecompras.model.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

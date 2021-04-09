@@ -1,10 +1,11 @@
 package com.rayllanderson.gerenciadordecompras.model.services;
 
-import com.rayllanderson.gerenciadordecompras.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.model.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import com.rayllanderson.gerenciadordecompras.model.entities.User;
 import com.rayllanderson.gerenciadordecompras.model.repositories.CategoryRepository;
+import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryPostRequestBodyCreator;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryPutRequestBodyCreator;
@@ -69,7 +70,7 @@ class CategoryServiceTest {
         Category expectedCategory = CategoryCreator.createCategoryWithId();
         String expectedName = expectedCategory.getName();
 
-        Page<Category> categoryPage = categoryService.findAllByUserId(1L, PageRequest.of(1, 2));
+        Page<Category> categoryPage = categoryService.findAll(1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(categoryPage).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(categoryPage.toList().get(0).getName()).isEqualTo(expectedName);
@@ -82,7 +83,7 @@ class CategoryServiceTest {
         BDDMockito.when(categoryRepositoryMock.findAllByUserId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(Page.empty());
 
-        Page<Category> categoryPage = categoryService.findAllByUserId(1L, PageRequest.of(1, 2));
+        Page<Category> categoryPage = categoryService.findAll(1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(categoryPage).isNotNull().isEmpty();
     }
@@ -131,8 +132,8 @@ class CategoryServiceTest {
 
     @Test
     void save_ReturnsCategory_WhenSuccessful() {
-        Category category = categoryService.save(CategoryPostRequestBodyCreator.createCategoryPostRequestBody(), 1L);
-        Assertions.assertThat(category).isNotNull().isEqualTo(CategoryCreator.createCategoryWithId());
+        Assertions.assertThat(categoryService.save(CategoryPostRequestBodyCreator.createCategoryPostRequestBody(), 1L))
+                .isNotNull();
     }
 
 
@@ -158,7 +159,7 @@ class CategoryServiceTest {
 
     @Test
     void deleteSeveralById_RemovesSeveralCategories_WhenSuccessful() {
-        List<Long> ids = List.of(1L, 2L, 3L);
-        Assertions.assertThatCode(() -> categoryService.deleteSeveralById(ids, 1L)).doesNotThrowAnyException();
+        List<DeleteVariousRequestBody> ids = List.of(new DeleteVariousRequestBody(1L), new DeleteVariousRequestBody(2L));
+        Assertions.assertThatCode(() -> categoryService.deleteVariousById(ids, 1L)).doesNotThrowAnyException();
     }
 }

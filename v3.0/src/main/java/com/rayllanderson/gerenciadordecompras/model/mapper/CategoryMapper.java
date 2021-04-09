@@ -2,6 +2,7 @@ package com.rayllanderson.gerenciadordecompras.model.mapper;
 
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import org.modelmapper.ModelMapper;
 
@@ -21,5 +22,9 @@ public class CategoryMapper {
 
     public static CategoryPutRequestBody toCategoryPutRequestBody(Category category){
         return new ModelMapper().map(category, CategoryPutRequestBody.class);
+    }
+
+    public static CategoryPostResponseBody toCategoryPostResponseBody(Category category){
+        return new ModelMapper().map(category, CategoryPostResponseBody.class);
     }
 }

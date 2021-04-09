@@ -10,7 +10,7 @@ public class CategoryPutRequestBodyCreator {
         return CategoryPutRequestBody.builder()
                 .id(1L)
                 .name("Compras")
-                .estimation(new BigDecimal(100))
+                .budget(new BigDecimal(100))
                 .build();
     }
 }

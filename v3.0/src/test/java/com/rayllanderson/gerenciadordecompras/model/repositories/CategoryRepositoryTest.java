@@ -27,7 +27,7 @@ class CategoryRepositoryTest {
         Assertions.assertThat(categorySaved).isNotNull();
         Assertions.assertThat(categorySaved.getId()).isNotNull();
         Assertions.assertThat(categorySaved.getName()).isEqualTo(categoryToBeSaved.getName());
-        Assertions.assertThat(categorySaved.getEstimation()).isEqualTo(categoryToBeSaved.getEstimation());
+        Assertions.assertThat(categorySaved.getBudget()).isEqualTo(categoryToBeSaved.getBudget());
     }
 
     @Test
@@ -38,7 +38,7 @@ class CategoryRepositoryTest {
         Assertions.assertThat(categorySaved).isNotNull();
 
         categorySaved.setName("Compras");
-        categorySaved.setEstimation(new BigDecimal(50));
+        categorySaved.setBudget(new BigDecimal(50));
 
         Category categoryUpdated = categoryRepository.save(categorySaved);
 

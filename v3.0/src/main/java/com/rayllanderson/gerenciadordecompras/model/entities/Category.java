@@ -1,11 +1,13 @@
 package com.rayllanderson.gerenciadordecompras.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -23,9 +25,10 @@ public class Category {
     @Size(min = 1, max = 50)
     private String name;
 
-    @Size(max = 999999)
-    private BigDecimal estimation;
+    @DecimalMax("999999")
+    private BigDecimal budget;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 

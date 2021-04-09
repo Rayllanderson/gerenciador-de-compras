@@ -1,17 +1,13 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.entities.Category;
-import com.rayllanderson.gerenciadordecompras.model.entities.User;
-
-import java.math.BigDecimal;
 
 public class CategoryPostRequestBodyCreator {
 
     public static CategoryPostRequestBody createCategoryPostRequestBody(){
         return CategoryPostRequestBody.builder()
                 .name(CategoryCreator.createCategoryToBeSaved().getName())
-                .estimation(CategoryCreator.createCategoryToBeSaved().getEstimation())
+                .budget(CategoryCreator.createCategoryToBeSaved().getBudget())
                 .build();
     }
 
@@ -23,7 +19,7 @@ public class CategoryPostRequestBodyCreator {
     public static CategoryPostRequestBody createAnotherCategoryPostRequestBody(){
         return CategoryPostRequestBody.builder()
                 .name("Compras")
-                .estimation(CategoryCreator.createCategoryToBeSaved().getEstimation())
+                .budget(CategoryCreator.createCategoryToBeSaved().getBudget())
                 .build();
     }
 

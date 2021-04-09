@@ -1,7 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.model.services;
 
 
-import com.rayllanderson.gerenciadordecompras.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.model.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import com.rayllanderson.gerenciadordecompras.model.entities.Product;

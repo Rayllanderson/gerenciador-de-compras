@@ -14,6 +14,6 @@ import java.math.BigDecimal;
 public class CategoryPostRequestBody {
 
     private String name;
-    private BigDecimal estimation;
+    private BigDecimal budget;
 
 }

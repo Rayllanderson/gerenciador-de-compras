@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryPutRequestBody {
+public class CategoryPostResponseBody {
 
     private Long id;
     private String name;

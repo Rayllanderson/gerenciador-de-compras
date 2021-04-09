@@ -1,12 +1,14 @@
 package com.rayllanderson.gerenciadordecompras.model.services;
 
-import com.rayllanderson.gerenciadordecompras.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import com.rayllanderson.gerenciadordecompras.model.entities.User;
+import com.rayllanderson.gerenciadordecompras.model.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.mapper.CategoryMapper;
 import com.rayllanderson.gerenciadordecompras.model.repositories.CategoryRepository;
+import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.services.utils.UpdateData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,42 +25,48 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<Category> findAllByUserId(Long userId, Pageable pageable){
+    public Page<Category> findAll(Long userId, Pageable pageable) {
         return categoryRepository.findAllByUserId(userId, pageable);
     }
 
     @Transactional
-    public Category save(CategoryPostRequestBody categoryPostRequestBody, Long userId){
+    public CategoryPostResponseBody save(CategoryPostRequestBody categoryPostRequestBody, Long userId) {
         Category categoryToBeSaved = CategoryMapper.toCategory(categoryPostRequestBody);
         categoryToBeSaved.setUser(new User(userId));
-        return categoryRepository.save(categoryToBeSaved);
+        return CategoryMapper.toCategoryPostResponseBody(categoryRepository.save(categoryToBeSaved));
     }
 
     @Transactional(readOnly = true)
-    public Category findById(Long id, Long userId) throws NotFoundException{
+    public Category findById(Long id, Long userId) throws NotFoundException {
         return categoryRepository.findByIdAndUserId(id, userId).orElseThrow(() -> new NotFoundException("Categoria não encontrada."));
     }
 
     @Transactional
-    public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId){
+    public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId) {
         Category categoryToBeUpdated = findById(categoryPutRequestBody.getId(), userId);
         UpdateData.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
-        categoryToBeUpdated.setId(userId);
         categoryRepository.save(categoryToBeUpdated);
     }
 
     @Transactional
-    public void deleteById(Long id, Long userId){
+    public void deleteById(Long id, Long userId) {
         findById(id, userId);
         categoryRepository.deleteById(id);
     }
 
-    public void deleteSeveralById(List<Long>categoriesIds, Long userId){
-        categoriesIds.forEach(id -> deleteById(id, userId));
+    public void deleteVariousById(List<DeleteVariousRequestBody> categoriesIds, Long userId) {
+        if (categoriesIds.isEmpty()) {
+            return;
+        }
+        categoriesIds.forEach(request -> deleteById(request.getId(), userId));
     }
 
     @Transactional(readOnly = true)
-    public Page<Category> findByName(String search, Long userId, Pageable pageable){
+    public Page<Category> findByName(String search, Long userId, Pageable pageable) {
+        boolean searchIsEmpty = search != null && (search.isEmpty() || search.trim().isEmpty());
+        if (searchIsEmpty) {
+            return Page.empty();
+        }
         return categoryRepository.findByNameIgnoreCaseContainingAndUserId(search, userId, pageable);
     }
 

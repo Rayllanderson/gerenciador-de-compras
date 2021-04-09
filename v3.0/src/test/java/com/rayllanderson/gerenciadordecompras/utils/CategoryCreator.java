@@ -11,7 +11,7 @@ public class CategoryCreator {
         User user = UserCreator.createAValidUser();
         return Category.builder()
                 .name("Pc")
-                .estimation(new BigDecimal(500))
+                .budget(new BigDecimal(500))
                 .user(user)
                 .build();
     }
@@ -25,7 +25,7 @@ public class CategoryCreator {
         User user = UserCreator.createAValidUser();
         return Category.builder()
                 .name("Compras")
-                .estimation(new BigDecimal(500))
+                .budget(new BigDecimal(500))
                 .user(user)
                 .build();
     }
@@ -38,7 +38,7 @@ public class CategoryCreator {
         return Category.builder()
                 .id(1L)
                 .name("Pc")
-                .estimation(new BigDecimal(500))
+                .budget(new BigDecimal(500))
                 .user(user)
                 .build();
     }
@@ -48,7 +48,7 @@ public class CategoryCreator {
         return Category.builder()
                 .id(1L)
                 .name("Compras")
-                .estimation(new BigDecimal(100))
+                .budget(new BigDecimal(100))
                 .user(user)
                 .build();
     }
