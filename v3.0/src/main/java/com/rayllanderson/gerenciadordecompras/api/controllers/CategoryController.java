@@ -1,11 +1,11 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.model.entities.Category;
-import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.services.CategoryService;
+import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.model.Category;
+import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,7 +53,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteVarious(@RequestBody List<DeleteVariousRequestBody> ids){
+    public ResponseEntity<Void> deleteVarious(@RequestBody List<SelectItemsRequestBody> ids){
         categoryService.deleteVariousById(ids, userId);
         return ResponseEntity.noContent().build();
     }

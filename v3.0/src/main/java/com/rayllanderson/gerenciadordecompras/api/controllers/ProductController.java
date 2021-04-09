@@ -1,11 +1,12 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.entities.Product;
-import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
-import com.rayllanderson.gerenciadordecompras.model.services.ProductService;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.model.Product;
+import com.rayllanderson.gerenciadordecompras.core.requests.TransferProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,50 +18,57 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/v1/categories/{categoryId}/products")
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService service;
-
-    private final Long categoryId = 2L;
+    private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(categoryId, pageable));
+    public ResponseEntity<Page<Product>> findAll(@PathVariable Long categoryId, Pageable pageable) {
+        return ResponseEntity.ok(productService.findAll(categoryId, pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
-        return ResponseEntity.ok(service.findById(id, categoryId));
+    public ResponseEntity<Product> findById(@PathVariable Long categoryId, @PathVariable Long id){
+        return ResponseEntity.ok(productService.findById(id, categoryId));
     }
 
     @PostMapping
-    public ResponseEntity<ProductPostResponseBody> save(@RequestBody ProductPostRequestBody productPostRequestBody){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productPostRequestBody, categoryId));
+    public ResponseEntity<ProductPostResponseBody> save(@PathVariable Long categoryId,
+                                                        @RequestBody ProductPostRequestBody productPostRequestBody){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, categoryId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody ProductPutRequestBody productPutRequestBody){
+    public ResponseEntity<Void> update(@PathVariable Long categoryId, @PathVariable Long id,
+                                       @RequestBody ProductPutRequestBody productPutRequestBody){
         productPutRequestBody.setId(id);
-        service.update(productPutRequestBody, categoryId);
+        productService.update(productPutRequestBody, categoryId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        service.deleteById(id, categoryId);
+    public ResponseEntity<Void> delete(@PathVariable Long categoryId, @PathVariable Long id){
+        productService.deleteById(id, categoryId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteVarious(@RequestBody List<DeleteVariousRequestBody> ids){
-        service.deleteVariousById(ids, categoryId);
+    public ResponseEntity<Void> deleteVarious(@PathVariable Long categoryId, @RequestBody List<SelectItemsRequestBody> ids){
+        productService.deleteVariousById(ids, categoryId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Product>> findByName(@RequestParam String name, Pageable pageable){
-        return ResponseEntity.ok(service.findByName(name, categoryId, pageable));
+    public ResponseEntity<Page<Product>> findByName(@PathVariable Long categoryId, @RequestParam String name, Pageable pageable){
+        return ResponseEntity.ok(productService.findByName(name, categoryId, pageable));
+    }
+
+    @PostMapping("/copy")
+    public ResponseEntity<Void> copyProducts(@PathVariable Long categoryId, @RequestBody TransferProductRequestBody data){
+        data.setCurrentCategoryId(categoryId);
+        productService.copyProductsToAnotherCategory(data);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,7 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
-import com.rayllanderson.gerenciadordecompras.model.entities.Category;
-import com.rayllanderson.gerenciadordecompras.model.entities.User;
+import com.rayllanderson.gerenciadordecompras.core.model.Category;
+import com.rayllanderson.gerenciadordecompras.core.model.User;
 
 import java.math.BigDecimal;
 
@@ -39,6 +39,16 @@ public class CategoryCreator {
                 .id(1L)
                 .name("Pc")
                 .budget(new BigDecimal(500))
+                .user(user)
+                .build();
+    }
+
+    public static Category createAnotherCategoryWithId(){
+        User user = UserCreator.createAValidUser();
+        return Category.builder()
+                .id(2L)
+                .name("Compras")
+                .budget(new BigDecimal(50))
                 .user(user)
                 .build();
     }

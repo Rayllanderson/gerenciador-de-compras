@@ -12,7 +12,7 @@
     <artifactId>gerenciadordecompras</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Gerenciador de compras</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Gerenciador de compras - versão 3.0</description>
     <properties>
         <java.version>11</java.version>
     </properties>
