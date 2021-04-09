@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 
 public class ProductCreator {
 
-    public static Product createProductToBeSaved(Category category){
+    public static Product createProductToBeSaved(){
+        Category category = CategoryCreator.createCategoryWithId();
         return Product.builder().
                 name("Gabinete")
                 .category(category)
@@ -17,7 +18,8 @@ public class ProductCreator {
                 .build();
     }
 
-    public static Product createProductWithId(Category category){
+    public static Product createProductWithId(){
+        Category category = CategoryCreator.createCategoryWithId();
         return Product.builder()
                 .id(1L)
                 .name("Gabinete")
@@ -28,7 +30,8 @@ public class ProductCreator {
                 .build();
     }
 
-    public static Product createProductToBeUpdated(Category category){
+    public static Product createProductToBeUpdated(){
+        Category category = CategoryCreator.createCategoryWithId();
         return Product.builder()
                 .id(1L)
                 .name("Placa de vídeo")

@@ -24,10 +24,9 @@ class ProductRepositoryTest {
 
     @Test
     void save_PersistProduct_WhenSuccessful() {
-        Category category = CategoryCreator.createCategoryToBeSaved();
-        category = categoryRepository.save(category);
+        Category category = CategoryCreator.createCategoryWithId();
 
-        Product productToBeSaved = ProductCreator.createProductToBeSaved(category);
+        Product productToBeSaved = ProductCreator.createProductToBeSaved();
         Product productSaved = productRepository.save(productToBeSaved);
 
         Assertions.assertThat(productSaved).isNotNull();
@@ -38,10 +37,9 @@ class ProductRepositoryTest {
 
     @Test
     void save_UpdatesProduct_WhenSuccessful() {
-        Category category = CategoryCreator.createCategoryToBeSaved();
-        category = categoryRepository.save(category);
+        Category category = CategoryCreator.createCategoryWithId();
 
-        Product productToBeSaved = ProductCreator.createProductToBeSaved(category);
+        Product productToBeSaved = ProductCreator.createProductToBeSaved();
         Product productSaved = productRepository.save(productToBeSaved);
 
         Assertions.assertThat(productSaved).isNotNull();
@@ -61,10 +59,7 @@ class ProductRepositoryTest {
 
     @Test
     void delete_RemovesProduct_WhenSuccessful() {
-        Category category = CategoryCreator.createCategoryToBeSaved();
-        category = categoryRepository.save(category);
-
-        Product productToBeSaved = ProductCreator.createProductToBeSaved(category);
+        Product productToBeSaved = ProductCreator.createProductToBeSaved();
         Product productSaved = productRepository.save(productToBeSaved);
 
         productRepository.delete(productSaved);
