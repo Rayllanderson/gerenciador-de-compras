@@ -1,6 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.model.mapper;
 
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Product;
 import org.modelmapper.ModelMapper;
@@ -11,15 +12,19 @@ public class ProductMapper {
         return new ModelMapper().map(productPostRequestBody, Product.class);
     }
 
-    public static Product toProduct(ProductPutRequestBody categoryPutRequestBody){
-        return new ModelMapper().map(categoryPutRequestBody, Product.class);
+    public static Product toProduct(ProductPutRequestBody productPutRequestBody){
+        return new ModelMapper().map(productPutRequestBody, Product.class);
     }
 
-    public static ProductPostRequestBody toProductPostRequestBody(Product category){
-        return new ModelMapper().map(category, ProductPostRequestBody.class);
+    public static ProductPostRequestBody toProductPostRequestBody(Product product){
+        return new ModelMapper().map(product, ProductPostRequestBody.class);
     }
 
-    public static ProductPutRequestBody toProductPutRequestBody(Product category){
-        return new ModelMapper().map(category, ProductPutRequestBody.class);
+    public static ProductPutRequestBody toProductPutRequestBody(Product product){
+        return new ModelMapper().map(product, ProductPutRequestBody.class);
+    }
+
+    public static ProductPostResponseBody toProductPostResponseBody(Product product){
+        return new ModelMapper().map(product, ProductPostResponseBody.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.model.services;
 
+import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.model.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPutRequestBody;
@@ -7,6 +8,7 @@ import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import com.rayllanderson.gerenciadordecompras.model.entities.Product;
 import com.rayllanderson.gerenciadordecompras.model.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.model.repositories.ProductRepository;
+import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.services.utils.UpdateData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,10 +30,10 @@ public class ProductService {
     }
 
     @Transactional
-    public Product save(ProductPostRequestBody productPostRequestBody, Long categoryId){
+    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId){
         Product product = ProductMapper.toProduct(productPostRequestBody);
         product.setCategory(new Category(categoryId));
-        return productRepository.save(product);
+        return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
 
     @Transactional(readOnly = true)
@@ -53,8 +55,8 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public void deleteSeveralById(List<Long> productsIds, Long categoryId){
-        productsIds.forEach(id -> this.deleteById(id, categoryId));
+    public void deleteVariousById(List<DeleteVariousRequestBody> productsIds, Long categoryId){
+        productsIds.forEach(req -> this.deleteById(req.getId(), categoryId));
     }
 
     @Transactional(readOnly = true)

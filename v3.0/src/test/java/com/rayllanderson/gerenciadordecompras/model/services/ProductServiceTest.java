@@ -1,11 +1,13 @@
 package com.rayllanderson.gerenciadordecompras.model.services;
 
 
+import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.model.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.model.dtos.product.ProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.model.entities.Category;
 import com.rayllanderson.gerenciadordecompras.model.entities.Product;
 import com.rayllanderson.gerenciadordecompras.model.repositories.ProductRepository;
+import com.rayllanderson.gerenciadordecompras.model.requests.DeleteVariousRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductPostRequestBodyCreator;
@@ -134,8 +136,10 @@ class ProductServiceTest {
 
     @Test
     void save_ReturnsProduct_WhenSuccessful() {
-        Product product = productService.save(ProductPostRequestBodyCreator.createProductPostRequestBody(), 1L);
-        Assertions.assertThat(product).isNotNull().isEqualTo(ProductCreator.createProductWithId());
+        ProductPostResponseBody product = productService.save(ProductPostRequestBodyCreator.createProductPostRequestBody(), 1L);
+        Assertions.assertThat(product).isNotNull();
+        Assertions.assertThat(product.getId()).isNotNull();
+
     }
 
 
@@ -161,8 +165,8 @@ class ProductServiceTest {
 
     @Test
     void deleteSeveralById_RemovesSeveralCategories_WhenSuccessful() {
-        List<Long> ids = List.of(1L, 2L, 3L);
-        Assertions.assertThatCode(() -> productService.deleteSeveralById(ids, 1L)).doesNotThrowAnyException();
+        List<DeleteVariousRequestBody> ids = List.of(new DeleteVariousRequestBody(1L), new DeleteVariousRequestBody(2L));
+        Assertions.assertThatCode(() -> productService.deleteVariousById(ids, 1L)).doesNotThrowAnyException();
     }
 
 }

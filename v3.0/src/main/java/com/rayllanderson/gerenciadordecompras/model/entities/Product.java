@@ -1,5 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Product {
 
     private Boolean purchased;
 
+    @JsonIgnore
     @ManyToOne
     private Category category;
 }
