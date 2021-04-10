@@ -31,6 +31,11 @@ public class ProductService {
         return productRepository.findAllByCategoryId(categoryId, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public List<Product> findAllNonPageable(Long categoryId){
+        return productRepository.findAllByCategoryId(categoryId);
+    }
+
     @Transactional
     public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId){
         Product product = ProductMapper.toProduct(productPostRequestBody);

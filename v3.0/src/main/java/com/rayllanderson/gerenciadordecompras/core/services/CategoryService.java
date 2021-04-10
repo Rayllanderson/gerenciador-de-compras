@@ -9,6 +9,8 @@ import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.core.mapper.CategoryMapper;
 import com.rayllanderson.gerenciadordecompras.core.repositories.CategoryRepository;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.TransferCategoryRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.services.utils.UpdateData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,6 +26,7 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductService productService;
 
     @Transactional(readOnly = true)
     public Page<Category> findAll(Long userId, Pageable pageable) {
@@ -68,6 +72,29 @@ public class CategoryService {
             return Page.empty();
         }
         return categoryRepository.findByNameIgnoreCaseContainingAndUserId(search, userId, pageable);
+    }
+
+    @Transactional
+    public void duplicateCategory(TransferCategoryRequestBody transferCategoryRequestBody, Long userId){
+        Long originalCategoryId = transferCategoryRequestBody.getId();
+        Category originalCategory = findById(originalCategoryId, userId);
+        Category duplicatedCategory = CategoryMapper.createCategoryToBeDuplicated(originalCategory);
+        duplicatedCategory.setName(transferCategoryRequestBody.getNewName());
+        duplicatedCategory = categoryRepository.save(duplicatedCategory);
+
+        TransferProductRequestBody transferProductRequest = TransferProductRequestBody.builder()
+                .currentCategoryId(originalCategoryId)
+                .selectItems(getSelectItemsFromCategory(originalCategory))
+                .newCategoryId(duplicatedCategory.getId())
+                .build();
+        productService.copyProductsToAnotherCategory(transferProductRequest);
+    }
+
+    private List<SelectItemsRequestBody> getSelectItemsFromCategory(Category category){
+        List<SelectItemsRequestBody> selectItems = new ArrayList<>();
+        productService.findAllNonPageable(category.getId())
+                .forEach(product -> selectItems.add(new SelectItemsRequestBody(product.getId())));
+        return selectItems;
     }
 
 }

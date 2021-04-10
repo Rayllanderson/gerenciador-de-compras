@@ -185,4 +185,19 @@ class ProductServiceTest {
         Assertions.assertThatCode(() -> productService.copyProductsToAnotherCategory(data)).doesNotThrowAnyException();
     }
 
+    @Test
+    void moveProductsToAnotherCategory_WhenSuccessful(){
+        Product productToBeCopied = ProductCreator.createProductWithId();
+        Long productId = productToBeCopied.getId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
+        Long newCategoryId = CategoryCreator.createAnotherCategoryWithId().getId();
+        TransferProductRequestBody data = TransferProductRequestBody
+                .builder()
+                .currentCategoryId(currentCategoryId)
+                .newCategoryId(newCategoryId)
+                .selectItems(List.of(new SelectItemsRequestBody(productId)))
+                .build();
+        Assertions.assertThatCode(() -> productService.moveProductsToAnotherCategory(data)).doesNotThrowAnyException();
+    }
+
 }

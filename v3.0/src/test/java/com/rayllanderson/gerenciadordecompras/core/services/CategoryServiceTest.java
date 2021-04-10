@@ -5,11 +5,10 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostReq
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.User;
 import com.rayllanderson.gerenciadordecompras.core.repositories.CategoryRepository;
+import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
-import com.rayllanderson.gerenciadordecompras.utils.CategoryPostRequestBodyCreator;
-import com.rayllanderson.gerenciadordecompras.utils.CategoryPutRequestBodyCreator;
-import com.rayllanderson.gerenciadordecompras.utils.UserCreator;
+import com.rayllanderson.gerenciadordecompras.core.requests.TransferCategoryRequestBody;
+import com.rayllanderson.gerenciadordecompras.utils.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +37,9 @@ class CategoryServiceTest {
 
     @Mock
     private CategoryRepository categoryRepositoryMock;
+
+    @Mock
+    private ProductService productServiceMock;
 
     @BeforeEach
     void setUp() {
@@ -158,8 +160,23 @@ class CategoryServiceTest {
     }
 
     @Test
-    void deleteSeveralById_RemovesSeveralCategories_WhenSuccessful() {
+    void deleteMultiplesById_RemovesSeveralCategories_WhenSuccessful() {
         List<SelectItemsRequestBody> ids = List.of(new SelectItemsRequestBody(1L), new SelectItemsRequestBody(2L));
         Assertions.assertThatCode(() -> categoryService.deleteVariousById(ids, 1L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void duplicateCategory_WhenSuccessful(){
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
+                .thenReturn(List.of(ProductCreator.createProductWithId()));
+
+        Long originalCategoryId = CategoryCreator.createCategoryWithId().getId();
+        String newName = CategoryCreator.createAnotherCategoryWithId().getName();
+        TransferCategoryRequestBody data = TransferCategoryRequestBody
+                .builder()
+                .id(originalCategoryId)
+                .newName(newName)
+                .build();
+        Assertions.assertThatCode(() -> categoryService.duplicateCategory(data, 1L)).doesNotThrowAnyException();
     }
 }

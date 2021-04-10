@@ -27,4 +27,13 @@ public class CategoryMapper {
     public static CategoryPostResponseBody toCategoryPostResponseBody(Category category){
         return new ModelMapper().map(category, CategoryPostResponseBody.class);
     }
+
+    public static Category createCategoryToBeDuplicated(Category category){
+        Category categoryToBeDuplicated = new Category();
+        categoryToBeDuplicated.setId(null);
+        categoryToBeDuplicated.setName(category.getName());
+        categoryToBeDuplicated.setBudget(category.getBudget());
+        categoryToBeDuplicated.setUser(category.getUser());
+        return categoryToBeDuplicated;
+    }
 }
