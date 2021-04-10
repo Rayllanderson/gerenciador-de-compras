@@ -1,8 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.core.services;
 
-import com.rayllanderson.gerenciadordecompras.core.repositories.CategoryRepository;
-import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
-import com.rayllanderson.gerenciadordecompras.core.requests.StatisticsResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
 import org.assertj.core.api.Assertions;
@@ -16,8 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("Tests for StatisticService")
@@ -27,36 +26,51 @@ class StatisticServiceTest {
     private StatisticService statisticService;
 
     @Mock
-    private ProductRepository productRepositoryMock;
+    private ProductService productServiceMock;
 
     @Mock
-    private CategoryRepository categoryRepositoryMock;
+    private CategoryService categoryServiceMock;
 
     @BeforeEach
     void setUp() {
 
         //CATEGORY - findById
-        BDDMockito.when(categoryRepositoryMock.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.of(CategoryCreator.createCategoryWithId()));
+        BDDMockito.when(categoryServiceMock.findById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+                .thenReturn(CategoryCreator.createCategoryWithId());
 
         //PRODUCT - findAll
-        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong()))
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(ProductCreator.createProductWithId()));
     }
 
     @Test
     void getStatistic_ReturnsStatisticsDataFromCategory_WhenSuccessful(){
-        StatisticsResponseBody statistics = statisticService.getStatistics(2L);
+        StatisticResponseBody statistics = statisticService.getStatistics(1L, 2L);
         Assertions.assertThat(statistics).isNotNull();
         Assertions.assertThat(statistics.isCompleted()).isTrue();
     }
 
     @Test
-    void getStatistic_ReturnsNull_WhenCategoryIsNotFound(){
-        BDDMockito.when(categoryRepositoryMock.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.empty());
+    void getStatistic_ThrowNotFoundException_WhenCategoryIsNotFound(){
+        BDDMockito.when(categoryServiceMock.findById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+                .thenThrow(new NotFoundException());
 
-        StatisticsResponseBody statistics = statisticService.getStatistics(2L);
+        Assertions.assertThatThrownBy(() -> statisticService.getStatistics(2L, 3L))
+                .isInstanceOf(NotFoundException.class);
+    }
+
+    @Test
+    void getStatistic_ReturnsStatisticsDataFromAllCategories_WhenSuccessful(){
+        StatisticResponseBody statistics = statisticService.getStatistics(1L, 2L);
+        Assertions.assertThat(statistics).isNotNull();
+        Assertions.assertThat(statistics.getNumberOfProducts()).isEqualTo(1);
+    }
+
+    @Test
+    void getStatistic_ReturnsNull_WhenUserDoesNotHasACategory(){
+        BDDMockito.when(categoryServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
+                .thenReturn(Collections.emptyList());
+        StatisticResponseBody statistics = statisticService.getStatistics(2L);
         Assertions.assertThat(statistics).isNull();
     }
 

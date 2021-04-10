@@ -14,32 +14,32 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StatisticsResponseBody {
+public class StatisticResponseBody {
 
     private boolean completed;
-    private Integer numberOfProducts;
-    private Integer numberOfProductsPurchased;
-    private Integer numberOfProductsNotPurchased;
-    private BigDecimal totalStipulated;
-    private BigDecimal categoryBudget;
+    private Integer numberOfProducts = 0;
+    private Integer numberOfProductsPurchased = 0;
+    private Integer numberOfProductsNotPurchased = 0;
+    private BigDecimal totalStipulated = BigDecimal.ZERO;
+    private BigDecimal categoryBudget  = BigDecimal.ZERO;
 
     /**
      * Soma dos valores gastos até o momento.
      */
-    private BigDecimal currentAmountToSpent;
+    private BigDecimal currentAmountToSpent = BigDecimal.ZERO;
 
     /**
      * Soma dos valores gastos com os valores estipulados. Ou seja, se um produto foi comprado, considera o valor gasto, senão,
      * considera o valor estipulado.
      */
-    private BigDecimal currentAmountTotal;
+    private BigDecimal currentAmountTotal = BigDecimal.ZERO;
 
     /**
      * Soma dos valores estipulados dos produtos que não foram comprados
      */
-    private BigDecimal currentAmountStipulated;
-    private BigDecimal amountSaved;
-    private BigDecimal availableToSpend;
-    private BigDecimal availableToSpendIfBuyAll;
+    private BigDecimal currentAmountStipulated = BigDecimal.ZERO;
+    private BigDecimal amountSaved = BigDecimal.ZERO;
+    private BigDecimal availableToSpend = BigDecimal.ZERO;
+    private BigDecimal availableToSpendIfBuyAll = BigDecimal.ZERO;
 
 }

@@ -4,7 +4,7 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostReque
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
-import com.rayllanderson.gerenciadordecompras.core.requests.StatisticsResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.services.ProductService;
@@ -84,7 +84,8 @@ public class ProductController {
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<StatisticsResponseBody> getStatistics(@PathVariable Long categoryId){
-        return ResponseEntity.ok(statisticService.getStatistics(categoryId));
+    public ResponseEntity<StatisticResponseBody> getStatistics(@PathVariable Long categoryId){
+        Long userId = 1L;
+        return ResponseEntity.ok(statisticService.getStatistics(categoryId, userId));
     }
 }

@@ -33,6 +33,11 @@ public class CategoryService {
         return categoryRepository.findAllByUserId(userId, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public List<Category> findAllNonPageable(Long userId) {
+        return categoryRepository.findAllByUserId(userId);
+    }
+
     @Transactional
     public CategoryPostResponseBody save(CategoryPostRequestBody categoryPostRequestBody, Long userId) {
         Category categoryToBeSaved = CategoryMapper.toCategory(categoryPostRequestBody);
