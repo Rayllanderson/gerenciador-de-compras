@@ -47,9 +47,13 @@ class ProductServiceTest {
 
         PageImpl<Product> productPage = new PageImpl<>(List.of(ProductCreator.createProductWithId()));
 
-        //findAll
+        //findAll PAGE
         BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(productPage);
+
+        //findAll LIST
+        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong()))
+                .thenReturn(List.of(ProductCreator.createProductWithId()));
 
         //findById
         BDDMockito.when(productRepositoryMock.findByIdAndCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
@@ -200,4 +204,32 @@ class ProductServiceTest {
         Assertions.assertThatCode(() -> productService.moveProductsToAnotherCategory(data)).doesNotThrowAnyException();
     }
 
+    @Test
+    void findPurchased_ReturnsProductPurchased_WhenSuccessful() {
+        Category expectedCategory = CategoryCreator.createCategoryWithId();
+        Product expectedProduct = ProductCreator.createProductWithId();
+
+        Page<Product> productPage = productService.findPurchased(1L, PageRequest.of(1, 2));
+
+        Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
+        Assertions.assertThat(productPage.toList().get(0).getPurchased()).isEqualTo(true);
+        Assertions.assertThat(productPage.toList()).contains(expectedProduct);
+        Assertions.assertThat(productPage.toList().get(0).getCategory()).isEqualTo(expectedCategory);
+    }
+
+    @Test
+    void findNotPurchased_ReturnsProductPurchased_WhenSuccessful() {
+        Category expectedCategory = CategoryCreator.createCategoryWithId();
+        Product expectedProduct = ProductCreator.createANonPurchasedProductWithId();
+
+        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong()))
+                .thenReturn(List.of(expectedProduct));
+
+        Page<Product> productPage = productService.findNotPurchased(1L, PageRequest.of(1, 2));
+
+        Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
+        Assertions.assertThat(productPage.toList().get(0).getPurchased()).isEqualTo(false);
+        Assertions.assertThat(productPage.toList()).contains(expectedProduct);
+        Assertions.assertThat(productPage.toList().get(0).getCategory()).isEqualTo(expectedCategory);
+    }
 }

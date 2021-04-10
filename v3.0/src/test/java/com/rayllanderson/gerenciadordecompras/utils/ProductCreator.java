@@ -30,6 +30,18 @@ public class ProductCreator {
                 .build();
     }
 
+    public static Product createANonPurchasedProductWithId(){
+        Category category = CategoryCreator.createCategoryWithId();
+        return Product.builder()
+                .id(1L)
+                .name("Gabinete")
+                .category(category)
+                .purchased(false)
+                .spentPrice(new BigDecimal("399.95"))
+                .stipulatedPrice(new BigDecimal("599.85"))
+                .build();
+    }
+
     public static Product createProductToBeUpdated(){
         Category category = CategoryCreator.createCategoryWithId();
         return Product.builder()
