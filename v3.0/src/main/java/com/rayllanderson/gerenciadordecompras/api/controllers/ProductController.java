@@ -4,9 +4,11 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostReque
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
-import com.rayllanderson.gerenciadordecompras.core.requests.TransferProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.StatisticsResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.services.ProductService;
+import com.rayllanderson.gerenciadordecompras.core.services.StatisticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final StatisticService statisticService;
 
     @GetMapping
     public ResponseEntity<Page<Product>> findAll(@PathVariable Long categoryId, Pageable pageable) {
@@ -78,5 +81,10 @@ public class ProductController {
         data.setCurrentCategoryId(categoryId);
         productService.moveProductsToAnotherCategory(data);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<StatisticsResponseBody> getStatistics(@PathVariable Long categoryId){
+        return ResponseEntity.ok(statisticService.getStatistics(categoryId));
     }
 }

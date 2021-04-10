@@ -5,7 +5,7 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostRes
 import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.TransferCategoryRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -7,7 +7,7 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostReque
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
 import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
-import com.rayllanderson.gerenciadordecompras.core.requests.TransferProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
@@ -187,8 +187,8 @@ class ProductServiceTest {
 
     @Test
     void moveProductsToAnotherCategory_WhenSuccessful(){
-        Product productToBeCopied = ProductCreator.createProductWithId();
-        Long productId = productToBeCopied.getId();
+        Product productToBeMoved = ProductCreator.createProductWithId();
+        Long productId = productToBeMoved.getId();
         Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         Long newCategoryId = CategoryCreator.createAnotherCategoryWithId().getId();
         TransferProductRequestBody data = TransferProductRequestBody

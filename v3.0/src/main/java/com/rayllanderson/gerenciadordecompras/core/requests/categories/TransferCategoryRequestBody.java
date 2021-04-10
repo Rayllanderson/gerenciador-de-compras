@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.core.requests;
+package com.rayllanderson.gerenciadordecompras.core.requests.categories;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

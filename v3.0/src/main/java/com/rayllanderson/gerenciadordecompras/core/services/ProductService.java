@@ -1,15 +1,15 @@
 package com.rayllanderson.gerenciadordecompras.core.services;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
-import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
-import com.rayllanderson.gerenciadordecompras.core.requests.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.services.utils.UpdateData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

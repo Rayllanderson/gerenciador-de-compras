@@ -5,9 +5,8 @@ import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostReq
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.User;
 import com.rayllanderson.gerenciadordecompras.core.repositories.CategoryRepository;
-import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.TransferCategoryRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

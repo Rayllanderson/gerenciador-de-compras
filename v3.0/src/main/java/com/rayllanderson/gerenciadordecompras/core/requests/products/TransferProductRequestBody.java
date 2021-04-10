@@ -1,5 +1,6 @@
-package com.rayllanderson.gerenciadordecompras.core.requests;
+package com.rayllanderson.gerenciadordecompras.core.requests.products;
 
+import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
