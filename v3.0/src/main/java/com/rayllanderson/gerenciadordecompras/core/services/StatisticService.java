@@ -28,7 +28,7 @@ public class StatisticService {
     @Transactional(readOnly = true)
     public StatisticResponseBody getStatistics(Long categoryId, Long userId) {
         Category category = categoryService.findById(categoryId, userId);
-        List<Product> allProductsFromCategory = productService.findAllNonPageable(categoryId);
+        List<Product> allProductsFromCategory = productService.findAllNonPageable(category);
         // recuperando valores
 
         BigDecimal currentAmountToSpent = StatisticUtil.getCurrentAmountToSpent(allProductsFromCategory);

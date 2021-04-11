@@ -1,6 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.core.services;
 
 import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
@@ -39,7 +40,7 @@ class StatisticServiceTest {
                 .thenReturn(CategoryCreator.createCategoryWithId());
 
         //PRODUCT - findAll
-        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
                 .thenReturn(List.of(ProductCreator.createProductWithId()));
     }
 

@@ -28,6 +28,10 @@ public class CategoryMapper {
         return new ModelMapper().map(category, CategoryPostResponseBody.class);
     }
 
+    /**
+     * Cria uma categoria - não manipulada pelo hibernate - com os mesmo atributos, porém, com ID null
+     * @return Categoria com os mesmos atributos com ID NULL
+     */
     public static Category createCategoryToBeDuplicated(Category category){
         Category categoryToBeDuplicated = new Category();
         categoryToBeDuplicated.setId(null);

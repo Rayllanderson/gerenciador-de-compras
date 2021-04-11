@@ -166,7 +166,7 @@ class CategoryServiceTest {
 
     @Test
     void duplicateCategory_WhenSuccessful(){
-        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
                 .thenReturn(List.of(ProductCreator.createProductWithId()));
 
         Long originalCategoryId = CategoryCreator.createCategoryWithId().getId();

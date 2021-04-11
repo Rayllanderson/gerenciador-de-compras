@@ -28,21 +28,21 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional(readOnly = true)
-    public Page<Product> findAll(Long categoryId, Pageable pageable){
-        return productRepository.findAllByCategoryId(categoryId, pageable);
+    public Page<Product> findAll(Category category, Pageable pageable){
+        return productRepository.findAllByCategoryId(category.getId(), pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findPurchased(Long categoryId, Pageable pageable){
+    public Page<Product> findPurchased(Category category, Pageable pageable){
         List<Product> purchasedProducts =
-                productRepository.findAllByCategoryId(categoryId).stream().filter(Product::getPurchased).collect(Collectors.toList());
+                productRepository.findAllByCategoryId(category.getId()).stream().filter(Product::getPurchased).collect(Collectors.toList());
         return new PageImpl<>(purchasedProducts, pageable, purchasedProducts.size());
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findNotPurchased(Long categoryId, Pageable pageable){
+    public Page<Product> findNotPurchased(Category category, Pageable pageable){
         List<Product> productsNotPurchased =
-                productRepository.findAllByCategoryId(categoryId)
+                productRepository.findAllByCategoryId(category.getId())
                         .stream()
                         .filter(product -> !product.getPurchased())
                         .collect(Collectors.toList());
@@ -50,14 +50,14 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> findAllNonPageable(Long categoryId){
-        return productRepository.findAllByCategoryId(categoryId);
+    public List<Product> findAllNonPageable(Category category){
+        return productRepository.findAllByCategoryId(category.getId());
     }
 
     @Transactional
-    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId){
+    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Category category){
         Product product = ProductMapper.toProduct(productPostRequestBody);
-        product.setCategory(new Category(categoryId));
+        product.setCategory(category);
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
 
@@ -68,25 +68,25 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(ProductPutRequestBody productPutRequestBody, Long categoryId){
-        Product product = findById(productPutRequestBody.getId(), categoryId);
+    public void update(ProductPutRequestBody productPutRequestBody, Category category){
+        Product product = findById(productPutRequestBody.getId(), category.getId());
         UpdateData.updateProductData(productPutRequestBody, product);
         productRepository.save(product);
     }
 
     @Transactional
-    public void deleteById(Long id, Long categoryId){
-        findById(id, categoryId);
+    public void deleteById(Long id, Category category){
+        findById(id, category.getId());
         productRepository.deleteById(id);
     }
 
-    public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Long categoryId){
-        productsIds.forEach(req -> this.deleteById(req.getId(), categoryId));
+    public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Category category){
+        productsIds.forEach(req -> this.deleteById(req.getId(), category));
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findByName(String search, Long categoryId, Pageable pageable){
-        return productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, categoryId, pageable);
+    public Page<Product> findByName(String search, Category category, Pageable pageable){
+        return productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, category.getId(), pageable);
     }
 
     @Transactional
@@ -110,9 +110,9 @@ public class ProductService {
         });
     }
 
-    private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long currentCategoryId){
+    private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long currentCategory){
         return items.stream()
-                .map(req -> findById(req.getId(), currentCategoryId))
+                .map(req -> findById(req.getId(), currentCategory))
                 .collect(Collectors.toList());
     }
 }

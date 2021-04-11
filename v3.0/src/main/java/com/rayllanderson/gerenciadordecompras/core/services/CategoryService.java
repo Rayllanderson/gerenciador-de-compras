@@ -97,7 +97,7 @@ public class CategoryService {
 
     private List<SelectItemsRequestBody> getSelectItemsFromCategory(Category category){
         List<SelectItemsRequestBody> selectItems = new ArrayList<>();
-        productService.findAllNonPageable(category.getId())
+        productService.findAllNonPageable(category)
                 .forEach(product -> selectItems.add(new SelectItemsRequestBody(product.getId())));
         return selectItems;
     }
