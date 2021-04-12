@@ -1,11 +1,16 @@
 package com.rayllanderson.gerenciadordecompras.core.services;
 
 
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.AllProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
+import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.AllProductPostRequestBodyCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,11 +42,17 @@ class AllProductServiceTest {
     @Mock
     private ProductService productServiceMock;
 
+    @Mock
+    private com.rayllanderson.gerenciadordecompras.core.validations.Assertions assertions;
+
     @BeforeEach
     void setUp() {
 
         PageImpl<Product> productPage = new PageImpl<>(List.of(ProductCreator.createProductWithId()));
         PageImpl<Product> productNotPurchasedPage = new PageImpl<>(List.of(ProductCreator.createANonPurchasedProductWithId()));
+
+        BDDMockito.when(assertions.assertThatCategoryIsValid(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+                .thenReturn(CategoryCreator.createCategoryWithId());
 
         //CATEGORY - findAllNonPageable
         BDDMockito.when(categoryServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
@@ -62,6 +73,10 @@ class AllProductServiceTest {
         //PRODUCT - findNotPurchased
         BDDMockito.when(productServiceMock.findNotPurchased(ArgumentMatchers.any(Category.class), ArgumentMatchers.any(Pageable.class)))
                 .thenReturn(productNotPurchasedPage);
+
+        //PRODUCT - save
+        BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.any(Category.class)))
+                .thenReturn(ProductMapper.toProductPostResponseBody(ProductCreator.createProductWithId()));
     }
 
     @Test
@@ -127,6 +142,16 @@ class AllProductServiceTest {
         BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
                 .thenThrow(new NotFoundException());
         Assertions.assertThatThrownBy(() -> allProductService.findById(1L, 1L)).isInstanceOf(NotFoundException.class);
+    }
+
+    @Test
+    void save_SaveProduct_WhenSuccessful(){
+        ProductPostResponseBody productToBeSaved = allProductService
+                .save(AllProductPostRequestBodyCreator.createAllProductPostRequestBody(), 1L);
+        ProductPostResponseBody expectedProduct = ProductMapper.toProductPostResponseBody(ProductCreator.createProductWithId());
+
+        Assertions.assertThat(productToBeSaved).isNotNull();
+        Assertions.assertThat(productToBeSaved).isEqualTo(expectedProduct);
     }
 
 }

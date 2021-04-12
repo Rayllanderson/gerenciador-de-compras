@@ -4,7 +4,7 @@ import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

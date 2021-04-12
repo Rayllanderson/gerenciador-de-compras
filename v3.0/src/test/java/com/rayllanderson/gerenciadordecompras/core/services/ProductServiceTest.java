@@ -10,9 +10,9 @@ import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepositor
 import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductPostRequestBodyCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductPutRequestBodyCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductPostRequestBodyCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductPutRequestBodyCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

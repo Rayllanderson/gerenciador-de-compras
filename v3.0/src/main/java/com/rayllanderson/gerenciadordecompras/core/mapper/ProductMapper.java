@@ -1,5 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.core.mapper;
 
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
@@ -42,5 +43,9 @@ public class ProductMapper {
 
     public static ProductPostResponseBody toProductPostResponseBody(Product product){
         return new ModelMapper().map(product, ProductPostResponseBody.class);
+    }
+
+    public static ProductPostRequestBody toProductPostRequestBody(AllProductPostRequestBody product){
+        return new ModelMapper().map(product, ProductPostRequestBody.class);
     }
 }

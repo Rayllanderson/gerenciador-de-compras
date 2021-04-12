@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.utils;
+package com.rayllanderson.gerenciadordecompras.utils.product;
 
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
 

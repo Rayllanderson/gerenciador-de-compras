@@ -3,7 +3,7 @@ package com.rayllanderson.gerenciadordecompras.core.repositories;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
-import com.rayllanderson.gerenciadordecompras.utils.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

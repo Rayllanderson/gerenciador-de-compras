@@ -8,6 +8,7 @@ import com.rayllanderson.gerenciadordecompras.core.repositories.CategoryReposito
 import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.*;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

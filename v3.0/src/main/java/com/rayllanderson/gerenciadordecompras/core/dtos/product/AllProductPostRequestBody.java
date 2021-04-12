@@ -4,10 +4,10 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
+@SuperBuilder
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor
-public class ProductPostRequestBody extends ProductDtoModel {
-
+public class AllProductPostRequestBody extends ProductDtoModel {
+    private Long categoryId;
 }
