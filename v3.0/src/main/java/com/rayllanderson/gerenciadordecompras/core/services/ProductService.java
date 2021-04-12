@@ -64,19 +64,19 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Product findById(Long productId, Long categoryId){
         return productRepository.findByIdAndCategoryId(productId, categoryId)
-                .orElseThrow(() -> new NotFoundException("Produto não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Produto não encontrado."));
     }
 
     @Transactional
     public void update(ProductPutRequestBody productPutRequestBody, Category category){
-        Product product = findById(productPutRequestBody.getId(), category.getId());
+        Product product = this.findById(productPutRequestBody.getId(), category.getId());
         UpdateData.updateProductData(productPutRequestBody, product);
         productRepository.save(product);
     }
 
     @Transactional
     public void deleteById(Long id, Category category){
-        findById(id, category.getId());
+        this.findById(id, category.getId());
         productRepository.deleteById(id);
     }
 

@@ -2,6 +2,7 @@ package com.rayllanderson.gerenciadordecompras.core.services;
 
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
@@ -80,5 +81,13 @@ public class AllProductService {
         return productService.save(ProductMapper.toProductPostRequestBody(product), category);
     }
 
+    public void update (ProductPutRequestBody productPutRequestBody, Long userId){
+        Category categoryFromProduct = this.findById(productPutRequestBody.getId(), userId).getCategory();
+        productService.update(productPutRequestBody, categoryFromProduct);
+    }
 
+    public void deleteById (Long productId, Long userId){
+        Category categoryFromProduct = this.findById(productId, userId).getCategory();
+        productService.deleteById(productId, categoryFromProduct);
+    }
 }

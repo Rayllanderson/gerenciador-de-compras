@@ -11,6 +11,7 @@ import com.rayllanderson.gerenciadordecompras.core.model.Product;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.product.AllProductPostRequestBodyCreator;
 import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.product.ProductPutRequestBodyCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -152,6 +153,18 @@ class AllProductServiceTest {
 
         Assertions.assertThat(productToBeSaved).isNotNull();
         Assertions.assertThat(productToBeSaved).isEqualTo(expectedProduct);
+    }
+
+    @Test
+    void update_UpdatesProduct_WhenSuccessful() {
+        Assertions.assertThatCode(() -> allProductService.update(ProductPutRequestBodyCreator.createProductPutRequestBody(), 1L))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void deleteById_RemovesProduct_WhenSuccessful() {
+        Assertions.assertThatCode(() -> allProductService.deleteById(1L, 1L))
+                .doesNotThrowAnyException();
     }
 
 }
