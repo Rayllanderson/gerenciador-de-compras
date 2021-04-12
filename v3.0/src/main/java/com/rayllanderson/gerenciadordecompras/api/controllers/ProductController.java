@@ -1,16 +1,18 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.model.Category;
-import com.rayllanderson.gerenciadordecompras.core.model.Product;
-import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.services.ProductService;
-import com.rayllanderson.gerenciadordecompras.core.services.StatisticService;
-import com.rayllanderson.gerenciadordecompras.core.validations.Assertions;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
+import com.rayllanderson.gerenciadordecompras.domain.model.Category;
+import com.rayllanderson.gerenciadordecompras.domain.model.Product;
+import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.services.ProductService;
+import com.rayllanderson.gerenciadordecompras.domain.services.StatisticService;
+import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,10 +40,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long categoryId, @PathVariable Long id){
+    public ResponseEntity<ProductResponseBody> findById(@PathVariable Long categoryId, @PathVariable Long id){
         Long userId = 1L;
         assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(productService.findById(id, categoryId));
+        return ResponseEntity.ok(ProductMapper.toProductResponseBody(productService.findById(id, categoryId)));
     }
 
     @GetMapping("/purchased")

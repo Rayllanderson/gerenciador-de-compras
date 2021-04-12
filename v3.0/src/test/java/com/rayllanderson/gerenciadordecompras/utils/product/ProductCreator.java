@@ -1,7 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.utils.product;
 
-import com.rayllanderson.gerenciadordecompras.core.model.Category;
-import com.rayllanderson.gerenciadordecompras.core.model.Product;
+import com.rayllanderson.gerenciadordecompras.domain.model.Category;
+import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 
 import java.math.BigDecimal;

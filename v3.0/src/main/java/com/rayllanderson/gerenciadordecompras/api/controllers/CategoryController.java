@@ -1,12 +1,12 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.model.Category;
-import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.categories.TransferCategoryRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.services.CategoryService;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.model.Category;
+import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

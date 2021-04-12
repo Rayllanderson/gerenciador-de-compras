@@ -1,6 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.category.CategoryPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostRequestBody;
 
 public class CategoryPostRequestBodyCreator {
 

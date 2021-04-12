@@ -1,14 +1,16 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.AllProductPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.model.Product;
-import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.StatisticResponseBody;
-import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferAllProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.core.services.AllProductService;
-import com.rayllanderson.gerenciadordecompras.core.services.StatisticService;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.AllProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
+import com.rayllanderson.gerenciadordecompras.domain.model.Product;
+import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferAllProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.services.AllProductService;
+import com.rayllanderson.gerenciadordecompras.domain.services.StatisticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,9 +35,9 @@ public class AllProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
+    public ResponseEntity<ProductResponseBody> findById(@PathVariable Long id){
         Long userId = 1L;
-        return ResponseEntity.ok(allProductService.findById(id, userId));
+        return ResponseEntity.ok((ProductMapper.toProductResponseBody(allProductService.findById(id, userId)));
     }
 
     @PostMapping

@@ -1,6 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.utils.product;
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostRequestBody;
 
 import java.math.BigDecimal;
 
