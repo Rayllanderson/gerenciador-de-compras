@@ -1,13 +1,15 @@
 package com.rayllanderson.gerenciadordecompras.core.services;
 
 
-import com.rayllanderson.gerenciadordecompras.core.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.core.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
+import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
+import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferAllProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.CategoryCreator;
 import com.rayllanderson.gerenciadordecompras.utils.product.AllProductPostRequestBodyCreator;
 import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
@@ -29,6 +31,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("Tests for AllProductServiceTest")
@@ -45,6 +48,9 @@ class AllProductServiceTest {
 
     @Mock
     private com.rayllanderson.gerenciadordecompras.core.validations.Assertions assertions;
+    
+    @Mock
+    private ProductRepository productRepositoryMock;
 
     @BeforeEach
     void setUp() {
@@ -78,6 +84,21 @@ class AllProductServiceTest {
         //PRODUCT - save
         BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.any(Category.class)))
                 .thenReturn(ProductMapper.toProductPostResponseBody(ProductCreator.createProductWithId()));
+
+        //PRODUCT REPO - save
+        BDDMockito.when(productRepositoryMock.save(ArgumentMatchers.any(Product.class)))
+                .thenReturn(ProductCreator.createProductWithId());
+
+        //PRODUCT REPO - find by name
+        BDDMockito.when(productRepositoryMock
+                .findByNameIgnoreCaseContainingAndCategoryId(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong()))
+                .thenReturn(List.of(ProductCreator.createProductWithId()));
+
+        BDDMockito.doNothing().when(productServiceMock).deleteById(ArgumentMatchers.anyLong(), ArgumentMatchers.any(Category.class));
+
+        //findById
+        BDDMockito.when(productServiceMock.findById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+                .thenReturn(ProductCreator.createProductWithId());
     }
 
     @Test
@@ -165,6 +186,41 @@ class AllProductServiceTest {
     void deleteById_RemovesProduct_WhenSuccessful() {
         Assertions.assertThatCode(() -> allProductService.deleteById(1L, 1L))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    void deleteVariousById_RemovesSeveralCategories_WhenSuccessful() {
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
+                .thenReturn(List.of(ProductCreator.createProductWithId(), ProductCreator.createAnotherProductWithId()));
+
+        List<SelectItemsRequestBody> ids = List.of(new SelectItemsRequestBody(1L), new SelectItemsRequestBody(2L));
+        Assertions.assertThatCode(() -> allProductService.deleteVariousById(ids, 1L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void copyProductsToAnotherCategory_WhenSuccessful(){
+        Product productToBeCopied = ProductCreator.createProductWithId();
+        Long productId = productToBeCopied.getId();
+        Long newCategoryId = CategoryCreator.createAnotherCategoryWithId().getId();
+        TransferAllProductRequestBody data = TransferAllProductRequestBody
+                .builder()
+                .newCategoryId(newCategoryId)
+                .selectItems(List.of(new SelectItemsRequestBody(productId)))
+                .build();
+        Assertions.assertThatCode(() -> allProductService.copyProductsToAnotherCategory(data, 1L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void moveProductsToAnotherCategory_WhenSuccessful(){
+        Product productToBeMoved = ProductCreator.createProductWithId();
+        Long productId = productToBeMoved.getId();
+        Long newCategoryId = CategoryCreator.createAnotherCategoryWithId().getId();
+        TransferAllProductRequestBody data = TransferAllProductRequestBody
+                .builder()
+                .newCategoryId(newCategoryId)
+                .selectItems(List.of(new SelectItemsRequestBody(productId)))
+                .build();
+        Assertions.assertThatCode(() -> allProductService.moveProductsToAnotherCategory(data, 1L)).doesNotThrowAnyException();
     }
 
 }

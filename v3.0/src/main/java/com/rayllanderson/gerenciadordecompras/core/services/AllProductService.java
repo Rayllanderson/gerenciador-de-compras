@@ -8,6 +8,8 @@ import com.rayllanderson.gerenciadordecompras.core.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.core.model.Category;
 import com.rayllanderson.gerenciadordecompras.core.model.Product;
 import com.rayllanderson.gerenciadordecompras.core.repositories.ProductRepository;
+import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBody;
+import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferAllProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.validations.Assertions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -89,5 +91,50 @@ public class AllProductService {
     public void deleteById (Long productId, Long userId){
         Category categoryFromProduct = this.findById(productId, userId).getCategory();
         productService.deleteById(productId, categoryFromProduct);
+    }
+
+    public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Long userId){
+        productsIds.forEach(req -> this.deleteById(req.getId(), userId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Product> findByName(String search, Long userId, Pageable pageable){
+        boolean searchIsEmpty = search != null && (search.isEmpty() || search.trim().isEmpty());
+        if (searchIsEmpty) {
+            return Page.empty();
+        }
+        List<Category> allCategories = categoryService.findAllNonPageable(userId);
+        List<Product> resultSearch = allCategories
+                .stream()
+                .flatMap(category -> productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, category.getId()).stream())
+                .collect(Collectors.toList());
+        return new PageImpl<>(resultSearch, pageable, resultSearch.size());
+    }
+
+    @Transactional
+    public void copyProductsToAnotherCategory(TransferAllProductRequestBody data, Long userId){
+        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), userId);
+        products.forEach(product -> {
+            Product productToBeCopied = ProductMapper.createANewProduct(product);
+            productToBeCopied.setId(null);
+            productToBeCopied.setCategory(new Category(data.getNewCategoryId()));
+            productRepository.save(productToBeCopied);
+        });
+    }
+
+    @Transactional
+    public void moveProductsToAnotherCategory(TransferAllProductRequestBody data, Long userId){
+        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), userId);
+        products.forEach(product -> {
+            Product productToBeMoved = ProductMapper.createANewProduct(product);
+            productToBeMoved.setCategory(new Category(data.getNewCategoryId()));
+            productRepository.save(productToBeMoved);
+        });
+    }
+
+    private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long userId){
+        return items.stream()
+                .map(req -> findById(req.getId(), userId))
+                .collect(Collectors.toList());
     }
 }

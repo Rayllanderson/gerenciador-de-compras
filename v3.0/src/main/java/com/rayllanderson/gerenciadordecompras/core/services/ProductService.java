@@ -86,6 +86,10 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<Product> findByName(String search, Category category, Pageable pageable){
+        boolean searchIsEmpty = search != null && (search.isEmpty() || search.trim().isEmpty());
+        if (searchIsEmpty) {
+            return Page.empty();
+        }
         return productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, category.getId(), pageable);
     }
 

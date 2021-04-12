@@ -31,6 +31,21 @@ public class ProductCreator {
                 .build();
     }
 
+    /**
+     * @return Produto com ID 2 e categoria diferente do @createProductWithId
+     */
+    public static Product createAnotherProductWithId(){
+        Category category = CategoryCreator.createAnotherCategoryWithId();
+        return Product.builder()
+                .id(2L)
+                .name("Gabinete")
+                .category(category)
+                .purchased(true)
+                .spentPrice(new BigDecimal("399.95"))
+                .stipulatedPrice(new BigDecimal("599.85"))
+                .build();
+    }
+
     public static Product createANonPurchasedProductWithId(){
         Category category = CategoryCreator.createCategoryWithId();
         return Product.builder()

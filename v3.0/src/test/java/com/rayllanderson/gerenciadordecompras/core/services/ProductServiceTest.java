@@ -176,7 +176,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void deleteSeveralById_RemovesSeveralCategories_WhenSuccessful() {
+    void deleteVariousById_RemovesSeveralCategories_WhenSuccessful() {
         Category currentCategory = CategoryCreator.createCategoryWithId();
         List<SelectItemsRequestBody> ids = List.of(new SelectItemsRequestBody(1L), new SelectItemsRequestBody(2L));
         Assertions.assertThatCode(() -> productService.deleteVariousById(ids, currentCategory)).doesNotThrowAnyException();
