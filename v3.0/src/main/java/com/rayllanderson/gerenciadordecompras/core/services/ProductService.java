@@ -13,7 +13,6 @@ import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferPro
 import com.rayllanderson.gerenciadordecompras.core.services.utils.UpdateData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,19 +33,12 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<Product> findPurchased(Category category, Pageable pageable){
-        List<Product> purchasedProducts =
-                productRepository.findAllByCategoryId(category.getId()).stream().filter(Product::getPurchased).collect(Collectors.toList());
-        return new PageImpl<>(purchasedProducts, pageable, purchasedProducts.size());
+        return productRepository.findPurchasedFromCategory(category.getId(), pageable);
     }
 
     @Transactional(readOnly = true)
     public Page<Product> findNotPurchased(Category category, Pageable pageable){
-        List<Product> productsNotPurchased =
-                productRepository.findAllByCategoryId(category.getId())
-                        .stream()
-                        .filter(product -> !product.getPurchased())
-                        .collect(Collectors.toList());
-        return new PageImpl<>(productsNotPurchased, pageable, productsNotPurchased.size());
+        return productRepository.findNonPurchasedFromCategory(category.getId(), pageable);
     }
 
     @Transactional(readOnly = true)

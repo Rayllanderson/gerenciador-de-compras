@@ -44,6 +44,19 @@ public class ProductController {
         return ResponseEntity.ok(productService.findById(id, categoryId));
     }
 
+    @GetMapping("/purchased")
+    public ResponseEntity<Page<Product>> findPurchased(@PathVariable Long categoryId, Pageable pageable) {
+        Long userId = 1L;
+        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
+        return ResponseEntity.ok(productService.findPurchased(currentCategory, pageable));
+    }
+    @GetMapping("/non-purchased")
+    public ResponseEntity<Page<Product>> findNotPurchased(@PathVariable Long categoryId, Pageable pageable) {
+        Long userId = 1L;
+        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
+        return ResponseEntity.ok(productService.findNotPurchased(currentCategory, pageable));
+    }
+
     @PostMapping
     public ResponseEntity<ProductPostResponseBody> save(@PathVariable Long categoryId,
                                                         @RequestBody ProductPostRequestBody productPostRequestBody){

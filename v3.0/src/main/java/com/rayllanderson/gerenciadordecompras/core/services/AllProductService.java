@@ -12,9 +12,7 @@ import com.rayllanderson.gerenciadordecompras.core.requests.SelectItemsRequestBo
 import com.rayllanderson.gerenciadordecompras.core.requests.products.TransferAllProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.core.validations.Assertions;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,54 +25,31 @@ public class AllProductService {
 
     private final ProductRepository productRepository;
     private final ProductService productService;
-    private final CategoryService categoryService;
     private final Assertions assertions;
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Long userId, Pageable pageable){
-        List<Category> allCategories = categoryService.findAllNonPageable(userId);
-        List<Product> allProducts = allCategories
-                .stream()
-                .flatMap(category -> productService.findAllNonPageable(category).stream())
-                .collect(Collectors.toList());
-        return new PageImpl<>(allProducts, pageable, allProducts.size());
+        return productRepository.findAllByCategoryUserId(userId, pageable);
     }
 
     @Transactional(readOnly = true)
     public List<Product> findAllNonPageable(Long userId){
-        List<Category> allCategories = categoryService.findAllNonPageable(userId);
-        return allCategories
-                .stream()
-                .flatMap(category -> productService.findAllNonPageable(category).stream())
-                .collect(Collectors.toList());
+        return productRepository.findAllByCategoryUserId(userId);
     }
 
     @Transactional(readOnly = true)
     public Page<Product> findPurchased(Long userId, Pageable pageable){
-        List<Category> allCategories = categoryService.findAllNonPageable(userId);
-        List<Product> purchasedProducts = allCategories
-                .stream()
-                .flatMap(category -> productService.findPurchased(category, pageable).stream())
-                .collect(Collectors.toList());
-        return new PageImpl<>(purchasedProducts, pageable, purchasedProducts.size());
+        return productRepository.findPurchasedFromUser(userId, pageable);
     }
 
     @Transactional(readOnly = true)
     public Page<Product> findNotPurchased(Long userId, Pageable pageable){
-        List<Category> allCategories = categoryService.findAllNonPageable(userId);
-        List<Product> productsNotPurchased = allCategories
-                .stream()
-                .flatMap(category -> productService.findNotPurchased(category, pageable).stream())
-                .collect(Collectors.toList());
-        return new PageImpl<>(productsNotPurchased, pageable, productsNotPurchased.size());
+        return productRepository.findNonPurchasedFromUser(userId, pageable);
     }
 
     @Transactional(readOnly = true)
     public Product findById(Long productId, Long userId){
-        List<Product> allProducts = this.findAllNonPageable(userId);
-        return allProducts.stream()
-                .filter(product -> product.getId().equals(productId))
-                .findFirst()
+        return productRepository.findByIdAndCategoryUserId(productId, userId)
                 .orElseThrow(() -> new NotFoundException("Produto não encontrado."));
     }
 
@@ -103,12 +78,7 @@ public class AllProductService {
         if (searchIsEmpty) {
             return Page.empty();
         }
-        List<Category> allCategories = categoryService.findAllNonPageable(userId);
-        List<Product> resultSearch = allCategories
-                .stream()
-                .flatMap(category -> productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, category.getId()).stream())
-                .collect(Collectors.toList());
-        return new PageImpl<>(resultSearch, pageable, resultSearch.size());
+        return productRepository.findByNameIgnoreCaseContainingAndCategoryUserId(search, userId, pageable);
     }
 
     @Transactional
