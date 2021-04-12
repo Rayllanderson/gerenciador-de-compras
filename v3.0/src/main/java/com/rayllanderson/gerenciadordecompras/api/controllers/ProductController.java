@@ -31,32 +31,28 @@ public class ProductController {
     private final ProductService productService;
     private final StatisticService statisticService;
     private final Assertions assertions;
-/*
+
     @GetMapping
     public ResponseEntity<Page<Product>> findAll(@PathVariable Long categoryId, Pageable pageable) {
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(productService.findAll(currentCategory, pageable));
+        return ResponseEntity.ok(productService.findAll(categoryId, userId, pageable));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseBody> findById(@PathVariable Long categoryId, @PathVariable Long id){
         Long userId = 1L;
-        assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(ProductMapper.toProductResponseBody(productService.findById(id, categoryId)));
+        return ResponseEntity.ok(ProductMapper.toProductResponseBody(productService.findById(id, categoryId, userId)));
     }
 
     @GetMapping("/purchased")
     public ResponseEntity<Page<Product>> findPurchased(@PathVariable Long categoryId, Pageable pageable) {
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(productService.findPurchased(currentCategory, pageable));
+        return ResponseEntity.ok(productService.findPurchased(categoryId, userId, pageable));
     }
     @GetMapping("/non-purchased")
     public ResponseEntity<Page<Product>> findNotPurchased(@PathVariable Long categoryId, Pageable pageable) {
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(productService.findNotPurchased(currentCategory, pageable));
+        return ResponseEntity.ok(productService.findNotPurchased(categoryId, userId, pageable));
     }
 
     @PostMapping
@@ -64,47 +60,43 @@ public class ProductController {
                                                         @RequestBody ProductPostRequestBody productPostRequestBody){
         Long userId = 1L;
         Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, currentCategory));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, currentCategory.getId()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long categoryId, @PathVariable Long id,
                                        @RequestBody ProductPutRequestBody productPutRequestBody){
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
         productPutRequestBody.setId(id);
-        productService.update(productPutRequestBody, currentCategory);
+        productService.update(productPutRequestBody, categoryId, userId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long categoryId, @PathVariable Long id){
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        productService.deleteById(id, currentCategory);
+        productService.deleteById(id, categoryId, userId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteVarious(@PathVariable Long categoryId, @RequestBody List<SelectItemsRequestBody> ids){
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        productService.deleteVariousById(ids, currentCategory);
+        productService.deleteVariousById(ids, categoryId, userId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
     public ResponseEntity<Page<Product>> findByName(@PathVariable Long categoryId, @RequestParam String name, Pageable pageable){
         Long userId = 1L;
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.ok(productService.findByName(name, currentCategory, pageable));
+        return ResponseEntity.ok(productService.findByName(name, categoryId, userId, pageable));
     }
 
     @PostMapping("/copy")
     public ResponseEntity<Void> copyProductsToAnotherCategory(@PathVariable Long categoryId, @RequestBody TransferProductRequestBody data){
         Long userId = 1L;
-        assertions.assertThatCategoryIsValid(data.getNewCategoryId(), userId);
         data.setCurrentCategoryId(categoryId);
+        data.setUserId(userId);
         productService.copyProductsToAnotherCategory(data);
         return ResponseEntity.noContent().build();
     }
@@ -113,8 +105,8 @@ public class ProductController {
     public ResponseEntity<Void> moveProductsToAnotherCategory(@PathVariable Long categoryId,
                                                            @RequestBody TransferProductRequestBody data){
         Long userId = 1L;
-        assertions.assertThatCategoryIsValid(data.getNewCategoryId(), userId);
         data.setCurrentCategoryId(categoryId);
+        data.setUserId(userId);
         productService.moveProductsToAnotherCategory(data);
         return ResponseEntity.noContent().build();
     }
@@ -123,5 +115,5 @@ public class ProductController {
     public ResponseEntity<StatisticResponseBody> getStatistics(@PathVariable Long categoryId){
         Long userId = 1L;
         return ResponseEntity.ok(statisticService.getStatistics(categoryId, userId));
-    }*/
+    }
 }
