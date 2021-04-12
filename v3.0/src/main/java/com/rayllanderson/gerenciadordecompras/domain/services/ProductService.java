@@ -27,67 +27,67 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional(readOnly = true)
-    public Page<Product> findAll(Category category, Pageable pageable){
-        return productRepository.findAllByCategoryId(category.getId(), pageable);
+    public Page<Product> findAll(Long categoryId, Long userId, Pageable pageable){
+        return productRepository.findAllByCategoryIdAndCategoryUserId(categoryId, userId, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findPurchased(Category category, Pageable pageable){
-        return productRepository.findPurchasedFromCategory(category.getId(), pageable);
+    public Page<Product> findPurchased(Long categoryId, Long userId, Pageable pageable){
+        return productRepository.findPurchasedFromCategory(categoryId, userId, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findNotPurchased(Category category, Pageable pageable){
-        return productRepository.findNonPurchasedFromCategory(category.getId(), pageable);
+    public Page<Product> findNotPurchased(Long categoryId, Long userId, Pageable pageable){
+        return productRepository.findNonPurchasedFromCategory(categoryId, userId, pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<Product> findAllNonPageable(Category category){
-        return productRepository.findAllByCategoryId(category.getId());
+    public List<Product> findAllNonPageable(Long categoryId, Long userId){
+        return productRepository.findAllByCategoryIdAndCategoryUserId(categoryId, userId);
     }
 
     @Transactional
-    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Category category){
+    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId){
         Product product = ProductMapper.toProduct(productPostRequestBody);
-        product.setCategory(category);
+        product.setCategory(new Category(categoryId));
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
 
     @Transactional(readOnly = true)
-    public Product findById(Long productId, Long categoryId){
-        return productRepository.findByIdAndCategoryId(productId, categoryId)
+    public Product findById(Long productId, Long categoryId, Long userId){
+        return productRepository.findByIdAndCategoryIdAndCategoryUserId(productId, categoryId, userId)
                 .orElseThrow(() -> new NotFoundException("Produto não encontrado."));
     }
 
     @Transactional
-    public void update(ProductPutRequestBody productPutRequestBody, Category category){
-        Product product = this.findById(productPutRequestBody.getId(), category.getId());
+    public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
+        Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
         UpdateData.updateProductData(productPutRequestBody, product);
         productRepository.save(product);
     }
 
     @Transactional
-    public void deleteById(Long id, Category category){
-        this.findById(id, category.getId());
+    public void deleteById(Long id, Long categoryId, Long userId){
+        this.findById(id, categoryId, userId);
         productRepository.deleteById(id);
     }
 
-    public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Category category){
-        productsIds.forEach(req -> this.deleteById(req.getId(), category));
+    public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Long categoryId, Long userId){
+        productsIds.forEach(req -> this.deleteById(req.getId(), categoryId, userId));
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findByName(String search, Category category, Pageable pageable){
+    public Page<Product> findByName(String search, Long categoryId, Long userId, Pageable pageable){
         boolean searchIsEmpty = search != null && (search.isEmpty() || search.trim().isEmpty());
         if (searchIsEmpty) {
             return Page.empty();
         }
-        return productRepository.findByNameIgnoreCaseContainingAndCategoryId(search, category.getId(), pageable);
+        return productRepository.findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(search, categoryId, userId, pageable);
     }
 
     @Transactional
     public void copyProductsToAnotherCategory(TransferProductRequestBody data){
-        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), data.getCurrentCategoryId());
+        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), data.getCurrentCategoryId(), data.getUserId());
         products.forEach(product -> {
             Product productToBeCopied = ProductMapper.createANewProduct(product);
             productToBeCopied.setId(null);
@@ -98,7 +98,7 @@ public class ProductService {
 
     @Transactional
     public void moveProductsToAnotherCategory(TransferProductRequestBody data){
-        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), data.getCurrentCategoryId());
+        List<Product> products = transformSelectItemsToProductList(data.getSelectItems(), data.getCurrentCategoryId(), data.getUserId());
         products.forEach(product -> {
             Product productToBeMoved = ProductMapper.createANewProduct(product);
             productToBeMoved.setCategory(new Category(data.getNewCategoryId()));
@@ -106,9 +106,9 @@ public class ProductService {
         });
     }
 
-    private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long currentCategory){
+    private List<Product> transformSelectItemsToProductList(List<SelectItemsRequestBody> items, Long currentCategory, Long userId){
         return items.stream()
-                .map(req -> findById(req.getId(), currentCategory))
+                .map(req -> findById(req.getId(), currentCategory, userId))
                 .collect(Collectors.toList());
     }
 }

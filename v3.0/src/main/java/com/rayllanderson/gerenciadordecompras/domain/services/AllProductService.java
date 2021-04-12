@@ -55,17 +55,17 @@ public class AllProductService {
 
     public ProductPostResponseBody save (AllProductPostRequestBody product, Long userId){
         Category category = assertions.assertThatCategoryIsValid(product.getCategoryId(), userId);
-        return productService.save(ProductMapper.toProductPostRequestBody(product), category);
+        return productService.save(ProductMapper.toProductPostRequestBody(product), category.getId());
     }
 
     public void update (ProductPutRequestBody productPutRequestBody, Long userId){
-        Category categoryFromProduct = this.findById(productPutRequestBody.getId(), userId).getCategory();
-        productService.update(productPutRequestBody, categoryFromProduct);
+        Category categoryFromProduct = getCategoryFromProduct(productPutRequestBody.getId(), userId);
+        productService.update(productPutRequestBody, categoryFromProduct.getId(), userId);
     }
 
     public void deleteById (Long productId, Long userId){
-        Category categoryFromProduct = this.findById(productId, userId).getCategory();
-        productService.deleteById(productId, categoryFromProduct);
+        Category categoryFromProduct = getCategoryFromProduct(productId, userId);
+        productService.deleteById(productId, categoryFromProduct.getId(), userId);
     }
 
     public void deleteVariousById(List<SelectItemsRequestBody> productsIds, Long userId){
@@ -107,4 +107,9 @@ public class AllProductService {
                 .map(req -> findById(req.getId(), userId))
                 .collect(Collectors.toList());
     }
+
+    private Category getCategoryFromProduct(Long productId, Long userId) {
+        return this.findById(productId, userId).getCategory();
+    }
+
 }

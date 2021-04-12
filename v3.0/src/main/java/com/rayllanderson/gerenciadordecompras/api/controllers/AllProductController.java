@@ -37,7 +37,7 @@ public class AllProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseBody> findById(@PathVariable Long id){
         Long userId = 1L;
-        return ResponseEntity.ok((ProductMapper.toProductResponseBody(allProductService.findById(id, userId)));
+        return ResponseEntity.ok((ProductMapper.toProductResponseBody(allProductService.findById(id, userId))));
     }
 
     @PostMapping

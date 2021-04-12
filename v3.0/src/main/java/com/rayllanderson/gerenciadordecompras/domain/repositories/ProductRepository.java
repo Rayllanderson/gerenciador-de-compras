@@ -12,19 +12,19 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Page<Product> findAllByCategoryId(Long categoryId, Pageable pageable);
+    Page<Product> findAllByCategoryIdAndCategoryUserId(Long categoryId, Long userId, Pageable pageable);
 
-    List<Product> findAllByCategoryId(Long categoryId);
+    List<Product> findAllByCategoryIdAndCategoryUserId(Long categoryId, Long userId);
 
-    Page<Product> findByNameIgnoreCaseContainingAndCategoryId(String name, Long categoryId, Pageable pageable);
+    Page<Product> findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(String name, Long categoryId,  Long userId, Pageable pageable);
 
-    List<Product> findByNameIgnoreCaseContainingAndCategoryId(String name, Long categoryId);
+    List<Product> findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(String name, Long categoryId,  Long userId);
 
     List<Product> findByNameIgnoreCaseContainingAndCategoryUserId(String name, Long userId);
 
     Page<Product> findByNameIgnoreCaseContainingAndCategoryUserId(String name, Long userId, Pageable pageable);
 
-    Optional<Product> findByIdAndCategoryId(Long id, Long categoryId);
+    Optional<Product> findByIdAndCategoryIdAndCategoryUserId(Long id, Long categoryId, Long userId);
 
     Page<Product> findAllByCategoryUserId(Long userId, Pageable pageable);
 
@@ -32,11 +32,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByIdAndCategoryUserId(Long id, Long userId);
 
-    @Query("from Product as p where p.purchased = true and p.category.id = ?1")
-    Page<Product> findPurchasedFromCategory(Long categoryId, Pageable pageable);
+    @Query("from Product as p where p.purchased = true and p.category.id = ?1 and p.category.user.id = ?2")
+    Page<Product> findPurchasedFromCategory(Long categoryId, Long userId, Pageable pageable);
 
-    @Query("from Product as p where p.purchased = false and p.category.id = ?1")
-    Page<Product> findNonPurchasedFromCategory(Long categoryId, Pageable pageable);
+    @Query("from Product as p where p.purchased = false and p.category.id = ?1 and p.category.user.id = ?2")
+    Page<Product> findNonPurchasedFromCategory(Long categoryId, Long userId, Pageable pageable);
 
     @Query("from Product as p where p.purchased = true and p.category.user.id = ?1")
     Page<Product> findPurchasedFromUser(Long userId, Pageable pageable);

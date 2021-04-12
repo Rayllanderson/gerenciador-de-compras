@@ -19,4 +19,5 @@ public class TransferProductRequestBody {
     private List<SelectItemsRequestBody> selectItems;
     private Long currentCategoryId;
     private Long newCategoryId;
+    private Long userId;
 }

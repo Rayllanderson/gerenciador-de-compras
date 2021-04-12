@@ -46,22 +46,41 @@ class ProductServiceTest {
     void setUp() {
 
         PageImpl<Product> productPage = new PageImpl<>(List.of(ProductCreator.createProductWithId()));
+        PageImpl<Product> productNotPurchasedPage = new PageImpl<>(List.of(ProductCreator.createANonPurchasedProductWithId()));
 
         //findAll PAGE
-        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+        BDDMockito.when(productRepositoryMock.findAllByCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(productPage);
 
         //findAll LIST
-        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong()))
+        BDDMockito.when(productRepositoryMock.findAllByCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(ProductCreator.createProductWithId()));
 
+        //findPurchased
+        BDDMockito.when(productRepositoryMock
+                .findPurchasedFromCategory(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productPage);
+
+        //findPurchased
+        BDDMockito.when(productRepositoryMock
+                .findPurchasedFromCategory(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productPage);
+
+        //findNonPurchased
+        BDDMockito.when(productRepositoryMock
+                .findNonPurchasedFromCategory(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(),
+                        ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productNotPurchasedPage);
+
         //findById
-        BDDMockito.when(productRepositoryMock.findByIdAndCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+        BDDMockito.when(productRepositoryMock.findByIdAndCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.of(ProductCreator.createProductWithId()));
 
         //FindByName
-        BDDMockito.when(productRepositoryMock.findByNameIgnoreCaseContainingAndCategoryId(ArgumentMatchers.anyString(),
-                ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class))).thenReturn(productPage);
+        BDDMockito.when(productRepositoryMock.findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class))).thenReturn(productPage);
 
         //save
         BDDMockito.when(productRepositoryMock.save(ArgumentMatchers.any(Product.class)))
@@ -73,25 +92,26 @@ class ProductServiceTest {
 
     @Test
     void findALL_ReturnsListOfCategoriesInsidePage_WhenSuccessful() {
-        Category expectedCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         Product expectedProduct = ProductCreator.createProductWithId();
         String expectedName = expectedProduct.getName();
 
-        Page<Product> productPage = productService.findAll(expectedCategory, PageRequest.of(1, 2));
+        Page<Product> productPage = productService.findAll(currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(productPage.toList().get(0).getName()).isEqualTo(expectedName);
         Assertions.assertThat(productPage.toList()).contains(expectedProduct);
-        Assertions.assertThat(productPage.toList().get(0).getCategory()).isEqualTo(expectedCategory);
+        Assertions.assertThat(productPage.toList().get(0).getCategory().getId()).isEqualTo(currentCategoryId);
     }
 
     @Test
     void findALL_ReturnsEmptyPageOfProducts_WhenProductHasNoCategory() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
-        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
+        BDDMockito.when(productRepositoryMock.findAllByCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(Page.empty());
 
-        Page<Product> productPage = productService.findAll(currentCategory, PageRequest.of(1, 2));
+        Page<Product> productPage = productService.findAll(currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isEmpty();
     }
@@ -101,7 +121,7 @@ class ProductServiceTest {
         Category expectedCategory = CategoryCreator.createCategoryWithId();
         Long expectedId = ProductCreator.createProductWithId().getId();
         BigDecimal spentPrice = ProductCreator.createProductWithId().getSpentPrice();
-        Product product = productService.findById(1L, expectedCategory.getId());
+        Product product = productService.findById(1L, expectedCategory.getId(), 1L);
 
         Assertions.assertThat(product).isNotNull();
         Assertions.assertThat(product.getId()).isNotNull().isEqualTo(expectedId);
@@ -111,19 +131,20 @@ class ProductServiceTest {
 
     @Test
     void findById_ThrowNotFoundException_WhenProductIsNotFound() {
-        BDDMockito.when(productRepositoryMock.findByIdAndCategoryId(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+        BDDMockito.when(productRepositoryMock.findByIdAndCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.empty());
 
-        Assertions.assertThatThrownBy(() -> productService.findById(5541L, 541L))
+        Assertions.assertThatThrownBy(() -> productService.findById(5541L, 541L, 1L))
                 .isInstanceOf(NotFoundException.class);
     }
 
     @Test
     void findByName_ReturnsPageOfProducts_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         String expectedName = ProductCreator.createProductWithId().getName();
         Page<Product> productPage = productService
-                .findByName("any search", currentCategory, PageRequest.of(1, 2));
+                .findByName("any search", currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(productPage.toList().get(0).getName()).isEqualTo(expectedName);
@@ -131,21 +152,22 @@ class ProductServiceTest {
 
     @Test
     void findByName_ReturnsEmptyPageOfCategories_WhenProductIsNotFound() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         //sobrescrevendo o mockito aqui
-        BDDMockito.when(productRepositoryMock.findByNameIgnoreCaseContainingAndCategoryId(ArgumentMatchers.anyString(),
-                ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class))).thenReturn(Page.empty());
+        BDDMockito.when(productRepositoryMock.findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(ArgumentMatchers.anyString(),
+                ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class))).thenReturn(Page.empty());
 
         Page<Product> productPage = productService
-                .findByName("any name that does not exist", currentCategory, PageRequest.of(1, 2));
+                .findByName("any name that does not exist", currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isEmpty();
     }
 
     @Test
     void save_ReturnsProduct_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
-        ProductPostResponseBody product = productService.save(ProductPostRequestBodyCreator.createProductPostRequestBody(), currentCategory);
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
+        ProductPostResponseBody product = productService.save(ProductPostRequestBodyCreator.createProductPostRequestBody(),
+                currentCategoryId);
         Assertions.assertThat(product).isNotNull();
         Assertions.assertThat(product.getId()).isNotNull();
 
@@ -154,32 +176,33 @@ class ProductServiceTest {
 
     @Test
     void save_ThrowException_WhenNameIsNotPresent() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         BDDMockito.when(productRepositoryMock.save(ArgumentMatchers.any(Product.class)))
                 .thenThrow(new ConstraintViolationException(null, null));
         Assertions.assertThatThrownBy(() ->
-                productService.save(new ProductPostRequestBody(), currentCategory))
+                productService.save(new ProductPostRequestBody(), currentCategoryId))
                 .isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test
     void update_UpdatesProduct_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
-        Assertions.assertThatCode(() -> productService.update(ProductPutRequestBodyCreator.createProductPutRequestBody(), currentCategory))
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
+        Assertions.assertThatCode(() -> productService.update(ProductPutRequestBodyCreator.createProductPutRequestBody(),
+                currentCategoryId, 1L))
                 .doesNotThrowAnyException();
     }
 
     @Test
     void deleteById_RemovesProduct_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
-        Assertions.assertThatCode(() -> productService.deleteById(1L, currentCategory)).doesNotThrowAnyException();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
+        Assertions.assertThatCode(() -> productService.deleteById(1L, currentCategoryId, 1L)).doesNotThrowAnyException();
     }
 
     @Test
     void deleteVariousById_RemovesSeveralCategories_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         List<SelectItemsRequestBody> ids = List.of(new SelectItemsRequestBody(1L), new SelectItemsRequestBody(2L));
-        Assertions.assertThatCode(() -> productService.deleteVariousById(ids, currentCategory)).doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> productService.deleteVariousById(ids, currentCategoryId, 1L)).doesNotThrowAnyException();
     }
 
     @Test
@@ -190,6 +213,7 @@ class ProductServiceTest {
         Long newCategoryId = CategoryCreator.createAnotherCategoryWithId().getId();
         TransferProductRequestBody data = TransferProductRequestBody
                 .builder()
+                .userId(1L)
                 .currentCategoryId(currentCategoryId)
                 .newCategoryId(newCategoryId)
                 .selectItems(List.of(new SelectItemsRequestBody(productId)))
@@ -206,6 +230,7 @@ class ProductServiceTest {
         TransferProductRequestBody data = TransferProductRequestBody
                 .builder()
                 .currentCategoryId(currentCategoryId)
+                .userId(1L)
                 .newCategoryId(newCategoryId)
                 .selectItems(List.of(new SelectItemsRequestBody(productId)))
                 .build();
@@ -214,11 +239,11 @@ class ProductServiceTest {
 
     @Test
     void findPurchased_ReturnsProductPurchased_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         Category expectedCategory = CategoryCreator.createCategoryWithId();
         Product expectedProduct = ProductCreator.createProductWithId();
 
-        Page<Product> productPage = productService.findPurchased(currentCategory, PageRequest.of(1, 2));
+        Page<Product> productPage = productService.findPurchased(currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(productPage.toList().get(0).getPurchased()).isEqualTo(true);
@@ -228,14 +253,14 @@ class ProductServiceTest {
 
     @Test
     void findNotPurchased_ReturnsProductPurchased_WhenSuccessful() {
-        Category currentCategory = CategoryCreator.createCategoryWithId();
+        Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         Category expectedCategory = CategoryCreator.createCategoryWithId();
         Product expectedProduct = ProductCreator.createANonPurchasedProductWithId();
 
-        BDDMockito.when(productRepositoryMock.findAllByCategoryId(ArgumentMatchers.anyLong()))
+        BDDMockito.when(productRepositoryMock.findAllByCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(expectedProduct));
 
-        Page<Product> productPage = productService.findNotPurchased(currentCategory, PageRequest.of(1, 2));
+        Page<Product> productPage = productService.findNotPurchased(currentCategoryId, 1L, PageRequest.of(1, 2));
 
         Assertions.assertThat(productPage).isNotNull().isNotEmpty().hasSize(1);
         Assertions.assertThat(productPage.toList().get(0).getPurchased()).isEqualTo(false);

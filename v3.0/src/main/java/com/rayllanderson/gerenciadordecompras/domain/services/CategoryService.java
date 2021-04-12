@@ -89,15 +89,15 @@ public class CategoryService {
 
         TransferProductRequestBody transferProductRequest = TransferProductRequestBody.builder()
                 .currentCategoryId(originalCategoryId)
-                .selectItems(getSelectItemsFromCategory(originalCategory))
+                .selectItems(getSelectItemsFromCategory(originalCategory, userId))
                 .newCategoryId(duplicatedCategory.getId())
                 .build();
         productService.copyProductsToAnotherCategory(transferProductRequest);
     }
 
-    private List<SelectItemsRequestBody> getSelectItemsFromCategory(Category category){
+    private List<SelectItemsRequestBody> getSelectItemsFromCategory(Category category, Long userId){
         List<SelectItemsRequestBody> selectItems = new ArrayList<>();
-        productService.findAllNonPageable(category)
+        productService.findAllNonPageable(category.getId(), userId)
                 .forEach(product -> selectItems.add(new SelectItemsRequestBody(product.getId())));
         return selectItems;
     }

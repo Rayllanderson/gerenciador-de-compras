@@ -31,7 +31,7 @@ public class ProductController {
     private final ProductService productService;
     private final StatisticService statisticService;
     private final Assertions assertions;
-
+/*
     @GetMapping
     public ResponseEntity<Page<Product>> findAll(@PathVariable Long categoryId, Pageable pageable) {
         Long userId = 1L;
@@ -123,5 +123,5 @@ public class ProductController {
     public ResponseEntity<StatisticResponseBody> getStatistics(@PathVariable Long categoryId){
         Long userId = 1L;
         return ResponseEntity.ok(statisticService.getStatistics(categoryId, userId));
-    }
+    }*/
 }

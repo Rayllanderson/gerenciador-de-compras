@@ -5,7 +5,6 @@ import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostReq
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
-import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
@@ -31,6 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("Tests for AllProductServiceTest")
@@ -64,24 +64,9 @@ class AllProductServiceTest {
         BDDMockito.when(categoryServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(CategoryCreator.createCategoryWithId()));
 
-        //PRODUCT - findAllNonPageable
-        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
-                .thenReturn(List.of(ProductCreator.createProductWithId()));
-
-        //PRODUCT - findAllPageable
-        BDDMockito.when(productServiceMock.findAll(ArgumentMatchers.any(Category.class), ArgumentMatchers.any(Pageable.class)))
-                .thenReturn(productPage);
-
-        //PRODUCT - findPurchased
-        BDDMockito.when(productServiceMock.findPurchased(ArgumentMatchers.any(Category.class), ArgumentMatchers.any(Pageable.class)))
-                .thenReturn(productPage);
-
-        //PRODUCT - findNotPurchased
-        BDDMockito.when(productServiceMock.findNotPurchased(ArgumentMatchers.any(Category.class), ArgumentMatchers.any(Pageable.class)))
-                .thenReturn(productNotPurchasedPage);
 
         //PRODUCT - save
-        BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.any(Category.class)))
+        BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.anyLong()))
                 .thenReturn(ProductMapper.toProductPostResponseBody(ProductCreator.createProductWithId()));
 
         //PRODUCT REPO - save
@@ -90,14 +75,36 @@ class AllProductServiceTest {
 
         //PRODUCT REPO - find by name
         BDDMockito.when(productRepositoryMock
-                .findByNameIgnoreCaseContainingAndCategoryId(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong()))
+                .findByNameIgnoreCaseContainingAndCategoryIdAndCategoryUserId(ArgumentMatchers.anyString(),
+                        ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(ProductCreator.createProductWithId()));
 
-        BDDMockito.doNothing().when(productServiceMock).deleteById(ArgumentMatchers.anyLong(), ArgumentMatchers.any(Category.class));
+        //PRODUCT REPO - find all page
+        BDDMockito.when(productRepositoryMock
+                .findAllByCategoryUserId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productPage);
+
+        //PRODUCT REPO - find all non page
+        BDDMockito.when(productRepositoryMock
+                .findAllByCategoryUserId(ArgumentMatchers.anyLong()))
+                .thenReturn(List.of(ProductCreator.createProductWithId()));
+
+        //PRODUCT REPO - findPurchasedFromUser
+        BDDMockito.when(productRepositoryMock
+                .findPurchasedFromUser(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productPage);
+
+        //PRODUCT REPO - findNonPurchasedFromUser
+        BDDMockito.when(productRepositoryMock
+                .findNonPurchasedFromUser(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(productNotPurchasedPage);
+
+        BDDMockito.doNothing().when(productServiceMock).deleteById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong());
 
         //findById
-        BDDMockito.when(productServiceMock.findById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
-                .thenReturn(ProductCreator.createProductWithId());
+        BDDMockito.when(productRepositoryMock.findByIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.of(ProductCreator.createProductWithId()));
     }
 
     @Test
@@ -112,9 +119,10 @@ class AllProductServiceTest {
     @Test
     void findAll_ReturnsAEmptyPage_WhenUserDoesNotHasAnyCategory(){
 
-        //CATEGORY - findAllNonPageable
-        BDDMockito.when(categoryServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
-                .thenReturn(Collections.emptyList());
+        //PRODUCT REPO - find all
+        BDDMockito.when(productRepositoryMock
+                .findAllByCategoryUserId(ArgumentMatchers.anyLong(), ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(Page.empty());
 
         Page<Product> allProducts = allProductService.findAll(1L, PageRequest.of(1, 2));
 
@@ -160,8 +168,9 @@ class AllProductServiceTest {
 
     @Test
     void findById_ThrowNotFoundException_WhenProductIsNotFound(){
-        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
-                .thenThrow(new NotFoundException());
+        BDDMockito.when(productRepositoryMock.findByIdAndCategoryUserId(ArgumentMatchers.anyLong(),
+                ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.empty());
         Assertions.assertThatThrownBy(() -> allProductService.findById(1L, 1L)).isInstanceOf(NotFoundException.class);
     }
 
@@ -189,7 +198,7 @@ class AllProductServiceTest {
 
     @Test
     void deleteVariousById_RemovesSeveralCategories_WhenSuccessful() {
-        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.any(Category.class)))
+        BDDMockito.when(productServiceMock.findAllNonPageable(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(ProductCreator.createProductWithId(), ProductCreator.createAnotherProductWithId()));
 
         List<SelectItemsRequestBody> ids = List.of(new SelectItemsRequestBody(1L), new SelectItemsRequestBody(2L));
