@@ -1,7 +1,13 @@
 package com.rayllanderson.gerenciadordecompras.api.security;
 
+import com.rayllanderson.gerenciadordecompras.api.security.jwt.JwtAuthenticationFilter;
+import com.rayllanderson.gerenciadordecompras.api.security.jwt.JwtAuthorizationFilter;
+import com.rayllanderson.gerenciadordecompras.api.security.jwt.handler.AccessDeniedHandler;
+import com.rayllanderson.gerenciadordecompras.api.security.jwt.handler.UnauthorizedHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,15 +28,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+    private final UnauthorizedHandler unauthorizedHandler;
+
+    private final AccessDeniedHandler accessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        AuthenticationManager authManager = authenticationManager();
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
-                .httpBasic().and().formLogin()
+                .httpBasic().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .addFilter(new JwtAuthenticationFilter(authManager))
+                .addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(unauthorizedHandler);
     }
 
     @Override
