@@ -1,20 +1,19 @@
 package com.rayllanderson.gerenciadordecompras.domain.dtos.category;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotEmpty;
 
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class CategoryPostResponseBody {
+public class CategoryPostResponseBody extends CategoryDTOModel{
 
+    @NotEmpty
     private Long id;
-    private String name;
-    private BigDecimal budget;
 
 }

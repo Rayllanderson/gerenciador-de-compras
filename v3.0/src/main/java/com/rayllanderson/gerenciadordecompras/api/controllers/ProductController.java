@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -57,7 +58,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductPostResponseBody> save(@PathVariable Long categoryId,
-                                                        @RequestBody ProductPostRequestBody productPostRequestBody){
+                                                        @RequestBody @Valid ProductPostRequestBody productPostRequestBody){
         Long userId = 1L;
         Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, currentCategory.getId()));
@@ -65,7 +66,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long categoryId, @PathVariable Long id,
-                                       @RequestBody ProductPutRequestBody productPutRequestBody){
+                                       @RequestBody @Valid ProductPutRequestBody productPutRequestBody){
         Long userId = 1L;
         productPutRequestBody.setId(id);
         productService.update(productPutRequestBody, categoryId, userId);
@@ -80,7 +81,7 @@ public class ProductController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteVarious(@PathVariable Long categoryId, @RequestBody List<SelectItemsRequestBody> ids){
+    public ResponseEntity<Void> deleteVarious(@PathVariable Long categoryId, @RequestBody @Valid List<SelectItemsRequestBody> ids){
         Long userId = 1L;
         productService.deleteVariousById(ids, categoryId, userId);
         return ResponseEntity.noContent().build();
@@ -93,7 +94,8 @@ public class ProductController {
     }
 
     @PostMapping("/copy")
-    public ResponseEntity<Void> copyProductsToAnotherCategory(@PathVariable Long categoryId, @RequestBody TransferProductRequestBody data){
+    public ResponseEntity<Void> copyProductsToAnotherCategory(@PathVariable Long categoryId,
+                                                              @RequestBody @Valid TransferProductRequestBody data){
         Long userId = 1L;
         data.setCurrentCategoryId(categoryId);
         data.setUserId(userId);
@@ -103,7 +105,7 @@ public class ProductController {
 
     @PostMapping("/move")
     public ResponseEntity<Void> moveProductsToAnotherCategory(@PathVariable Long categoryId,
-                                                           @RequestBody TransferProductRequestBody data){
+                                                           @RequestBody @Valid TransferProductRequestBody data){
         Long userId = 1L;
         data.setCurrentCategoryId(categoryId);
         data.setUserId(userId);

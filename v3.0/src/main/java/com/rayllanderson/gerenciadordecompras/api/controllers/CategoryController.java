@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,12 +32,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryPostResponseBody> save(@RequestBody CategoryPostRequestBody categoryPostRequestBody){
+    public ResponseEntity<CategoryPostResponseBody> save(@RequestBody @Valid CategoryPostRequestBody categoryPostRequestBody){
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(categoryPostRequestBody, userId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody CategoryPutRequestBody categoryPutRequestBody){
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid CategoryPutRequestBody categoryPutRequestBody){
         categoryPutRequestBody.setId(id);
         categoryService.update(categoryPutRequestBody, userId);
         return ResponseEntity.noContent().build();
@@ -54,7 +55,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteVarious(@RequestBody List<SelectItemsRequestBody> ids){
+    public ResponseEntity<Void> deleteVarious(@RequestBody @Valid List<SelectItemsRequestBody> ids){
         categoryService.deleteVariousById(ids, userId);
         return ResponseEntity.noContent().build();
     }
@@ -65,7 +66,7 @@ public class CategoryController {
     }
 
     @PostMapping("/copy")
-    public ResponseEntity<Void> duplicateCategory(@RequestBody TransferCategoryRequestBody data){
+    public ResponseEntity<Void> duplicateCategory(@RequestBody @Valid TransferCategoryRequestBody data){
         categoryService.duplicateCategory(data, userId);
         return ResponseEntity.noContent().build();
     }

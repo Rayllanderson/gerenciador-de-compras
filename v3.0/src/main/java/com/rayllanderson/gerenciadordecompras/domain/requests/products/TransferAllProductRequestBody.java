@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -16,6 +18,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class TransferAllProductRequestBody {
+
+    @NotEmpty
+    @NotNull
     private List<SelectItemsRequestBody> selectItems;
+
+    @NotEmpty
+    @NotNull
     private Long newCategoryId;
 }

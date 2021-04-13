@@ -1,5 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.dtos.product;
-
+package com.rayllanderson.gerenciadordecompras.domain.dtos.category;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,20 +8,14 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public abstract class ProductDtoModel {
+public abstract class CategoryDTOModel {
 
     @Size(min = 1, max = 50)
-    protected String name;
+    private String name;
 
     @DecimalMax("999999")
-    protected BigDecimal stipulatedPrice;
-
-    @DecimalMax("999999")
-    protected BigDecimal spentPrice;
-
-    protected Boolean purchased;
+    private BigDecimal budget;
 }

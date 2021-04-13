@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.api.controllers.exceptions.handle;
+package com.rayllanderson.gerenciadordecompras.api.exceptions.handle;
 
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.BadRequestException;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;

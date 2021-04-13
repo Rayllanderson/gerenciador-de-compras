@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,13 +42,13 @@ public class AllProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductPostResponseBody> save(@RequestBody AllProductPostRequestBody productPostRequestBody){
+    public ResponseEntity<ProductPostResponseBody> save(@RequestBody @Valid AllProductPostRequestBody productPostRequestBody){
         Long userId = 1L;
         return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody, userId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody ProductPutRequestBody productPutRequestBody){
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ProductPutRequestBody productPutRequestBody){
         Long userId = 1L;
         productPutRequestBody.setId(id);
         allProductService.update(productPutRequestBody, userId);
@@ -62,7 +63,7 @@ public class AllProductController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteVarious(@RequestBody List<SelectItemsRequestBody> ids){
+    public ResponseEntity<Void> deleteVarious(@RequestBody @Valid List<SelectItemsRequestBody> ids){
         Long userId = 1L;
         allProductService.deleteVariousById(ids, userId);
         return ResponseEntity.noContent().build();
@@ -75,14 +76,14 @@ public class AllProductController {
     }
 
     @PostMapping("/copy")
-    public ResponseEntity<Void> copyProductsToAnotherCategory(@RequestBody TransferAllProductRequestBody data){
+    public ResponseEntity<Void> copyProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data){
         Long userId = 1L;
         allProductService.copyProductsToAnotherCategory(data, userId);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/move")
-    public ResponseEntity<Void> moveProductsToAnotherCategory(@RequestBody TransferAllProductRequestBody data){
+    public ResponseEntity<Void> moveProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data){
         Long userId = 1L;
         allProductService.moveProductsToAnotherCategory(data, userId);
         return ResponseEntity.noContent().build();

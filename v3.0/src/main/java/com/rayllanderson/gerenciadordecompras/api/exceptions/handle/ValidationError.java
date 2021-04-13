@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.api.controllers.exceptions.handle;
+package com.rayllanderson.gerenciadordecompras.api.exceptions.handle;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
