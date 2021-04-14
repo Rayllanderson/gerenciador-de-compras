@@ -1,6 +1,5 @@
 package com.rayllanderson.gerenciadordecompras.integration;
 
-import com.google.gson.Gson;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.CategoryMapper;
