@@ -27,6 +27,8 @@ public class Assertions {
     }
 
     public void assertThatEmailNotExists(String email) throws BadRequestException{
+        if (email == null) return;
+        if (email.isEmpty() || email.trim().isEmpty()) return;
         boolean emailExists = userRepository.existsByEmail(email);
         if(emailExists){
             throw new BadRequestException("Email já cadastrado. Tente outro.");

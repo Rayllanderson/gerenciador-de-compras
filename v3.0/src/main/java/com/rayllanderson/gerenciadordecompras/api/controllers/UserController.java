@@ -1,6 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPostRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutPasswordRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.UserMapper;
@@ -9,14 +10,13 @@ import com.rayllanderson.gerenciadordecompras.domain.repositories.UserRepository
 import com.rayllanderson.gerenciadordecompras.domain.services.UserService;
 import com.rayllanderson.gerenciadordecompras.domain.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +44,11 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponseBody> register(@RequestBody @Valid UserPostRequestBody user) {
         UserResponseBody dto = userService.save(user);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<Void> updatePassword(@RequestBody @Valid UserPutRequestBody user,
+    public ResponseEntity<Void> updatePassword(@RequestBody @Valid UserPutPasswordRequestBody user,
                                                @AuthenticationPrincipal UserDetails userDetails) {
         user.setId(userUtil.getUserIdByUsername(userDetails.getUsername()));
         userService.updatePassword(user);

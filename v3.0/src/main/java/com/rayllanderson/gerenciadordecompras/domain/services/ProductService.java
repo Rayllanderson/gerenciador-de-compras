@@ -10,7 +10,7 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +62,7 @@ public class ProductService {
     @Transactional
     public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
         Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
-        UpdateData.updateProductData(productPutRequestBody, product);
+        UpdateUtil.updateProductData(productPutRequestBody, product);
         productRepository.save(product);
     }
 

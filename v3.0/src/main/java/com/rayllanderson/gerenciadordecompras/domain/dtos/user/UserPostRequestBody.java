@@ -9,5 +9,5 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class UserPostRequestBody extends UserDtoModel{
+public class UserPostRequestBody extends UserPostModel {
 }

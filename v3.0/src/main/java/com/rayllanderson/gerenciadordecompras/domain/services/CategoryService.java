@@ -11,7 +11,7 @@ import com.rayllanderson.gerenciadordecompras.domain.repositories.CategoryReposi
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,7 +53,7 @@ public class CategoryService {
     @Transactional
     public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId) {
         Category categoryToBeUpdated = findById(categoryPutRequestBody.getId(), userId);
-        UpdateData.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
+        UpdateUtil.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
         categoryRepository.save(categoryToBeUpdated);
     }
 
