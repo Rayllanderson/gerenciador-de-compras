@@ -9,6 +9,7 @@ import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequest
 import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.utils.*;
 import com.rayllanderson.gerenciadordecompras.utils.product.ProductCreator;
+import com.rayllanderson.gerenciadordecompras.utils.user.UserCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -68,7 +69,7 @@ class CategoryServiceTest {
 
     @Test
     void findALL_ReturnsListOfCategoriesInsidePage_WhenSuccessful() {
-        User expectedUser = UserCreator.createAValidUser();
+        User expectedUser = UserCreator.createUserWithId();
         Category expectedCategory = CategoryCreator.createCategoryWithId();
         String expectedName = expectedCategory.getName();
 
@@ -92,7 +93,7 @@ class CategoryServiceTest {
 
     @Test
     void findById_ReturnsCategory_WhenSuccessful() {
-        User expectedUser = UserCreator.createAValidUser();
+        User expectedUser = UserCreator.createUserWithId();
         Long expectedId = CategoryCreator.createCategoryWithId().getId();
         Category category = categoryService.findById(1L, 1L);
 

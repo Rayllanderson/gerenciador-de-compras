@@ -1,7 +1,7 @@
 package com.rayllanderson.gerenciadordecompras.domain.repositories;
 
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
-import com.rayllanderson.gerenciadordecompras.utils.UserCreator;
+import com.rayllanderson.gerenciadordecompras.utils.user.UserCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
