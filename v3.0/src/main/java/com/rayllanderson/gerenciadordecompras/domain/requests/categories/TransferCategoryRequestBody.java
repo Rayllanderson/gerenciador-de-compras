@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 @Builder
 public class TransferCategoryRequestBody {
 
-    @NotEmpty
     @NotNull
     private Long id;
 

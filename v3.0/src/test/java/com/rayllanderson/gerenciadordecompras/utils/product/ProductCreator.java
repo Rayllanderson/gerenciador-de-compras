@@ -19,6 +19,17 @@ public class ProductCreator {
                 .build();
     }
 
+    public static Product createAnotherProductToBeSaved(){
+        Category category = CategoryCreator.createCategoryWithId();
+        return Product.builder().
+                name("Placa mãe")
+                .category(category)
+                .purchased(true)
+                .spentPrice(new BigDecimal("399.95"))
+                .stipulatedPrice(new BigDecimal("599.85"))
+                .build();
+    }
+
     public static Product createProductWithId(){
         Category category = CategoryCreator.createCategoryWithId();
         return Product.builder()
