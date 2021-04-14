@@ -7,8 +7,8 @@ import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundExceptio
 import com.rayllanderson.gerenciadordecompras.domain.mapper.UserMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.UserRepository;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.StringUtils;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.StringUtils;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateData;
 import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

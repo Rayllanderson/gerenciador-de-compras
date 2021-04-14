@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.services.utils;
+package com.rayllanderson.gerenciadordecompras.domain.utils;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

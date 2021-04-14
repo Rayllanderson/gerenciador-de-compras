@@ -11,7 +11,5 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @NoArgsConstructor
 public class ProductPostResponseBody extends ProductDtoModel {
-    @NotEmpty
-    @NotNull
     private Long id;
 }

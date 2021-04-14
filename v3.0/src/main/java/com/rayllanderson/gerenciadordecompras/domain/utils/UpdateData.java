@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.services.utils;
+package com.rayllanderson.gerenciadordecompras.domain.utils;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;

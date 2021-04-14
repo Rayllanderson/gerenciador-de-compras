@@ -1,4 +1,4 @@
-package com.rayllanderson.gerenciadordecompras.domain.services.utils;
+package com.rayllanderson.gerenciadordecompras.domain.utils;
 
 public class StringUtils {
 

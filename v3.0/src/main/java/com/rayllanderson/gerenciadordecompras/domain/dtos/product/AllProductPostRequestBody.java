@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @SuperBuilder
@@ -11,6 +12,5 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 public class AllProductPostRequestBody extends ProductDtoModel {
-    @NotEmpty
     private Long categoryId;
 }
