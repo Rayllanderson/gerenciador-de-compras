@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 public class SelectItemsRequestBody {
-    @NotEmpty
     @NotNull
     private Long id;
 }

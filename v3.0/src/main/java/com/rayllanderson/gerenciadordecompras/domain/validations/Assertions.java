@@ -15,8 +15,9 @@ public class Assertions {
     private final UserRepository userRepository;
 
     public Category assertThatCategoryIsValid(Long categoryId, Long userId){
-        return categoryRepository.findByIdAndUserId(categoryId, userId).orElseThrow(() -> new BadRequestException("A categoria " +
-                "selecionada não existe ou é inválida."));
+        String message = "A categoria selecionada não existe ou é inválida.";
+        if (categoryId == null) throw new BadRequestException(message);
+        return categoryRepository.findByIdAndUserId(categoryId, userId).orElseThrow(() -> new BadRequestException(message));
     }
 
     public void assertThatUsernameNotExists(String username) throws BadRequestException {
@@ -27,6 +28,8 @@ public class Assertions {
     }
 
     public void assertThatEmailNotExists(String email) throws BadRequestException{
+        if (email == null) return;
+        if (email.isEmpty() || email.trim().isEmpty()) return;
         boolean emailExists = userRepository.existsByEmail(email);
         if(emailExists){
             throw new BadRequestException("Email já cadastrado. Tente outro.");

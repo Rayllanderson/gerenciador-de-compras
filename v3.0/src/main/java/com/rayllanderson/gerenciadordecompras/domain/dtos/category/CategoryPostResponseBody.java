@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -13,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class CategoryPostResponseBody extends CategoryDTOModel{
 
-    @NotEmpty
     private Long id;
 
 }

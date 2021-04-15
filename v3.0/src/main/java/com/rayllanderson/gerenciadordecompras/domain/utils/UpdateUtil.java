@@ -1,14 +1,15 @@
-package com.rayllanderson.gerenciadordecompras.domain.services.utils;
+package com.rayllanderson.gerenciadordecompras.domain.utils;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutPasswordRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import org.springframework.beans.BeanUtils;
 
-public class UpdateData {
+public class UpdateUtil {
 
     /**
      * copia as propriedades de um categoryPutRequestBody para category ignorando o ID
@@ -23,11 +24,11 @@ public class UpdateData {
         BeanUtils.copyProperties(productPutRequestBody, product, "id");
     }
 
-    public static void updatePasswordFromUser(UserPutRequestBody source, User target) {
-        BeanUtils.copyProperties(source, target, "id", "name", "email", "username");
+    public static void updatePasswordFromUser(UserPutPasswordRequestBody source, User target) {
+        BeanUtils.copyProperties(source, target, "id", "name", "email", "username", "authorities");
     }
 
     public static void updateNameUsernameOrEmailFromUser(UserPutRequestBody source, User target) {
-        BeanUtils.copyProperties(source, target, "id", "password", "username");
+        BeanUtils.copyProperties(source, target, "id", "password", "username", "authorities");
     }
 }

@@ -10,7 +10,8 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
+import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final Assertions assertions;
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Long categoryId, Long userId, Pageable pageable){
@@ -47,7 +49,8 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId){
+    public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId, Long userId){
+        assertions.assertThatCategoryIsValid(categoryId, userId);
         Product product = ProductMapper.toProduct(productPostRequestBody);
         product.setCategory(new Category(categoryId));
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
@@ -62,7 +65,13 @@ public class ProductService {
     @Transactional
     public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
         Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
-        UpdateData.updateProductData(productPutRequestBody, product);
+        UpdateUtil.updateProductData(productPutRequestBody, product);
+        Long possibleNewCategoryId = productPutRequestBody.getCategoryId();
+        boolean hasChangedCategory = possibleNewCategoryId != null && !possibleNewCategoryId.equals(categoryId);
+        if (hasChangedCategory){
+            assertions.assertThatCategoryIsValid(productPutRequestBody.getCategoryId(), userId);
+            product.setCategory(new Category(possibleNewCategoryId));
+        }
         productRepository.save(product);
     }
 

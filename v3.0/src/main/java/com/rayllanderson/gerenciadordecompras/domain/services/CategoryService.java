@@ -3,15 +3,16 @@ package com.rayllanderson.gerenciadordecompras.domain.services;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.model.Category;
-import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.CategoryMapper;
+import com.rayllanderson.gerenciadordecompras.domain.model.Category;
+import com.rayllanderson.gerenciadordecompras.domain.model.Product;
+import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.CategoryRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,13 +54,15 @@ public class CategoryService {
     @Transactional
     public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId) {
         Category categoryToBeUpdated = findById(categoryPutRequestBody.getId(), userId);
-        UpdateData.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
+        UpdateUtil.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
         categoryRepository.save(categoryToBeUpdated);
     }
 
     @Transactional
     public void deleteById(Long id, Long userId) {
         findById(id, userId);
+        List<Product> allProductsFromCategory = productService.findAllNonPageable(id, userId);
+        allProductsFromCategory.forEach(product -> productService.deleteById(product.getId(), id, userId));
         categoryRepository.deleteById(id);
     }
 

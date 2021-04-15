@@ -3,7 +3,7 @@ package com.rayllanderson.gerenciadordecompras.domain.services;
 import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.StatisticUtil;
+import com.rayllanderson.gerenciadordecompras.domain.utils.StatisticUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

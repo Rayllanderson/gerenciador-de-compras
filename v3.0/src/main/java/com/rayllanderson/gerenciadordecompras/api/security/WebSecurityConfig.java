@@ -5,8 +5,8 @@ import com.rayllanderson.gerenciadordecompras.api.security.jwt.JwtAuthorizationF
 import com.rayllanderson.gerenciadordecompras.api.security.jwt.handler.AccessDeniedHandler;
 import com.rayllanderson.gerenciadordecompras.api.security.jwt.handler.UnauthorizedHandler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,6 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         AuthenticationManager authManager = authenticationManager();
         http
                 .authorizeRequests()
+                .antMatchers("/api/v1/login", "/api/v1/users/details").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .httpBasic().disable()

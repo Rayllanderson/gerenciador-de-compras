@@ -1,20 +1,25 @@
 package com.rayllanderson.gerenciadordecompras.domain.services;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPostRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutPasswordRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.UserMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.UserRepository;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.StringUtils;
-import com.rayllanderson.gerenciadordecompras.domain.services.utils.UpdateData;
+import com.rayllanderson.gerenciadordecompras.domain.utils.StringUtils;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
 import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
+@Log4j2
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -61,33 +66,37 @@ public class UserService {
      *
      * @param user user from the body;
      *
-     * @return user updated
-     *
      * @throws NotFoundException - if user update username and username has already taken.
      */
     @Transactional
-    public UserResponseBody updateNameUsernameOrEmail(UserPutRequestBody user) throws NotFoundException {
+    public void updateNameUsernameOrEmail(UserPutRequestBody user) throws NotFoundException {
         User userFromDataBase = this.findById(user.getId());
-        boolean hasUpdateEmail = StringUtils.matches(user.getEmail(), userFromDataBase.getEmail());
+        boolean hasUpdateUsername = StringUtils.notMatches(user.getUsername(), userFromDataBase.getUsername());
+        boolean hasUpdateEmail = StringUtils.notMatches(user.getEmail(), userFromDataBase.getEmail());
+        if (hasUpdateUsername){
+            assertions.assertThatUsernameNotExists(user.getUsername());
+        }
         if (hasUpdateEmail) {
             assertions.assertThatEmailNotExists(user.getEmail());
         }
-        UpdateData.updateNameUsernameOrEmailFromUser(user, userFromDataBase);
-        return UserMapper.toUserResponseBody(this.userRepository.save(userFromDataBase));
+        log.info("BEFORE: " + userFromDataBase);
+        UpdateUtil.updateNameUsernameOrEmailFromUser(user, userFromDataBase);
+        log.info("AFTER: " + userFromDataBase);
+        UserMapper.toUserResponseBody(this.userRepository.save(userFromDataBase));
     }
 
     /**
      * Use this method if you want to update ONLY password.
      */
     @Transactional
-    public UserResponseBody updatePassword(UserPutRequestBody user) {
+    public void updatePassword(UserPutPasswordRequestBody user) {
         if(passwordIsNotValid(user.getPassword())){
             throw new IllegalArgumentException("Senha está vazia");
         }
         User userFromDataBase = this.findById(user.getId());
-        UpdateData.updatePasswordFromUser(user, userFromDataBase);
+        UpdateUtil.updatePasswordFromUser(user, userFromDataBase);
         userFromDataBase.setPassword(encoder.encode(userFromDataBase.getPassword()));
-        return UserMapper.toUserResponseBody(this.userRepository.save(userFromDataBase));
+        UserMapper.toUserResponseBody(this.userRepository.save(userFromDataBase));
     }
 
     private boolean passwordIsNotValid(String password){

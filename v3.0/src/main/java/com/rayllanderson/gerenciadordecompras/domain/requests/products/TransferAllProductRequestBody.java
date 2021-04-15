@@ -19,11 +19,9 @@ import java.util.List;
 @Builder
 public class TransferAllProductRequestBody {
 
-    @NotEmpty
     @NotNull
     private List<SelectItemsRequestBody> selectItems;
 
-    @NotEmpty
     @NotNull
     private Long newCategoryId;
 }

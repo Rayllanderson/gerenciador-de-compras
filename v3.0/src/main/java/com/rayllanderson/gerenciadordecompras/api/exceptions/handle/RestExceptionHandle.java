@@ -37,7 +37,7 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<StandardError> handleBadRequestException(BadRequestException e, HttpServletRequest request) {
-        HttpStatus statusCode = HttpStatus.NOT_FOUND;
+        HttpStatus statusCode = HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(statusCode).body(
                 StandardError.builder()
                         .timestamp(LocalDateTime.now())
