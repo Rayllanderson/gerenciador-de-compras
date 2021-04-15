@@ -42,11 +42,17 @@ class ProductServiceTest {
     @Mock
     private ProductRepository productRepositoryMock;
 
+    @Mock
+    private com.rayllanderson.gerenciadordecompras.domain.validations.Assertions assertions;
+
     @BeforeEach
     void setUp() {
 
         PageImpl<Product> productPage = new PageImpl<>(List.of(ProductCreator.createProductWithId()));
         PageImpl<Product> productNotPurchasedPage = new PageImpl<>(List.of(ProductCreator.createANonPurchasedProductWithId()));
+
+        BDDMockito.when(assertions.assertThatCategoryIsValid(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
+                .thenReturn(CategoryCreator.createCategoryWithId());
 
         //findAll PAGE
         BDDMockito.when(productRepositoryMock.findAllByCategoryIdAndCategoryUserId(ArgumentMatchers.anyLong(),
@@ -167,7 +173,7 @@ class ProductServiceTest {
     void save_ReturnsProduct_WhenSuccessful() {
         Long currentCategoryId = CategoryCreator.createCategoryWithId().getId();
         ProductPostResponseBody product = productService.save(ProductPostRequestBodyCreator.createProductPostRequestBody(),
-                currentCategoryId);
+                currentCategoryId, 1L);
         Assertions.assertThat(product).isNotNull();
         Assertions.assertThat(product.getId()).isNotNull();
 
@@ -180,7 +186,7 @@ class ProductServiceTest {
         BDDMockito.when(productRepositoryMock.save(ArgumentMatchers.any(Product.class)))
                 .thenThrow(new ConstraintViolationException(null, null));
         Assertions.assertThatThrownBy(() ->
-                productService.save(new ProductPostRequestBody(), currentCategoryId))
+                productService.save(new ProductPostRequestBody(), currentCategoryId, 1L))
                 .isInstanceOf(ConstraintViolationException.class);
     }
 

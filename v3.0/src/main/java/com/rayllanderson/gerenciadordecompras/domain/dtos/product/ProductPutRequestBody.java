@@ -1,10 +1,10 @@
 package com.rayllanderson.gerenciadordecompras.domain.dtos.product;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -12,4 +12,5 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ProductPutRequestBody extends ProductDtoModel {
     private Long id;
+    private Long categoryId;
 }

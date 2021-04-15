@@ -10,9 +10,9 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferAllProductRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +25,6 @@ public class AllProductService {
 
     private final ProductRepository productRepository;
     private final ProductService productService;
-    private final Assertions assertions;
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Long userId, Pageable pageable){
@@ -54,13 +53,11 @@ public class AllProductService {
     }
 
     public ProductPostResponseBody save (AllProductPostRequestBody product, Long userId){
-        Category category = assertions.assertThatCategoryIsValid(product.getCategoryId(), userId);
-        return productService.save(ProductMapper.toProductPostRequestBody(product), category.getId());
+        return productService.save(ProductMapper.toProductPostRequestBody(product), product.getCategoryId(), userId);
     }
 
     public void update (ProductPutRequestBody productPutRequestBody, Long userId){
-        Category categoryFromProduct = getCategoryFromProduct(productPutRequestBody.getId(), userId);
-        productService.update(productPutRequestBody, categoryFromProduct.getId(), userId);
+        productService.update(productPutRequestBody, productPutRequestBody.getId(), userId);
     }
 
     public void deleteById (Long productId, Long userId){

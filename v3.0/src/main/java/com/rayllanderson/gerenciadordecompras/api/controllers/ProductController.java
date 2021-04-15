@@ -6,14 +6,12 @@ import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostRes
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
-import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.services.ProductService;
 import com.rayllanderson.gerenciadordecompras.domain.services.StatisticService;
-import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +32,6 @@ public class ProductController {
 
     private final ProductService productService;
     private final StatisticService statisticService;
-    private final Assertions assertions;
     private final UserUtil myUserUtil;
 
     @GetMapping
@@ -69,8 +66,7 @@ public class ProductController {
                                                         @RequestBody @Valid ProductPostRequestBody productPostRequestBody,
                                                         @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
-        Category currentCategory = assertions.assertThatCategoryIsValid(categoryId, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, currentCategory.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productPostRequestBody, categoryId, userId));
     }
 
     @PutMapping("/{id}")

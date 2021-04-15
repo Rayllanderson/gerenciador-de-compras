@@ -18,19 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class TransferProductRequestBody {
-    @NotEmpty
-    @NotNull
     private List<SelectItemsRequestBody> selectItems;
-
-    @NotEmpty
-    @NotNull
     private Long currentCategoryId;
-
-    @NotEmpty
-    @NotNull
     private Long newCategoryId;
-
-    @NotEmpty
-    @NotNull
     private Long userId;
 }

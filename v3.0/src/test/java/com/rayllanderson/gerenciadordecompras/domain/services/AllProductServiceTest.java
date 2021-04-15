@@ -46,9 +46,6 @@ class AllProductServiceTest {
     private ProductService productServiceMock;
 
     @Mock
-    private com.rayllanderson.gerenciadordecompras.domain.validations.Assertions assertions;
-    
-    @Mock
     private ProductRepository productRepositoryMock;
 
     @BeforeEach
@@ -57,16 +54,13 @@ class AllProductServiceTest {
         PageImpl<Product> productPage = new PageImpl<>(List.of(ProductCreator.createProductWithId()));
         PageImpl<Product> productNotPurchasedPage = new PageImpl<>(List.of(ProductCreator.createANonPurchasedProductWithId()));
 
-        BDDMockito.when(assertions.assertThatCategoryIsValid(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
-                .thenReturn(CategoryCreator.createCategoryWithId());
-
         //CATEGORY - findAllNonPageable
         BDDMockito.when(categoryServiceMock.findAllNonPageable(ArgumentMatchers.anyLong()))
                 .thenReturn(List.of(CategoryCreator.createCategoryWithId()));
 
 
         //PRODUCT - save
-        BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.anyLong()))
+        BDDMockito.when(productServiceMock.save(ArgumentMatchers.any(ProductPostRequestBody.class), ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong()))
                 .thenReturn(ProductMapper.toProductPostResponseBody(ProductCreator.createProductWithId()));
 
         //PRODUCT REPO - save
