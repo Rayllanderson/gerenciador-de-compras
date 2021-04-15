@@ -1,6 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.utils;
 
-import com.rayllanderson.gerenciadordecompras.model.dtos.category.CategoryPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.category.CategoryPutRequestBody;
 
 import java.math.BigDecimal;
 
@@ -10,7 +10,7 @@ public class CategoryPutRequestBodyCreator {
         return CategoryPutRequestBody.builder()
                 .id(1L)
                 .name("Compras")
-                .estimation(new BigDecimal(100))
+                .budget(new BigDecimal(100))
                 .build();
     }
 }
