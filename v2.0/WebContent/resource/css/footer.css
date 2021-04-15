@@ -1,34 +1,35 @@
-        .footer {
-            background-color: #1C2833;
-            color: white;
-            position: relative;
-        }
-        
-        
-     /*  #1C2833*/
-        
-        .footer a {
-            color: rgb(220, 220, 220);
-        }
-        
-        .footer a:hover{
-        	color: rgb(255, 255, 255);
-        }
-        
-        footer hr {
-            display: block;
-            height: 1px;
-            border: 0;
-            border-top: 1px solid white;
-            margin: 1em 0;
-            padding: 0;
-        }
-        
-        .footer-copyright{
-        	background-color: #17202A;
-        }
-        
-        .icons a{
-         text-decoration: none;}
-        
-        /*  */
+.footer {
+    background-color: #1C2833;
+    color: white;
+    position: relative;
+}
+
+
+/*  #1C2833*/
+
+.footer a {
+    color: rgb(220, 220, 220);
+}
+
+.footer a:hover {
+    color: rgb(255, 255, 255);
+}
+
+footer hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid white;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.footer-copyright {
+    background-color: #17202A;
+}
+
+.icons a {
+    text-decoration: none;
+}
+
+/*  */

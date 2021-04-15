@@ -17,51 +17,51 @@ import javax.servlet.http.HttpSession;
 import com.ray.model.entities.User;
 import com.ray.model.util.Theme;
 
-@WebFilter(urlPatterns = { "/categorias/*", "/produtos/*", "/all-products/*", "/all-products.jsp/*", "/home.jsp", "/home", "/categorias.jsp", "/produtos.jsp", "/account.jsp", "/my-account/*", "/estatisticas/*", "/estatisticas.jsp" })
+@WebFilter(urlPatterns = {"/categorias/*", "/produtos/*", "/all-products/*", "/all-products.jsp/*", "/home.jsp", "/home",
+        "/categorias.jsp", "/produtos.jsp", "/account.jsp", "/my-account/*", "/estatisticas/*", "/estatisticas.jsp"})
 public class Autenticacao implements Filter {
 
     private ServletContext context;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-//	Filter.super.init(filterConfig);
-	this.context = filterConfig.getServletContext();
-	this.context.log("AuthenticationFilter initialized");
+        //	Filter.super.init(filterConfig);
+        this.context = filterConfig.getServletContext();
+        this.context.log("AuthenticationFilter initialized");
     }
 
-    // intercepta todas as requisições
+    // intercepta todas as requisiï¿½ï¿½es
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	    throws IOException, ServletException {
-	HttpServletRequest req = (HttpServletRequest) request;
-	HttpServletResponse res = (HttpServletResponse) response;
-	User user = (User) req.getSession().getAttribute("user");
-	setUserTheme(req, user);
-	HttpSession session = req.getSession(false);
-	request.setCharacterEncoding("UTF-8");
-//	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
-	if (session == null || user == null) { // checking whether the session exists
-	    this.context.log("Unauthorized access request");
-	    res.sendRedirect(req.getContextPath() + "/welcome.jsp");
-	} else {
-	    // pass the request along the filter chain
-	    chain.doFilter(request, response);
-	}
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        User user = (User) req.getSession().getAttribute("user");
+        setUserTheme(req, user);
+        HttpSession session = req.getSession(false);
+        request.setCharacterEncoding("UTF-8");
+        //	System.out.println("Ola eu sou o filter passando por aqui. session = " + session);
+        if (session == null || user == null) { // checking whether the session exists
+            this.context.log("Unauthorized access request");
+            res.sendRedirect(req.getContextPath() + "/welcome.jsp");
+        } else {
+            // pass the request along the filter chain
+            chain.doFilter(request, response);
+        }
     }
 
     @Override
     public void destroy() {
-//	Filter.super.destroy();
+        //	Filter.super.destroy();
     }
-    
+
     private void setUserTheme(HttpServletRequest request, User user) {
-	String theme = null;
-	try {
-	    theme = user.getTheme().toString();
-	}catch (Exception e) {
-	    theme = Theme.DEFAULT.toString();
-	}finally {
-	    request.setAttribute("theme", theme);
-	}
+        String theme = null;
+        try {
+            theme = user.getTheme().toString();
+        } catch (Exception e) {
+            theme = Theme.DEFAULT.toString();
+        } finally {
+            request.setAttribute("theme", theme);
+        }
     }
 }

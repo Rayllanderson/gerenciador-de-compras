@@ -1,44 +1,58 @@
 @import url("../animation.css");
 
 #navbar {
-	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
-	background-color: transparent!important;
+    box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+    background-color: transparent !important;
 }
 
 #seccond-navbar {
-	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.05);
-	height: 5%;
+    box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.05);
+    height: 5%;
 }
 
 #btn-new, #btn-info {
-	margin-top: 3%;
-	border: none;
-	color: white!important;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-	border-color:transparent!important
+    margin-top: 3%;
+    border: none;
+    color: white !important;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    border-color: transparent !important
 }
+
 #btn-new {
-	margin-right:5px;
+    margin-right: 5px;
 }
+
 #list-titulo {
-	text-align: center;
-	margin-top: 4%;
-	color: white;
+    text-align: center;
+    margin-top: 4%;
+    color: white;
 }
 
-.wall.animate{
-	 animation: 5s wobble linear;
+.wall.animate {
+    animation: 5s wobble linear;
 }
 
-#btn-new:hover{color:#fff!important;background-color:#28a745!important;border-color:transparent!important}
+#btn-new:hover {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: transparent !important
+}
 
-#btn-info{color:#007bff;border-color:#007bff}
-#btn-info:hover{color:#fff;background-color:#007bff;border-color:#007bff}
+#btn-info {
+    color: #007bff;
+    border-color: #007bff
+}
+
+#btn-info:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
 
 
 .wall {
-	background-size:cover;
-	background-repeat: no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 

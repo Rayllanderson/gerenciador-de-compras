@@ -18,126 +18,133 @@ public class ProductService {
     protected Categoria cat;
 
     public ProductService(Categoria cat) {
-	this.cat = cat;
-	this.dao = DaoFactory.createProductDao(cat);
+        this.cat = cat;
+        this.dao = DaoFactory.createProductDao(cat);
     }
 
     public Categoria getCat() {
-	return cat;
+        return cat;
     }
 
     // ---------------------"CRUD"-------------------------//
+
     /**
-     * Salva o produto. Passa por 2 verificações. Nome nulo e preço nulo. Caso nome
-     * seja nulo, throw exception. Caso o preço seja nulo, será setado para 0.0
-     * 
+     * Salva o produto. Passa por 2 verificaï¿½ï¿½es. Nome nulo e preï¿½o nulo. Caso nome
+     * seja nulo, throw exception. Caso o preï¿½o seja nulo, serï¿½ setado para 0.0
+     *
      * @param
+     *
      * @return
+     *
      * @throws EntradaInvalidaException - caso os campos valor estipalo e nome
-     *                                  estejam vazios ou nulos
+     * estejam vazios ou nulos
      */
     public boolean save(Product p) throws EntradaInvalidaException {
-	try {
-	    Validacao.validarNome(p.getNome());
-	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
-	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
-	    dao.save(p);
-	    cat.adicionarProduto(p);
-	    return true;
-	} catch (DbException e) {
-	    e.printStackTrace();
-	}
-	return false;
+        try {
+            Validacao.validarNome(p.getNome());
+            p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+            p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
+            dao.save(p);
+            cat.adicionarProduto(p);
+            return true;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
-     * Atualiza o produto. Passa por 3 verificações. Primeiro checa se o produto de
-     * fato pertence ao usuário atual, caso seja, verifica se o nome não é nulo, se
-     * for throw exception. E, os preços, se forem nulos, seta para 0.0
-     * 
+     * Atualiza o produto. Passa por 3 verificaï¿½ï¿½es. Primeiro checa se o produto de
+     * fato pertence ao usuï¿½rio atual, caso seja, verifica se o nome nï¿½o ï¿½ nulo, se
+     * for throw exception. E, os preï¿½os, se forem nulos, seta para 0.0
+     *
      * @param p
+     *
      * @return
+     *
      * @throws EntradaInvalidaException - caso o campo nome esteja nulo
-     * @throws ProdutoException         - caso o produto não pertenca ao usuário
+     * @throws ProdutoException - caso o produto nï¿½o pertenca ao usuï¿½rio
      */
     public boolean update(Product p) throws EntradaInvalidaException, ProdutoException {
-	if (dao.productIsValid(p.getId())) {
-	    Validacao.validarNome(p.getNome());
-	    p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
-	    p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
-	    dao.update(p);
-	    return true;
-	} else {
-	    throw new ProdutoException("Ocorreu um inesperado");
-	}
+        if (dao.productIsValid(p.getId())) {
+            Validacao.validarNome(p.getNome());
+            p.setPrecoEstipulado(Validacao.validarPreco(p.getPrecoEstipulado()));
+            p.setPrecoReal(Validacao.validarPreco(p.getPrecoReal()));
+            dao.update(p);
+            return true;
+        } else {
+            throw new ProdutoException("Ocorreu um inesperado");
+        }
     }
 
     /**
-     * Deleta o produto pelo ID. Verifica se o produto pertence ao usuário, senao
+     * Deleta o produto pelo ID. Verifica se o produto pertence ao usuï¿½rio, senao
      * return false
-     * 
+     *
      * @param id
-     * @return true caso ok, false caso dê erro.
+     *
+     * @return true caso ok, false caso dï¿½ erro.
      */
     public boolean deleteById(Long id) {
-	try {
-	    if (dao.productIsValid(id)) {
-		dao.deletById(id);
-		return true;
-	    }
-	} catch (DbException e) {
-	    e.printStackTrace();
-	}
-	return false;
+        try {
+            if (dao.productIsValid(id)) {
+                dao.deletById(id);
+                return true;
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
-     * 
-     * @return lista contendo todos os produtos. Não trata e nem lança nenhuma
-     *         exception.
+     * @return lista contendo todos os produtos. Nï¿½o trata e nem lanï¿½a nenhuma
+     * exception.
      */
     public List<Product> findAll() {
-	return dao.findAll();
+        return dao.findAll();
     }
 
     public List<Product> findAllWithException() throws ListaVaziaException {
-	List<Product> list = dao.findAll();
-	if (list.isEmpty()) {
-	    throw new ListaVaziaException("Ops, parece que você não tem nenhum produto na lista.");
-	}
-	return list;
+        List<Product> list = dao.findAll();
+        if (list.isEmpty()) {
+            throw new ListaVaziaException("Ops, parece que vocï¿½ nï¿½o tem nenhum produto na lista.");
+        }
+        return list;
     }
 
     /**
      * Procura o produto na lista atual. <br>
      * SQL: where produtos.nome LIKE '%name%' <br>
      * Ou seja, todos os produtos que conter o "nome" em qualquer lugar
-     * 
+     *
      * @param name
+     *
      * @return
+     *
      * @throws ListaVaziaException
      */
     public List<Product> findProductByName(String name) throws ListaVaziaException {
-	List<Product> list = dao.findByName(name);
-	if (list.isEmpty()) {
-	    throw new ListaVaziaException(
-		    !(name.length() == 1) ? "Não existe nenhum produto com as letras '" + name + "'"
-			    : "Não existe nenhum produto com a letra '" + name + "'");
-	}
-	return list;
+        List<Product> list = dao.findByName(name);
+        if (list.isEmpty()) {
+            throw new ListaVaziaException(!(name.length() == 1) ? "Nï¿½o existe nenhum produto com as letras '" + name + "'" : "Nï¿½o " +
+                    "existe nenhum produto com a letra '" + name + "'");
+        }
+        return list;
     }
 
     // ---------------------------Listas-------------------------------//
+
     /**
      * verifica se o usuario tem protudos.
-     * 
+     *
      * @return true caso esteja vazia <br>
-     *         false contenha um ou mais produtos
+     * false contenha um ou mais produtos
      */
     public boolean listIsEmpty() {
-	return dao.findAll().isEmpty() ? true : false;
+        return dao.findAll().isEmpty() ? true : false;
     }
 
-    // --------------------------- validações -----------------------------------//
+    // --------------------------- validaï¿½ï¿½es -----------------------------------//
 
 }

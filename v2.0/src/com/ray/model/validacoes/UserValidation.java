@@ -12,106 +12,111 @@ import com.ray.model.exception.MyLoginException;
 
 /**
  * Classe para validar nome e valor
- *
  */
 public class UserValidation {
 
     /**
-     * Verifica se o username já existe
-     * 
+     * Verifica se o username jï¿½ existe
+     *
      * @param newUsername
-     * @throws MyLoginException caso o username já exista
+     *
+     * @throws MyLoginException caso o username jï¿½ exista
      */
     public static void usernameIsValid(String newUsername) throws MyLoginException {
-	UserDao dao = DaoFactory.createUserDao();
-	List<String> usernames = dao.findAllUsernames();
-	for (String name : usernames) {
-	    if (name.equals(newUsername)) {
-		throw new MyLoginException("Username já existente!");
-	    }
-	}
+        UserDao dao = DaoFactory.createUserDao();
+        List<String> usernames = dao.findAllUsernames();
+        for (String name : usernames) {
+            if (name.equals(newUsername)) {
+                throw new MyLoginException("Username jï¿½ existente!");
+            }
+        }
     }
 
     /**
-     * Verifica se o username é válido. caso seja, seta novo username no user passado como parâmetro.
+     * Verifica se o username ï¿½ vï¿½lido. caso seja, seta novo username no user passado como parï¿½metro.
+     *
      * @param user - para setar o novo username nesse user.
      * @param newUsername - novo username a ser setado
-     * @throws MyLoginException caso username já exista. Método já possui mensagem. '(Username já existente!)'
+     *
+     * @throws MyLoginException caso username jï¿½ exista. Mï¿½todo jï¿½ possui mensagem. '(Username jï¿½ existente!)'
      */
     public static void usernameValidation(User user, String newUsername) throws MyLoginException {
-	// Verificando se o username atual não é igual ao username dele mesmo
-	if (!newUsername.equals(user.getUsername())) {
-	    // se nao for, verificar se o username já existe
-	    UserValidation.usernameIsValid(newUsername);
-	    user.setUsername(newUsername);
-	}
+        // Verificando se o username atual nï¿½o ï¿½ igual ao username dele mesmo
+        if (!newUsername.equals(user.getUsername())) {
+            // se nao for, verificar se o username jï¿½ existe
+            UserValidation.usernameIsValid(newUsername);
+            user.setUsername(newUsername);
+        }
     }
 
     /**
-     * verifica se um dos campos estão vazios
-     * 
+     * verifica se um dos campos estï¿½o vazios
+     *
      * @param name
      * @param username
-     * @return true caso os campos não estejam vazios
+     *
+     * @return true caso os campos nï¿½o estejam vazios
      */
     public static boolean fieldsAreNotEmpty(String name, String username) {
-	return !(name.isEmpty() || username.isEmpty());
+        return !(name.isEmpty() || username.isEmpty());
     }
-    
+
     /**
-     * verifica se um dos campos estão vazios
-     * 
+     * verifica se um dos campos estï¿½o vazios
+     *
      * @param username
      * @param pass1
      * @param pass2
-     * @return true caso os campos não estejam vazios
+     *
+     * @return true caso os campos nï¿½o estejam vazios
      */
     public static boolean fieldsAreNotEmpty(String username, String pass1, String pass2) {
-	return !(username.isEmpty() || pass1.isEmpty() || pass2.isEmpty());
+        return !(username.isEmpty() || pass1.isEmpty() || pass2.isEmpty());
     }
 
     /**
      * checa se nome e username do user foi alterado
-     * 
-     * @param nome    & username - para verificar com o user atual
+     *
+     * @param nome & username - para verificar com o user atual
      * @param foto64
      * @param request para capturar o user atual
+     *
      * @return true caso detecte que um dos campos foi modificado
      */
     public static boolean userIsModified(String nome, String username, String foto64, HttpServletRequest request) {
-	User user = (User) request.getSession().getAttribute("user");
-	try {
-	    return !(user.getName().equals(nome) && user.getUsername().equals(username)
-		    && (user.getFoto().equals(foto64) || foto64.equals("")));
-	} catch (NullPointerException e) {
-	    return true;
-	}
+        User user = (User) request.getSession().getAttribute("user");
+        try {
+            return !(user.getName().equals(nome) && user.getUsername().equals(username) && (user.getFoto().equals(foto64) || foto64.equals("")));
+        } catch (NullPointerException e) {
+            return true;
+        }
     }
 
     /**
-     * Verifica se o ID do usuário é o mesmo ID da sessão atual setado via Cookie
-     * 
+     * Verifica se o ID do usuï¿½rio ï¿½ o mesmo ID da sessï¿½o atual setado via Cookie
+     *
      * @param request
      * @param id
-     * @return true caso o id seja válido
+     *
+     * @return true caso o id seja vï¿½lido
      */
     public static boolean idIsValid(HttpServletRequest request, String id) {
-	Cookie[] cookies = request.getCookies();
-	for (Cookie cookie : cookies) {
-	    if (cookie.getName().equals("b80bb7740288fda1f201890375a60c8f")) { // md5 de ID
-		return cookie.getValue().equals(id);
-	    }
-	}
-	return false;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("b80bb7740288fda1f201890375a60c8f")) { // md5 de ID
+                return cookie.getValue().equals(id);
+            }
+        }
+        return false;
     }
 
     /**
-     * 
      * @param pasw1
      * @param pasw2
+     *
      * @return true caso as 2 senhas sejam iguais
      */
     public static boolean passwordIsValid(String pasw1, String pasw2) {
-	return pasw1.equals(pasw2);
+        return pasw1.equals(pasw2);
     }
 }

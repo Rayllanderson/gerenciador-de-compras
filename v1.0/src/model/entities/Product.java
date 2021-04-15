@@ -9,19 +9,20 @@ public class Product {
     private Categoria categoria;
     private User user;
     private boolean comprado;
-    
-    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, User user, Categoria categoria) {
-	this.id = id;
-	this.nome = nome;
-	this.precoEstipulado = precoEstipulado;
-	this.precoReal = precoReal;
-	this.comprado = comprado;
-	this.user = user;
-	this.categoria = categoria;
+
+    public Product(Integer id, String nome, Double precoEstipulado, Double precoReal, boolean comprado, User user,
+                   Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.precoEstipulado = precoEstipulado;
+        this.precoReal = precoReal;
+        this.comprado = comprado;
+        this.user = user;
+        this.categoria = categoria;
     }
 
     public Product() {
-	// TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub
     }
 
     public Integer getId() {
@@ -55,7 +56,7 @@ public class Product {
     public void setPrecoReal(Double precoReal) {
         this.precoReal = precoReal;
     }
-    
+
     public Categoria getCategoria() {
         return categoria;
     }
@@ -73,45 +74,47 @@ public class Product {
     }
 
     public boolean isComprado() {
-	return comprado;
+        return comprado;
     }
 
     public void setComprado(boolean comprado) {
-	this.comprado = comprado;
+        this.comprado = comprado;
     }
-    
+
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	return result;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Product other = (Product) obj;
-	if (id == null) {
-	    if (other.id != null)
-		return false;
-	} else if (!id.equals(other.id))
-	    return false;
-	return true;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Product other = (Product) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 
     @Override
     public String toString() {
-	return nome;
+        return nome;
     }
-    
+
     public String comprado() {
-	if (comprado) return "Sim";
-	else return "Não";
+        if (comprado)
+            return "Sim";
+        else
+            return "Nï¿½o";
     }
 }

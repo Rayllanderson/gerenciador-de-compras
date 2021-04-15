@@ -10,46 +10,48 @@ import com.ray.model.exception.EntradaInvalidaException;
 
 /**
  * Classe para validar nome e valor
- *
  */
 public class Validacao {
 
     /**
-     * Valida os campos Nome e preço estipulado
-     * 
+     * Valida os campos Nome e preï¿½o estipulado
+     *
      * @param Nome
-     * @throws EntradaInvalidaException lançada quando o campo Nome estiver em branco ou nulo
+     *
+     * @throws EntradaInvalidaException lanï¿½ada quando o campo Nome estiver em branco ou nulo
      */
     public static void validarNome(String nome) throws EntradaInvalidaException {
-	if (nome.trim().isEmpty() || nome == null) {
-	    throw new EntradaInvalidaException("O campo 'Nome' não pode ser nulo");
-	}
+        if (nome.trim().isEmpty() || nome == null) {
+            throw new EntradaInvalidaException("O campo 'Nome' nï¿½o pode ser nulo");
+        }
     }
-    
+
     /**
      * @param value
-     * @return 0 caso o valor esteja nulo, senao, retorna o próprio valor
+     *
+     * @return 0 caso o valor esteja nulo, senao, retorna o prï¿½prio valor
      */
     public static Double validarPreco(Double value) {
-	return value == null ? 0.0 : value;
-    } 
-    
+        return value == null ? 0.0 : value;
+    }
+
     /**
-     * método para verifica se a categoria atual percente ao usuário <br>
-     * Há uma possibilidade de editar o html e mudar a categoria, portanto, antes de
+     * mï¿½todo para verifica se a categoria atual percente ao usuï¿½rio <br>
+     * Hï¿½ uma possibilidade de editar o html e mudar a categoria, portanto, antes de
      * atualizar,
-     * procura no banco de dados para verificar se o usuário é mesmo o dono da
+     * procura no banco de dados para verificar se o usuï¿½rio ï¿½ mesmo o dono da
      * categoria, se nao for, retorna nulo.
-     * @throws CategoriaInexistenteException caso a categoria escolhida não exista para o
-     *                           usuário atual
+     *
+     * @throws CategoriaInexistenteException caso a categoria escolhida nï¿½o exista para o
+     * usuï¿½rio atual
      */
     public static void validarCategoria(Categoria cat) throws CategoriaInexistenteException {
-	CategoriaDao catRespotitory = DaoFactory.createCategoriaDao(cat.getUser());
-	List<Categoria> list = catRespotitory.findAll();
-	if (!list.contains(cat)) {
-	    throw new CategoriaInexistenteException("Essa categoria não existe.");
-	}
+        CategoriaDao catRespotitory = DaoFactory.createCategoriaDao(cat.getUser());
+        List<Categoria> list = catRespotitory.findAll();
+        if (!list.contains(cat)) {
+            throw new CategoriaInexistenteException("Essa categoria nï¿½o existe.");
+        }
     }
-   
-    
+
+
 }

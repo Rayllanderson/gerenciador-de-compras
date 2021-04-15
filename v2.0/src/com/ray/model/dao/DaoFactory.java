@@ -9,21 +9,21 @@ import com.ray.model.entities.Categoria;
 import com.ray.model.entities.User;
 
 public class DaoFactory {
-    
+
     public static ProductDao createProductDao(Categoria categoria) {
-	return new ProductJDBC(DB.getConnection(), categoria);
+        return new ProductJDBC(DB.getConnection(), categoria);
     }
 
     public static AllProductJDBC createAllProductDao(User user) {
-	return new AllProductJDBC(DB.getConnection(), user);
+        return new AllProductJDBC(DB.getConnection(), user);
     }
-    
+
     public static UserDao createUserDao() {
-	return new UserDaoJDBC(DB.getConnection());
+        return new UserDaoJDBC(DB.getConnection());
     }
-    
+
     public static CategoriaDao createCategoriaDao(User user) {
-	return new CategoriaJDBC(DB.getConnection(), user);
+        return new CategoriaJDBC(DB.getConnection(), user);
     }
 
 }

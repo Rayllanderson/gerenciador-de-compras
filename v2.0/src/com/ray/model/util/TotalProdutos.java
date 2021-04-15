@@ -15,138 +15,134 @@ public class TotalProdutos {
     private ProductDao dao = null;
 
     public TotalProdutos(User user) {
-	this.cService = new CategoriaService(user);
-	this.dao = DaoFactory.createAllProductDao(user);
+        this.cService = new CategoriaService(user);
+        this.dao = DaoFactory.createAllProductDao(user);
     }
 
-//    private void instanciarTodosProdutos(Categoria cat) {
-//	ProductService pService = new ProductService(cat);
-//	List<Product> list = pService.findAll();
-//	for (Product p : list) {
-//	    cat.adicionarProduto(p);
-//	}
-//    }
+    //    private void instanciarTodosProdutos(Categoria cat) {
+    //	ProductService pService = new ProductService(cat);
+    //	List<Product> list = pService.findAll();
+    //	for (Product p : list) {
+    //	    cat.adicionarProduto(p);
+    //	}
+    //    }
 
     /**
-     * @return uma lista contendo todos os produtos de um usuário
+     * @return uma lista contendo todos os produtos de um usuï¿½rio
      */
     private List<Product> getAll() {
-	return dao.findAll();
+        return dao.findAll();
     }
 
     public List<Product> getComprados() {
-	List<Product> list = getAll();
-	list.removeIf(x -> !x.isComprado());
-	return list;
+        List<Product> list = getAll();
+        list.removeIf(x -> !x.isComprado());
+        return list;
     }
 
     public List<Product> getNaoComprados() {
-	List<Product> list = getAll();
-	list.removeIf(x -> x.isComprado());
-	return list;
+        List<Product> list = getAll();
+        list.removeIf(x -> x.isComprado());
+        return list;
     }
 
     public int getNumProdutos() {
-	return getAll().size();
+        return getAll().size();
     }
 
     /**
-     * 
      * @return total do valor que acha que vai pagar de todas as listas
      */
     public double getEstipulado() {
-	double total = 0;
-	for (Product p : getAll()) {
-	    total += p.getPrecoEstipulado();
-	}
-	return total;
+        double total = 0;
+        for (Product p : getAll()) {
+            total += p.getPrecoEstipulado();
+        }
+        return total;
     }
 
     /**
-     * @return quanto já gastou de todas as listas
+     * @return quanto jï¿½ gastou de todas as listas
      */
     public double getValorGasto() {
-	double total = 0;
-	for (Product p : this.getAll()) {
-	    total += p.getPrecoReal();
-	}
-	return total;
+        double total = 0;
+        for (Product p : this.getAll()) {
+            total += p.getPrecoReal();
+        }
+        return total;
     }
 
     /**
-     * 
      * @return total do valor que economizou
      */
     public double getEconomizado() {
-	double total = 0;
-	for (Product p : getComprados()) {
-	    total += (p.getPrecoEstipulado() - p.getPrecoReal());
-	}
-	return total;
+        double total = 0;
+        for (Product p : getComprados()) {
+            total += (p.getPrecoEstipulado() - p.getPrecoReal());
+        }
+        return total;
     }
 
     /**
-     * 
      * @return total do valor que acha que vai pagar de todas as listas
      */
     public double getRestante() {
-	double total = 0;
-	for (Product p : getNaoComprados()) {
-	    total += p.getPrecoEstipulado();
-	}
-	return total;
+        double total = 0;
+        for (Product p : getNaoComprados()) {
+            total += p.getPrecoEstipulado();
+        }
+        return total;
     }
 
     /**
-     * 
      * @return valor total de todos os produtos das listas. se o produto for
-     *         comprado, leva em consideração o valor real
+     * comprado, leva em consideraï¿½ï¿½o o valor real
      */
     public double getTotal() {
-	double total = 0;
-	for (Product p : getAll()) {
-	    if (p.isComprado()) {
-		total += p.getPrecoReal();
-	    } else {
-		total += p.getPrecoEstipulado();
-	    }
-	}
-	return total;
+        double total = 0;
+        for (Product p : getAll()) {
+            if (p.isComprado()) {
+                total += p.getPrecoReal();
+            } else {
+                total += p.getPrecoEstipulado();
+            }
+        }
+        return total;
     }
 
     public int getNumProdutosComprados() {
-	return getComprados().size();
+        return getComprados().size();
     }
 
     /**
-     * @return quanto já gastou de todas as listas ps: apenas os produtos comprados
+     * @return quanto jï¿½ gastou de todas as listas ps: apenas os produtos comprados
      */
     public double getGastoComprados() {
-	double total = 0;
-	for (Product p : getComprados()) {
-		total += p.getPrecoReal();
-	}
-	return total;
+        double total = 0;
+        for (Product p : getComprados()) {
+            total += p.getPrecoReal();
+        }
+        return total;
     }
 
     /**
-     * 
-     * @return total do valor que acha que vai pagar de todas as listas, porém só os
-     *         que ja foram comprados
+     * @return total do valor que acha que vai pagar de todas as listas, porï¿½m sï¿½ os
+     * que ja foram comprados
      */
     public double getEstipuladoComprados() {
-	double total = 0;
-	for (Product p : getComprados()) {
-		total += p.getPrecoEstipulado();
-	}
-	return total;
+        double total = 0;
+        for (Product p : getComprados()) {
+            total += p.getPrecoEstipulado();
+        }
+        return total;
     }
 
     /**
      * @return list.size();
-     * @throws ListaVaziaException("Você não possui listas no momento");
+     *
+     * @throws ListaVaziaException("Vocï¿½ nï¿½o possui listas no momento");
      */
     public int getNumCategorias() throws ListaVaziaException {
-	return this.cService.findAll().size();
+        return this.cService.findAll().size();
     }
 }

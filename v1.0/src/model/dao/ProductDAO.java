@@ -7,8 +7,11 @@ import model.entities.Product;
 public interface ProductDao {
 
     void inserir(Product obj);
+
     void atualizar(Product obj);
+
     void deletById(Integer id);
-    List <Product> findAll();
-    
+
+    List<Product> findAll();
+
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ray.model.entities.User;
 import com.ray.model.service.UserService;
+
 /**
  * Servlet implementation class Login
  */
@@ -19,23 +20,23 @@ public class ThemeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public ThemeServlet() {
-	super();
+        super();
     }
-    
+
     @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-	    String theme = request.getParameter("colorTheme");
-	    request.setAttribute("theme", theme);
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        String theme = request.getParameter("colorTheme");
+        request.setAttribute("theme", theme);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String theme = request.getParameter("colorTheme");
-	User user = (User) request.getSession().getAttribute("user");
-	UserService service = new UserService();
-	service.changeTheme(user, theme);
-	response.setStatus(HttpServletResponse.SC_OK);
+        String theme = request.getParameter("colorTheme");
+        User user = (User) request.getSession().getAttribute("user");
+        UserService service = new UserService();
+        service.changeTheme(user, theme);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
-    
-    
+
+
 }

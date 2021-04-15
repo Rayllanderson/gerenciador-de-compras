@@ -12,95 +12,99 @@ public class UserService {
     private UserDao dao;
 
     public UserService() {
-	this.dao = DaoFactory.createUserDao();
+        this.dao = DaoFactory.createUserDao();
     }
 
     /**
      * update name e username (verifica se o username ja existe)
-     * 
-     * @return true caso dê tudo ok, false se o usuário com id passado não exista
-     * @throws MyLoginException caso login já exista
+     *
+     * @return true caso dï¿½ tudo ok, false se o usuï¿½rio com id passado nï¿½o exista
+     *
+     * @throws MyLoginException caso login jï¿½ exista
      */
-    public boolean update(Long id, String newName, String newUsername, String miniatura, String foto)
-	    throws MyLoginException {
-	User user = dao.findById(id);
-	if (user != null) {
-	    if (miniatura.equals("") && user.getMiniatura() != null) {
-		miniatura = user.getMiniatura();
-	    }
-	    if (foto.equals("") && user.getFoto() != null) {
-		foto = user.getFoto();
-	    }
-	    UserValidation.usernameValidation(user, newUsername);// throw exception caso username exista
-	    user.setUsername(newUsername);
-	    user.setName(newName);
-	    user.setMiniatura(miniatura);
-	    user.setFoto(foto);
-	    dao.update(user);
-	    return true;
-	}
-	return false; // usuário não existe
+    public boolean update(Long id, String newName, String newUsername, String miniatura, String foto) throws MyLoginException {
+        User user = dao.findById(id);
+        if (user != null) {
+            if (miniatura.equals("") && user.getMiniatura() != null) {
+                miniatura = user.getMiniatura();
+            }
+            if (foto.equals("") && user.getFoto() != null) {
+                foto = user.getFoto();
+            }
+            UserValidation.usernameValidation(user, newUsername);// throw exception caso username exista
+            user.setUsername(newUsername);
+            user.setName(newName);
+            user.setMiniatura(miniatura);
+            user.setFoto(foto);
+            dao.update(user);
+            return true;
+        }
+        return false; // usuï¿½rio nï¿½o existe
     }
 
     /**
-     * 
-     * @param user novo usuário a se cadastrar
+     * @param user novo usuï¿½rio a se cadastrar
+     *
      * @return true caso ocorra tudo ok
-     * @throws MyLoginException caso username já exista (throws já possui mensagem)
+     *
+     * @throws MyLoginException caso username jï¿½ exista (throws jï¿½ possui mensagem)
      */
     public boolean cadastrar(User user) throws MyLoginException {
-	UserValidation.usernameIsValid(user.getUsername()); // caso username já exista, throw MyLoginException;
-	dao.cadastrar(user);
-	return true;
+        UserValidation.usernameIsValid(user.getUsername()); // caso username jï¿½ exista, throw MyLoginException;
+        dao.cadastrar(user);
+        return true;
     }
 
     /**
-     * método verifica a senha antes de alterar
-     * 
+     * mï¿½todo verifica a senha antes de alterar
+     *
      * @return true caso ocorra tudo ok
-     * @throws MyLoginException caso a senha não corresponda
+     *
+     * @throws MyLoginException caso a senha nï¿½o corresponda
      */
     public User changePassword(User user, String senhaAtual, String newPassword) throws MyLoginException {
-	if (verificarSenha(user, senhaAtual)) { // verificar senha antes de poder alterar
-	    user.setPassword(newPassword);
-	    dao.update(user);
-	    return user;
-	} else {
-	    throw new MyLoginException("Sua senha não corresponde a senha digitada. Digite novamente");
-	}
+        if (verificarSenha(user, senhaAtual)) { // verificar senha antes de poder alterar
+            user.setPassword(newPassword);
+            dao.update(user);
+            return user;
+        } else {
+            throw new MyLoginException("Sua senha nï¿½o corresponde a senha digitada. Digite novamente");
+        }
     }
 
     public boolean verificarSenha(User user, String password) throws MyLoginException {
-	if (user.getPassword().equals(password)) {
-	    return true;
-	}
-	return false;
+        if (user.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
     }
 
     /**
-     * update sem verificação, apenas atualiza
+     * update sem verificaï¿½ï¿½o, apenas atualiza
+     *
      * @param user
      */
     public void update(User user) {
-	dao.update(user);
+        dao.update(user);
     }
 
     /**
-     * muda o tema do usuário.
+     * muda o tema do usuï¿½rio.
+     *
      * @param user
      * @param theme - recebe o tema em string, tenta converter para enum, caso
-     *              ocorra algum erro, seta pra default
+     * ocorra algum erro, seta pra default
      */
     public void changeTheme(User user, String theme) {
-	Theme tema = null;
-	try {
-	    tema = Theme.valueOf(theme.toUpperCase());
-	} catch (Exception e) {
-	    tema = Theme.DEFAULT;
-	} finally {
-	    user.setTheme(tema);
-	    this.update(user);
-	}
+        Theme tema = null;
+        try {
+            tema = Theme.valueOf(theme.toUpperCase());
+        } catch (Exception e) {
+            tema = Theme.DEFAULT;
+        } finally {
+            user.setTheme(tema);
+            this.update(user);
+        }
     }
 
 }

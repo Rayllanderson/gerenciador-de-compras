@@ -5,7 +5,6 @@ function retnum(number) {
 }
 
 
-
 function customSort(a, b, sortOrder) {
     var order = sortOrder === 'desc' ? -1 : 1
     var aa = +((retnum(a) + ''))

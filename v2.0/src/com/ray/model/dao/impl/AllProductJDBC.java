@@ -18,72 +18,70 @@ public class AllProductJDBC extends ProductJDBC {
     private User user;
 
     public AllProductJDBC(Connection conn, User user) {
-	super(conn);
-	this.user = user;
-    }  
-    
+        super(conn);
+        this.user = user;
+    }
+
     /**
-     * 
-     * @return lista contendo todos os produtos do usuário, independente de categoria
+     * @return lista contendo todos os produtos do usuï¿½rio, independente de categoria
      */
     @Override
     public List<Product> findAll() {
-	List<Product> list = new ArrayList<>();
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	try {
-	    st = super.conn.prepareStatement(
-		    "select produtos.*, categoria.nome as nome_categoria from produtos inner join categoria on "
-			    + "id_categoria = categoria.id where id_user = " + this.user.getId());
-	    rs = st.executeQuery();
-	    while (rs.next()) {
-		Product p = new Product();
-		p.setId(rs.getLong("id"));
-		p.setNome(rs.getString("nome"));
-		p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
-		p.setPrecoReal(rs.getDouble("preco_real"));
-		Categoria cat = new Categoria(rs.getLong("id_categoria"), rs.getString("nome_categoria"), user);
-		p.setCategoria(cat);
-		p.setComprado(rs.getBoolean("comprado"));
-		list.add(p);
-	    }
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
-	return list;
+        List<Product> list = new ArrayList<>();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = super.conn.prepareStatement("select produtos.*, categoria.nome as nome_categoria from produtos inner join categoria" +
+                    " on " + "id_categoria = categoria.id where id_user = " + this.user.getId());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getLong("id"));
+                p.setNome(rs.getString("nome"));
+                p.setPrecoEstipulado(rs.getDouble("preco_estipulado"));
+                p.setPrecoReal(rs.getDouble("preco_real"));
+                Categoria cat = new Categoria(rs.getLong("id_categoria"), rs.getString("nome_categoria"), user);
+                p.setCategoria(cat);
+                p.setComprado(rs.getBoolean("comprado"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(st);
+        }
+        return list;
     }
-    
-    
+
+
     @Override
     public List<Product> findByName(String name) {
-	String sql = "select produtos.*, categoria.id as cat_id from produtos inner join categoria on id_categoria = categoria.id where produtos.nome LIKE '%"
-		+ name + "%' and id_user = " + this.user.getId();
-	PreparedStatement st = null;
-	ResultSet rs = null;
-	List<Product> list = new ArrayList<>();
-	try {
-	    st = this.conn.prepareStatement(sql);
-	    rs = st.executeQuery();
-	    while (rs.next()) {
-		list.add(this.instanciarProduto(rs));
-	    }
-	    return list;
-	} catch (SQLException e) {
-	    throw new DbException(e.getMessage());
-	} finally {
-	    DB.closeResultSet(rs);
-	    DB.closeStatement(st);
-	}
+        String sql = "select produtos.*, categoria.id as cat_id from produtos inner join categoria on id_categoria = categoria.id " +
+                "where produtos.nome LIKE '%" + name + "%' and id_user = " + this.user.getId();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Product> list = new ArrayList<>();
+        try {
+            st = this.conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(this.instanciarProduto(rs));
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(st);
+        }
     }
-    
+
     @Override
     protected Product instanciarProduto(ResultSet rs) throws SQLException {
-	Product p = super.instanciarProduto(rs);
-	p.setCategoria(new Categoria());
-	p.getCategoria().setId(rs.getLong("cat_id"));
+        Product p = super.instanciarProduto(rs);
+        p.setCategoria(new Categoria());
+        p.getCategoria().setId(rs.getLong("cat_id"));
         return p;
     }
 

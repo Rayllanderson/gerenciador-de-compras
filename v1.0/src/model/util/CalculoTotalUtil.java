@@ -14,75 +14,76 @@ public class CalculoTotalUtil {
     private CategoriaService cService;
 
     public CalculoTotalUtil(User user) {
-	this.cService = new CategoriaService(user);
+        this.cService = new CategoriaService(user);
     }
 
     private void instanciarTodosProdutos(Categoria cat) {
-	ProductService pService = new ProductService(cat);
-	List<Product> list = pService.findAllProduct();
-	for (Product p : list) {
-	    cat.adicionarProduto(p);
-	}
+        ProductService pService = new ProductService(cat);
+        List<Product> list = pService.findAllProduct();
+        for (Product p : list) {
+            cat.adicionarProduto(p);
+        }
     }
 
     /**
-     * @return uma lista contendo todos os produtos de um usuário
+     * @return uma lista contendo todos os produtos de um usuï¿½rio
      */
     private List<Product> todosProdutos() {
-	List<Categoria> listCategoria = cService.findAllCategorias();
-	for (int i = 0; i < listCategoria.size(); i++) {
-	    instanciarTodosProdutos(listCategoria.get(i));
-	}
-	List<Product> list = new ArrayList<>();
-	for (int i = 0; i < listCategoria.size(); i++) {
-	    list.addAll(listCategoria.get(i).getProductList());
-	}
-	return list;
+        List<Categoria> listCategoria = cService.findAllCategorias();
+        for (int i = 0; i < listCategoria.size(); i++) {
+            instanciarTodosProdutos(listCategoria.get(i));
+        }
+        List<Product> list = new ArrayList<>();
+        for (int i = 0; i < listCategoria.size(); i++) {
+            list.addAll(listCategoria.get(i).getProductList());
+        }
+        return list;
     }
 
     public int numTotalProdutos() {
-	return todosProdutos().size();
+        return todosProdutos().size();
     }
 
     public int numTotalProdutosComprados() {
-	int total = 0;
-	for (Product p : this.todosProdutos()) {
-	    if (p.isComprado()) {
-		total++;
-	    }
-	}
-	return total;
+        int total = 0;
+        for (Product p : this.todosProdutos()) {
+            if (p.isComprado()) {
+                total++;
+            }
+        }
+        return total;
     }
 
     /**
-     * @return quanto já gastou de todas as listas
+     * @return quanto jï¿½ gastou de todas as listas
      */
     public double totalValorReal() {
-	double total = 0;
-	for (Product p : this.todosProdutos()) {
-	    total += p.getPrecoReal();
-	}
-	return total;
+        double total = 0;
+        for (Product p : this.todosProdutos()) {
+            total += p.getPrecoReal();
+        }
+        return total;
     }
 
     /**
      * @return total do valor que acha que vai pagar de todas as listas
      */
     public double totalEstipulado() {
-	double total = 0;
-	todosProdutos();
-	for (Product p : this.todosProdutos()) {
-	    total += p.getPrecoEstipulado();
-	}
-	return total;
+        double total = 0;
+        todosProdutos();
+        for (Product p : this.todosProdutos()) {
+            total += p.getPrecoEstipulado();
+        }
+        return total;
     }
 
     /**
      * @return list.size();
-     * @throws ListaVaziaException("Você não possui listas no momento");
+     *
+     * @throws ListaVaziaException("Vocï¿½ nï¿½o possui listas no momento");
      */
     public int numeroTotalCategorias() throws ListaVaziaException {
-	List<Categoria> list = this.cService.findAllCategorias();
-	return list.size();
+        List<Categoria> list = this.cService.findAllCategorias();
+        return list.size();
     }
 }

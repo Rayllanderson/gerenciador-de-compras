@@ -25,37 +25,37 @@ public class LoginServlet extends HttpServlet {
     private UserDao repository = DaoFactory.createUserDao();
 
     public LoginServlet() {
-	super();
+        super();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	String username = request.getParameter("username");
-	String password = request.getParameter("password");
-	response.setContentType("text/plain");
-	response.setCharacterEncoding("UTF-8");
-	try {
-	    User user = repository.login(username, password);
-	    if (user != null) {
-		// invalidando a ultima sessão
-		HttpSession oldSession = request.getSession(false);
-		if (oldSession != null) {
-		    oldSession.invalidate();
-		}
-		// generate a new session
-		HttpSession newSession = request.getSession(true);
-		newSession.setMaxInactiveInterval(30 * 60);
-		newSession.setAttribute("user", user);
-		Cookie id = new Cookie("b80bb7740288fda1f201890375a60c8f", user.getId().toString()); //md5 do nome id xD só pra nao deixar tão óbvio
-		response.addCookie(id);
-		response.setStatus(HttpServletResponse.SC_OK);
-		response.sendRedirect("home");
-	    }
-	} catch (MyLoginException e) {
-	    request.setAttribute("msg", e.getMessage());
-	    request.setAttribute("username", username);
-	    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-	    response.getWriter().write(e.getMessage());
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        try {
+            User user = repository.login(username, password);
+            if (user != null) {
+                // invalidando a ultima sessï¿½o
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) {
+                    oldSession.invalidate();
+                }
+                // generate a new session
+                HttpSession newSession = request.getSession(true);
+                newSession.setMaxInactiveInterval(30 * 60);
+                newSession.setAttribute("user", user);
+                Cookie id = new Cookie("b80bb7740288fda1f201890375a60c8f", user.getId().toString()); //md5 do nome id xD sï¿½ pra nao
+                // deixar tï¿½o ï¿½bvio
+                response.addCookie(id);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect("home");
+            }
+        } catch (MyLoginException e) {
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("username", username);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(e.getMessage());
+        }
     }
 }

@@ -11,7 +11,7 @@ nav {
 }
 
 .titulo {
-	margin-top: 1%;
+    margin-top: 1%;
     font-family: 'Nexa Bold', sans-serif;
     font-size: 2.3rem;
     font-weight: 900 !important;
@@ -49,7 +49,7 @@ nav {
     background-color: #6e4af6;
 }
 
- /* #7F00FF */
+/* #7F00FF */
 #landing-hero {
     background: #6e4af6 url(../img/icon-bg2.png) repeat 0 0;
     -webkit-animation: 18s linear 0s normal none infinite animate;
@@ -97,109 +97,109 @@ nav {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 /*search */
 
 
-.main1{ 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
+.main1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 
-input, 
+input,
 button {
-	border: none;
-	background: none;
-	outline: 0;
+    border: none;
+    background: none;
+    outline: 0;
 }
-button {cursor: pointer}
-.SearchBox-input::placeholder {/* No es un seudoelemento estandar */
- color: #6e4af6;
-	opacity: .6;
+
+button {
+    cursor: pointer
 }
+
+.SearchBox-input::placeholder { /* No es un seudoelemento estandar */
+    color: #6e4af6;
+    opacity: .6;
+}
+
 /* Chrome, Opera ySafari */
 .SearchBox-input::-webkit-input-placeholder {
-  color: #6e4af6;
-}
-/* Firefox 19+ */
-.SearchBox-input::-moz-placeholder {
-  color: #6e4af6;
-}
-/* IE 10+ y Edge */
-.SearchBox-input:-ms-input-placeholder {
-  color: #6e4af6;
-}
-/* Firefox 18- */
-#formGroupExampleInput:-moz-placeholder {
-  color: #6e4af6;
+    color: #6e4af6;
 }
 
+/* Firefox 19+ */
+.SearchBox-input::-moz-placeholder {
+    color: #6e4af6;
+}
+
+/* IE 10+ y Edge */
+.SearchBox-input:-ms-input-placeholder {
+    color: #6e4af6;
+}
+
+/* Firefox 18- */
+#formGroupExampleInput:-moz-placeholder {
+    color: #6e4af6;
+}
 
 
 .SearchBox {
-	--height: 4em;
-	display: flex;
-	
-	border-radius: var(--height);
-	background-color: white;
-	height: var(--height);
+    --height: 4em;
+    display: flex;
+
+    border-radius: var(--height);
+    background-color: white;
+    height: var(--height);
 }
-	.SearchBox:hover .SearchBox-input {
-		padding-left: 2em;
-		padding-right: 1em;
-		width: 240px;
-		color: #1b00cab5;
-	}
-	.SearchBox-input {
-		width: 0;
-		font-size: 1.2em;
-		color: #fff;
-		transition: .45s;
-	}
-	.SearchBox-button {
-		display: flex;
-		border-radius: 50%;
-		width: var(--height);
-		height: var(--height);
-		background-color: #7e28ff;
-		transition: .3s;
-	}
-	.SearchBox-button:active  {
-		transform: scale(.85);
-	}
-	.SearchBox-icon {
-		margin: auto;
-		color: white;
-	/*	color: #6e4af6;*/
-	}
 
 .SearchBox:hover .SearchBox-input {
-		width: 370px;
-	}
+    padding-left: 2em;
+    padding-right: 1em;
+    width: 240px;
+    color: #1b00cab5;
+}
 
-		
-		
-		
-		button[type="submit"] {
-			  border: none;
-			  background: none;
-			  padding: 0;
-			  margin: 0;
-			  display: block;
-		}
+.SearchBox-input {
+    width: 0;
+    font-size: 1.2em;
+    color: #fff;
+    transition: .45s;
+}
+
+.SearchBox-button {
+    display: flex;
+    border-radius: 50%;
+    width: var(--height);
+    height: var(--height);
+    background-color: #7e28ff;
+    transition: .3s;
+}
+
+.SearchBox-button:active {
+    transform: scale(.85);
+}
+
+.SearchBox-icon {
+    margin: auto;
+    color: white;
+    /*	color: #6e4af6;*/
+}
+
+.SearchBox:hover .SearchBox-input {
+    width: 370px;
+}
+
+
+button[type="submit"] {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+}
 
 
 

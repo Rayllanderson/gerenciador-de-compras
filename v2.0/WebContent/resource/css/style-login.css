@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -226,20 +227,24 @@ form.sign-in-form {
         min-height: 800px;
         height: 100vh;
     }
+
     .signin-signup {
         width: 100%;
         top: 95%;
         transform: translate(-50%, -100%);
         transition: 1s 0.8s ease-in-out;
     }
+
     .signin-signup,
     .container1.sign-up-mode .signin-signup {
         left: 50%;
     }
+
     .panels-container {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 2fr 1fr;
     }
+
     .panel {
         flex-direction: row;
         justify-content: space-around;
@@ -247,30 +252,36 @@ form.sign-in-form {
         padding: 2.5rem 8%;
         grid-column: 1 / 2;
     }
+
     .right-panel {
         grid-row: 3 / 4;
     }
+
     .left-panel {
         grid-row: 1 / 2;
     }
+
     .image {
         width: 200px;
         transition: transform 0.9s ease-in-out;
         transition-delay: 0.6s;
     }
+
     .panel .content {
         padding-right: 15%;
         transition: transform 0.9s ease-in-out;
         transition-delay: 0.8s;
     }
+
     .panel h3 {
         font-size: 1.2rem;
     }
+
     .panel p {
         font-size: 0.7rem;
         padding: 0.5rem 0;
     }
-   
+
     .container1:before {
         width: 1500px;
         height: 1500px;
@@ -281,23 +292,28 @@ form.sign-in-form {
         top: initial;
         transition: 2s ease-in-out;
     }
+
     .container1.sign-up-mode:before {
         transform: translate(-50%, 100%);
         bottom: 32%;
         right: initial;
     }
+
     .container1.sign-up-mode .left-panel .image,
     .container1.sign-up-mode .left-panel .content {
         transform: translateY(-300px);
     }
+
     .container1.sign-up-mode .right-panel .image,
     .container1.sign-up-mode .right-panel .content {
         transform: translateY(0px);
     }
+
     .right-panel .image,
     .right-panel .content {
         transform: translateY(300px);
     }
+
     .container1.sign-up-mode .signin-signup {
         top: 5%;
         transform: translate(-50%, 0);
@@ -308,19 +324,24 @@ form.sign-in-form {
     form {
         padding: 0 1.5rem;
     }
+
     .image {
         display: none;
     }
+
     .panel .content {
         padding: 0.5rem 1rem;
     }
+
     .container1 {
         padding: 1.5rem;
     }
+
     .container1:before {
         bottom: 72%;
         left: 50%;
     }
+
     .container1.sign-up-mode:before {
         bottom: 28%;
         left: 50%;
@@ -328,86 +349,84 @@ form.sign-in-form {
 }
 
 
-
-
-.botao:focus{
-	outline: none;
-  box-shadow: none;
+.botao:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 
 .botao {
-	  text-transform: uppercase;
-	  background-color: #876bf8;
-   	  background-repeat:no-repeat;
-   	 cursor:pointer;
-	  font-weight: 600;
- 	  margin: 10px 0;
-	  border: none;
-      position: relative;
-      box-sizing: border-box;
-      display: inline-block;
-      overflow: hidden;
-      text-align: center;
-      text-decoration: none;
-	  color: white;
-      white-space: nowrap;
-      z-index: 0;
-      transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
-      outline: 0;
-      width: 150px;
-      height: 49px;
-      border-radius: 2.4em;
-} 
+    text-transform: uppercase;
+    background-color: #876bf8;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 10px 0;
+    border: none;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    white-space: nowrap;
+    z-index: 0;
+    transition: color 0.8s ease 0s, background 0.7s ease 0.7s;
+    outline: 0;
+    width: 150px;
+    height: 49px;
+    border-radius: 2.4em;
+}
 
 
 .botao::before {
-      position: absolute;
-      content: "";
-      background-color: #7a5af8;
-      transition-duration: 0.8s;
-      z-index: -1;
-      top: 0px;
-      right: 0px;
-      bottom: auto;
-      left: auto;
-      width: 50%;
-      height: 100%;
-      opacity: 1;
-} 
- 
+    position: absolute;
+    content: "";
+    background-color: #7a5af8;
+    transition-duration: 0.8s;
+    z-index: -1;
+    top: 0px;
+    right: 0px;
+    bottom: auto;
+    left: auto;
+    width: 50%;
+    height: 100%;
+    opacity: 1;
+}
+
 
 .botao:hover::before {
-      width: 0px;
-      height: 100%;
-      opacity: 1;
-} 
- 
+    width: 0px;
+    height: 100%;
+    opacity: 1;
+}
+
 
 .botao:hover {
-      background: white;
-      color: var(--roxo);
-      transition: color 0.8s , background 0.7s ;
-      box-shadow: none;
-} 
- 
+    background: white;
+    color: var(--roxo);
+    transition: color 0.8s, background 0.7s;
+    box-shadow: none;
+}
+
 
 .botao::after {
-      position: absolute;
-      content: "";
-      background-color: #7a5af8;
-      transition-duration: 0.7s;
-      z-index: -1;
-      top: 0px;
-      right: auto;
-      bottom: auto;
-      left: 0px;
-      width: 50%;
-      height: 100%;
-      opacity: 1;
-     
-} 
- 
+    position: absolute;
+    content: "";
+    background-color: #7a5af8;
+    transition-duration: 0.7s;
+    z-index: -1;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    opacity: 1;
+
+}
+
 .botao:hover::after {
-      width: 0px;
+    width: 0px;
 } 

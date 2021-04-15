@@ -16,17 +16,17 @@ public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public HomeServlet() {
-	super();
+        super();
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-	request.getRequestDispatcher("home.jsp").forward(request, resp);
+        request.getRequestDispatcher("home.jsp").forward(request, resp);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	request.getRequestDispatcher("home.jsp").forward(request, response);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 }
 

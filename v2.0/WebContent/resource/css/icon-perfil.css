@@ -1,26 +1,26 @@
 .icon-perfil:focus, .img-perfil:focus {
-	outline-style: none;
+    outline-style: none;
 }
 
 .icon-perfil {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 1;
-	transition: 0.3s;
-	border-radius: 20%;
-	width: 40px;
-	height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: 0.3s;
+    border-radius: 20%;
+    width: 40px;
+    height: 40px;
 }
 
 .icon-perfil:hover {
-	background-color: rgba(230, 230, 230, 0.8);
-	border-radius: 50%;
-	box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+    background-color: rgba(230, 230, 230, 0.8);
+    border-radius: 50%;
+    box-shadow: 0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
 }
 
 .img-perfil {
-	width: 33px;
-	height: 33px;
-	border-radius: 50%;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
 }

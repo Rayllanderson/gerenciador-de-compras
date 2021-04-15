@@ -27,79 +27,77 @@ public class AccountServlet extends HttpServlet {
     private UserService service = new UserService();
 
     public AccountServlet() {
-	super();
+        super();
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	listarTudo(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        listarTudo(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	String action = request.getParameter("action");
-	try {
-	    if (action != null) {
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("id");
-		String name = request.getParameter("nome");
-		String username = request.getParameter("username");
-		String foto64 = ArquivosUtil.createBase64(request);
-		String miniatura = ArquivosUtil.createMiniatureBase64(request);
-		if (action.equals("editar")) {
-		    if (UserValidation.idIsValid(request, id)) { // verificando se o id é de fato o id do user logado
-			if (UserValidation.fieldsAreNotEmpty(name, username)) { // validando os campos
-			    redirect(request, response, 400, "Um ou mais campos estãos vazios");
-			} else {
-			    // verificando se modificou pra evitar requisição desnecessária
-			    if (UserValidation.userIsModified(name, username, foto64, request)) {
-				if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
-				    response.setStatus(200);
-				    request.getSession().setAttribute("success", "Editado com sucesso!");
-				    User user = repository.findById(Long.valueOf(id));
-				    request.getSession().setAttribute("user", user);
-				} else {
-				    System.out.println("nao upou");
-				    redirect(request, response, 500, "Ocorreu um erro inesperado");
-				}
-				request.getRequestDispatcher("account.jsp").forward(request, response);
-			    } else { // usuario nao mudou nenhum campo
-				redirect(request, response, 200, "Nenhuma alteração foi detectada.");
-			    }
-			}
-		    } else { // id não é o mesmo
-			redirect(request, response, 400,
-				"Ocorreu um erro. Por favor, atualize a página e se o problema persistir, faça login novamente.");
-		    }
-		} else if (action.equals("change-password")) {
-		    changePassword(request, response);
-		} else {// se mudar o parametro de action
-		    redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a página.");
-		}
-	    } else { // se nao for editar, simplemtente volta tudo
-		request.getRequestDispatcher("account.jsp").forward(request, response);
-	    }
-	} catch (EntradaInvalidaException e) { // upou arquivo inválido
-	    redirect(request, response, 400, e.getMessage());
-	} catch (MyLoginException e) { // username ja existente
-	    redirect(request, response, 409, "O username escolhido já está em uso. Tente usar outro");
-	} catch (RuntimeException e) {
-	    e.printStackTrace();
-	    redirect(request, response, 500, "ocorreu um erro inesperado");
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        try {
+            if (action != null) {
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                String id = request.getParameter("id");
+                String name = request.getParameter("nome");
+                String username = request.getParameter("username");
+                String foto64 = ArquivosUtil.createBase64(request);
+                String miniatura = ArquivosUtil.createMiniatureBase64(request);
+                if (action.equals("editar")) {
+                    if (UserValidation.idIsValid(request, id)) { // verificando se o id ï¿½ de fato o id do user logado
+                        if (UserValidation.fieldsAreNotEmpty(name, username)) { // validando os campos
+                            redirect(request, response, 400, "Um ou mais campos estï¿½os vazios");
+                        } else {
+                            // verificando se modificou pra evitar requisiï¿½ï¿½o desnecessï¿½ria
+                            if (UserValidation.userIsModified(name, username, foto64, request)) {
+                                if (service.update(Long.valueOf(id), name, username, miniatura, foto64)) {
+                                    response.setStatus(200);
+                                    request.getSession().setAttribute("success", "Editado com sucesso!");
+                                    User user = repository.findById(Long.valueOf(id));
+                                    request.getSession().setAttribute("user", user);
+                                } else {
+                                    System.out.println("nao upou");
+                                    redirect(request, response, 500, "Ocorreu um erro inesperado");
+                                }
+                                request.getRequestDispatcher("account.jsp").forward(request, response);
+                            } else { // usuario nao mudou nenhum campo
+                                redirect(request, response, 200, "Nenhuma alteraï¿½ï¿½o foi detectada.");
+                            }
+                        }
+                    } else { // id nï¿½o ï¿½ o mesmo
+                        redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a pï¿½gina e se o problema persistir, " +
+                                "faï¿½a login novamente.");
+                    }
+                } else if (action.equals("change-password")) {
+                    changePassword(request, response);
+                } else {// se mudar o parametro de action
+                    redirect(request, response, 400, "Ocorreu um erro. Por favor, atualize a pï¿½gina.");
+                }
+            } else { // se nao for editar, simplemtente volta tudo
+                request.getRequestDispatcher("account.jsp").forward(request, response);
+            }
+        } catch (EntradaInvalidaException e) { // upou arquivo invï¿½lido
+            redirect(request, response, 400, e.getMessage());
+        } catch (MyLoginException e) { // username ja existente
+            redirect(request, response, 409, "O username escolhido jï¿½ estï¿½ em uso. Tente usar outro");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            redirect(request, response, 500, "ocorreu um erro inesperado");
+        }
     }
-    
+
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         System.out.println("delete");
-        if(action != null) {
-            if(action.equals("remove-photo")) {
-        	removerFoto(request, response);
-        	response.setStatus(204);
+        if (action != null) {
+            if (action.equals("remove-photo")) {
+                removerFoto(request, response);
+                response.setStatus(204);
             }
         }
     }
@@ -107,70 +105,68 @@ public class AccountServlet extends HttpServlet {
     /**
      * redireciona para account.jsp. se o codigo for entre 200 e 399, alert success,
      * senao, alert error.
-     * 
+     *
      * @param request
      * @param response
      * @param codigo
      * @param mensagem
+     *
      * @throws ServletException
      * @throws IOException
      */
-    private void redirect(HttpServletRequest request, HttpServletResponse response, int codigo, String mensagem)
-	    throws ServletException, IOException {
-	response.setStatus(codigo);
-	String tipo = null;
-	boolean sucess = codigo >= 200 && codigo < 400;
-	if (sucess) {
-	    tipo = "success";
-	    request.getSession().setAttribute("error", ""); // resetando o atributo error
-	} else { // fail
-	    tipo = "error";
-	    request.getSession().setAttribute("success", ""); // resetando o atributo success
-	}
-	request.getSession().setAttribute(tipo, mensagem); // setando novo status com mensagem enviada
-	request.getRequestDispatcher("account.jsp").forward(request, response);
+    private void redirect(HttpServletRequest request, HttpServletResponse response, int codigo, String mensagem) throws ServletException, IOException {
+        response.setStatus(codigo);
+        String tipo = null;
+        boolean sucess = codigo >= 200 && codigo < 400;
+        if (sucess) {
+            tipo = "success";
+            request.getSession().setAttribute("error", ""); // resetando o atributo error
+        } else { // fail
+            tipo = "error";
+            request.getSession().setAttribute("success", ""); // resetando o atributo success
+        }
+        request.getSession().setAttribute(tipo, mensagem); // setando novo status com mensagem enviada
+        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
-    
-    private void removerFoto(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	User user = (User) request.getSession().getAttribute("user");
-	user.setFoto("");
-	user.setMiniatura("");
-	service.update(user);
-	request.getSession().setAttribute("user", repository.findById(user.getId()));
-    }
-    
 
-    private void listarTudo(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	response.setStatus(200);
-	request.getSession().setAttribute("success", "");
-	request.getSession().setAttribute("error", "");
-	request.getRequestDispatcher("account.jsp").forward(request, response);
+    private void removerFoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        user.setFoto("");
+        user.setMiniatura("");
+        service.update(user);
+        request.getSession().setAttribute("user", repository.findById(user.getId()));
+    }
+
+
+    private void listarTudo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setStatus(200);
+        request.getSession().setAttribute("success", "");
+        request.getSession().setAttribute("error", "");
+        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	String old = request.getParameter("old");
-	String new1 = request.getParameter("new1");
-	String new2 = request.getParameter("new2");
-	if (UserValidation.passwordIsValid(new1, new2)) { // senhas se batem
-	    User user = (User) request.getSession().getAttribute("user");
-	    try {
-		user = service.changePassword(user, old, new1);
-		request.getSession().setAttribute("user", user);
-		response.setStatus(200);
-		response.getWriter().write("Senha Alterada com sucesso!");
-	    } catch (MyLoginException e) {
-		response.setStatus(400);
-		response.getWriter().write("A senha atual digitada não corresponde");
-	    } catch (RuntimeException e) {
-		e.printStackTrace();
-		response.setStatus(500);
-		response.getWriter().write("Ocorreu um erro x_x");
-	    }
-	} else {
-	    response.setStatus(400);
-	    response.getWriter().write("As novas senham não correspodem");
-	}
+        String old = request.getParameter("old");
+        String new1 = request.getParameter("new1");
+        String new2 = request.getParameter("new2");
+        if (UserValidation.passwordIsValid(new1, new2)) { // senhas se batem
+            User user = (User) request.getSession().getAttribute("user");
+            try {
+                user = service.changePassword(user, old, new1);
+                request.getSession().setAttribute("user", user);
+                response.setStatus(200);
+                response.getWriter().write("Senha Alterada com sucesso!");
+            } catch (MyLoginException e) {
+                response.setStatus(400);
+                response.getWriter().write("A senha atual digitada nï¿½o corresponde");
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+                response.setStatus(500);
+                response.getWriter().write("Ocorreu um erro x_x");
+            }
+        } else {
+            response.setStatus(400);
+            response.getWriter().write("As novas senham nï¿½o correspodem");
+        }
     }
 }

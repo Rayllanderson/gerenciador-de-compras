@@ -11,31 +11,30 @@ import javax.servlet.annotation.WebFilter;
 
 import com.ray.db.DB;
 
-@WebFilter(urlPatterns = { "/*" }) // toda requisição vai passar pelo filter
+@WebFilter(urlPatterns = {"/*"}) // toda requisiï¿½ï¿½o vai passar pelo filter
 public class DBFilter implements javax.servlet.Filter {
-//    private HttpServletRequest req; // convertendo o request
-//    private HttpSession session;
+    //    private HttpServletRequest req; // convertendo o request
+    //    private HttpSession session;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	    throws IOException, ServletException {
-	try {
-//	    req = (HttpServletRequest) request;
-//	    session = req.getSession();
-	    chain.doFilter(request, response);
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
+            //	    req = (HttpServletRequest) request;
+            //	    session = req.getSession();
+            chain.doFilter(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-	DB.getConnection();
+        DB.getConnection();
     }
 
     @Override
     public void destroy() {
     }
-    
-    
+
+
 }

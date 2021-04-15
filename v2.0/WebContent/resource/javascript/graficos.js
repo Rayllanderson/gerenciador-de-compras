@@ -1,4 +1,3 @@
-
 const blue = 'rgba(54, 162, 235, 1)';
 const pink = 'rgba(232, 62, 140, 1)';
 const red = 'rgba(255, 98, 94, 1)';
@@ -8,30 +7,27 @@ const green = 'rgba(2, 184, 171, 1)';
 
 
 var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "light2", // "light1", "light2", "dark1", "dark2"
-	animationEnabled: true,
-	title: {
-		text: ""
-	},
-	data: [{
-		type: "pie",
-		startAngle: 25,
-		toolTipContent: " <b>{label}</b>: {y} ",
-		showInLegend: "true",
-		legendText: "{label}",
-		indexLabelFontSize: 14,
-		indexLabel: " {label} {y} ",
-		dataPoints: [
-			{ y: numProdutosNaoComprados, label: "Não Comprados" },
-			{ y: numProdutosComprados, label: "Comprados" }
-		]
-	}]
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    animationEnabled: true,
+    title: {
+        text: ""
+    },
+    data: [{
+        type: "pie",
+        startAngle: 25,
+        toolTipContent: " <b>{label}</b>: {y} ",
+        showInLegend: "true",
+        legendText: "{label}",
+        indexLabelFontSize: 14,
+        indexLabel: " {label} {y} ",
+        dataPoints: [
+            {y: numProdutosNaoComprados, label: "Não Comprados"},
+            {y: numProdutosComprados, label: "Comprados"}
+        ]
+    }]
 });
 chart.render();
 $(".canvasjs-chart-credit").hide();
-
-
-
 
 
 //apenas produdos comprados
@@ -45,20 +41,20 @@ var myChart = new Chart(ctx, {
             label: 'R$',
             data: [valorGastoComprados, valorEstipuladoComprados, valorEconomizadoComprados],
             backgroundColor: [
-            	blue,
+                blue,
                 pink,
                 getColor(valorEconomizadoComprados)
             ],
             borderColor: [
-            	blue,
-            	pink,
-            	 getColor(valorEconomizadoComprados)
+                blue,
+                pink,
+                getColor(valorEconomizadoComprados)
             ],
             borderWidth: 1
         }]
     },
     options: {
-        
+
         scales: {
             yAxes: [{
                 ticks: {
@@ -68,9 +64,6 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-
-
-
 
 
 //todos os produtos
@@ -83,47 +76,47 @@ var myChart2 = new Chart(ctx2, {
             label: 'R$',
             data: [economizado, restante, valorGasto, valorEstipulado, total],
             backgroundColor: [
-            	getColor(economizado),
+                getColor(economizado),
                 yellow,
                 blue,
                 pink,
-                dark 
+                dark
             ],
             borderColor: [
-            	getColor(economizado),
+                getColor(economizado),
                 yellow,
                 blue,
                 pink,
-                dark  
+                dark
             ],
             borderWidth: 1
         }]
     },
     options: {
-    	maintainAspectRatio: false,
+        maintainAspectRatio: false,
         scales: {
             xAxes: [{
                 ticks: {
                     beginAtZero: true
                 }
             }]
-        }   
+        }
     }
 });
 
 
-function getColor(economizado){
-	return economizado >= 0 ? green : red;
+function getColor(economizado) {
+    return economizado >= 0 ? green : red;
 }
 
 
 $('.marcado-comprado').on('click', function () {
 //	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
-	$("#img").attr("src","resource/img/estatisticas/marcado-comprado.png");
-	
+    $("#img").attr("src", "resource/img/estatisticas/marcado-comprado.png");
+
 });
 
 $('.valor-real').on('click', function () {
 //	$('#titulo-modal').html('Um produto é marcado como comprado desta forma: <br>');
-	$("#img").attr("src","resource/img/estatisticas/preco-real.png");
+    $("#img").attr("src", "resource/img/estatisticas/preco-real.png");
 });
