@@ -31,6 +31,15 @@ public class CategoryCreator {
                 .build();
     }
 
+    public static Category createAnotherOneCategoryToBeSaved(){
+        User user = UserCreator.createUserWithId();
+        return Category.builder()
+                .name("Festas")
+                .budget(new BigDecimal(50))
+                .user(user)
+                .build();
+    }
+
     /**
      * @return categoria com ID 1, nome 'PC' e Orçamento de 500
      */

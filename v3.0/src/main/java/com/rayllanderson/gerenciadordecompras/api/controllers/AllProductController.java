@@ -39,26 +39,24 @@ public class AllProductController {
         return ResponseEntity.ok(allProductService.findAll(userId, pageable));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseBody> findById(@PathVariable Long id, @AuthenticationPrincipal UserDetails user){
+    @GetMapping("/purchased")
+    public ResponseEntity<Page<Product>> findAllPurchased(Pageable pageable, @AuthenticationPrincipal UserDetails user) {
         Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok((ProductMapper.toProductResponseBody(allProductService.findById(id, userId))));
+        return ResponseEntity.ok(allProductService.findPurchased(userId, pageable));
     }
+
+    @GetMapping("/non-purchased")
+    public ResponseEntity<Page<Product>> findAllNonPurchased(Pageable pageable, @AuthenticationPrincipal UserDetails user) {
+        Long userId = myUserUtil.getUserId(user);
+        return ResponseEntity.ok(allProductService.findNotPurchased(userId, pageable));
+    }
+
 
     @PostMapping
     public ResponseEntity<ProductPostResponseBody> save(@RequestBody @Valid AllProductPostRequestBody productPostRequestBody,
                                                         @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody, userId));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ProductPutRequestBody productPutRequestBody,
-                                       @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        productPutRequestBody.setId(id);
-        allProductService.update(productPutRequestBody, userId);
-        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
