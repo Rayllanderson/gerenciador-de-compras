@@ -3,9 +3,6 @@ package com.rayllanderson.gerenciadordecompras.api.controllers;
 import com.rayllanderson.gerenciadordecompras.api.utils.UserUtil;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
-import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
-import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
-import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
@@ -96,7 +93,6 @@ public class AllProductController {
         allProductService.moveProductsToAnotherCategory(data, userId);
         return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping("/statistics")
     public ResponseEntity<StatisticResponseBody> getStatistics(@AuthenticationPrincipal UserDetails user) {
