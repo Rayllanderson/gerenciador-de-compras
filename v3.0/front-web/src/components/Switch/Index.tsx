@@ -7,7 +7,7 @@ interface Props{
     toggleTheme(): void;
 }
 export default function ToggleSwitchTheme({toggleTheme}: Props){
-    const {title} = useContext(ThemeContext);
+    const {title, colors} = useContext(ThemeContext);
     return (
         <Switch onChange={toggleTheme}
                 checked={title === 'dark'}
@@ -21,7 +21,7 @@ export default function ToggleSwitchTheme({toggleTheme}: Props){
                             alignItems: "center",
                             height: "100%",
                             fontSize: 15,
-                            color: 'white'
+                            color: colors.background
                         }}>
                         <FaSun/>
                     </div>
@@ -34,7 +34,7 @@ export default function ToggleSwitchTheme({toggleTheme}: Props){
                             alignItems: "center",
                             height: "100%",
                             fontSize: 15,
-                            color: 'black'
+                            color: colors.background
                         }}>
                         <FaMoon/>
                     </div>
@@ -42,11 +42,11 @@ export default function ToggleSwitchTheme({toggleTheme}: Props){
                 height={10}
                 width={32}
                 handleDiameter={22}
-                offColor={"#414558"}
-                onColor={"#414558"}
-                onHandleColor="#fff"
-                offHandleColor="#000"
-                activeBoxShadow='0px 0px 1px 2px #9580ff'
+                offColor={colors.backgroundSecondary}
+                onColor={colors.backgroundSecondary}
+                onHandleColor={colors.primary}
+                offHandleColor={colors.primary}
+                activeBoxShadow={`0px 0px 1px 2px ${colors.primary}`}
         />
     );
 }

@@ -1,30 +1,16 @@
 import React from "react";
-import {Container} from './style';
-import ToggleSwitchTheme from "../Switch/Index";
-import useToggleTheme from "../../hooks/useToggleTheme";
-import {Dropdown} from "react-bootstrap";
-import {FiSettings, FiShoppingCart} from "react-icons/all";
+import {Container, Content} from './style'
+interface Props {
+    title: string,
+    Icon: React.ComponentType
+}
 
-
-const Header: React.FC = () => {
-    const {toggleTheme} = useToggleTheme();
+export default function Header({title, Icon}: Props) {
     return (
-        <Container className="navbar ">
-            <div className="container" style={{maxWidth: 750}}>
-                <div className=" d-flex justify-content-start">
-                    <FiShoppingCart size={22}/>
-                </div>
-                <div className="d-flex justify-content-end">
-                    <ToggleSwitchTheme toggleTheme={toggleTheme}/>
-                    <Dropdown className="content-items" drop='down'>
-                        <Dropdown.Toggle variant="dropdown">
-                            < FiSettings size={21}/>
-                        </Dropdown.Toggle>
-                    </Dropdown>
-                </div>
-            </div>
+        <Container className="container mt-5">
+            <Content>
+              <h2><Icon/> {title}</h2>
+            </Content>
         </Container>
     );
 }
-
-export default Header;
