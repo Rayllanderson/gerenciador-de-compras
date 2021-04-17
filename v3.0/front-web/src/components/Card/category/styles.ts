@@ -6,6 +6,7 @@ export const CardContainer = styled.div `
     }
     
      .card {
+      cursor: pointer;
       background: ${props => props.theme.colors.backgroundSecondary}!important;
       border-radius: 5px;
       border: 0.1rem solid ${props => props.theme.colors.primary}!important;
@@ -14,8 +15,19 @@ export const CardContainer = styled.div `
     .progress-bar {
       background: ${props => props.theme.colors.progressBar};
     }
+    
+    .form-check-input{
+        border-radius: 5px;
+        color: black;
+        &:checked{
+         background-color: ${props => props.theme.colors.primary}!important;
+        }
+    }
+    
+    .addons{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
 `
-
-export const Col = styled.div`
-
-  `
