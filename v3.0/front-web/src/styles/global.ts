@@ -32,6 +32,18 @@ export default createGlobalStyle`
      text-decoration: none;
   }
   
+  input, select{
+        background-color: ${props => props.theme.colors.backgroundSecondary}!important;
+        border: 0.5px solid ${props => props.theme.colors.primary}!important;
+        border-color: ${props => props.theme.colors.primary}!important;
+        color: ${props => props.theme.colors.text}!important;
+    }
+  
+  input:focus,
+  select:focus{
+    border-color: ${props => props.theme.colors.primary}!important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
+  }
   
   
   :root {
