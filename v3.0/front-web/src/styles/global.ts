@@ -35,7 +35,6 @@ export default createGlobalStyle`
   input, select{
         background-color: ${props => props.theme.colors.backgroundSecondary}!important;
         border: 0.5px solid ${props => props.theme.colors.primary}!important;
-        border-color: ${props => props.theme.colors.primary}!important;
         color: ${props => props.theme.colors.text}!important;
     }
   

@@ -2,14 +2,11 @@ import styled from "styled-components";
 
 export const Container = styled.div `
     max-width: 750px;
-    margin-top: 3.2rem;
+    margin-top: 3rem;
     
-    div{
-        height: 40px;
+    div {
+        display: flex;
+        justify-content: flex-end; 
     }
-    
-    button {
-        width: 5rem;
-    }
-
+   
 `

@@ -10,7 +10,7 @@ export const Content = styled.div`
     margin: 0 auto;
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.primary};
-    border: 3px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary};
     width: 250px;
     height: 60px;
     border-radius: 5px;
