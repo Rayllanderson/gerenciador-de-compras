@@ -1,6 +1,6 @@
-import {PrimaryButton} from "../Buttons/style";
+import {PrimaryButton} from "../Buttons/styles";
 import {FiSearch} from "react-icons/all";
-import {Container} from "./style";
+import {Container} from "./styles";
 
 export default function Search(){
     return (

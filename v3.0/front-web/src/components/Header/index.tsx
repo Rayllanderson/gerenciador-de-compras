@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Content} from './style'
+import {Container, Content} from './styles'
 interface Props {
     title: string,
     Icon: React.ComponentType

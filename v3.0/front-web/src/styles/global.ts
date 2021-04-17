@@ -149,8 +149,54 @@ export default createGlobalStyle`
     --yellow-900: rgba(255,255,128,0.9);
     --accentColor: var(--purple);
     --purple-cyan: linear-gradient(var(--gradientDegree),var(--purple),var(--cyan));
+    --purple-red: linear-gradient(var(--gradientDegree),var(--purple),var(--red));
     --yellow-pink: linear-gradient(var(--gradientDegree),var(--yellow),var(--pink));
     --cyan-green: linear-gradient(var(--gradientDegree),var(--cyan),var(--green));
+    --cyan-pink: linear-gradient(var(--gradientDegree),var(--cyan),var(--pink));
     --pink-purple: linear-gradient(var(--gradientDegree),var(--pink),var(--purple));
     --inventada: linear-gradient(var(--gradientDegree),var(--pink),var(--purple));
+    
+    @keyframes appearFromLeft {
+       from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes appearFromRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes appearFromTop {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes appearFromBottom {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 `;

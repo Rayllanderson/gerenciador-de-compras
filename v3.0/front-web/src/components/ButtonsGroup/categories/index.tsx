@@ -1,5 +1,5 @@
-import {Container} from "./style";
-import {PrimaryButton} from '../../Buttons/style';
+import {Container} from "./styles";
+import {PrimaryButton} from '../../Buttons/styles';
 import {FiMoreVertical, FiPlus} from "react-icons/all";
 
 export function ButtonGroup (){

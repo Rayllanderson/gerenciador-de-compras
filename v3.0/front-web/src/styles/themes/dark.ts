@@ -5,6 +5,7 @@ const dark = {
         background: '#21222c',
         backgroundSecondary: '#414558',
         primary: '#9580ff',
+        progressBar: 'var(--purple-red)',
         reversePrimary: '#ff80bf',
         text: '#f8f8f2',
         textSecondary: '#fff'

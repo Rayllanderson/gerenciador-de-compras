@@ -1,6 +1,6 @@
 import React from "react";
-import {Container} from './style';
-import ToggleSwitchTheme from "../Switch/Index";
+import {Container} from './styles';
+import ToggleSwitchTheme from "../Switch";
 import useToggleTheme from "../../hooks/useToggleTheme";
 import {Dropdown} from "react-bootstrap";
 import {FiSettings, FiShoppingCart} from "react-icons/all";
