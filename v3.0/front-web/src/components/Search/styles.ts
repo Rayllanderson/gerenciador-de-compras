@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div `
     max-width: 750px;
-    margin-top: 3.2rem;
+    margin-top: 4rem;
     
     div{
-        height: 40px;
+        height: 50px;
     }
     
     button {

@@ -1,18 +1,19 @@
 import {Container} from "./styles";
 import {PrimaryButton} from '../../Buttons/styles';
-import {FiMoreVertical, FiPlus} from "react-icons/all";
+import {FiMoreVertical, FiPlus, FiSettings} from "react-icons/all";
+import {Dropdown} from "react-bootstrap";
+import React from "react";
+import {CardDropdown} from "./dropdown";
 
 export function ButtonGroup (){
     return (
         <Container className="container">
-            <div>
+            <div className={"group-buttons"}>
                 <PrimaryButton className={"btn"} style={{borderBottomRightRadius: 0, borderTopRightRadius: 0, color: 'var(--green)'}}>
                     <FiPlus size={21}/>
                 </PrimaryButton>
 
-                <PrimaryButton className={"btn"} style={{borderBottomLeftRadius: 0, borderTopLeftRadius: 0}}>
-                    <FiMoreVertical size={21}/>
-                </PrimaryButton>
+                <CardDropdown/>
                 </div>
         </Container>
     )

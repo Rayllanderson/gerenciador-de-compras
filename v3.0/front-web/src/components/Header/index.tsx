@@ -9,7 +9,7 @@ export default function Header({title, Icon}: Props) {
     return (
         <Container className="container mt-5">
             <Content>
-              <h2><Icon/> {title}</h2>
+              <h3><Icon/> {title}</h3>
             </Content>
         </Container>
     );

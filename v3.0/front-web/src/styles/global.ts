@@ -1,4 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
+import {darken, parseToRgb, rgba} from "polished";
 
 export default createGlobalStyle`
 
@@ -34,8 +35,19 @@ export default createGlobalStyle`
   
   input, select{
         background-color: ${props => props.theme.colors.backgroundSecondary}!important;
-        border: 0.5px solid ${props => props.theme.colors.primary}!important;
         color: ${props => props.theme.colors.text}!important;
+        
+        border: 0.5px solid ${props => props.theme.colors.primary}!important;
+     
+         
+        /*   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px!important;*/
+        /* box-shadow: ${props => props && rgba(props.theme.colors.primary, 0.15)} 0px 48px 100px 0px!important;*/
+        /*border: 0.5px solid ${props => props.theme.colors.primary}!important;*/
+        /* ${props => props.theme.title === 'light' ?
+        `border: 0.5px solid ${props.theme.colors.primary}!important` :
+        `border: none!important;`}*/
+        
+        
     }
   
   input:focus,
@@ -44,6 +56,37 @@ export default createGlobalStyle`
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
   }
   
+  
+  .button {
+      color: white;
+    transition: 0.3s;
+    font-weight: 500;
+    &:active{
+        transform: scale(0.98);
+    }
+    
+    &: focus{
+         transition: 0.3s;
+    }
+  }
+  
+  .button-primary{
+     background: ${props => props.theme.colors.primary}!important;
+     color: ${props => props.theme.colors.background}!important;
+     &:hover{
+         background: ${props => props && darken(0.1, props.theme.colors.primary)}!important;
+          color: ${props => props.theme.colors.background}!important;
+     }
+     
+     &:active{
+         background: ${props => props && darken(0.12, props.theme.colors.primary)}!important;
+     }
+     
+     &:focus{
+          border-color: ${props => props && darken(0.12, props.theme.colors.primary)}!important;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
+     }
+  }
   
   :root {
     --black: #21222c;

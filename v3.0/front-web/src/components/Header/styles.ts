@@ -16,7 +16,7 @@ export const Content = styled.div`
     border-radius: 5px;
     padding: 10px;
     
-   h2{
+   h3{
     display: flex;
     align-items: center;
     justify-content: center

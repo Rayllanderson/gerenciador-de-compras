@@ -36,7 +36,7 @@ function Checkbox(){
 
 function EditButton(){
     return(
-            <PrimaryButton className="btn btn-sm"><FiEdit2/></PrimaryButton>
+        <PrimaryButton className="btn btn-sm"><FiEdit2/></PrimaryButton>
     )
 }
 
