@@ -2,19 +2,53 @@ import {Form, ProgressBar} from "react-bootstrap";
 import {CardContainer} from './styles'
 import {FiEdit2, FiTrash} from "react-icons/all";
 import {PrimaryButton, RedButton} from '../../Buttons/styles'
+import {useContext, useEffect} from "react";
+import {CardActionsContext} from "../../../context/cardActions";
 
-export function CardCategory(){
+interface Props {
+    id: string,
+    selectedItems: any[];
+    addSelectItem: (value:any) => void;
+    removeSelectItem: (value:any) => void;
+}
+
+export function CardCategory({id, selectedItems, addSelectItem, removeSelectItem}: Props){
+
+    const {checkBoxIsVisible, deleteButtonIsVisible, editButtonIsVisible} = useContext(CardActionsContext);
+
+    const handleCheckBoxChange = (e: any) => {
+        const value = e.target.value;
+        if (e.target.checked) {
+            addSelectItem(value);
+        }else{
+            removeSelectItem(value);
+        }
+    }
+
+    // rascunhos...
+    useEffect(() => {
+        console.log(selectedItems.length)
+        if (selectedItems.length > 0 ){
+            console.log('mostrou botao');
+        }else{
+            console.log('sumiu botao');
+        }
+        console.log(selectedItems)
+    }, [selectedItems.length])
+
     return(
         <CardContainer>
             <div className="col">
                 <div className="card h-50">
                     <div className="card-body">
                         <div className={"addons"}>
-                            {/*
-                                <Checkbox/>
-                                <EditButton/>
-                                <DeleteButton/>
-                            */}
+                            {checkBoxIsVisible &&
+                                <Form.Check type="checkbox" className="checkbox" value={id}
+                                        onChange={handleCheckBoxChange}/>
+                            }
+
+                            {editButtonIsVisible && <EditButton/> }
+                            {deleteButtonIsVisible && <DeleteButton/> }
                         </div>
                         <h5 className="card-title ">Pc</h5>
                         <p className="card-text ">R$ 250.00</p>
@@ -23,14 +57,6 @@ export function CardCategory(){
                 </div>
             </div>
         </CardContainer>
-    )
-}
-
-function Checkbox(){
-    return(
-        <Form.Group >
-            <Form.Check type="checkbox" className="checkbox"/>
-        </Form.Group>
     )
 }
 
@@ -44,4 +70,8 @@ function DeleteButton(){
     return(
          <RedButton className="btn btn-sm ms-2"><FiTrash/></RedButton>
     )
+}
+
+function removeItem(array:any[]){
+
 }
