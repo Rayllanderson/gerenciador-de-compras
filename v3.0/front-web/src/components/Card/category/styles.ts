@@ -30,4 +30,8 @@ export const CardContainer = styled.div `
         justify-content: flex-end;
         align-items: center;
     }
+    
+    .checkbox, button{
+        animation: appearFromTop 0.5s;
+    }
 `

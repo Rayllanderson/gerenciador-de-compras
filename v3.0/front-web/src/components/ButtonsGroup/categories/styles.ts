@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {rgba} from "polished";
 
 export const Container = styled.div `
     max-width: 750px;
@@ -33,5 +34,32 @@ export const DropdownContent = styled.div `
         a:hover{
          background: ${props => props.theme.colors.primary}!important;
         }
+    }
+`
+
+export const SelectButtonsContainer = styled.div `
+ 
+    background: ${props => props && rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;
+    padding: 12px;
+    margin: 0 auto;
+    border-radius: 12px;
+    max-width: 750px;
+    
+    border: 1px solid ${props => props.theme.colors.progressBar};
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    .buttons{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .close-card{
+        background: transparent;
+        border: none;
+        color: ${props => props.theme.colors.primary};
+        cursor: pointer;
     }
 `

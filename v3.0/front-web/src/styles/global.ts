@@ -111,7 +111,7 @@ export default createGlobalStyle`
     --purple: #9580ff;
     --purpleSecondary: #d5ccff;
     --purpleLight: hsl(250,100%,75%,5%);
-    --red: #ff5555;
+    --red: #ff9580;
     --redSecondary: #ffd5cc;
     --redLight: hsla(10,100%,75%,5%);
     --yellow: #ffff80;

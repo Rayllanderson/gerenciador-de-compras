@@ -4,7 +4,7 @@ import {FiList} from "react-icons/all";
 import Search from "../components/Search";
 import {ButtonGroup} from "../components/ButtonsGroup/categories";
 import CategoryList from "../components/Card/category";
-import {ProgressBar} from "react-bootstrap";
+import {SelectButtons} from "../components/ButtonsGroup/categories/selectButtons";
 
 export default function Categories(){
     return (
@@ -13,6 +13,9 @@ export default function Categories(){
             <Search/>
             <ButtonGroup/>
             <CategoryList/>
+
+
+            <SelectButtons/>
         </div>
     );
 }
