@@ -50,7 +50,7 @@ export function CardCategory({id, selectedItems, addSelectItem, removeSelectItem
                             {editButtonIsVisible && <EditButton/> }
                             {deleteButtonIsVisible && <DeleteButton/> }
                         </div>
-                        <h5 className="card-title ">Pc</h5>
+                        <h5 className="card-title ">Supermercado</h5>
                         <p className="card-text ">R$ 250.00</p>
                         <ProgressBar now={50}  label={'50%'} title={`${50}% concluída`} />
                     </div>

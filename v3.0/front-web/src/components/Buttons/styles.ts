@@ -32,6 +32,24 @@ export const PrimaryButton = styled(Button)`
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `
+export const SecondaryButton = styled(Button)`
+     background: ${props => props.theme.colors.backgroundSecondary}!important;
+     color: ${props => props.theme.colors.text}!important;
+     &:hover{
+         background: ${props => props && darken(0.1, props.theme.colors.backgroundSecondary)}!important;
+     }
+     
+     &:active{
+         background: ${props => props && darken(0.12, props.theme.colors.backgroundSecondary)}!important;
+     }
+     
+     &:focus{
+          border-color: ${props => props && darken(0.12, props.theme.colors.backgroundSecondary)}!important;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
+     }
+`
+
+
 
 export const RedButton = styled(Button)`
      background: #ff9580;
