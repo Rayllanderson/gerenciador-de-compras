@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import {ThemeProvider} from "styled-components";
 import React from "react";
 import useToggleTheme from "./hooks/useToggleTheme";
-import Categories from "./pages/categories";
+import Products from "./pages/products";
 
 function App() {
     const { theme } = useToggleTheme();
@@ -13,7 +13,7 @@ function App() {
             <div className="App">
                 <GlobalStyle/>
                 <Navbar/>
-                <Categories/>
+                <Products/>
             </div>
         </ThemeProvider>
     );

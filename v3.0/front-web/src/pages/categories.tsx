@@ -11,8 +11,9 @@ export default function Categories(){
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
-            <Search/>
+            <Search placeholder={'Procurar uma lista...'}/>
             <ButtonGroup/>
+
             <CategoryList/>
 
             <CategoryModal/>
