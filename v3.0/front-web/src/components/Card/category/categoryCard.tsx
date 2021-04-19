@@ -12,7 +12,7 @@ interface Props {
     removeSelectItem: (value:any) => void;
 }
 
-export function CardCategory({id, selectedItems, addSelectItem, removeSelectItem}: Props){
+export function CategoryCard({id, selectedItems, addSelectItem, removeSelectItem}: Props){
 
     const {checkBoxIsVisible, deleteButtonIsVisible, editButtonIsVisible} = useContext(CardActionsContext);
 

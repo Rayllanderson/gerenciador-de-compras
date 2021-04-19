@@ -1,4 +1,4 @@
-import {CardCategory} from "./cardCategory";
+import {CategoryCard} from "./categoryCard";
 import {useState} from "react";
 
 
@@ -20,9 +20,9 @@ export default function CategoryList() {
 
                 <div className="row row-cols-1 row-cols-md-3 g-4" style={{maxWidth: 750, margin: '0 auto'}}>
 
-                <CardCategory id={'3'} selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
-                <CardCategory id={'2'}  selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
-                <CardCategory id={'1'}  selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
+                <CategoryCard id={'3'} selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
+                <CategoryCard id={'2'} selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
+                <CategoryCard id={'1'} selectedItems={selectedItems} addSelectItem={addSelectedItem} removeSelectItem={removeSelectedItem}/>
 
 
                 </div>

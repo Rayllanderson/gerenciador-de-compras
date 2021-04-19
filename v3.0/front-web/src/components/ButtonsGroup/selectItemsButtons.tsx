@@ -1,8 +1,11 @@
-import {CyanSecondaryButton, RedButton} from "../../Buttons/styles";
 import {SelectButtonsContainer} from './styles'
 import {FiX} from "react-icons/all";
+import {ReactNode} from "react";
 
-export function SelectButtons() {
+interface Props {
+    children: ReactNode;
+}
+export function SelectItemsButtons({children}: Props) {
     return (
         <SelectButtonsContainer className={'container mb-4'}>
             <button
@@ -14,9 +17,7 @@ export function SelectButtons() {
                 <p className={'text-center'}> 3 selecionados</p>
             </div>
             <div className={"buttons"}>
-                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>
-
-                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
+                {children}
             </div>
         </SelectButtonsContainer>
     )

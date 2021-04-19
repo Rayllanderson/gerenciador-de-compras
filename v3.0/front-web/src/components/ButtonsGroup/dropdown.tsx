@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {FiMoreVertical} from "react-icons/all";
 import {Dropdown} from "react-bootstrap";
 import {DropdownContent} from './styles'
-import {CardActionsContext} from "../../../context/cardActions";
+import {CardActionsContext} from "../../context/cardActions";
 
 export function CardDropdown() {
 

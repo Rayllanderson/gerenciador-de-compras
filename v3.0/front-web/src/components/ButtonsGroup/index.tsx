@@ -1,5 +1,5 @@
 import {Container} from "./styles";
-import {PrimaryButton} from '../../Buttons/styles';
+import {PrimaryButton} from '../Buttons/styles';
 import {FiPlus} from "react-icons/all";
 import React from "react";
 import {CardDropdown} from "./dropdown";
