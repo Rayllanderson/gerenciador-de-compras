@@ -2,12 +2,12 @@ import React, {useContext} from "react";
 import {FiMoreVertical} from "react-icons/all";
 import {Dropdown} from "react-bootstrap";
 import {DropdownContent} from './styles'
-import {CardActionsContext} from "../../context/cardActions";
+import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
 
 export function CardDropdown() {
 
     const {showCheckBox, hideCheckBox, checkBoxIsVisible, showDeleteButton, hideDeleteButton
-    , hideEditButton, showEditButton, editButtonIsVisible, deleteButtonIsVisible} = useContext(CardActionsContext);
+    , hideEditButton, showEditButton, editButtonIsVisible, deleteButtonIsVisible} = useContext(VisibilityCardItemContext);
 
 
     const handleCheckBoxClick = () => {

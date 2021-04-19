@@ -4,7 +4,7 @@ import Search from "../components/Search";
 import {ProductHeader} from "../components/Header/Product";
 import {ButtonGroup} from "../components/ButtonsGroup";
 
-export default function Products(){
+export default function ProductPage(){
     return (
         <div >
             <BackButtonHeader/>

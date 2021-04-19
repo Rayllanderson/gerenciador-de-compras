@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {ThemeContextProvider} from "./context/toggleTheme";
-import {CardActionsContextProvider} from "./context/cardActions";
+import {VisibilityCardItemContextProvider} from "./context/CardItemVisibilityContext";
+import {CardItemActionContextProvider} from "./context/CardItemActionContext";
 
 ReactDOM.render(
     <React.StrictMode>
         <ThemeContextProvider>
-            <CardActionsContextProvider>
-                <App/>
-            </CardActionsContextProvider>
+            <VisibilityCardItemContextProvider>
+                <CardItemActionContextProvider>
+                    <App/>
+                </CardItemActionContextProvider>
+            </VisibilityCardItemContextProvider>
         </ThemeContextProvider>
     </React.StrictMode>,
     document.getElementById('root')

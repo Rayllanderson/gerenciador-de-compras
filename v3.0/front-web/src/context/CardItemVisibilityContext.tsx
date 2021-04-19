@@ -18,9 +18,12 @@ interface CardActionsContextContextData {
 
 }
 
-export const CardActionsContext = createContext<CardActionsContextContextData>({} as CardActionsContextContextData);
+export const VisibilityCardItemContext = createContext<CardActionsContextContextData>({} as CardActionsContextContextData);
 
-export function CardActionsContextProvider({ children }: CardActionsContextProviderProps) {
+/**
+ * Trata a visibilidade dos botões de selecionar items, editar, deletar no Card.
+ */
+export function VisibilityCardItemContextProvider({ children }: CardActionsContextProviderProps) {
 
     const [checkBoxIsVisible, setCheckBoxVisibility] = useState(false);
     const [editButtonIsVisible, setEditButtonVisibility] = useState(false);
@@ -50,13 +53,13 @@ export function CardActionsContextProvider({ children }: CardActionsContextProvi
 
 
     return (
-        <CardActionsContext.Provider value={{
+        <VisibilityCardItemContext.Provider value={{
             checkBoxIsVisible, showCheckBox, hideCheckBox,
             editButtonIsVisible, showEditButton, hideEditButton,
             deleteButtonIsVisible, showDeleteButton, hideDeleteButton,
         }}>
             {children}
-        </CardActionsContext.Provider>
+        </VisibilityCardItemContext.Provider>
     )
 }
 

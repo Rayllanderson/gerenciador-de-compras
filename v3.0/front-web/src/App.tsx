@@ -3,7 +3,8 @@ import Navbar from "./components/Navbar";
 import {ThemeProvider} from "styled-components";
 import React from "react";
 import useToggleTheme from "./hooks/useToggleTheme";
-import Products from "./pages/products";
+import ProductPage from "./pages/productPage";
+import CategoryPage from "./pages/categoryPage";
 
 function App() {
     const { theme } = useToggleTheme();
@@ -13,7 +14,8 @@ function App() {
             <div className="App">
                 <GlobalStyle/>
                 <Navbar/>
-                <Products/>
+                {/*<ProductPage/>*/}
+                <CategoryPage/>
             </div>
         </ThemeProvider>
     );

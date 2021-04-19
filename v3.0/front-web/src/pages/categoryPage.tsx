@@ -8,7 +8,7 @@ import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons"
 import {CategoryModal, DeleteCategoryModal} from "../components/Modal/category";
 import {CyanSecondaryButton, RedButton} from "../components/Buttons/styles";
 
-export default function Categories(){
+export default function CategoryPage(){
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
@@ -17,12 +17,13 @@ export default function Categories(){
 
             <CategoryList/>
 
-            <CategoryModal/>
-            <DeleteCategoryModal/>
             <SelectItemsButtons>
                 <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
+
+            <CategoryModal/>
+            <DeleteCategoryModal/>
         </div>
     );
 }
