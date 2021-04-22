@@ -33,8 +33,20 @@ export const CardContainer = styled.div`
 `
 
 export const CategoryCardContainer = styled(CardContainer)`
+  
   .progress-bar {
      background: ${props => props.theme.colors.progressBar};
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .card:hover{
+    transition:all .3s ease;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 2px ${props => props.theme.colors.primary};
+    border: 1.5px solid ${props => props.theme.colors.primary}!important;
   }
 `
 
