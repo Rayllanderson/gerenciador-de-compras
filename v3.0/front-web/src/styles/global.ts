@@ -88,6 +88,14 @@ export default createGlobalStyle`
      }
   }
   
+  .transition-2{
+    transition: all .2s easy;
+  }
+  
+  .transition-3{
+    transition: all .2s easy;
+  }
+    
   :root {
     --black: #21222c;
     --blackSecondary: #414558;

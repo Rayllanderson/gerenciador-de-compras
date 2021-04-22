@@ -9,14 +9,6 @@ export const AddonsContainer = styled.div`
     .checkbox, button{
         animation: appearFromTop 0.5s;
     }
-    
-    .form-check-input{
-      border-radius: 5px;
-      color: black;
-      &:checked{
-         background-color: ${props => props.theme.colors.primary}!important;
-      }
-    }
  `
 
 export const CardContainer = styled.div`
@@ -70,6 +62,7 @@ export const ProductCardBody = styled.div`
     
     .addons{
       padding: 5px;
+      padding-top: 1px;
     }
     
    .card-item{

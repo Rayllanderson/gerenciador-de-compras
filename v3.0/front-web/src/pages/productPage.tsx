@@ -6,6 +6,7 @@ import {ButtonGroup} from "../components/ButtonsGroup";
 import ProductList from "../components/Card/product";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, YellowButton, RedButton} from "../components/Buttons/styles";
+import {ProductModal} from "../components/Modal/product/ProductModal";
 
 export default function ProductPage(){
     return (
@@ -22,6 +23,7 @@ export default function ProductPage(){
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
 
+            <ProductModal/>
 
         </div>
     )

@@ -5,6 +5,7 @@ import {AddonsContainer} from "./styles";
 import {Form} from "react-bootstrap";
 import {PrimaryButton, RedButton} from "../Buttons/styles";
 import {FiEdit2, FiTrash} from "react-icons/all";
+import {CheckboxContainer} from '../Inputs/styles'
 
 interface Props {
     id: string;
@@ -18,18 +19,21 @@ export function CardAddon({id}: Props) {
     useEffect(() => {
         console.log(selectedItems.length)
         if (selectedItems.length > 0) {
-            console.log('mostrou botao');
+            // mostrar select item card
         } else {
-            console.log('sumiu botao');
+            // esconder select item card
         }
         console.log(selectedItems)
     }, [selectedItems.length])
 
     return (
         <AddonsContainer className={"addons"}>
-            {checkBoxIsVisible &&
-            <Form.Check type="checkbox" className="checkbox" value={id}
-                        onChange={handleCheckBoxChange}/>
+            {checkBoxIsVisible && (
+                <CheckboxContainer>
+                    <Form.Check type="checkbox" className="checkbox" value={id}
+                                onChange={handleCheckBoxChange}/>
+                </CheckboxContainer>
+            )
             }
             {editButtonIsVisible && <EditButton/>}
             {deleteButtonIsVisible && <DeleteButton/>}

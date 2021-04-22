@@ -4,13 +4,16 @@ import App from './App';
 import {ThemeContextProvider} from "./context/toggleTheme";
 import {VisibilityCardItemContextProvider} from "./context/CardItemVisibilityContext";
 import {CardItemActionContextProvider} from "./context/CardItemActionContext";
+import {ProductModalContextProvider} from "./context/ProductModalContext";
 
 ReactDOM.render(
     <React.StrictMode>
         <ThemeContextProvider>
             <VisibilityCardItemContextProvider>
                 <CardItemActionContextProvider>
-                    <App/>
+                    <ProductModalContextProvider>
+                        <App/>
+                    </ProductModalContextProvider>
                 </CardItemActionContextProvider>
             </VisibilityCardItemContextProvider>
         </ThemeContextProvider>

@@ -12,7 +12,7 @@ export default function ProductList() {
                 <div className="row row-cols-1 ">
                     <div className="col">
                         <ProductCard className="card">
-                            {/*<CardItem id={'1'} bought/>*/}
+                            <CardItem id={'1'} bought/>
                             {/*<CardItem id={'2'} bought/>*/}
                             {/*<CardItem id={'3'}/>*/}
                             {/*<CardItem id={'3'} bought/>*/}

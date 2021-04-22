@@ -5,7 +5,7 @@ import Search from "../components/Search";
 import {ButtonGroup} from "../components/ButtonsGroup";
 import CategoryList from "../components/Card/category";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
-import {CategoryModal, DeleteCategoryModal} from "../components/Modal/category";
+import {CategoryModal, DeleteCategoryModal} from "../components/Modal/category/CategoryModal";
 import {CyanSecondaryButton, RedButton} from "../components/Buttons/styles";
 
 export default function CategoryPage(){
