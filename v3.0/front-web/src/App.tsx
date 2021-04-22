@@ -14,8 +14,8 @@ function App() {
             <div className="App">
                 <GlobalStyle/>
                 <Navbar/>
-                {/*<ProductPage/>*/}
-                <CategoryPage/>
+                <ProductPage/>
+                {/* <CategoryPage/>*/}
             </div>
         </ThemeProvider>
     );

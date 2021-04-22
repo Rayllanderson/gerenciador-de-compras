@@ -100,8 +100,8 @@ export default createGlobalStyle`
     --cyanSecondary: #ccfff6;
     --cyanLight: hsla(170,100%,75%,5%);
     --green: #8aff80;
+    --greenLight: #21B534;
     --greenSecondary: #d0ffcc;
-    --greenLight: hsla(115,100%,75%,5%);
     --orange: #ffca80;
     --orangeSecondary: #ffeacc;
     --orangeLight: hsla(35,100%,75%,5%);
@@ -113,7 +113,7 @@ export default createGlobalStyle`
     --purpleLight: hsl(250,100%,75%,5%);
     --red: #ff9580;
     --redSecondary: #ffd5cc;
-    --redLight: hsla(10,100%,75%,5%);
+    --redLight: #ff5a5f;
     --yellow: #ffff80;
     --yellowSecondary: #ffc;
     --yellowLight: hsla(60,100%,75%,5%);

@@ -1,13 +1,28 @@
-import {ProductCard} from "./ProductCard";
+import {CardItem} from "./CardItem";
+import {CardHeader} from "./CardHeader";
+import {ProductCardBody, ProductCard} from "../styles";
 
-export default function ProductList(){
+export default function ProductList() {
     return (
-        <div className={"container"}>
+        <div className={"container"} style={{maxWidth: 750, margin: '0 auto'}}>
             <div style={{animation: 'appearFromBottom 1s'}}>
 
-                <div className="row row-cols-1 row-cols-md-3 g-4" style={{maxWidth: 750, margin: '0 auto'}}>
-                    <ProductCard id={'1'}/>
-                    <ProductCard id={'2'}/>
+                <CardHeader/>
+
+                <div className="row row-cols-1 ">
+                    <div className="col">
+                        <ProductCard className="card">
+                            <CardItem id={'1'} bought/>
+                            <CardItem id={'2'} bought/>
+                            <CardItem id={'3'}/>
+                            <CardItem id={'3'} bought/>
+                            <CardItem id={'3'}/>
+                            <CardItem id={'3'}/>
+                            <CardItem id={'3'}/>
+                            <CardItem id={'3'} bought/>
+                            <CardItem id={'3'} bought/>
+                        </ProductCard>
+                    </div>
                 </div>
             </div>
         </div>
