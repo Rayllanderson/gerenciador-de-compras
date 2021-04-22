@@ -7,6 +7,7 @@ import ProductList from "../components/Card/product";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, YellowButton, RedButton} from "../components/Buttons/styles";
 import {ProductModal} from "../components/Modal/product/ProductModal";
+import {DeleteModal} from "../components/Modal/DeleteModal";
 
 export default function ProductPage(){
     return (
@@ -24,7 +25,7 @@ export default function ProductPage(){
             </SelectItemsButtons>
 
             <ProductModal/>
-
+            <DeleteModal text={'Você tem certeza que deseja excluir o produto x?'}/>
         </div>
     )
 }

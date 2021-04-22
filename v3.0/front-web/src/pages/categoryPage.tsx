@@ -5,8 +5,9 @@ import Search from "../components/Search";
 import {ButtonGroup} from "../components/ButtonsGroup";
 import CategoryList from "../components/Card/category";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
-import {CategoryModal, DeleteCategoryModal} from "../components/Modal/category/CategoryModal";
+import {CategoryModal} from "../components/Modal/category/CategoryModal";
 import {CyanSecondaryButton, RedButton} from "../components/Buttons/styles";
+import {DeleteModal} from "../components/Modal/DeleteModal";
 
 export default function CategoryPage(){
     return (
@@ -23,7 +24,7 @@ export default function CategoryPage(){
             </SelectItemsButtons>
 
             <CategoryModal/>
-            <DeleteCategoryModal/>
+            <DeleteModal text={'Você tem certeza que deseja excluir a categoria x?'}/>
         </div>
     );
 }
