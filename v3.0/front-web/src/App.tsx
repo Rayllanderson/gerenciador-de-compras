@@ -1,4 +1,5 @@
 import GlobalStyle from "./styles/global";
+import {BrowserRouter} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import {ThemeProvider} from "styled-components";
 import React from "react";
@@ -8,16 +9,18 @@ import CategoryPage from "./pages/categoryPage";
 import LoginPage from "./pages/SignIn";
 
 function App() {
-    const { theme } = useToggleTheme();
+    const {theme} = useToggleTheme();
 
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
-                <GlobalStyle/>
-                <LoginPage/>
-                {/*<Navbar/>*/}
-                {/*<ProductPage/>*/}
-                {/* <CategoryPage/>*/}
+                <BrowserRouter>
+                    <GlobalStyle/>
+                    <LoginPage/>
+                    {/*<Navbar/>*/}
+                    {/*<ProductPage/>*/}
+                    {/* <CategoryPage/>*/}
+                </BrowserRouter>
             </div>
         </ThemeProvider>
     );

@@ -21,18 +21,3 @@ export function LoginForm() {
         </Container>
     );
 }
-
-/*
-export function LoginFooter() {
-    return (
-        <div className='links'>
-            <div className='d-flex justify-content-center'>
-                <Link to="/forget-password">Esqueci minha senha</Link>
-            </div>
-            <div className="link-register d-flex justify-content-center">
-                <Link to="/register"><FiLogIn/> &nbsp; Criar Conta</Link>
-            </div>
-        </div>
-    )
-}
- */

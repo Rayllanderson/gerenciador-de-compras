@@ -96,6 +96,22 @@ export default createGlobalStyle`
   .transition-3{
     transition: all .2s easy;
   }
+  
+  .appearFromRight{
+    animation: appearFromRight 1s;
+   }
+   
+   .appearFromLeft{
+    animation: appearFromLeft 1s;
+  }
+  
+  .appearFromTop{
+    animation: appearFromTop 1s;
+  }
+  
+  .appearFromBottom{
+    animation: appearFromBottom 1s;
+  }
     
   :root {
     --black: #21222c;
