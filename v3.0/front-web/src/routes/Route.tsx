@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Route as ReactDomRoute, RouteProps as ReactRouterProps, Redirect } from 'react-router-dom'
-import MyNavbar from '../components/Navbar/Index';
-import { AuthContext } from '../hooks/AuthContext';
+import {AuthContext} from "../context/AuthContext";
+import Navbar from "../components/Navbar";
 
 interface RouteProps extends ReactRouterProps {
   isPrivate?: boolean;
@@ -14,11 +14,11 @@ const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, 
     <ReactDomRoute {...rest} render={(props) => {
       return isPrivate === !!user ? (
         <div>
-          {hasNavBar && <MyNavbar /> }
+          {hasNavBar && <Navbar /> }
           <Component {...props} />
         </div>
       ) : (
-        <Redirect to={{ pathname: isPrivate ? '/' : '/games' }} />
+        <Redirect to={{ pathname: isPrivate ? '/' : '/categories' }} />
       )
     }} />
   )

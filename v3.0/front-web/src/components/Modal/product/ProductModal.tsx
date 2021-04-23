@@ -43,7 +43,7 @@ export function ProductModal() {
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Já comprou o produto? &nbsp;
                             </label>
-                            <InputCheckbox handleChange={handleCheckBoxChange} value={''}/>
+                            <InputCheckbox onChange={handleCheckBoxChange} value={''}/>
                             <span>{checked ? 'Sim' : 'Não'}</span>
                         </div>
                     </div>

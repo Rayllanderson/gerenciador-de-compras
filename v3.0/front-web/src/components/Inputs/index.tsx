@@ -4,7 +4,7 @@ import React, {useCallback, useRef, useState} from "react";
 
 interface Props {
     placeholder?: string;
-    handleChange?: (e: any) => void,
+    onChange?: (e: any) => void,
     value?: string;
 }
 
@@ -29,15 +29,15 @@ export function InputNumber({placeholder}: Props) {
     )
 }
 
-export function InputCheckbox({handleChange}: Props) {
+export function InputCheckbox({onChange}: Props) {
     return (
         <CheckboxContainer>
-            <Form.Check type="checkbox" className="checkbox" onChange={handleChange}/>
+            <Form.Check type="checkbox" className="checkbox" onChange={onChange}/>
         </CheckboxContainer>
     )
 }
 
-export function InputWithIcon({handleChange, value, placeholder, icon: Icon, required, type}: InputWithIconsProps) {
+export function InputWithIcon({onChange, value, placeholder, icon: Icon, required, type}: InputWithIconsProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(false)
     const [isFilled, setIsFilled] = useState(false)
@@ -54,7 +54,7 @@ export function InputWithIcon({handleChange, value, placeholder, icon: Icon, req
                  <Icon/>
             </span>
             <input className="form-control form-control-lg inner-addon left-addon"
-                   onChange={handleChange}
+                   onChange={onChange}
                    value={value}
                    type={type}
                    placeholder={placeholder}

@@ -24,7 +24,7 @@ export function CardAddon({id}: Props) {
             // esconder select item card
         }
         console.log(selectedItems)
-    }, [selectedItems.length])
+    }, [selectedItems])
 
     return (
         <AddonsContainer className={"addons"}>

@@ -1,13 +1,11 @@
 import GlobalStyle from "./styles/global";
 import {BrowserRouter} from "react-router-dom";
-import Navbar from "./components/Navbar";
 import {ThemeProvider} from "styled-components";
 import React from "react";
 import useToggleTheme from "./hooks/useToggleTheme";
-import ProductPage from "./pages/productPage";
-import CategoryPage from "./pages/categoryPage";
-import LoginPage from "./pages/SignIn";
 import {AuthProvider} from "./context/AuthContext";
+import {LoginContextProvider} from "./context/LoginContext";
+import Routes from "./routes";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -17,11 +15,10 @@ function App() {
             <div className="App">
                 <BrowserRouter>
                     <AuthProvider>
-                        <GlobalStyle/>
-                        <LoginPage/>
-                        {/*<Navbar/>*/}
-                        {/*<ProductPage/>*/}
-                        {/* <CategoryPage/>*/}
+                        <LoginContextProvider>
+                            <GlobalStyle/>
+                            <Routes />
+                        </LoginContextProvider>
                     </AuthProvider>
                 </BrowserRouter>
             </div>

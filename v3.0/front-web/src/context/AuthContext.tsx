@@ -1,21 +1,11 @@
 import {createContext, ReactNode, useCallback, useState} from 'react';
 import api from '../services/api';
-
-interface SignInCredentials {
-    username: string;
-    password: string;
-}
-
-interface SignUpCredentials {
-    name: string;
-    username: string;
-    password: string;
-}
+import {UserLoginBody, UserRegisterBody} from "../types/user/types";
 
 interface AuthContextData {
     user: object;
-    signIn: (credentials: SignInCredentials) => Promise<void>
-    signUp: (credentials: SignUpCredentials) => Promise<void>
+    signIn: (body: UserLoginBody) => Promise<void>
+    signUp: (body: UserRegisterBody) => Promise<void>
     signOut: () => void;
 }
 
@@ -40,7 +30,7 @@ export function AuthProvider({children}: AuthProviderProps) {
         return {} as AuthState;
     });
 
-    const signIn = useCallback(async ({username, password}: SignInCredentials) => {
+    const signIn = useCallback(async ({username, password}: UserLoginBody) => {
         const response = await api.post('login', {
             username, password
         });
