@@ -2,7 +2,7 @@ const dark = {
     title: 'dark',
 
     colors: {
-        background: '#21222c',
+        background: '#282a36',
         backgroundSecondary: '#414558',
         primary: '#9580ff',
         progressBar: 'var(--purple-red)',

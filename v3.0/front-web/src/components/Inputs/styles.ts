@@ -19,14 +19,14 @@ export const Container = styled.div<ContainerProps>`
      
       span {
         background-color:#ffff!important;;
-        border: 2px solid ${props => props.theme.colors.backgroundSecondary};
+        border: 2px solid #f8f8f2;
         border-right: 0 solid;
         transition: 0.2s;
         color: #6c757d;
       }
       
       input {
-         border: 2px solid ${props => props.theme.colors.backgroundSecondary};
+         border: 2px solid #f8f8f2;
          border-left: 0 solid;
       }
      
