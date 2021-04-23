@@ -23,7 +23,7 @@ export const VisibilityCardItemContext = createContext<CardActionsContextContext
 /**
  * Trata a visibilidade dos botões de selecionar items, editar, deletar no Card.
  */
-export function VisibilityCardItemContextProvider({ children }: CardActionsContextProviderProps) {
+export function VisibilityCardItemProvider({ children }: CardActionsContextProviderProps) {
 
     const [checkBoxIsVisible, setCheckBoxVisibility] = useState(false);
     const [editButtonIsVisible, setEditButtonVisibility] = useState(false);

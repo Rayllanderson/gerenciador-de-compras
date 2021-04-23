@@ -16,7 +16,7 @@ interface ProductModalContextContextData {
  */
 export const ProductModalContext = createContext<ProductModalContextContextData>({} as ProductModalContextContextData);
 
-export function ProductModalContextProvider({ children }: ProductModalContextProviderProps) {
+export function ProductModalProvider({ children }: ProductModalContextProviderProps) {
 
     const [checked, setChecked] = useState<boolean>(false)
 

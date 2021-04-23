@@ -20,7 +20,7 @@ interface SelectedItemsContextContextData {
  */
 export const CardItemActionContext = createContext<SelectedItemsContextContextData>({} as SelectedItemsContextContextData);
 
-export function CardItemActionContextProvider({ children }: SelectedItemsContextProviderProps) {
+export function CardItemActionProvider({ children }: SelectedItemsContextProviderProps) {
 
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
 

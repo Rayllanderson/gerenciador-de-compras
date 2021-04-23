@@ -13,7 +13,7 @@ interface ThemeContextData {
 
 const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData);
 
-const ThemeContextProvider: React.FC = ({ children }) => {
+const ThemeProvider: React.FC = ({ children }) => {
     const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dark);
 
     function toggleTheme() {
@@ -27,4 +27,4 @@ const ThemeContextProvider: React.FC = ({ children }) => {
     );
 };
 
-export { ThemeContext, ThemeContextProvider };
+export { ThemeContext, ThemeProvider };
