@@ -17,10 +17,9 @@ export const Button = styled.button`
 
 export const PrimaryButton = styled(Button)`
      background: ${props => props.theme.colors.primary}!important;
-     color: ${props => props.theme.colors.background}!important;
      &:hover{
          background: ${props => props && darken(0.1, props.theme.colors.primary)}!important;
-          color: ${props => props.theme.colors.background}!important;
+          color: white!important;
      }
      
      &:active{

@@ -5,6 +5,7 @@ import React from "react";
 import useToggleTheme from "./hooks/useToggleTheme";
 import ProductPage from "./pages/productPage";
 import CategoryPage from "./pages/categoryPage";
+import LoginPage from "./pages/SignIn";
 
 function App() {
     const { theme } = useToggleTheme();
@@ -13,8 +14,9 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <GlobalStyle/>
-                <Navbar/>
-                <ProductPage/>
+                <LoginPage/>
+                {/*<Navbar/>*/}
+                {/*<ProductPage/>*/}
                 {/* <CategoryPage/>*/}
             </div>
         </ThemeProvider>

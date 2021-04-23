@@ -9,7 +9,7 @@ interface Props {
 
 export function DeleteModal({text}:Props) {
     return (
-        <Modal centered animated={'true'} show={true} className={"rounded-0"}>
+        <Modal centered animated={'true'} show={false} className={"rounded-0"}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title d-flex align-items-center">Atenção</Modal.Title>

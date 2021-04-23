@@ -21,19 +21,19 @@ export function ProductModal() {
                 <Modal.Body style={{border: 'none'}}>
                     <div className="mb-3">
                         <label className="form-label">Nome do produto</label>
-                        <InputText placeholder={'Nome do produto'}/>
+                        <InputText placeholder={'Nome do produto'} value={''}/>
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Valor do produto</label>
-                        <InputNumber placeholder={'Quanto acha que vai pagar?'}/>
+                        <InputNumber placeholder={'Quanto acha que vai pagar?'} value={''}/>
                     </div>
 
                     {
                         checked && (
                             <div className="mb-3 transition-2">
                                 <label className="form-label">Valor gasto no produto</label>
-                                <InputNumber placeholder={'Quanto pagou no produto?'}/>
+                                <InputNumber placeholder={'Quanto pagou no produto?'} value={''}/>
                             </div>
                         )
                     }
@@ -43,7 +43,7 @@ export function ProductModal() {
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Já comprou o produto? &nbsp;
                             </label>
-                            <InputCheckbox handleOnChange={handleCheckBoxChange}/>
+                            <InputCheckbox handleChange={handleCheckBoxChange} value={''}/>
                             <span>{checked ? 'Sim' : 'Não'}</span>
                         </div>
                     </div>

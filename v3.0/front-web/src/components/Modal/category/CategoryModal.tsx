@@ -15,11 +15,11 @@ export function CategoryModal() {
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <div className="mb-3">
-                        <InputText placeholder={'Nome da lista'}/>
+                        <InputText placeholder={'Nome da lista'} value={''}/>
                     </div>
 
                     <div className="mb-3">
-                        <InputNumber placeholder={'Orçamento R$'}/>
+                        <InputNumber placeholder={'Orçamento R$'} value={''}/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
