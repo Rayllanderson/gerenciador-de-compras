@@ -6,6 +6,10 @@ import useToggleTheme from "./hooks/useToggleTheme";
 import {AuthProvider} from "./context/AuthContext";
 import {LoginContextProvider} from "./context/LoginContext";
 import Routes from "./routes";
+import {ToastProvider} from "./context/ToastContext";
+import {VisibilityCardItemProvider} from "./context/CardItemVisibilityContext";
+import {CardItemActionProvider} from "./context/CardItemActionContext";
+import {ProductModalProvider} from "./context/ProductModalContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -14,12 +18,20 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <BrowserRouter>
-                    <AuthProvider>
-                        <LoginContextProvider>
-                            <GlobalStyle/>
-                            <Routes />
-                        </LoginContextProvider>
-                    </AuthProvider>
+                    <ToastProvider>
+                        <VisibilityCardItemProvider>
+                            <CardItemActionProvider>
+                                <ProductModalProvider>
+                                    <AuthProvider>
+                                        <LoginContextProvider>
+                                            <GlobalStyle/>
+                                            <Routes/>
+                                        </LoginContextProvider>
+                                    </AuthProvider>
+                                </ProductModalProvider>
+                            </CardItemActionProvider>
+                        </VisibilityCardItemProvider>
+                    </ToastProvider>
                 </BrowserRouter>
             </div>
         </ThemeProvider>

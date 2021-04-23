@@ -1,5 +1,6 @@
 import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {AuthContext} from "./AuthContext";
+import {ToastContext} from "./ToastContext";
 
 interface LoginContextProviderProps {
     children: ReactNode;
@@ -22,12 +23,23 @@ export function LoginContextProvider({ children }: LoginContextProviderProps) {
     const [password, setPassword] = useState<string>('');
 
     const { signIn } = useContext(AuthContext);
+    const {addToast} = useContext(ToastContext);
 
     const login = useCallback(async () => {
         //validar campos
         await signIn({username, password }).then(() => {
-            //toast
-        }).catch(err => console.log(err.response.data))
+            addToast({
+                type: 'success',
+                title: 'Bem vindo!',
+                description: "Login realizado com sucesso!",
+            });
+        }).catch(err => {
+            addToast({
+                type: 'error',
+                title: 'Erro',
+                description: err.response.data.message, //tratar erros depois
+            });
+        })
     }, [username, password, signIn])
 
     const handleUsernameChange = useCallback( (e:  React.ChangeEvent<HTMLInputElement>) => {
