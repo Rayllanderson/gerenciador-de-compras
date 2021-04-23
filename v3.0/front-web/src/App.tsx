@@ -7,6 +7,7 @@ import useToggleTheme from "./hooks/useToggleTheme";
 import ProductPage from "./pages/productPage";
 import CategoryPage from "./pages/categoryPage";
 import LoginPage from "./pages/SignIn";
+import {AuthProvider} from "./context/AuthContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -15,11 +16,13 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <BrowserRouter>
-                    <GlobalStyle/>
-                    <LoginPage/>
-                    {/*<Navbar/>*/}
-                    {/*<ProductPage/>*/}
-                    {/* <CategoryPage/>*/}
+                    <AuthProvider>
+                        <GlobalStyle/>
+                        <LoginPage/>
+                        {/*<Navbar/>*/}
+                        {/*<ProductPage/>*/}
+                        {/* <CategoryPage/>*/}
+                    </AuthProvider>
                 </BrowserRouter>
             </div>
         </ThemeProvider>
