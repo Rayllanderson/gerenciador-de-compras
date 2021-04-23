@@ -21,6 +21,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         AuthenticationManager authManager = authenticationManager();
-        http
+        http    .cors().and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/login", "/api/v1/users/details").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/{id}").hasRole("ADMIN")
@@ -64,10 +66,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final String[] CLIENT_URLS = {"localhost:3000", "localhost:8080"};
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(CLIENT_URLS));
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
