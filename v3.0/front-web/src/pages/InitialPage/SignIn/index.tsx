@@ -1,18 +1,14 @@
-import Logo from "../../components/Logo";
-import {LoginFooter} from "../../components/Footer/Login";
-import {Container} from "./styles";
-import {InputWithIcon} from "../../components/Inputs";
+import {Container} from "../styles";
+import {InputWithIcon} from "../../../components/Inputs";
 import {FiLock, FiUser} from "react-icons/all";
-import {Button} from "../../components/Buttons/Login";
+import {Button} from "../../../components/Buttons/InitialPage";
 import {useContext} from "react";
-import {LoginContext} from "../../context/LoginContext";
+import {LoginContext} from "../../../context/LoginContext";
 
 export default function LoginPage() {
     const {login, handleUsernameChange, handlePasswordChange, username, password} = useContext(LoginContext);
     return (
-        <div className={'container appearFromRight'} style={{maxWidth: '750px'}}>
-            <Logo/>
-
+        <div className={'container'} style={{maxWidth: '750px'}}>
             <Container className='inputs'>
                 <div className='form-group formGroup'>
                     <InputWithIcon placeholder='Username' onChange={handleUsernameChange}
@@ -26,8 +22,6 @@ export default function LoginPage() {
                     <Button onClick={login}>Login</Button>
                 </div>
             </Container>
-
-            <LoginFooter/>
         </div>
     )
 }
