@@ -23,13 +23,13 @@ export function RegisterPage() {
                 <InputWithIcon type='text' placeholder='Username'
                                icon={FiUser}
                                onChange={handleUsernameChange}
-                               value={username} required={true}/>
+                               value={username} required/>
             </div>
             <div className='form-group formGroup'>
                 <InputWithIcon type='password' placeholder='Password'
                                icon={FiLock}
                                onChange={handlePasswordChange}
-                               value={password} required={true}/>
+                               value={password} required/>
             </div>
             <div className='loginButton d-grid gap-2'>
                 <Button onClick={register}>Registrar</Button>

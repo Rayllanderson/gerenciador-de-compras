@@ -12,11 +12,11 @@ export default function LoginPage() {
             <Container className='inputs'>
                 <div className='form-group formGroup'>
                     <InputWithIcon placeholder='Username' onChange={handleUsernameChange}
-                                   value={username} icon={FiUser} required={true} type={'text'}/>
+                                   value={username} icon={FiUser} required type={'text'}/>
                 </div>
                 <div className='form-group formGroup'>
                     <InputWithIcon type='password' placeholder='Password' onChange={handlePasswordChange}
-                                   value={password} icon={FiLock} required={true}/>
+                                   value={password} icon={FiLock} required/>
                 </div>
                 <div className='loginButton d-grid gap-2'>
                     <Button onClick={login}>Login</Button>
