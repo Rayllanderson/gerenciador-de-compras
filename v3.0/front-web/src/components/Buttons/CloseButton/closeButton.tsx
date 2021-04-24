@@ -1,7 +1,7 @@
 import {FiX} from "react-icons/all";
 import {Container} from './styles'
 
-export function CloseModalButton(){
+export function CloseButton(){
     return(
         <Container>
             <button

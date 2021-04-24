@@ -23,6 +23,7 @@ export default createGlobalStyle`
   }
   button {
     cursor: pointer;
+     box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05)!important;
   }
   
   body {
@@ -34,30 +35,31 @@ export default createGlobalStyle`
   }
   
   input, select{
-  /*
+     border-color: #ffff!important;
+     box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05)
+     
+         /*
         background-color: ${props => props.theme.colors.backgroundSecondary}!important;
         color: ${props => props.theme.colors.text}!important;*/
-        
        /* border: 0.5px solid ${props => props.theme.colors.primary}!important; */
-     
-         
         /*   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px!important;*/
         /* box-shadow: ${props => props && rgba(props.theme.colors.primary, 0.15)} 0px 48px 100px 0px!important;*/
         /*border: 0.5px solid ${props => props.theme.colors.primary}!important;*/
         /* ${props => props.theme.title === 'light' ?
         `border: 0.5px solid ${props.theme.colors.primary}!important` :
-        `border: none!important;`}*/
-        
-        
+        `;`}*/
     }
   
   input:focus,
   select:focus{
     border-color: ${props => props.theme.colors.primary}!important;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
+    box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05)!important;
   }
   
-  
+  .card{
+     box-shadow: 0px 7px 10px 3px rgba(0,0,0,0.08);
+     border: none!important;
+  }
   .button {
       color: white;
     transition: 0.3s;

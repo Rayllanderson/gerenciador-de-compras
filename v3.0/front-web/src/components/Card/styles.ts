@@ -32,10 +32,11 @@ export const CategoryCardContainer = styled(CardContainer)`
   
   a {
     text-decoration: none;
+    color: transparent;!important;
   }
   
   .card:hover{
-    transition:all .3s ease;
+    transition:all .2s ease;
     transform: scale(1.02);
     box-shadow: 0 0 0 2px ${props => props.theme.colors.primary};
     border: 1.5px solid ${props => props.theme.colors.primary}!important;

@@ -8,7 +8,7 @@ export default function BackButtonHeader({ onClick }: Props) {
     return (
         <Header className={'container'}>
             <div>&nbsp;</div>
-            <a onClick={onClick} href={'#d'}>
+            <a onClick={onClick} href={'/categories'}>
                 <FiChevronLeft size={17} />Voltar
             </a>
         </Header>

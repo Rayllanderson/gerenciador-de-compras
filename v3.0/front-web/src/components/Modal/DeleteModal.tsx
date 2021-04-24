@@ -1,6 +1,6 @@
 import {Modal} from "react-bootstrap";
 import {Content} from "./styles";
-import {CloseModalButton} from "../Buttons/CloseButton/closeModalButton";
+import {CloseButton} from "../Buttons/CloseButton/closeButton";
 import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 
 interface Props {
@@ -13,7 +13,7 @@ export function DeleteModal({text}:Props) {
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title d-flex align-items-center">Atenção</Modal.Title>
-                    <CloseModalButton/>
+                    <CloseButton/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <p>{text}</p>

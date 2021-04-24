@@ -17,26 +17,6 @@ export const Container = styled.div `
     }
 `
 
-export const DropdownContent = styled.div `
-
-    .drop-header{
-        display: flex;
-        justify-content: center;
-          color:  ${props => props.theme.colors.text}!important;
-    }
-    
-    .drop-menu{
-        background: ${props => props.theme.colors.background}!important;
-        border: 1px solid ${props => props.theme.colors.primary}!important;
-        a{
-            color:  ${props => props.theme.colors.text}!important;
-        }
-        a:hover{
-         background: ${props => props.theme.colors.primary}!important;
-        }
-    }
-`
-
 export const SelectButtonsContainer = styled.div `
  
     background: ${props => props && rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;

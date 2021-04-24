@@ -2,7 +2,7 @@ import {Container} from "./styles";
 import {PrimaryButton} from '../Buttons/styles';
 import {FiPlus} from "react-icons/all";
 import React from "react";
-import {CardDropdown} from "./dropdown";
+import {ActionDropdown} from "../Dropdown/actionDropdown";
 
 export function ButtonGroup (){
     return (
@@ -12,7 +12,7 @@ export function ButtonGroup (){
                     <FiPlus size={21}/>
                 </PrimaryButton>
 
-                <CardDropdown/>
+                <ActionDropdown/>
                 </div>
         </Container>
     )

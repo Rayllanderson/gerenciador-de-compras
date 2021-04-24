@@ -11,6 +11,7 @@ export function CategoryCard({id}: Props){
 
     return(
         <CategoryCardContainer>
+            <a href={'/products'}>
             <div className="col">
                 <div className="card h-50">
                     <div className="card-body">
@@ -21,6 +22,7 @@ export function CategoryCard({id}: Props){
                     </div>
                 </div>
             </div>
+            </a>
         </CategoryCardContainer>
     )
 }

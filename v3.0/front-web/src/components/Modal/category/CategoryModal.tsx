@@ -1,7 +1,7 @@
 import {Modal} from "react-bootstrap";
 import {PrimaryButton, SecondaryButton} from '../../Buttons/styles';
 import {Content} from '../styles';
-import {CloseModalButton} from "../../Buttons/CloseButton/closeModalButton";
+import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import {InputNumber, InputText} from "../../Inputs";
 import '../styles.css'
 
@@ -11,14 +11,14 @@ export function CategoryModal() {
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">Nova Lista</Modal.Title>
-                    <CloseModalButton/>
+                    <CloseButton/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <div className="mb-3">
                         <InputText placeholder={'Nome da lista'} value={''}/>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="">
                         <InputNumber placeholder={'Orçamento R$'} value={''}/>
                     </div>
                 </Modal.Body>

@@ -1,6 +1,6 @@
 import {Modal} from "react-bootstrap";
 import {Content} from "../styles";
-import {CloseModalButton} from "../../Buttons/CloseButton/closeModalButton";
+import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import {InputCheckbox, InputNumber, InputText} from "../../Inputs";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
 import '../styles.css'
@@ -16,7 +16,7 @@ export function ProductModal() {
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">Novo Produto</Modal.Title>
-                    <CloseModalButton/>
+                    <CloseButton/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <div className="mb-3">

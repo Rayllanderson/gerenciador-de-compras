@@ -16,5 +16,10 @@ export const Container = styled.div `
     .inputs {
         margin-top: 3.5rem;
     }
+    
+    button{
+        box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05)!important;
+    }
+    
 
 `

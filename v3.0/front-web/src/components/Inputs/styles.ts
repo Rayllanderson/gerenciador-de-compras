@@ -16,33 +16,40 @@ export const CheckboxContainer = styled.div`
 `
 
 export const Container = styled.div<ContainerProps>`
-     
+      box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05);
+      border-radius: 5px;
+      
       span {
-        background-color:#ffff!important;;
-        border: 2px solid #f8f8f2;
+        background-color:#ffff!important;
+        border: 2px solid #ffff;
         border-right: 0 solid;
         transition: 0.2s;
         color: #6c757d;
       }
       
       input {
-         border: 2px solid #f8f8f2;
-         border-left: 0 solid;
+         border: 2px solid #ffff!important;
+         border-left: 0 solid!important;
+         box-shadow: none!important;
       }
      
      ${props => props.isFocused && css`
-            color: ${props1 => props1.theme.colors.primary};
-            border-color: ${props1 => props1.theme.colors.primary};
+            color: ${props1 => props1.theme.colors.primary}!important;
+            border-color: ${props1 => props1.theme.colors.primary}!important;
+            
+            input:focus{
+                box-shadow: none!important;
+            }
             span{
-                color: ${props1 => props1.theme.colors.primary};
-                border-color: ${props1 => props1.theme.colors.primary};
+                color: ${props1 => props1.theme.colors.primary}!important;
+                border-color: ${props1 => props1.theme.colors.primary}!important;
             }
      `}
         
      ${props => props.isFilled && css`
-        color: ${props1 => props1.theme.colors.primary};
+        color: ${props1 => props1.theme.colors.primary}!important;
          span{
-                color: ${props1 => props1.theme.colors.primary};
+                color: ${props1 => props1.theme.colors.primary}!important;
             }
      `}   
         

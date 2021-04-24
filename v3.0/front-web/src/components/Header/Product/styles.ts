@@ -7,7 +7,7 @@ export const Container = styled.div`
     
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.primary};
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary}!important;
     
     
     border-radius: 5px;
@@ -35,6 +35,10 @@ export const Container = styled.div`
          &:hover{
                  transform: rotate(-180deg) translateY(5px)!important;
             }
+     }
+     
+     .card{
+         box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.02)
      }
      
     .card-content{

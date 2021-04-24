@@ -2,8 +2,8 @@ const light = {
     title: 'light',
 
     colors: {
-        background: '#f8f8f2',
-        backgroundSecondary: '#fff',
+        background: '#f8f8f8',
+        backgroundSecondary: '#f5f5f5',
         primary: '#ff80bf',
         progressBar: 'var(--cyan-pink)',
         reversePrimary: '#9580ff',
