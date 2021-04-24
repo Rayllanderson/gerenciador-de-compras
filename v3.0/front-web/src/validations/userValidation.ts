@@ -1,14 +1,13 @@
 import {UserLoginBody, UserRegisterBody} from "../interfaces/userInterface";
 
 export function validateLogin(user: UserLoginBody) {
-    return  new Promise(function (resolve, reject) {
+    return new Promise<string>(function (resolve, reject) {
         const hasNoUsername = user.username.length < 1;
         const hasNoPassword = user.username.length < 1;
 
         if (hasNoUsername) {
             reject({message: 'Username é obrigatório'});
         }
-
         if (hasNoPassword) {
             reject({message: 'Senha é obrigatória'});
         }
@@ -23,6 +22,11 @@ export function validateLogin(user: UserLoginBody) {
 
         if (passwordIsInvalid) {
             reject({message: 'Senha precisa ter, no mínimo, ' + MIN_CHARACTER_LIMIT + ' caracteres.'});
+        }
+
+        const success = !hasNoPassword && !hasNoUsername && !usernameIsInvalid && !passwordIsInvalid;
+        if (success){
+            resolve('All fields has been successful validated.');
         }
     });
 }
