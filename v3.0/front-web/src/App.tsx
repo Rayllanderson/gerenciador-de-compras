@@ -4,12 +4,13 @@ import {ThemeProvider} from "styled-components";
 import React from "react";
 import useToggleTheme from "./hooks/useToggleTheme";
 import {AuthProvider} from "./context/AuthContext";
-import {LoginContextProvider} from "./context/LoginContext";
+import {LoginProvider} from "./context/LoginContext";
 import Routes from "./routes";
 import {ToastProvider} from "./context/ToastContext";
 import {VisibilityCardItemProvider} from "./context/CardItemVisibilityContext";
 import {CardItemActionProvider} from "./context/CardItemActionContext";
 import {ProductModalProvider} from "./context/ProductModalContext";
+import {RegisterProvider} from "./context/RegisterContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -23,10 +24,12 @@ function App() {
                             <CardItemActionProvider>
                                 <ProductModalProvider>
                                     <AuthProvider>
-                                        <LoginContextProvider>
-                                            <GlobalStyle/>
-                                            <Routes/>
-                                        </LoginContextProvider>
+                                        <LoginProvider>
+                                            <RegisterProvider>
+                                                <GlobalStyle/>
+                                                <Routes/>
+                                            </RegisterProvider>
+                                        </LoginProvider>
                                     </AuthProvider>
                                 </ProductModalProvider>
                             </CardItemActionProvider>

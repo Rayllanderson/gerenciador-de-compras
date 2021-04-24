@@ -17,7 +17,7 @@ interface LoginContextContextData {
 
 export const LoginContext = createContext<LoginContextContextData>({} as LoginContextContextData);
 
-export function LoginContextProvider({ children }: LoginContextProviderProps) {
+export function LoginProvider({ children }: LoginContextProviderProps) {
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
