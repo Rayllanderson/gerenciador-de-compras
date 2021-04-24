@@ -1,6 +1,6 @@
 import {createContext, ReactNode, useCallback, useState} from 'react';
 import api from '../services/api';
-import {UserLoginBody, UserRegisterBody} from "../types/user/types";
+import {UserLoginBody, UserRegisterBody} from "../interfaces/userInterface";
 
 interface AuthContextData {
     user: object;
