@@ -1,6 +1,6 @@
-import {Pagination} from "../interfaces/pagination";
+import {PaginationData} from "../interfaces/paginationData";
 
-export function createAnEmptyPagination(): Pagination {
+export function createAnEmptyPagination(): PaginationData {
     return {
         content: [],
         empty: true,

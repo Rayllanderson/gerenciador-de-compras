@@ -1,14 +1,15 @@
 import {CategoryCard} from "./categoryCard";
 import {useContext, useEffect} from "react";
-import {CategoryContext} from "../../../context/CategoryContext";
+import {PaginationContext} from "../../../context/PaginationContext";
+import CategoryController from "../../../controllers/categoryController";
 
 
 export default function CategoryList() {
-    const {getCategoriesPageable, pagination} = useContext(CategoryContext);
+    const {pagination, getPage} = useContext(PaginationContext);
 
     useEffect(() => {
-        getCategoriesPageable();
-    }, [])
+        getPage(new CategoryController());
+    }, [getPage])
     return (
         <div className={"container"}>
             <div style={{animation: 'appearFromBottom 1s'}}>

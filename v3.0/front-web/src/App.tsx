@@ -12,6 +12,7 @@ import {CardItemActionProvider} from "./context/CardItemActionContext";
 import {ProductModalProvider} from "./context/ProductModalContext";
 import {RegisterProvider} from "./context/RegisterContext";
 import {CategoryProvider} from "./context/CategoryContext";
+import {PaginationProvider} from "./context/PaginationContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -27,10 +28,12 @@ function App() {
                                     <AuthProvider>
                                         <LoginProvider>
                                             <RegisterProvider>
-                                                <CategoryProvider>
-                                                    <GlobalStyle/>
-                                                    <Routes/>
-                                                </CategoryProvider>
+                                                <PaginationProvider>
+                                                    <CategoryProvider>
+                                                        <GlobalStyle/>
+                                                        <Routes/>
+                                                    </CategoryProvider>
+                                                </PaginationProvider>
                                             </RegisterProvider>
                                         </LoginProvider>
                                     </AuthProvider>

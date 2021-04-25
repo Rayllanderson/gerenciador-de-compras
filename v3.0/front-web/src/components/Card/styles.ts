@@ -17,7 +17,6 @@ export const CardContainer = styled.div`
     }
     
     .card {
-      cursor: pointer;
       background: ${props => props.theme.colors.backgroundSecondary}!important;
       border-radius: 5px;
      /* border: 0.1rem solid ${props => props.theme.colors.primary}!important; */
@@ -34,6 +33,7 @@ export const CategoryCardContainer = styled(CardContainer)`
   a {
     text-decoration: none;
     color: transparent;!important;
+     cursor: pointer;
   }
   
   .card:hover{

@@ -17,13 +17,11 @@ export function CardAddon({id}: Props) {
     const {selectedItems, handleCheckBoxChange} = useContext(CardItemActionContext);
 
     useEffect(() => {
-        console.log(selectedItems.length)
         if (selectedItems.length > 0) {
             // mostrar select item card
         } else {
             // esconder select item card
         }
-        console.log(selectedItems)
     }, [selectedItems])
 
     return (

@@ -4,11 +4,10 @@ import {FiList} from "react-icons/all";
 import Search from "../components/Search";
 import {ButtonGroup} from "../components/ButtonsGroup";
 import CategoryList from "../components/Card/category";
-import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CategoryModal} from "../components/Modal/category/CategoryModal";
-import {CyanSecondaryButton, RedButton} from "../components/Buttons/styles";
 import {DeleteModal} from "../components/Modal/DeleteModal";
-import {CategoryPagination} from "../components/Paginations/categoryPagination";
+import {MyPagination} from "../components/Paginations/Pagination";
+import CategoryController from "../controllers/categoryController";
 
 export default function CategoryPage(){
     return (
@@ -19,7 +18,7 @@ export default function CategoryPage(){
 
             <CategoryList/>
 
-            <CategoryPagination/>
+            <MyPagination controller={new CategoryController()}/>
 
             {/*<SelectItemsButtons>*/}
             {/*    <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>*/}

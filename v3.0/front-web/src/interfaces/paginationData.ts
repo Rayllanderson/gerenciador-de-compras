@@ -1,6 +1,7 @@
 import {CategoryResponseBody} from "./categoryInterface";
+import {AxiosResponse} from "axios";
 
-export interface Pagination {
+export interface PaginationData {
     content: CategoryResponseBody[],
     first: boolean,
     last: boolean,
@@ -10,4 +11,8 @@ export interface Pagination {
     number: number,
     totalElements: number,
     numberOfElements: number,
+}
+
+export interface Pagination {
+    getAllPageable(page: number, size?: number): Promise<AxiosResponse>,
 }
