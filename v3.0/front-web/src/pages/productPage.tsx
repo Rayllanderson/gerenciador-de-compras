@@ -18,11 +18,11 @@ export default function ProductPage(){
             <ButtonGroup/>
             <ProductList/>
 
-            <SelectItemsButtons>
-                <YellowButton className={'btn me-4'} title={'Duplicar selecionados '}>  Mover  </YellowButton>
-                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Copiar</CyanSecondaryButton>
-                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
-            </SelectItemsButtons>
+            {/*<SelectItemsButtons>*/}
+            {/*    <YellowButton className={'btn me-4'} title={'Duplicar selecionados '}>  Mover  </YellowButton>*/}
+            {/*    <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Copiar</CyanSecondaryButton>*/}
+            {/*    <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>*/}
+            {/*</SelectItemsButtons>*/}
 
             <ProductModal/>
             <DeleteModal text={'Você tem certeza que deseja excluir o produto x?'}/>

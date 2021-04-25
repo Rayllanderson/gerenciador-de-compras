@@ -25,6 +25,7 @@ export const CardContainer = styled.div`
 `
 
 export const CategoryCardContainer = styled(CardContainer)`
+  border: 1.5px solid ${props => props.theme.colors.background}!important;
   
   .progress-bar {
      background: ${props => props.theme.colors.progressBar};
@@ -39,7 +40,6 @@ export const CategoryCardContainer = styled(CardContainer)`
     transition:all .2s ease;
     transform: scale(1.02);
     box-shadow: 0 0 0 2px ${props => props.theme.colors.primary};
-    border: 1.5px solid ${props => props.theme.colors.primary}!important;
   }
 `
 

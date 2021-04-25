@@ -8,6 +8,7 @@ import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons"
 import {CategoryModal} from "../components/Modal/category/CategoryModal";
 import {CyanSecondaryButton, RedButton} from "../components/Buttons/styles";
 import {DeleteModal} from "../components/Modal/DeleteModal";
+import {CategoryPagination} from "../components/Paginations/categoryPagination";
 
 export default function CategoryPage(){
     return (
@@ -18,10 +19,12 @@ export default function CategoryPage(){
 
             <CategoryList/>
 
-            <SelectItemsButtons>
-                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>
-                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
-            </SelectItemsButtons>
+            <CategoryPagination/>
+
+            {/*<SelectItemsButtons>*/}
+            {/*    <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>*/}
+            {/*    <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>*/}
+            {/*</SelectItemsButtons>*/}
 
             <CategoryModal/>
             <DeleteModal text={'Você tem certeza que deseja excluir a categoria x?'}/>

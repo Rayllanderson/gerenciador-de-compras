@@ -54,7 +54,7 @@ export function LoginProvider({children}: LoginContextProviderProps) {
             });
         });
 
-    }, [username, password, signIn, validateLogin])
+    }, [username, password, signIn, addToast])
 
     const handleUsernameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)

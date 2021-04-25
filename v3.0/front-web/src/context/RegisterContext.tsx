@@ -62,19 +62,19 @@ export function RegisterProvider({children}: RegisterContextProviderProps) {
                 description: err.message,
             });
         });
-    }, [name, username, password, signUp, validateRegister])
+    }, [name, username, password, signUp, addToast, history])
 
     const handleUsernameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
-    }, [username])
+    }, [])
 
     const handlePasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
-    }, [password])
+    }, [])
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value)
-    }, [name])
+    }, [])
 
     return (
         <RegisterContext.Provider value={{

@@ -1,6 +1,6 @@
 import {CardItem} from "./CardItem";
 import {CardHeader} from "./CardHeader";
-import {ProductCardBody, ProductCard} from "../styles";
+import {ProductCard} from "../styles";
 
 export default function ProductList() {
     return (
