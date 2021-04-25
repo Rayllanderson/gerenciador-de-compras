@@ -41,6 +41,11 @@ export const CategoryCardContainer = styled(CardContainer)`
     transform: scale(1.02);
     box-shadow: 0 0 0 2px ${props => props.theme.colors.primary};
   }
+  
+  .footer{
+    padding: 1rem 1rem;
+    padding-top: 0;
+  }
 `
 
 export const ProductCard = styled(CardContainer)`
