@@ -19,7 +19,7 @@ export const PaginationContext = createContext<PaginationContextData>({} as Pagi
 export function PaginationProvider({children}: PaginationProviderProps) {
 
     const [pagination, setPagination] = useState<PaginationData>(createAnEmptyPagination());
-    const [size, setSize] = useState<number>(20);
+    const [size, setSize] = useState<number>(3);
 
     const getPage = useCallback(async (controller: Pagination) => {
         await controller.getAllPageable(0, size).then((response) => {
@@ -28,11 +28,10 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     }, [size])
 
     const setPage = useCallback(async (controller: Pagination, page: number) => {
-        await (page)
-        controller.getAllPageable(page).then((response) => {
+        await controller.getAllPageable(page, size).then((response) => {
             setPagination(response.data)
         }).catch(err => console.log(err))
-    }, [])
+    }, [size])
 
     return (
         <PaginationContext.Provider value={{pagination, setPage, getPage, size, setSize}}>
