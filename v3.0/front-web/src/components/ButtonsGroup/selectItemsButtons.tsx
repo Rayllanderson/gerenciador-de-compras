@@ -1,20 +1,22 @@
 import {SelectButtonsContainer} from './styles'
 import {FiX} from "react-icons/all";
-import {ReactNode} from "react";
+import {ReactNode, useContext} from "react";
+import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 
 interface Props {
     children: ReactNode;
 }
 export function SelectItemsButtons({children}: Props) {
+    const {hasAnyItemSelected, selectedItems} = useContext(SelectedItemsContext)
     return (
-        <SelectButtonsContainer className={'container mb-4'}>
+        <SelectButtonsContainer show={hasAnyItemSelected()} className={'container mb-4'}>
             <button
                 className="position-absolute top-0 start-100 translate-middle badge close-card">
                 <FiX size={23}/>
             </button>
 
             <div>
-                <p className={'text-center'}> 3 selecionados</p>
+                <p className={'text-center'}> {selectedItems.length} selecionados</p>
             </div>
             <div className={"buttons"}>
                 {children}

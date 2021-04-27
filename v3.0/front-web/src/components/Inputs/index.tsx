@@ -1,6 +1,7 @@
 import {Form} from "react-bootstrap";
 import {CheckboxContainer, Container} from './styles';
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 
 interface Props {
     placeholder?: string;
@@ -8,12 +9,15 @@ interface Props {
     value?: string;
 }
 
+interface CheckboxProps extends Props{
+    checked?: boolean;
+}
+
 interface InputWithIconsProps extends Props {
     icon: React.ComponentType;
     required: boolean;
     type: string;
 }
-
 
 export function InputText({placeholder}: Props) {
     return (
@@ -33,6 +37,15 @@ export function InputCheckbox({onChange}: Props) {
     return (
         <CheckboxContainer>
             <Form.Check type="checkbox" className="checkbox" onChange={onChange}/>
+        </CheckboxContainer>
+    )
+}
+
+export function InputCheckboxSelectItems({onChange, value, checked}: CheckboxProps) {
+    return (
+        <CheckboxContainer>
+            <Form.Check type="checkbox" className="checkbox" onChange={onChange} value={value}
+                        checked={checked} />
         </CheckboxContainer>
     )
 }

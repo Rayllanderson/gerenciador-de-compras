@@ -10,7 +10,6 @@ interface Props {
 
 export function CategoryCard({category}: Props) {
 
-
     return (
         <CategoryCardContainer>
 

@@ -12,7 +12,7 @@ export function CardItem({id, bought}: Props) {
         <ProductCardBody>
 
             <div className={'addons'}>
-                <CardAddon id={id}/>
+                {/*<CardAddon id={id}/>*/}
             </div>
 
             <div className="body">

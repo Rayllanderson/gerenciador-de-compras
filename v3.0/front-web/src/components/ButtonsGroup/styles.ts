@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import {rgba} from "polished";
 
+interface SelectButtonsProps {
+    show: boolean,
+}
+
 export const Container = styled.div `
     max-width: 750px;
     margin-top: 1.5rem;
@@ -17,8 +21,11 @@ export const Container = styled.div `
     }
 `
 
-export const SelectButtonsContainer = styled.div `
- 
+export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
+    
+    display: ${props => props.show ? 'block' : 'none'};       
+      
+    
     background: ${props => props && rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;
     padding: 12px;
     margin: 0 auto;

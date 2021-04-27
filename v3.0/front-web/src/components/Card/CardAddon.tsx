@@ -1,11 +1,12 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
-import {CardItemActionContext} from "../../context/CardItemActionContext";
+import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 import {AddonsContainer} from "./styles";
-import {Form} from "react-bootstrap";
 import {PrimaryButton, RedButton} from "../Buttons/styles";
 import {FiEdit2, FiTrash} from "react-icons/all";
 import {CheckboxContainer} from '../Inputs/styles'
+import {InputCheckboxSelectItems} from "../Inputs";
+import {SelectItem} from "../../interfaces/selectItemInterface";
 
 interface Props {
     id: string;
@@ -14,22 +15,24 @@ interface Props {
 export function CardAddon({id}: Props) {
 
     const {checkBoxIsVisible, deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
-    const {selectedItems, handleCheckBoxChange} = useContext(CardItemActionContext);
+    const {handleCheckBoxChange} = useContext(SelectedItemsContext);
 
+    const {selectedItems} = useContext(SelectedItemsContext)
+    const [selectedItem, setSelectedItem] = useState<SelectItem>({id: '', isSelected: false})
     useEffect(() => {
-        if (selectedItems.length > 0) {
-            // mostrar select item card
-        } else {
-            // esconder select item card
-        }
+        selectedItems.forEach((item) => {
+            if (item.id == id) setSelectedItem(item);
+        })
     }, [selectedItems])
 
     return (
         <AddonsContainer className={"addons"}>
             {checkBoxIsVisible && (
                 <CheckboxContainer>
-                    <Form.Check type="checkbox" className="checkbox" value={id}
-                                onChange={handleCheckBoxChange}/>
+                    <div className={'checkbox'}>
+                        <InputCheckboxSelectItems value={id} onChange={handleCheckBoxChange}
+                                                  checked={selectedItem.isSelected}/>
+                    </div>
                 </CheckboxContainer>
             )
             }

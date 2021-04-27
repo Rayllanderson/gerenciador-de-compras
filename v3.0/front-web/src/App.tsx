@@ -8,7 +8,7 @@ import {LoginProvider} from "./context/LoginContext";
 import Routes from "./routes";
 import {ToastProvider} from "./context/ToastContext";
 import {VisibilityCardItemProvider} from "./context/CardItemVisibilityContext";
-import {CardItemActionProvider} from "./context/CardItemActionContext";
+import {CardItemActionProvider} from "./context/SelectedItemsContext";
 import {ProductModalProvider} from "./context/ProductModalContext";
 import {RegisterProvider} from "./context/RegisterContext";
 import {CategoryProvider} from "./context/CategoryContext";
