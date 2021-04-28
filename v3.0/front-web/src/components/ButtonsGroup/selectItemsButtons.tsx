@@ -9,7 +9,7 @@ interface Props {
 export function SelectItemsButtons({children}: Props) {
     const {hasAnyItemSelected, selectedItems} = useContext(SelectedItemsContext)
     return (
-        <SelectButtonsContainer show={hasAnyItemSelected()} className={'container mb-4'}>
+        <SelectButtonsContainer show={hasAnyItemSelected()} className={'container mb-4 appearFromBottom'}>
             <button
                 className="position-absolute top-0 start-100 translate-middle badge close-card">
                 <FiX size={23}/>

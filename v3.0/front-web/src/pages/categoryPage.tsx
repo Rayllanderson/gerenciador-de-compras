@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import {FiList} from "react-icons/all";
 import Search from "../components/Search";
 import {ButtonGroup} from "../components/ButtonsGroup";
-import CategoryList from "../components/Card/category";
+import CategoryList from "../components/Card/category/CategoryList";
 import {CategoryModal} from "../components/Modal/category/CategoryModal";
 import {DeleteModal} from "../components/Modal/DeleteModal";
 import {MyPagination} from "../components/Paginations/Pagination";

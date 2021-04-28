@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
 import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 import {AddonsContainer} from "./styles";
@@ -15,15 +15,25 @@ interface Props {
 export function CardAddon({id}: Props) {
 
     const {checkBoxIsVisible, deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
-    const {handleCheckBoxChange} = useContext(SelectedItemsContext);
+    const {handleCheckBoxChange, removeItemFromArray} = useContext(SelectedItemsContext);
 
     const {selectedItems} = useContext(SelectedItemsContext)
     const [selectedItem, setSelectedItem] = useState<SelectItem>({id: '', isSelected: false})
+
     useEffect(() => {
-        selectedItems.forEach((item) => {
-            if (item.id == id) setSelectedItem(item);
+        selectedItems.forEach((item: SelectItem) => {
+            if (item.id === id.toString()) setSelectedItem(item);
         })
-    }, [selectedItems])
+    }, [selectedItems, id])
+
+
+    const handleClick = useCallback((e:any) => {
+        const isChecked = !e.target.checked;
+        if (isChecked) {
+            selectedItem.isSelected = false;
+            removeItemFromArray(selectedItem)
+        }
+    }, [selectedItem, removeItemFromArray])
 
     return (
         <AddonsContainer className={"addons"}>
@@ -31,7 +41,7 @@ export function CardAddon({id}: Props) {
                 <CheckboxContainer>
                     <div className={'checkbox'}>
                         <InputCheckboxSelectItems value={id} onChange={handleCheckBoxChange}
-                                                  checked={selectedItem.isSelected}/>
+                                                  checked={selectedItem.isSelected} onClick={handleClick}/>
                     </div>
                 </CheckboxContainer>
             )

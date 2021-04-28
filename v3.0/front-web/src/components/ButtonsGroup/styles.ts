@@ -33,10 +33,8 @@ export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
     max-width: 750px;
     
     border: 1px solid ${props => props.theme.colors.progressBar};
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    
+    position: relative;
     
     .buttons{
         display: flex;

@@ -1,12 +1,12 @@
 import {Form} from "react-bootstrap";
 import {CheckboxContainer, Container} from './styles';
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
-import {SelectedItemsContext} from "../../context/SelectedItemsContext";
+import React, {useCallback, useRef, useState} from "react";
 
 interface Props {
     placeholder?: string;
     onChange?: (e: any) => void,
-    value?: string;
+    value?: string,
+    onClick?: (e: any) => void,
 }
 
 interface CheckboxProps extends Props{
@@ -41,11 +41,11 @@ export function InputCheckbox({onChange}: Props) {
     )
 }
 
-export function InputCheckboxSelectItems({onChange, value, checked}: CheckboxProps) {
+export function InputCheckboxSelectItems({onChange, value, checked, onClick}: CheckboxProps) {
     return (
         <CheckboxContainer>
             <Form.Check type="checkbox" className="checkbox" onChange={onChange} value={value}
-                        checked={checked} />
+                        checked={checked} onClick={onClick} />
         </CheckboxContainer>
     )
 }

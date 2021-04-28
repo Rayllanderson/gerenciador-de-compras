@@ -18,8 +18,9 @@ export const PaginationContext = createContext<PaginationContextData>({} as Pagi
 
 export function PaginationProvider({children}: PaginationProviderProps) {
 
+    const DEFAULT_NUMBER_OF_PAGE: number = 6;
     const [pagination, setPagination] = useState<PaginationData>(createAnEmptyPagination());
-    const [size, setSize] = useState<number>(3);
+    const [size, setSize] = useState<number>(DEFAULT_NUMBER_OF_PAGE);
 
     const getPage = useCallback(async (controller: Pagination) => {
         await controller.getAllPageable(0, size).then((response) => {

@@ -6,7 +6,7 @@ import {AxiosResponse} from "axios";
 
 export default class CategoryController implements Pagination {
     findAll() {
-        return api.get('/categories?size=3', {headers: getAuthHeader()});
+        return api.get('/categories', {headers: getAuthHeader()});
     }
 
     post(data: CategoryPostBody) {
