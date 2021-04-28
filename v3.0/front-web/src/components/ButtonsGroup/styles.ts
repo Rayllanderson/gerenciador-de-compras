@@ -28,7 +28,8 @@ export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
     
     background: ${props => props && props.theme.title === 'light' ? rgba(props.theme.colors.textSecondary, 0.1) :
     rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;
-    padding: 12px;
+    padding: 4px;
+    padding-bottom: 12px;
     margin: 0 auto;
     border-radius: 12px;
     max-width: 750px;
@@ -42,12 +43,5 @@ export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
     .buttons{
         display: flex;
         justify-content: center;
-    }
-    
-    .close-card{
-        background: transparent;
-        border: none;
-        color: ${props => props.theme.colors.primary};
-        cursor: pointer;
     }
 `
