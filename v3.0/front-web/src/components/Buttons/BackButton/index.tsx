@@ -8,7 +8,7 @@ interface Props {
 }
 export default function BackButtonHeader({ to }: Props) {
     return (
-        <Header className={'container'}>
+        <Header className={'container '}>
             <div>&nbsp;</div>
             <Link to={to}>
                 <FiChevronLeft size={17} />Voltar

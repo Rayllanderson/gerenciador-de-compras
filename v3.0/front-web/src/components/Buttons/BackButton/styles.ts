@@ -5,6 +5,7 @@ export const Header = styled.div`
    max-width:750px;
    
   a{
+    max-width:100px;
     font-size: 18px;
     display: flex;
     align-items: center;

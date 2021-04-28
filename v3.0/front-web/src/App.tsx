@@ -14,6 +14,7 @@ import {RegisterProvider} from "./context/RegisterContext";
 import {CategoryProvider} from "./context/CategoryContext";
 import {PaginationProvider} from "./context/PaginationContext";
 import {ProductProvider} from "./context/ProductContext";
+import {ModalProvider} from "./context/ModalContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -30,12 +31,14 @@ function App() {
                                         <LoginProvider>
                                             <RegisterProvider>
                                                 <PaginationProvider>
-                                                    <CategoryProvider>
-                                                        <ProductProvider>
-                                                            <GlobalStyle/>
-                                                            <Routes/>
-                                                        </ProductProvider>
-                                                    </CategoryProvider>
+                                                    <ModalProvider>
+                                                        <CategoryProvider>
+                                                            <ProductProvider>
+                                                                <GlobalStyle/>
+                                                                <Routes/>
+                                                            </ProductProvider>
+                                                        </CategoryProvider>
+                                                    </ModalProvider>
                                                 </PaginationProvider>
                                             </RegisterProvider>
                                         </LoginProvider>
