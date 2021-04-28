@@ -30,7 +30,7 @@ export function CategoryModal( {category}: Props) {
                         <InputText placeholder={title} value={name} onChange={handleNameChange}/>
                     </div>
 
-                    <div className="">
+                    <div>
                         <InputNumber placeholder={'Orçamento R$'} value={budget} onChange={handleBudgetChange}/>
                     </div>
                 </Modal.Body>

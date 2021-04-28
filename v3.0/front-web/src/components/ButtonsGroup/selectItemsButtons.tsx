@@ -1,10 +1,8 @@
 import {SelectButtonsContainer} from './styles'
-import {FiX} from "react-icons/all";
 import {ReactNode, useContext} from "react";
 import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
 import {CloseButton} from "../Buttons/CloseButton/closeButton";
-import {Modal} from "react-bootstrap";
 
 interface Props {
     children: ReactNode;

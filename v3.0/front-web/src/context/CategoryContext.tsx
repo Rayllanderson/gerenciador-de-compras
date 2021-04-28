@@ -1,7 +1,11 @@
-import React, {createContext, ReactNode, useCallback, useState} from 'react';
+import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {CategoryResponseBody} from "../interfaces/categoryInterface";
 import CategoryController from "../controllers/categoryController";
 import {getNumberWithoutMask} from "../validations/inputValidation";
+import {validateSave} from "../validations/categoryValidation";
+import {ToastContext} from "./ToastContext";
+import {PaginationContext} from "./PaginationContext";
+import {ModalContext} from "./ModalContext";
 
 interface CategoryProviderProps {
     children: ReactNode;
@@ -22,6 +26,10 @@ export const CategoryContext = createContext<CategoryContextData>({} as Category
 export function CategoryProvider({children}: CategoryProviderProps) {
 
     const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
+    const {addToast} = useContext(ToastContext);
+    const {loadPage} = useContext(PaginationContext);
+    const {closeAddModal} = useContext(ModalContext);
+
     const [name, setName] = useState<string>('');
     const [budget, setBudget] = useState<string>('');
 
@@ -40,9 +48,33 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         setBudget(e.target.value);
     },[])
 
+    const clearInputs = useCallback(() => {
+        setName('');
+        setBudget('');
+    }, [])
+
+
     const save = useCallback(() => {
-        //validar campos, transformar o mask do input, mandar pra api, retornar resultado com alert no modal
-    },[budget, name])
+        const categoryToBeSaved = {
+            name: name,
+            budget: getNumberWithoutMask(budget)
+        }
+        validateSave(categoryToBeSaved).then(async () => {
+            const api = new CategoryController();
+            await api.post(categoryToBeSaved).then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto!',
+                    description: 'Lista "' + name + '" foi salva com sucesso!'
+                })
+                loadPage(api);
+                closeAddModal();
+                clearInputs();
+            }).catch((err) => {
+                // lançar alert no modal aqui...
+            })
+        })
+    },[budget, name, loadPage, closeAddModal, addToast, clearInputs])
 
     return (
         <CategoryContext.Provider value={{
