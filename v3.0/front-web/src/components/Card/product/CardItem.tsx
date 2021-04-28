@@ -1,28 +1,28 @@
 import {ProductCardBody} from "../styles";
 import {CardAddon} from "../CardAddon";
 import {FiCheck, FiX} from "react-icons/all";
+import {ProductResponseBody} from "../../../interfaces/productInterface";
 
 interface Props {
-    id: string,
-    bought?: boolean;
+   product: ProductResponseBody
 }
 
-export function CardItem({id, bought}: Props) {
+export function CardItem({product}: Props) {
     return (
         <ProductCardBody>
 
             <div className={'addons'}>
-                {/*<CardAddon id={id}/>*/}
+                <CardAddon id={product.id}/>
             </div>
 
             <div className="body">
                 <div className={'card-item'}>
-                    <h5 className="card-title">Placa de video</h5>
+                    <h5 className="card-title">{product.name}</h5>
                 </div>
 
                 <div className={'card-item'}>
                     {
-                        bought ? (
+                        product.purchased ? (
                             <p className={'card-value bought'}><FiCheck title={'Produto comprado'}/></p>
                         ) : (
                             <p className={'card-value non-bought'}><FiX title={'Produto ainda não comprado'}/></p>
@@ -31,14 +31,14 @@ export function CardItem({id, bought}: Props) {
                 </div>
 
                 <div className={'card-item'}>
-                    <p className={'card-value'}>R$ 1250.00 </p>
+                    <p className={'card-value'}>R$ {product.stipulatedPrice} </p>
                 </div>
 
                 <div className={'card-item'}>
-                    {bought ? (
+                    {product.purchased ? (
                             <>
                                 <div>
-                                    <p className={'card-value text-center'}> R$ 500.00 </p>
+                                    <p className={'card-value text-center'}> R$ {product.spentPrice} </p>
                                 </div>
                             </>
                         ) :

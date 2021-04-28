@@ -1,8 +1,9 @@
 import {CategoryResponseBody} from "./categoryInterface";
 import {AxiosResponse} from "axios";
+import {ProductResponseBody} from "./productInterface";
 
 export interface PaginationData {
-    content: CategoryResponseBody[],
+    content: CategoryResponseBody[] | ProductResponseBody[],
     first: boolean,
     last: boolean,
     empty: boolean,

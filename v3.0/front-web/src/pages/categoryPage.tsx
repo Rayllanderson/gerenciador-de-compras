@@ -13,7 +13,7 @@ import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 
 export default function CategoryPage(){
     return (
-        <div>
+        <div style={{minHeight: '100vh'}}>
             <Header title={'Listas'} Icon={FiList}/>
             <Search placeholder={'Procurar uma lista...'}/>
             <ButtonGroup/>

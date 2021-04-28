@@ -13,6 +13,7 @@ import {ProductModalProvider} from "./context/ProductModalContext";
 import {RegisterProvider} from "./context/RegisterContext";
 import {CategoryProvider} from "./context/CategoryContext";
 import {PaginationProvider} from "./context/PaginationContext";
+import {ProductProvider} from "./context/ProductContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -30,8 +31,10 @@ function App() {
                                             <RegisterProvider>
                                                 <PaginationProvider>
                                                     <CategoryProvider>
-                                                        <GlobalStyle/>
-                                                        <Routes/>
+                                                        <ProductProvider>
+                                                            <GlobalStyle/>
+                                                            <Routes/>
+                                                        </ProductProvider>
                                                     </CategoryProvider>
                                                 </PaginationProvider>
                                             </RegisterProvider>

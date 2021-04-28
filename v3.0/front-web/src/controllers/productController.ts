@@ -40,6 +40,6 @@ export default class ProductController implements Pagination {
     }
 
     getAllPageable(page: number, size:number = 20): Promise<AxiosResponse> {
-        return api.get(`/products?size=${size}&page=${page}`, {headers: getAuthHeader()});
+        return api.get(`${this.BASE_URL}?size=${size}&page=${page}`, {headers: getAuthHeader()});
     };
 }

@@ -9,7 +9,7 @@ interface PaginationProviderProps {
 interface PaginationContextData {
     pagination: PaginationData,
     setPage: (controller: Pagination, page: number) => void,
-    getPage: (controller: Pagination) => void,
+    loadPage: (controller: Pagination) => void,
     size: number,
     setSize: (size: number) => void,
 }
@@ -22,7 +22,7 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     const [pagination, setPagination] = useState<PaginationData>(createAnEmptyPagination());
     const [size, setSize] = useState<number>(DEFAULT_NUMBER_OF_PAGE);
 
-    const getPage = useCallback(async (controller: Pagination) => {
+    const loadPage = useCallback(async (controller: Pagination) => {
         await controller.getAllPageable(0, size).then((response) => {
             setPagination(response.data)
         }).catch(err => console.log(err))
@@ -35,7 +35,7 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     }, [size])
 
     return (
-        <PaginationContext.Provider value={{pagination, setPage, getPage, size, setSize}}>
+        <PaginationContext.Provider value={{pagination, setPage, loadPage, size, setSize}}>
             {children}
         </PaginationContext.Provider>
     )

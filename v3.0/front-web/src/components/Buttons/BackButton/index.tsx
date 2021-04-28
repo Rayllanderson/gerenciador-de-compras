@@ -1,16 +1,18 @@
 import {FiChevronLeft} from "react-icons/all";
 import {Header} from "./styles";
+import {Link} from 'react-router-dom'
 
 interface Props {
-    onClick?: () => void;
+    onClick?: () => void,
+    to: string
 }
-export default function BackButtonHeader({ onClick }: Props) {
+export default function BackButtonHeader({ to }: Props) {
     return (
         <Header className={'container'}>
             <div>&nbsp;</div>
-            <a onClick={onClick} href={'/categories'}>
+            <Link to={to}>
                 <FiChevronLeft size={17} />Voltar
-            </a>
+            </Link>
         </Header>
     )
 }
