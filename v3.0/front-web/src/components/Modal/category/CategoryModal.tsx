@@ -8,6 +8,7 @@ import {useContext} from "react";
 import {ModalContext} from "../../../context/ModalContext";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
 import {CategoryContext} from "../../../context/CategoryContext";
+import MyAlert from "../../Alert";
 
 
 interface Props {
@@ -26,6 +27,7 @@ export function CategoryModal( {category}: Props) {
                     <CloseButton onClick={closeAddModal}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
+                    <MyAlert />
                     <div className="mb-3">
                         <InputText placeholder={title} value={name} onChange={handleNameChange}/>
                     </div>

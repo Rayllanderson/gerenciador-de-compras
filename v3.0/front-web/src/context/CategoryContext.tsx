@@ -6,6 +6,7 @@ import {validateSave} from "../validations/categoryValidation";
 import {ToastContext} from "./ToastContext";
 import {PaginationContext} from "./PaginationContext";
 import {ModalContext} from "./ModalContext";
+import {AlertContext} from "./AlertContext";
 
 interface CategoryProviderProps {
     children: ReactNode;
@@ -13,7 +14,7 @@ interface CategoryProviderProps {
 
 interface CategoryContextData {
     categories: CategoryResponseBody[],
-    name:string,
+    name: string,
     budget: string,
     getCategoriesPageable: () => void,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
@@ -29,6 +30,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     const {addToast} = useContext(ToastContext);
     const {loadPage} = useContext(PaginationContext);
     const {closeAddModal} = useContext(ModalContext);
+    const {addAlert} = useContext(AlertContext);
 
     const [name, setName] = useState<string>('');
     const [budget, setBudget] = useState<string>('');
@@ -42,11 +44,11 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
-    },[])
+    }, [])
 
     const handleBudgetChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setBudget(e.target.value);
-    },[])
+    }, [])
 
     const clearInputs = useCallback(() => {
         setName('');
@@ -70,11 +72,11 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                 loadPage(api);
                 closeAddModal();
                 clearInputs();
-            }).catch((err) => {
-                // lançar alert no modal aqui...
-            })
+            }).catch(err => console.log(err))
+        }).catch(err => {
+            addAlert(err.message);
         })
-    },[budget, name, loadPage, closeAddModal, addToast, clearInputs])
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
 
     return (
         <CategoryContext.Provider value={{
