@@ -1,7 +1,7 @@
 interface ProductModel {
     name: string;
-    stipulatedPrice: number;
-    spentPrice: number;
+    stipulatedPrice: string;
+    spentPrice: string;
     purchased: boolean;
 }
 

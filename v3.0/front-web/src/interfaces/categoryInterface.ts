@@ -1,6 +1,6 @@
 interface CategoryModel {
     name: string;
-    budget: number;
+    budget: string;
 }
 
 export interface CategoryPostBody extends CategoryModel {
