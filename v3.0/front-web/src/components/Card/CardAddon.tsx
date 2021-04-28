@@ -5,8 +5,9 @@ import {AddonsContainer} from "./styles";
 import {PrimaryButton, RedButton} from "../Buttons/styles";
 import {FiEdit2, FiTrash} from "react-icons/all";
 import {CheckboxContainer} from '../Inputs/styles'
-import {InputCheckboxSelectItems} from "../Inputs";
+import {InputCheckbox} from "../Inputs";
 import {SelectItem} from "../../interfaces/selectItemInterface";
+import {createAnEmptySelectedItem} from "../../utils/selectItemUtil";
 
 interface Props {
     id: string;
@@ -18,14 +19,15 @@ export function CardAddon({id}: Props) {
     const {handleCheckBoxChange, removeItemFromArray} = useContext(SelectedItemsContext);
 
     const {selectedItems} = useContext(SelectedItemsContext)
-    const [selectedItem, setSelectedItem] = useState<SelectItem>({id: '', isSelected: false})
+    const [selectedItem, setSelectedItem] = useState<SelectItem>(createAnEmptySelectedItem)
 
     useEffect(() => {
+        const hasNoItemsSelected = selectedItems.length === 0;
+        if (hasNoItemsSelected) setSelectedItem(createAnEmptySelectedItem);
         selectedItems.forEach((item: SelectItem) => {
             if (item.id === id.toString()) setSelectedItem(item);
         })
     }, [selectedItems, id])
-
 
     const handleClick = useCallback((e:any) => {
         const isChecked = !e.target.checked;
@@ -40,8 +42,8 @@ export function CardAddon({id}: Props) {
             {checkBoxIsVisible && (
                 <CheckboxContainer>
                     <div className={'checkbox'}>
-                        <InputCheckboxSelectItems value={id} onChange={handleCheckBoxChange}
-                                                  checked={selectedItem.isSelected} onClick={handleClick}/>
+                        <InputCheckbox value={id} onChange={handleCheckBoxChange}
+                                       checked={selectedItem.isSelected} onClick={handleClick}/>
                     </div>
                 </CheckboxContainer>
             )

@@ -33,15 +33,8 @@ export function InputNumber({placeholder}: Props) {
     )
 }
 
-export function InputCheckbox({onChange}: Props) {
-    return (
-        <CheckboxContainer>
-            <Form.Check type="checkbox" className="checkbox" onChange={onChange}/>
-        </CheckboxContainer>
-    )
-}
 
-export function InputCheckboxSelectItems({onChange, value, checked, onClick}: CheckboxProps) {
+export function InputCheckbox({onChange, value, checked, onClick}: CheckboxProps) {
     return (
         <CheckboxContainer>
             <Form.Check type="checkbox" className="checkbox" onChange={onChange} value={value}

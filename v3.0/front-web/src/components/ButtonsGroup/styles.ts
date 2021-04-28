@@ -26,7 +26,8 @@ export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
     display: ${props => props.show ? 'block' : 'none'};       
       
     
-    background: ${props => props && rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;
+    background: ${props => props && props.theme.title === 'light' ? rgba(props.theme.colors.textSecondary, 0.1) :
+    rgba(props.theme.colors.backgroundSecondary, 0.2)}!important;
     padding: 12px;
     margin: 0 auto;
     border-radius: 12px;
@@ -34,7 +35,9 @@ export const SelectButtonsContainer = styled.div<SelectButtonsProps> `
     
     border: 1px solid ${props => props.theme.colors.progressBar};
     
-    position: relative;
+    position: sticky;
+    bottom: 0;
+    z-index: 999;
     
     .buttons{
         display: flex;
