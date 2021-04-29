@@ -17,8 +17,9 @@ export default class CategoryController implements Pagination {
         return api.get('/categories/' + id, {headers: getAuthHeader()});
     }
 
-    put(id: string, data: CategoryPutBody) {
-        return api.put('/categories/' + id, data, {headers: getAuthHeader()});
+    put(data: CategoryPutBody) {
+        console.log(data)
+        return api.put('/categories/' + data.id, data, {headers: getAuthHeader()});
     }
 
     delete(id: string) {

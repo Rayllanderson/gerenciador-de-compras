@@ -2,7 +2,7 @@ import React, {createContext, ReactNode, useCallback, useContext, useState} from
 import {CategoryPutBody, CategoryResponseBody} from "../interfaces/categoryInterface";
 import CategoryController from "../controllers/categoryController";
 import {getNumberWithoutMask} from "../validations/inputValidation";
-import {validateSave} from "../validations/categoryValidation";
+import {validateEdit, validateSave} from "../validations/categoryValidation";
 import {ToastContext} from "./ToastContext";
 import {PaginationContext} from "./PaginationContext";
 import {ModalContext} from "./ModalContext";
@@ -100,9 +100,32 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         })
     }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
 
+    const edit = useCallback(() => {
+        const categoryToBeEdited = {
+            id: selectedCategory.id,
+            name: name,
+            budget: getNumberWithoutMask(budget)
+        }
+        validateEdit(categoryToBeEdited).then(async () => {
+            const api = new CategoryController();
+            await api.put(categoryToBeEdited).then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto!',
+                    description: 'Lista "' + name + '" foi editada com sucesso!'
+                })
+                loadPage(api);
+                closeAddModal();
+                clearInputs();
+            }).catch(err => console.log(err))
+        }).catch(err => {
+            addAlert(err.message);
+        })
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
+
     const submit = useCallback(() => {
         if (action === 'save') save();
-        if (action === 'edit') console.log('editando');
+        if (action === 'edit') edit();
     }, [action, save])
 
     return (

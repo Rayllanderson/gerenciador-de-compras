@@ -1,4 +1,4 @@
-import {CategoryPostBody} from "../interfaces/categoryInterface";
+import {CategoryPostBody, CategoryPutBody} from "../interfaces/categoryInterface";
 import {isNotEmpty} from "./inputValidation";
 
 export function validateSave(category: CategoryPostBody){
@@ -7,4 +7,13 @@ export function validateSave(category: CategoryPostBody){
         if (nameIsEmpty) reject({message: 'Nome não pode ser vazio.'});
         resolve('The fields has been successful validated.')
     })
+}
+
+export function validateEdit(category: CategoryPutBody){
+    const promiseId = new Promise<string>(function (resolve, reject) {
+        if (category.id == null) reject({reason: 'Id está nulo', message: 'Recarregue a página e tente novamente'});
+        else resolve ('The id is not null. All good :)')
+    })
+    const promiseRestOfData = validateSave({name: category.name, budget: category.budget});
+    return Promise.all([promiseId, promiseRestOfData]);
 }

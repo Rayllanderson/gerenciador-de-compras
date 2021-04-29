@@ -11,7 +11,7 @@ export function isNotNull(value: string){
 }
 
 export function getNumberWithoutMask(value: string){
-    let parseNumber = value.replaceAll('.', '');
-    parseNumber = parseNumber.replaceAll(',', '.');
+    let parseNumber = value.toString().replace('.', '');
+    parseNumber = parseNumber.toString().replace(',', '.');
     return parseNumber;
 }
