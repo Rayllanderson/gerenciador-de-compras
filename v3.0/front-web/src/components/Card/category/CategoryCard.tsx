@@ -7,6 +7,7 @@ import {useContext} from "react";
 import {VisibilityCardItemContext} from "../../../context/CardItemVisibilityContext";
 import {DeleteButton, EditButton} from '../../Buttons'
 import {CategoryContext} from "../../../context/CategoryContext";
+import {GeneralContext} from "../../../context/GeneralContex";
 
 interface Props {
     category: CategoryResponseBody;
@@ -15,6 +16,7 @@ interface Props {
 export function CategoryCard({category}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
     const {setToEdit, setToRemove} = useContext(CategoryContext);
+    const {clearPreviousData} = useContext(GeneralContext);
     return (
         <CategoryCardContainer>
 
@@ -24,12 +26,12 @@ export function CategoryCard({category}: Props) {
                         {editButtonIsVisible && <EditButton onClick={() => setToEdit(category)}/>}
                         {deleteButtonIsVisible && <DeleteButton onClick={() => setToRemove(category)}/>}
                     </CardAddon>
-                    <Link to={`/categories/${category.id}/products`}>
+                    <Link to={`/categories/${category.id}/products`} onClick={clearPreviousData}>
                         <h5 className="card-title ">{category.name}</h5>
                         <p className="card-text ">R$ {category.budget}</p>
                     </Link>
                 </div>
-                <Link to={`/categories/${category.id}/products`} className={'footer'}>
+                <Link to={`/categories/${category.id}/products`} className={'footer'} onClick={clearPreviousData}>
                     <ProgressBar now={50} label={'50%'} title={`${50}% concluída`}/>
                 </Link>
             </div>

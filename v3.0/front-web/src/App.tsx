@@ -16,6 +16,7 @@ import {PaginationProvider} from "./context/PaginationContext";
 import {ProductProvider} from "./context/ProductContext";
 import {ModalProvider} from "./context/ModalContext";
 import {AlertProvider} from "./context/AlertContext";
+import {GeneralProvider} from "./context/GeneralContex";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -32,16 +33,18 @@ function App() {
                                         <LoginProvider>
                                             <RegisterProvider>
                                                 <PaginationProvider>
-                                                        <ModalProvider>
-                                                            <AlertProvider>
+                                                    <ModalProvider>
+                                                        <AlertProvider>
+                                                            <GeneralProvider>
                                                                 <CategoryProvider>
                                                                     <ProductProvider>
                                                                         <GlobalStyle/>
                                                                         <Routes/>
                                                                     </ProductProvider>
                                                                 </CategoryProvider>
-                                                            </AlertProvider>
-                                                        </ModalProvider>
+                                                            </GeneralProvider>
+                                                        </AlertProvider>
+                                                    </ModalProvider>
                                                 </PaginationProvider>
                                             </RegisterProvider>
                                         </LoginProvider>

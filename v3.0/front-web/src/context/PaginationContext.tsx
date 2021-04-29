@@ -15,6 +15,7 @@ interface PaginationContextData {
     setSize: (size: number) => void,
     setType: (type: 'search' | 'all') => void,
     handleSearchChange: (e: any) => void,
+    setSearch: (search: string) => void,
     search: string
 }
 
@@ -61,7 +62,8 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     }, [setType])
 
     return (
-        <PaginationContext.Provider value={{pagination, setPagination, setPage, loadPage, size, setSize, setType, handleSearchChange, search}}>
+        <PaginationContext.Provider value={{pagination, setPagination, setPage, loadPage, size, setSize, setType, handleSearchChange,
+            setSearch, search}}>
             {children}
         </PaginationContext.Provider>
     )
