@@ -24,7 +24,7 @@ export default function ProductPage(){
             <BackButtonHeader to={'/categories'}/>
             <ProductHeader />
             <Search placeholder={'Procurar um produto...'}/>
-            <ButtonGroup/>
+            <ButtonGroup add={() => {}}/>
             <ProductList categoryId={params.id}/>
             <MyPagination controller={new ProductController(params.id)}/>
             <SelectItemsButtons>

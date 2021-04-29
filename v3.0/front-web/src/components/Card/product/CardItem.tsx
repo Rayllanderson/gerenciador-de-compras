@@ -2,17 +2,24 @@ import {ProductCardBody} from "../styles";
 import {CardAddon} from "../CardAddon";
 import {FiCheck, FiX} from "react-icons/all";
 import {ProductResponseBody} from "../../../interfaces/productInterface";
+import {DeleteButton, EditButton} from "../../Buttons";
+import {useContext} from "react";
+import {VisibilityCardItemContext} from "../../../context/CardItemVisibilityContext";
 
 interface Props {
-   product: ProductResponseBody
+    product: ProductResponseBody
 }
 
 export function CardItem({product}: Props) {
+    const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
     return (
         <ProductCardBody>
 
             <div className={'addons'}>
-                <CardAddon id={product.id}/>
+                <CardAddon id={product.id}>
+                    {editButtonIsVisible && <EditButton/>}
+                    {deleteButtonIsVisible && <DeleteButton/>}
+                </CardAddon>
             </div>
 
             <div className="body">

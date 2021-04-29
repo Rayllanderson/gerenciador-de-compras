@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Header from "../components/Header";
 import {FiList} from "react-icons/all";
 import Search from "../components/Search";
@@ -10,13 +10,15 @@ import {MyPagination} from "../components/Paginations/Pagination";
 import CategoryController from "../controllers/categoryController";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
+import {CategoryContext} from "../context/CategoryContext";
 
 export default function CategoryPage(){
+    const {setToSave} = useContext(CategoryContext);
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
             <Search placeholder={'Procurar uma lista...'}/>
-            <ButtonGroup/>
+            <ButtonGroup add={setToSave}/>
 
             <CategoryList/>
 

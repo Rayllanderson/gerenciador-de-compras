@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
-import {CategoryResponseBody} from "../interfaces/categoryInterface";
+import {CategoryPutBody, CategoryResponseBody} from "../interfaces/categoryInterface";
 import CategoryController from "../controllers/categoryController";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {validateSave} from "../validations/categoryValidation";
@@ -16,24 +16,30 @@ interface CategoryContextData {
     categories: CategoryResponseBody[],
     name: string,
     budget: string,
+    action: string,
+    selectedCategory: CategoryResponseBody,
     getCategoriesPageable: () => void,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleBudgetChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    save: () => void,
+    submit: () => void,
+    setToSave: () => void,
+    setToEdit: (categoryToBeEdited: CategoryResponseBody) => void,
 }
 
 export const CategoryContext = createContext<CategoryContextData>({} as CategoryContextData);
 
 export function CategoryProvider({children}: CategoryProviderProps) {
 
-    const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
     const {addToast} = useContext(ToastContext);
     const {loadPage} = useContext(PaginationContext);
-    const {closeAddModal} = useContext(ModalContext);
-    const {addAlert} = useContext(AlertContext);
+    const {openAddModal, closeAddModal} = useContext(ModalContext);
+    const {addAlert, closeAlert} = useContext(AlertContext);
 
+    const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryPutBody>({} as CategoryPutBody);
     const [name, setName] = useState<string>('');
     const [budget, setBudget] = useState<string>('');
+    const [action, setAction] = useState<'save' | 'edit'>('save');
 
     const getCategoriesPageable = useCallback(async () => {
         await new CategoryController().findAll()
@@ -55,6 +61,22 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         setBudget('');
     }, [])
 
+    const setToSave = useCallback(() => {
+        closeAlert();
+        clearInputs();
+        setSelectedCategory({} as CategoryPutBody);
+        openAddModal();
+        setAction('save');
+    }, [openAddModal, clearInputs, closeAlert])
+
+    const setToEdit = useCallback((categoryToBeEdited: CategoryResponseBody) => {
+        closeAlert();
+        setSelectedCategory(categoryToBeEdited);
+        openAddModal();
+        setAction('edit');
+        setName(categoryToBeEdited.name);
+        setBudget(categoryToBeEdited.budget);
+    }, [openAddModal, closeAlert])
 
     const save = useCallback(() => {
         const categoryToBeSaved = {
@@ -78,13 +100,22 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         })
     }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
 
+    const submit = useCallback(() => {
+        if (action === 'save') save();
+        if (action === 'edit') console.log('editando');
+    }, [action, save])
+
     return (
         <CategoryContext.Provider value={{
             categories, name, budget,
             getCategoriesPageable,
             handleBudgetChange,
             handleNameChange,
-            save
+            setToSave,
+            setToEdit,
+            selectedCategory,
+            submit,
+            action
         }}>
             {children}
         </CategoryContext.Provider>

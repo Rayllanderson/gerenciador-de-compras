@@ -1,9 +1,7 @@
-import {useCallback, useContext, useEffect, useState} from "react";
+import {ReactNode, useCallback, useContext, useEffect, useState} from "react";
 import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
 import {SelectedItemsContext} from "../../context/SelectedItemsContext";
 import {AddonsContainer} from "./styles";
-import {PrimaryButton, RedButton} from "../Buttons/styles";
-import {FiEdit2, FiTrash} from "react-icons/all";
 import {CheckboxContainer} from '../Inputs/styles'
 import {InputCheckbox} from "../Inputs";
 import {SelectItem} from "../../interfaces/selectItemInterface";
@@ -11,11 +9,12 @@ import {createAnEmptySelectedItem} from "../../utils/selectItemUtil";
 
 interface Props {
     id: string;
+    children: ReactNode;
 }
 
-export function CardAddon({id}: Props) {
+export function CardAddon({id, children}: Props) {
 
-    const {checkBoxIsVisible, deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
+    const {checkBoxIsVisible} = useContext(VisibilityCardItemContext);
     const {handleCheckBoxChange, removeItemFromArray} = useContext(SelectedItemsContext);
 
     const {selectedItems} = useContext(SelectedItemsContext)
@@ -48,21 +47,7 @@ export function CardAddon({id}: Props) {
                 </CheckboxContainer>
             )
             }
-            {editButtonIsVisible && <EditButton/>}
-            {deleteButtonIsVisible && <DeleteButton/>}
+            {children}
         </AddonsContainer>
-    )
-}
-
-
-function EditButton() {
-    return (
-        <PrimaryButton className="btn btn-sm"><FiEdit2/></PrimaryButton>
-    )
-}
-
-function DeleteButton() {
-    return (
-        <RedButton className="btn btn-sm ms-2"><FiTrash/></RedButton>
     )
 }

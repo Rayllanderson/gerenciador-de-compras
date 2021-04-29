@@ -6,21 +6,17 @@ import {InputNumber, InputText} from "../../Inputs";
 import '../styles.css'
 import {useContext} from "react";
 import {ModalContext} from "../../../context/ModalContext";
-import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
 import {CategoryContext} from "../../../context/CategoryContext";
 import MyAlert from "../../Alert";
 
 
-interface Props {
-    category?: CategoryResponseBody;
-}
-
-export function CategoryModal( {category}: Props) {
+export function CategoryModal() {
     const {showAddModal, closeAddModal} = useContext(ModalContext);
-    const {save, budget, handleBudgetChange, name, handleNameChange} = useContext(CategoryContext)
-    const title = !!category ? 'Editar lista' : 'Nova Lista';
+    const {budget, handleBudgetChange, name, handleNameChange, submit, action} = useContext(CategoryContext);
+
+    const title = action === 'edit' ? 'Editar lista' : 'Nova Lista';
     return (
-        <Modal centered show={showAddModal} className={"rounded-0"}>
+        <Modal centered show={showAddModal} className={"rounded-0"} onHide={closeAddModal}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">{title}</Modal.Title>
@@ -31,14 +27,13 @@ export function CategoryModal( {category}: Props) {
                     <div className="mb-3">
                         <InputText placeholder={title} value={name} onChange={handleNameChange}/>
                     </div>
-
                     <div>
                         <InputNumber placeholder={'Orçamento R$'} value={budget} onChange={handleBudgetChange}/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary" onClick={closeAddModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={save}> Salvar </PrimaryButton>
+                    <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
                 </Modal.Footer>
             </Content>
         </Modal>

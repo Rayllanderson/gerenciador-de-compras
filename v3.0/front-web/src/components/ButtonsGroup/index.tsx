@@ -1,17 +1,18 @@
 import {Container} from "./styles";
 import {PrimaryButton} from '../Buttons/styles';
 import {FiPlus} from "react-icons/all";
-import React, {useContext} from "react";
+import React from "react";
 import {ActionDropdown} from "../Dropdown/actionDropdown";
-import {ModalContext} from "../../context/ModalContext";
 
-export function ButtonGroup (){
-    const {openAddModal} = useContext(ModalContext);
+interface Props {
+    add: () => void;
+}
+export function ButtonGroup ({add}: Props){
     return (
         <Container className="container">
             <div className={"group-buttons"}>
                 <PrimaryButton className={"btn"} style={{borderBottomRightRadius: 0, borderTopRightRadius: 0}}
-                onClick={openAddModal}>
+                onClick={add}>
                     <FiPlus size={21}/>
                 </PrimaryButton>
 
