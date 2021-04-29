@@ -22,8 +22,10 @@ interface CategoryContextData {
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleBudgetChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     submit: () => void,
+    remove: () => void,
     setToSave: () => void,
     setToEdit: (categoryToBeEdited: CategoryResponseBody) => void,
+    setToRemove: (categoryToBeEdited: CategoryResponseBody) => void,
 }
 
 export const CategoryContext = createContext<CategoryContextData>({} as CategoryContextData);
@@ -32,7 +34,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const {addToast} = useContext(ToastContext);
     const {loadPage} = useContext(PaginationContext);
-    const {openAddModal, closeAddModal} = useContext(ModalContext);
+    const {openAddModal, closeAddModal, openRemoveModal, closeRemoveModal} = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
 
     const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
@@ -78,6 +80,13 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         setBudget(categoryToBeEdited.budget);
     }, [openAddModal, closeAlert])
 
+    const setToRemove = useCallback((categoryToBeRemoved: CategoryResponseBody) => {
+        setSelectedCategory(categoryToBeRemoved);
+        openRemoveModal();
+    }, [openRemoveModal])
+
+    const clearSelectedCategory = useCallback( () => setSelectedCategory({} as CategoryResponseBody), [])
+
     const save = useCallback(() => {
         const categoryToBeSaved = {
             name: name,
@@ -117,16 +126,31 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                 loadPage(api);
                 closeAddModal();
                 clearInputs();
+                clearSelectedCategory();
             }).catch(err => console.log(err))
         }).catch(err => {
             addAlert(err.message);
         })
-    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearSelectedCategory])
 
     const submit = useCallback(() => {
         if (action === 'save') save();
         if (action === 'edit') edit();
     }, [action, save])
+
+    const remove = useCallback( async () => {
+        const api = new CategoryController();
+        await api.delete(selectedCategory.id).then(() => {
+            addToast({
+                type: 'success',
+                title: 'Feito!',
+                description: `A lista ${selectedCategory.name} foi excluída!`
+            });
+            closeRemoveModal();
+            loadPage(api);
+            clearSelectedCategory();
+        })
+    }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory])
 
     return (
         <CategoryContext.Provider value={{
@@ -138,7 +162,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             setToEdit,
             selectedCategory,
             submit,
-            action
+            action,
+            remove, setToRemove
         }}>
             {children}
         </CategoryContext.Provider>

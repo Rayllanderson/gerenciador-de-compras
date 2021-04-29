@@ -34,7 +34,7 @@ export default function ProductPage(){
             </SelectItemsButtons>
 
             <ProductModal/>
-            <DeleteModal text={'Você tem certeza que deseja excluir o produto x?'}/>
+            <DeleteModal text={'Você tem certeza que deseja excluir o produto x?'} action={() => {}}/>
         </div>
     )
 }

@@ -14,7 +14,7 @@ interface Props {
 
 export function CategoryCard({category}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
-    const {setToEdit} = useContext(CategoryContext);
+    const {setToEdit, setToRemove} = useContext(CategoryContext);
     return (
         <CategoryCardContainer>
 
@@ -22,7 +22,7 @@ export function CategoryCard({category}: Props) {
                 <div className="card-body">
                     <CardAddon id={category.id}>
                         {editButtonIsVisible && <EditButton onClick={() => setToEdit(category)}/>}
-                        {deleteButtonIsVisible && <DeleteButton/>}
+                        {deleteButtonIsVisible && <DeleteButton onClick={() => setToRemove(category)}/>}
                     </CardAddon>
                     <Link to={`/categories/${category.id}/products`}>
                         <h5 className="card-title ">{category.name}</h5>

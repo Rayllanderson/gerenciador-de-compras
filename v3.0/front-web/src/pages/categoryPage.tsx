@@ -12,8 +12,8 @@ import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons"
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 import {CategoryContext} from "../context/CategoryContext";
 
-export default function CategoryPage(){
-    const {setToSave} = useContext(CategoryContext);
+export default function CategoryPage() {
+    const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
@@ -24,13 +24,14 @@ export default function CategoryPage(){
 
             <MyPagination controller={new CategoryController()}/>
 
-            <SelectItemsButtons >
+            <SelectItemsButtons>
                 <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
 
             <CategoryModal/>
-            <DeleteModal text={'Você tem certeza que deseja excluir a categoria x?'}/>
+            <DeleteModal text={`Você tem certeza que deseja excluir a lista ${selectedCategory.name}`}
+                         action={remove}/>
         </div>
     );
 }
