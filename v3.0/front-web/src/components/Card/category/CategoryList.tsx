@@ -8,7 +8,6 @@ import { CategoryResponseBody } from "../../../interfaces/categoryInterface";
 export default function CategoryList() {
     const {pagination, loadPage} = useContext(PaginationContext);
 
-
     useEffect(() => {
         loadPage(new CategoryController());
     }, [loadPage])

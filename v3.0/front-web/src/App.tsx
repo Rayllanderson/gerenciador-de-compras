@@ -32,16 +32,16 @@ function App() {
                                         <LoginProvider>
                                             <RegisterProvider>
                                                 <PaginationProvider>
-                                                    <ModalProvider>
-                                                        <AlertProvider>
-                                                            <CategoryProvider>
-                                                                <ProductProvider>
-                                                                    <GlobalStyle/>
-                                                                    <Routes/>
-                                                                </ProductProvider>
-                                                            </CategoryProvider>
-                                                        </AlertProvider>
-                                                    </ModalProvider>
+                                                        <ModalProvider>
+                                                            <AlertProvider>
+                                                                <CategoryProvider>
+                                                                    <ProductProvider>
+                                                                        <GlobalStyle/>
+                                                                        <Routes/>
+                                                                    </ProductProvider>
+                                                                </CategoryProvider>
+                                                            </AlertProvider>
+                                                        </ModalProvider>
                                                 </PaginationProvider>
                                             </RegisterProvider>
                                         </LoginProvider>

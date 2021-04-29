@@ -14,15 +14,16 @@ import {CategoryContext} from "../context/CategoryContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
+    const controller = new CategoryController();
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
-            <Search placeholder={'Procurar uma lista...'}/>
+            <Search placeholder={'Procurar uma lista...'} action={() => {}}/>
             <ButtonGroup add={setToSave}/>
 
             <CategoryList/>
 
-            <MyPagination controller={new CategoryController()}/>
+            <MyPagination controller={controller}/>
 
             <SelectItemsButtons>
                 <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>

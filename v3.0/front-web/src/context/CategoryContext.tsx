@@ -131,12 +131,12 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         }).catch(err => {
             addAlert(err.message);
         })
-    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearSelectedCategory])
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearSelectedCategory, selectedCategory.id])
 
     const submit = useCallback(() => {
         if (action === 'save') save();
         if (action === 'edit') edit();
-    }, [action, save])
+    }, [action, save, edit])
 
     const remove = useCallback( async () => {
         const api = new CategoryController();
@@ -150,7 +150,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             loadPage(api);
             clearSelectedCategory();
         })
-    }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory])
+    }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
 
     return (
         <CategoryContext.Provider value={{

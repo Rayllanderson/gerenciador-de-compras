@@ -2,7 +2,7 @@ import {CategoryResponseBody} from "./categoryInterface";
 import {AxiosResponse} from "axios";
 import {ProductResponseBody} from "./productInterface";
 
-export interface PaginationData {
+export interface Page {
     content: CategoryResponseBody[] | ProductResponseBody[],
     first: boolean,
     last: boolean,
@@ -14,6 +14,7 @@ export interface PaginationData {
     numberOfElements: number,
 }
 
-export interface Pagination {
+export interface Pageable {
     getAllPageable(page: number, size?: number): Promise<AxiosResponse>,
+    findByName(search: string, page: number, size?: number): Promise<AxiosResponse>
 }

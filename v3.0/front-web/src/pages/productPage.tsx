@@ -23,7 +23,7 @@ export default function ProductPage(){
         <div style={{minHeight: '100vh'}}>
             <BackButtonHeader to={'/categories'}/>
             <ProductHeader />
-            <Search placeholder={'Procurar um produto...'}/>
+            <Search placeholder={'Procurar um produto...'} action={() => {} } />
             <ButtonGroup add={() => {}}/>
             <ProductList categoryId={params.id}/>
             <MyPagination controller={new ProductController(params.id)}/>

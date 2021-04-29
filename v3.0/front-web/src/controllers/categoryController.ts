@@ -1,10 +1,10 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
 import {CategoryPostBody, CategoryPutBody} from "../interfaces/categoryInterface";
-import {Pagination} from "../interfaces/paginationData";
+import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 
-export default class CategoryController implements Pagination {
+export default class CategoryController implements Pageable {
     findAll() {
         return api.get('/categories', {headers: getAuthHeader()});
     }
@@ -26,8 +26,8 @@ export default class CategoryController implements Pagination {
         return api.delete('/categories/' + id, {headers: getAuthHeader()});
     }
 
-    findByName(query: string) {
-        return api.get('/categories/search?q=' + query, {headers: getAuthHeader()});
+    findByName(search:string, page:number, size?:number) {
+        return api.get(`/categories/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }
 
     findAllPageable(size: number, page: number) {

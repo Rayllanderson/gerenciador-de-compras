@@ -1,10 +1,10 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
-import {Pagination} from "../interfaces/paginationData";
+import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 import {ProductPostBody, ProductPutBody} from "../interfaces/productInterface";
 
-export default class ProductController implements Pagination {
+export default class ProductController implements Pageable {
     BASE_URL: string;
 
     constructor(categoryId: string) {
@@ -31,8 +31,8 @@ export default class ProductController implements Pagination {
         return api.delete(this.BASE_URL + '/' + id, {headers: getAuthHeader()});
     }
 
-    findByName(query: string) {
-        return api.get(this.BASE_URL + '/search?name=' + query, {headers: getAuthHeader()});
+    findByName(search:string, page:number, size?:number) {
+        return api.get(`${this.BASE_URL}/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }
 
     findAllPageable(size: number, page: number) {

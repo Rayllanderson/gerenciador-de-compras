@@ -1,5 +1,5 @@
 import {Pagination} from "react-bootstrap";
-import {Pagination as PaginationInterface} from '../../interfaces/paginationData';
+import {Pageable as PaginationInterface} from '../../interfaces/page';
 import {useContext} from "react";
 import {PaginationContext} from "../../context/PaginationContext";
 import {Container} from "./styles";
