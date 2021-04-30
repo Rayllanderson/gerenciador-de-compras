@@ -8,7 +8,7 @@ interface Props {
 export default function Header({title, Icon}: Props) {
     return (
         <Container className="container mt-5">
-            <Content>
+            <Content className={'card'}>
               <h3><Icon/> {title}</h3>
             </Content>
         </Container>

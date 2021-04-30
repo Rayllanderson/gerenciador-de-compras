@@ -16,7 +16,7 @@ export function CardItem({product}: Props) {
         <ProductCardBody>
 
             <div className={'addons'}>
-                <CardAddon id={product.id}>
+                <CardAddon id={product.id} name={product.name}>
                     {editButtonIsVisible && <EditButton/>}
                     {deleteButtonIsVisible && <DeleteButton/>}
                 </CardAddon>

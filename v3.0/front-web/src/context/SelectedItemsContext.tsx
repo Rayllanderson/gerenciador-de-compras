@@ -37,11 +37,12 @@ export function CardItemActionProvider({children}: SelectedItemsContextProviderP
         [selectedItems])
 
     const handleCheckBoxChange = (e: any) => {
-        const id = e.target.value;
+        const value = e.target.value;
+        const selectedItem = JSON.parse(value);
         if (e.target.checked) {
-            addItemToArray({id: id, isSelected: true});
+            addItemToArray({id: selectedItem.id, name: selectedItem.name, isSelected: true});
         } else {
-            removeItemFromArray({id: id, isSelected: false});
+            removeItemFromArray({id: value.id, name: '', isSelected: false});
         }
     }
 

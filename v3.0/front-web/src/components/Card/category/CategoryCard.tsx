@@ -22,7 +22,7 @@ export function CategoryCard({category}: Props) {
 
             <div className="card h-100">
                 <div className="card-body">
-                    <CardAddon id={category.id}>
+                    <CardAddon id={category.id} name={category.name}>
                         {editButtonIsVisible && <EditButton onClick={() => setToEdit(category)}/>}
                         {deleteButtonIsVisible && <DeleteButton onClick={() => setToRemove(category)}/>}
                     </CardAddon>

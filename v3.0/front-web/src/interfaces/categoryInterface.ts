@@ -13,3 +13,9 @@ export interface CategoryPutBody extends CategoryModel {
 export interface CategoryResponseBody extends CategoryModel{
     id: string;
 }
+
+export interface TransferCategoryRequestBody {
+    id: string,
+    newName: string; //name + (copy)
+}
+

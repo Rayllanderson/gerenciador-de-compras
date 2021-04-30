@@ -8,11 +8,12 @@ import {SelectItem} from "../../interfaces/selectItemInterface";
 import {createAnEmptySelectedItem} from "../../utils/selectItemUtil";
 
 interface Props {
-    id: string;
+    id: string,
+    name: string,
     children: ReactNode;
 }
 
-export function CardAddon({id, children}: Props) {
+export function CardAddon({id, name, children}: Props) {
 
     const {checkBoxIsVisible} = useContext(VisibilityCardItemContext);
     const {handleCheckBoxChange, removeItemFromArray} = useContext(SelectedItemsContext);
@@ -24,7 +25,7 @@ export function CardAddon({id, children}: Props) {
         const hasNoItemsSelected = selectedItems.length === 0;
         if (hasNoItemsSelected) setSelectedItem(createAnEmptySelectedItem);
         selectedItems.forEach((item: SelectItem) => {
-            if (item.id === id.toString()) setSelectedItem(item);
+            if (item.id === id) setSelectedItem(item);
         })
     }, [selectedItems, id])
 
@@ -32,7 +33,7 @@ export function CardAddon({id, children}: Props) {
         const isChecked = !e.target.checked;
         if (isChecked) {
             selectedItem.isSelected = false;
-            removeItemFromArray(selectedItem)
+            removeItemFromArray(selectedItem);
         }
     }, [selectedItem, removeItemFromArray])
 
@@ -41,7 +42,7 @@ export function CardAddon({id, children}: Props) {
             {checkBoxIsVisible && (
                 <CheckboxContainer>
                     <div className={'checkbox'}>
-                        <InputCheckbox value={id} onChange={handleCheckBoxChange}
+                        <InputCheckbox value={JSON.stringify({id, name})} onChange={handleCheckBoxChange}
                                        checked={selectedItem.isSelected} onClick={handleClick}/>
                     </div>
                 </CheckboxContainer>
