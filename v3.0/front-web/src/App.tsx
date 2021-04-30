@@ -9,7 +9,6 @@ import Routes from "./routes";
 import {ToastProvider} from "./context/ToastContext";
 import {VisibilityCardItemProvider} from "./context/CardItemVisibilityContext";
 import {CardItemActionProvider} from "./context/SelectedItemsContext";
-import {ProductModalProvider} from "./context/ProductModalContext";
 import {RegisterProvider} from "./context/RegisterContext";
 import {CategoryProvider} from "./context/CategoryContext";
 import {PaginationProvider} from "./context/PaginationContext";
@@ -30,31 +29,29 @@ function App() {
                     <ToastProvider>
                         <VisibilityCardItemProvider>
                             <CardItemActionProvider>
-                                <ProductModalProvider>
-                                    <AuthProvider>
-                                        <LoginProvider>
-                                            <RegisterProvider>
-                                                <PaginationProvider>
-                                                    <ModalProvider>
-                                                        <AlertProvider>
-                                                            <GeneralProvider>
-                                                                <CategoryProvider>
-                                                                    <ProductProvider>
-                                                                        <ConfirmModalProvider>
-                                                                            <GlobalStyle/>
-                                                                            <Routes/>
-                                                                            <ConfirmModal/>
-                                                                        </ConfirmModalProvider>
-                                                                    </ProductProvider>
-                                                                </CategoryProvider>
-                                                            </GeneralProvider>
-                                                        </AlertProvider>
-                                                    </ModalProvider>
-                                                </PaginationProvider>
-                                            </RegisterProvider>
-                                        </LoginProvider>
-                                    </AuthProvider>
-                                </ProductModalProvider>
+                                <AuthProvider>
+                                    <LoginProvider>
+                                        <RegisterProvider>
+                                            <PaginationProvider>
+                                                <ModalProvider>
+                                                    <AlertProvider>
+                                                        <GeneralProvider>
+                                                            <CategoryProvider>
+                                                                <ProductProvider>
+                                                                    <ConfirmModalProvider>
+                                                                        <GlobalStyle/>
+                                                                        <Routes/>
+                                                                        <ConfirmModal/>
+                                                                    </ConfirmModalProvider>
+                                                                </ProductProvider>
+                                                            </CategoryProvider>
+                                                        </GeneralProvider>
+                                                    </AlertProvider>
+                                                </ModalProvider>
+                                            </PaginationProvider>
+                                        </RegisterProvider>
+                                    </LoginProvider>
+                                </AuthProvider>
                             </CardItemActionProvider>
                         </VisibilityCardItemProvider>
                     </ToastProvider>

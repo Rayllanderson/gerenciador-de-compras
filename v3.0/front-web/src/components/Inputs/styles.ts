@@ -6,8 +6,9 @@ interface ContainerProps {
 }
 
 export const CheckboxContainer = styled.div`
-
+    
 .form-check-input{
+      border-color:  ${props => props.theme.colors.primary}!important;
       border-radius: 5px;
       color: black;
       &:checked{

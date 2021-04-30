@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import BackButtonHeader from "../components/Buttons/BackButton";
 import Search from "../components/Search";
 import {ProductHeader} from "../components/Header/Product";
@@ -11,6 +11,7 @@ import {DeleteModal} from "../components/Modal/DeleteModal";
 import {MyPagination} from "../components/Paginations/Pagination";
 import ProductController from "../controllers/productController";
 import {useParams} from "react-router-dom";
+import {ProductContext} from "../context/ProductContext";
 
 interface RouteParams {
     id: string
@@ -18,13 +19,14 @@ interface RouteParams {
 
 export default function ProductPage(){
     const params = useParams<RouteParams>();
+    const {setToSave} = useContext(ProductContext)
 
     return (
         <div style={{minHeight: '100vh'}}>
             <BackButtonHeader to={'/categories'}/>
             <ProductHeader />
             <Search placeholder={'Procurar um produto...'} action={() => {} } />
-            <ButtonGroup add={() => {}}/>
+            <ButtonGroup add={setToSave}/>
             <ProductList categoryId={params.id}/>
             <MyPagination controller={new ProductController(params.id)}/>
             <SelectItemsButtons>
