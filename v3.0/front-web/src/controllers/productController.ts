@@ -23,8 +23,8 @@ export default class ProductController implements Pageable {
         return api.get(this.BASE_URL + '/' + id, {headers: getAuthHeader()});
     }
 
-    put(id: string, data: ProductPutBody) {
-        return api.put(this.BASE_URL + '/' + id, data, {headers: getAuthHeader()});
+    put(data: ProductPutBody) {
+        return api.put(`${this.BASE_URL}/${data.id}`, data, {headers: getAuthHeader()});
     }
 
     delete(id: string) {

@@ -5,9 +5,10 @@ import {ModalContext} from "./ModalContext";
 import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import ProductController from "../controllers/productController";
-import {ProductPostBody, ProductResponseBody} from "../interfaces/productInterface";
-import {validateSave} from "../validations/productValidation";
+import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interfaces/productInterface";
+import {validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
+import {CategoryResponseBody} from "../interfaces/categoryInterface";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -49,8 +50,8 @@ export function ProductProvider({children}: ProductProviderProps) {
 
     const [currentCategoryId, setCurrentCategoryId] = useState<string>('');
     const [name, setName] = useState<string>('');
-    const [stipulatedPrice, setStipulatedPrice] = useState<string>('');
-    const [spentPrice, setSpentPrice] = useState<string>('');
+    const [stipulatedPrice, setStipulatedPrice] = useState<string>('0');
+    const [spentPrice, setSpentPrice] = useState<string>('0');
     const [isPurchased, setIsPurchased] = useState<boolean>(false);
     const [action, setAction] = useState<'save' | 'edit'>('save');
     const [selectedProduct, setSelectedProduct] = useState<ProductResponseBody>({} as ProductResponseBody)
@@ -69,7 +70,10 @@ export function ProductProvider({children}: ProductProviderProps) {
     }, [])
 
     const handleIsPurchasedChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsPurchased(e.target.checked);
+        const isChecked = e.target.checked;
+        setIsPurchased(isChecked);
+        const isNotChecked = !isChecked
+        if (isNotChecked) setSpentPrice('0');
     }, [])
 
     /* utils */
@@ -79,6 +83,8 @@ export function ProductProvider({children}: ProductProviderProps) {
         setSpentPrice('');
         setIsPurchased(false);
     }, [])
+
+    const clearSelectedProduct = useCallback(() => setSelectedProduct({} as ProductResponseBody), [])
 
     const setToSave = useCallback(() => {
         closeAlert();
@@ -122,10 +128,35 @@ export function ProductProvider({children}: ProductProviderProps) {
     }, [name, spentPrice, stipulatedPrice, isPurchased, currentCategoryId, loadPage, closeAddModal, addToast,
         clearInputs, addAlert])
 
+    const edit = useCallback(() => {
+        const productToBeEdited: ProductPutBody = {
+            id: selectedProduct.id,
+            name: name,
+            stipulatedPrice: getNumberWithoutMask(stipulatedPrice),
+            spentPrice: getNumberWithoutMask(spentPrice),
+            purchased: isPurchased
+        }
+        const api = new ProductController(currentCategoryId);
+        validateEdit(productToBeEdited).then(async () => {
+            await api.put(productToBeEdited).then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto!',
+                    description: 'Produto "' + name + '" foi editado com sucesso!'
+                })
+                loadPage(api);
+                closeAddModal();
+                clearInputs();
+                clearSelectedProduct();
+            }).catch(err => console.log(err.response))//erro que vem da api
+        }).catch(err => addAlert(err.message));
+    }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, loadPage, closeAddModal, addToast,
+        clearInputs, addAlert, clearSelectedProduct, selectedProduct])
+
     const submit = useCallback(() => {
         if (action === 'save') save();
-        if (action === 'edit') console.log('edit');
-    }, [action, save])
+        if (action === 'edit') edit();
+    }, [action, save, edit])
 
     return (
         <ProductContext.Provider value={{

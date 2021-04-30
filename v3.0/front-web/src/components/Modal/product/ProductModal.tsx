@@ -7,6 +7,7 @@ import '../styles.css'
 import {useContext} from "react";
 import {ModalContext} from "../../../context/ModalContext";
 import {ProductContext} from "../../../context/ProductContext";
+import MyAlert from "../../Alert";
 
 export function ProductModal() {
 
@@ -23,6 +24,7 @@ export function ProductModal() {
                     <CloseButton onClick={closeAddModal}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
+                    <MyAlert />
                     <div className="mb-3">
                         <label className="form-label">Nome do produto</label>
                         <InputText placeholder={'Nome do produto'} value={name} onChange={handleNameChange}/>
