@@ -4,6 +4,10 @@ import {PaginationContext} from "./PaginationContext";
 import {ModalContext} from "./ModalContext";
 import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
+import ProductController from "../controllers/productController";
+import {ProductPostBody} from "../interfaces/productInterface";
+import {validateSave} from "../validations/productValidation";
+import {getNumberWithoutMask} from "../validations/inputValidation";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -15,11 +19,14 @@ interface ProductContextData {
     spentPrice: string,
     isPurchased: boolean,
     action: string,
+    currentCategoryId: string,
+    setCurrentCategoryId: (id: string) => void,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleStipulatedPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     setToSave: () => void,
+    submit: () => void,
 
 }
 
@@ -39,6 +46,7 @@ export function ProductProvider({children}: ProductProviderProps) {
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
 
+    const [currentCategoryId, setCurrentCategoryId] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [stipulatedPrice, setStipulatedPrice] = useState<string>('');
     const [spentPrice, setSpentPrice] = useState<string>('');
@@ -62,13 +70,13 @@ export function ProductProvider({children}: ProductProviderProps) {
         setIsPurchased(e.target.checked);
     }, [])
 
+    /* utils */
     const clearInputs = useCallback(() => {
         setName('');
         setStipulatedPrice('');
         setSpentPrice('');
         setIsPurchased(false);
     }, [])
-
 
     const setToSave = useCallback(() => {
         closeAlert();
@@ -77,10 +85,40 @@ export function ProductProvider({children}: ProductProviderProps) {
         setAction('save');
     }, [openAddModal, clearInputs, closeAlert])
 
+    /* api */
+    const save = useCallback(() => {
+        const productToBeSaved: ProductPostBody = {
+            name: name,
+            stipulatedPrice: getNumberWithoutMask(stipulatedPrice),
+            spentPrice: getNumberWithoutMask(spentPrice),
+            purchased: isPurchased
+        }
+        const api = new ProductController(currentCategoryId);
+        validateSave(productToBeSaved).then(async () => {
+            await api.post(productToBeSaved).then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto!',
+                    description: 'Produto "' + name + '" foi salvo com sucesso!'
+                })
+                loadPage(api);
+                closeAddModal();
+                clearInputs();
+            }).catch(err => console.log(err.response))//erro que vem da api
+        }).catch(err => addAlert(err.message));
+    }, [name, spentPrice, stipulatedPrice, isPurchased, currentCategoryId, loadPage, closeAddModal, addToast,
+        clearInputs, addAlert])
+
+    const submit = useCallback(() => {
+        if (action === 'save') save();
+        if (action === 'edit') console.log('edit');
+    }, [action, save])
+
     return (
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
-            isPurchased, stipulatedPrice, spentPrice, action, name, setToSave
+            isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
+            submit
         }}>
             {children}
         </ProductContext.Provider>

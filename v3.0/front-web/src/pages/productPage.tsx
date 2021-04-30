@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import BackButtonHeader from "../components/Buttons/BackButton";
 import Search from "../components/Search";
 import {ProductHeader} from "../components/Header/Product";
@@ -19,7 +19,11 @@ interface RouteParams {
 
 export default function ProductPage(){
     const params = useParams<RouteParams>();
-    const {setToSave} = useContext(ProductContext)
+    const {setToSave, setCurrentCategoryId} = useContext(ProductContext)
+
+    useEffect(() => {
+        setCurrentCategoryId(params.id);
+    }, [params.id])
 
     return (
         <div style={{minHeight: '100vh'}}>

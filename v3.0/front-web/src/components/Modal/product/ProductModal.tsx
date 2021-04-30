@@ -12,7 +12,7 @@ export function ProductModal() {
 
     const {showAddModal, closeAddModal} = useContext(ModalContext);
     const {name, handleNameChange, stipulatedPrice, action, handleStipulatedPriceChange
-    , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice} = useContext(ProductContext)
+    , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice, submit} = useContext(ProductContext)
 
     const title = action === 'save' ? 'Novo produto' : 'Editar produto';
     return (
@@ -58,7 +58,7 @@ export function ProductModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button"
                                      className="btn button-secondary" onClick={closeAddModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"}> Salvar </PrimaryButton>
+                    <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
                 </Modal.Footer>
             </Content>
         </Modal>
