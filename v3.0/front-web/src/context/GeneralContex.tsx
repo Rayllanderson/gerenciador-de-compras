@@ -17,16 +17,16 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
 
     const {setType, setSearch} = useContext(PaginationContext);
     const {hideCheckBox, hideDeleteButton, hideEditButton} = useContext(VisibilityCardItemContext);
-    const {removeAllSelectedItems} = useContext(SelectedItemsContext);
+    const {clearSelectedItems} = useContext(SelectedItemsContext);
     
     const clearPreviousData = useCallback(() => {
         setType('all');
         hideDeleteButton();
         hideEditButton();
         hideCheckBox();
-        removeAllSelectedItems();
+        clearSelectedItems();
         setSearch('');
-    }, [setType, hideEditButton, hideDeleteButton, removeAllSelectedItems, hideCheckBox, setSearch])
+    }, [setType, hideEditButton, hideDeleteButton, clearSelectedItems, hideCheckBox, setSearch])
 
     return (
         <GeneralContext.Provider value={{

@@ -23,7 +23,7 @@ export const PaginationContext = createContext<PaginationContextData>({} as Pagi
 
 export function PaginationProvider({children}: PaginationProviderProps) {
 
-    const DEFAULT_NUMBER_OF_PAGE: number = 3;
+    const DEFAULT_NUMBER_OF_PAGE: number = 6;
     const [pagination, setPagination] = useState<Page>(createAnEmptyPagination());
     const [size, setSize] = useState<number>(DEFAULT_NUMBER_OF_PAGE);
     const [type, setType] = useState<'search' | 'all'>('all');

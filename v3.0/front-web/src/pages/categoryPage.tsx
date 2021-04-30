@@ -13,7 +13,7 @@ import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 import {CategoryContext} from "../context/CategoryContext";
 
 export default function CategoryPage() {
-    const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
+    const {setToSave, remove, selectedCategory, duplicateCategory} = useContext(CategoryContext);
     const controller = new CategoryController();
     return (
         <div>
@@ -26,7 +26,8 @@ export default function CategoryPage() {
             <MyPagination controller={controller}/>
 
             <SelectItemsButtons>
-                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Duplicar</CyanSecondaryButton>
+                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}
+                                     onClick={duplicateCategory}>Duplicar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
 

@@ -1,6 +1,6 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
-import {CategoryPostBody, CategoryPutBody} from "../interfaces/categoryInterface";
+import {CategoryPostBody, CategoryPutBody, TransferCategoryRequestBody} from "../interfaces/categoryInterface";
 import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 
@@ -24,6 +24,10 @@ export default class CategoryController implements Pageable {
 
     delete(id: string) {
         return api.delete('/categories/' + id, {headers: getAuthHeader()});
+    }
+
+    duplicateCategory(data:TransferCategoryRequestBody){
+        return api.post('/categories/copy', data,{headers: getAuthHeader()});
     }
 
     findByName(search:string, page:number, size?:number) {

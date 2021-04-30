@@ -9,12 +9,12 @@ interface Props {
 }
 
 export function SelectItemsButtons({children}: Props) {
-    const {hasAnyItemSelected, selectedItems, removeAllSelectedItems} = useContext(SelectedItemsContext);
+    const {hasAnyItemSelected, selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
     const {hideCheckBox} = useContext(VisibilityCardItemContext);
 
     function closeCard() {
         hideCheckBox();
-        removeAllSelectedItems();
+        clearSelectedItems();
     }
 
     return (

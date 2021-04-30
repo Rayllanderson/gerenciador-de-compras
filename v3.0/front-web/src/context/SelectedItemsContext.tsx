@@ -10,7 +10,7 @@ interface SelectedItemsContextContextData {
     addItemToArray: (value: SelectItem) => void,
     removeItemFromArray: (value: SelectItem) => void,
     handleCheckBoxChange: (e: any) => void,
-    removeAllSelectedItems: () => void,
+    clearSelectedItems: () => void,
     hasAnyItemSelected: () => boolean,
 }
 
@@ -53,7 +53,7 @@ export function CardItemActionProvider({children}: SelectedItemsContextProviderP
     return (
         <SelectedItemsContext.Provider value={{
             selectedItems, addItemToArray, removeItemFromArray, handleCheckBoxChange, hasAnyItemSelected,
-            removeAllSelectedItems
+            clearSelectedItems: removeAllSelectedItems
         }}>
             {children}
         </SelectedItemsContext.Provider>
