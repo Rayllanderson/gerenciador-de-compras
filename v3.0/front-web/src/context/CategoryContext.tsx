@@ -27,7 +27,7 @@ interface CategoryContextData {
     submit: () => void,
     remove: () => void,
     setToSave: () => void,
-    duplicateCategory: () => void,
+    duplicateCategories: () => void,
     setToEdit: (categoryToBeEdited: CategoryResponseBody) => void,
     setToRemove: (categoryToBeEdited: CategoryResponseBody) => void,
 }
@@ -38,7 +38,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const {addToast} = useContext(ToastContext);
     const {loadPage} = useContext(PaginationContext);
-    const {openAddModal, closeAddModal, openRemoveModal, closeRemoveModal} = useContext(ModalContext);
+    const {openAddModal, closeAddModal, openRemoveModal, closeRemoveModal, closeConfirmModal} = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
 
@@ -158,20 +158,22 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
 
 
-    const duplicateCategory = useCallback(() => {
+    const duplicateCategories = useCallback(() => {
         const api = new CategoryController();
          selectedItems.forEach(async (item: SelectItem) => {
             await api.duplicateCategory(toTransferCategoryRequestBody(item))
-                .then(() => addToast({
-                    type: 'success',
-                    title: 'Feito!',
-                    description: `Lista ${item.name} duplicada`
-                }))
-                .catch((err) => console.log(err.response.data.message));
+                .then(() => {
+                    addToast({
+                        type: 'success',
+                        title: 'Feito!',
+                        description: `Lista ${item.name} duplicada`
+                    })
+                    loadPage(api);
+                }).catch((err) => console.log(err.response.data.message));
         });
-        loadPage(api);
         clearSelectedItems();
-    }, [selectedItems, loadPage, clearSelectedItems, addToast])
+        closeConfirmModal();
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
 
     return (
         <CategoryContext.Provider value={{
@@ -185,7 +187,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             submit,
             action,
             remove, setToRemove,
-            duplicateCategory
+            duplicateCategories
         }}>
             {children}
         </CategoryContext.Provider>

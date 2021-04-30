@@ -11,10 +11,13 @@ import CategoryController from "../controllers/categoryController";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 import {CategoryContext} from "../context/CategoryContext";
+import {ConfirmModalContext} from "../context/ConfirmModalContext";
 
 export default function CategoryPage() {
-    const {setToSave, remove, selectedCategory, duplicateCategory} = useContext(CategoryContext);
+    const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
+    const {duplicateCategoryAction} = useContext(ConfirmModalContext);
     const controller = new CategoryController();
+
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
@@ -27,7 +30,7 @@ export default function CategoryPage() {
 
             <SelectItemsButtons>
                 <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}
-                                     onClick={duplicateCategory}>Duplicar</CyanSecondaryButton>
+                                     onClick={duplicateCategoryAction}>Duplicar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
 
