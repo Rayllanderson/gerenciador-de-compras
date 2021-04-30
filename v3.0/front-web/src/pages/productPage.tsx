@@ -23,7 +23,7 @@ export default function ProductPage(){
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
-    }, [params.id])
+    }, [params.id, setCurrentCategoryId])
 
     return (
         <div style={{minHeight: '100vh'}}>

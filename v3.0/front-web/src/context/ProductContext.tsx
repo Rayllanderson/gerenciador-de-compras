@@ -5,7 +5,7 @@ import {ModalContext} from "./ModalContext";
 import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import ProductController from "../controllers/productController";
-import {ProductPostBody} from "../interfaces/productInterface";
+import {ProductPostBody, ProductResponseBody} from "../interfaces/productInterface";
 import {validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 
@@ -26,6 +26,7 @@ interface ProductContextData {
     handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     setToSave: () => void,
+    setToEdit: (product: ProductResponseBody) => void,
     submit: () => void,
 
 }
@@ -52,6 +53,7 @@ export function ProductProvider({children}: ProductProviderProps) {
     const [spentPrice, setSpentPrice] = useState<string>('');
     const [isPurchased, setIsPurchased] = useState<boolean>(false);
     const [action, setAction] = useState<'save' | 'edit'>('save');
+    const [selectedProduct, setSelectedProduct] = useState<ProductResponseBody>({} as ProductResponseBody)
 
     /*Handle change functions*/
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +86,17 @@ export function ProductProvider({children}: ProductProviderProps) {
         openAddModal();
         setAction('save');
     }, [openAddModal, clearInputs, closeAlert])
+
+    const setToEdit = useCallback((productToBeEdited: ProductResponseBody) => {
+        closeAlert();
+        openAddModal();
+        setSelectedProduct(productToBeEdited);
+        setAction('edit');
+        setName(productToBeEdited.name);
+        setStipulatedPrice(productToBeEdited.stipulatedPrice);
+        setSpentPrice(productToBeEdited.spentPrice);
+        setIsPurchased(productToBeEdited.purchased);
+    }, [openAddModal, closeAlert])
 
     /* api */
     const save = useCallback(() => {
@@ -118,7 +131,7 @@ export function ProductProvider({children}: ProductProviderProps) {
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
             isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
-            submit
+            submit, setToEdit
         }}>
             {children}
         </ProductContext.Provider>

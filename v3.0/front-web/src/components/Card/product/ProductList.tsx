@@ -17,7 +17,7 @@ export default function ProductList({categoryId}: Props) {
 
     useEffect(() => {
         loadPage(new ProductController(categoryId));
-    }, [loadPage])
+    }, [loadPage, categoryId])
     return (
         <div className={"container"} style={{maxWidth: 750, margin: '0 auto'}}>
             <div style={{animation: 'appearFromBottom 1s'}}>
