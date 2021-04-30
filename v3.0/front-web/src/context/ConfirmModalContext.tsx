@@ -12,6 +12,7 @@ interface ConfirmModalContextContextData {
     confirmModalText: string,
 
     duplicateCategoryAction: () => void,
+    removeVariousCategoriesAction: () => void,
 }
 
 export const ConfirmModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -22,18 +23,24 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [confirmModalText, setConfirmModalText] = useState<string>('');
     const {openConfirmModal} = useContext(ModalContext)
 
-    const {duplicateCategories} = useContext(CategoryContext)
+    const {duplicateCategories, removeVarious} = useContext(CategoryContext)
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
-        setConfirmModalText('Você tem certeza que deseja duplicar as categorias selecionadas?')
+        setConfirmModalText('Você tem certeza que deseja duplicar as listas selecionadas?')
         setAction(() => duplicateCategories);
     }, [openConfirmModal, duplicateCategories]);
+
+    const removeVariousCategoriesAction = useCallback(() => {
+        openConfirmModal();
+        setConfirmModalText('Você tem certeza que deseja remover permanentemente as listas selecionadas?')
+        setAction(() => removeVarious);
+    }, [openConfirmModal, removeVarious]);
 
 
     return (
         <ConfirmModalContext.Provider value={{
-            confirmModalText, duplicateCategoryAction, action
+            confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction
         }}>
             {children}
         </ConfirmModalContext.Provider>

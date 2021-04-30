@@ -27,9 +27,10 @@ interface CategoryContextData {
     submit: () => void,
     remove: () => void,
     setToSave: () => void,
-    duplicateCategories: () => void,
     setToEdit: (categoryToBeEdited: CategoryResponseBody) => void,
     setToRemove: (categoryToBeEdited: CategoryResponseBody) => void,
+    duplicateCategories: () => void,
+    removeVarious: () => void,
 }
 
 export const CategoryContext = createContext<CategoryContextData>({} as CategoryContextData);
@@ -38,7 +39,13 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const {addToast} = useContext(ToastContext);
     const {loadPage} = useContext(PaginationContext);
-    const {openAddModal, closeAddModal, openRemoveModal, closeRemoveModal, closeConfirmModal} = useContext(ModalContext);
+    const {
+        openAddModal,
+        closeAddModal,
+        openRemoveModal,
+        closeRemoveModal,
+        closeConfirmModal
+    } = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
 
@@ -90,7 +97,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         openRemoveModal();
     }, [openRemoveModal])
 
-    const clearSelectedCategory = useCallback( () => setSelectedCategory({} as CategoryResponseBody), [])
+    const clearSelectedCategory = useCallback(() => setSelectedCategory({} as CategoryResponseBody), [])
 
     const save = useCallback(() => {
         const categoryToBeSaved = {
@@ -143,7 +150,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         if (action === 'edit') edit();
     }, [action, save, edit])
 
-    const remove = useCallback( async () => {
+    const remove = useCallback(async () => {
         const api = new CategoryController();
         await api.delete(selectedCategory.id).then(() => {
             addToast({
@@ -157,10 +164,9 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         })
     }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
 
-
     const duplicateCategories = useCallback(() => {
         const api = new CategoryController();
-         selectedItems.forEach(async (item: SelectItem) => {
+        selectedItems.forEach(async (item: SelectItem) => {
             await api.duplicateCategory(toTransferCategoryRequestBody(item))
                 .then(() => {
                     addToast({
@@ -171,6 +177,21 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                     loadPage(api);
                 }).catch((err) => console.log(err.response.data.message));
         });
+        clearSelectedItems();
+        closeConfirmModal();
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
+
+    const removeVarious = useCallback(async () => {
+        const api = new CategoryController();
+        await api.deleteVarious(selectedItems)
+            .then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Prontinho!',
+                    description: `As listas selecionadas foram excluídas.`
+                })
+                loadPage(api);
+            }).catch((err) => console.log(err.response.data.message));
         clearSelectedItems();
         closeConfirmModal();
     }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
@@ -187,7 +208,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             submit,
             action,
             remove, setToRemove,
-            duplicateCategories
+            duplicateCategories,
+            removeVarious
         }}>
             {children}
         </CategoryContext.Provider>

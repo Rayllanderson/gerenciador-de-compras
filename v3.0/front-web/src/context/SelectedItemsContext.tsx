@@ -6,7 +6,7 @@ interface SelectedItemsContextProviderProps {
 }
 
 interface SelectedItemsContextContextData {
-    selectedItems: any[],
+    selectedItems: SelectItem[],
     addItemToArray: (value: SelectItem) => void,
     removeItemFromArray: (value: SelectItem) => void,
     handleCheckBoxChange: (e: any) => void,

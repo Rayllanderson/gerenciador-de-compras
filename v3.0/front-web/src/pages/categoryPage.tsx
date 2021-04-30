@@ -15,13 +15,14 @@ import {ConfirmModalContext} from "../context/ConfirmModalContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
-    const {duplicateCategoryAction} = useContext(ConfirmModalContext);
+    const {duplicateCategoryAction, removeVariousCategoriesAction} = useContext(ConfirmModalContext);
     const controller = new CategoryController();
 
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
-            <Search placeholder={'Procurar uma lista...'} action={() => {}}/>
+            <Search placeholder={'Procurar uma lista...'} action={() => {
+            }}/>
             <ButtonGroup add={setToSave}/>
 
             <CategoryList/>
@@ -31,7 +32,9 @@ export default function CategoryPage() {
             <SelectItemsButtons>
                 <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}
                                      onClick={duplicateCategoryAction}>Duplicar</CyanSecondaryButton>
-                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
+                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}
+                           onClick={removeVariousCategoriesAction}
+                >Deletar </RedButton>
             </SelectItemsButtons>
 
             <CategoryModal/>

@@ -3,6 +3,7 @@ import {getAuthHeader} from "../services/auth";
 import {CategoryPostBody, CategoryPutBody, TransferCategoryRequestBody} from "../interfaces/categoryInterface";
 import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
+import {SelectItem} from "../interfaces/selectItemInterface";
 
 export default class CategoryController implements Pageable {
     findAll() {
@@ -28,6 +29,10 @@ export default class CategoryController implements Pageable {
 
     duplicateCategory(data:TransferCategoryRequestBody){
         return api.post('/categories/copy', data,{headers: getAuthHeader()});
+    }
+
+    deleteVarious(data:SelectItem[]){
+        return api.delete('/categories', {headers: getAuthHeader(), data: data});
     }
 
     findByName(search:string, page:number, size?:number) {
