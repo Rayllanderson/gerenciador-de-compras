@@ -1,16 +1,22 @@
 import {Container} from './styles';
 import {FiChevronsDown} from "react-icons/all";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import './style.css'
 import {Accordion, Card} from "react-bootstrap";
+import {StatisticContext} from "../../../contexts/StatisticContext";
 
 export function ProductHeader() {
 
-    const categoryName = 'Nome da Lista'
     const [visibility, setVisibility] = useState(false);
     const [infoClassName, setInfoClassName] = useState<'more-info' | 'more-info-collapsed'>('more-info-collapsed');
 
     const [iconDirection, setIconDirection] = useState<'down' | 'up'>('down');
+
+    const {fetchStatisticsFromCurrentCategory, statisticsFromCurrentCategory: statistics} = useContext(StatisticContext);
+
+    useEffect(() => {
+        fetchStatisticsFromCurrentCategory();
+    }, [fetchStatisticsFromCurrentCategory])
 
     const toggleVisibility = () => {
         if (visibility){
@@ -26,11 +32,11 @@ export function ProductHeader() {
     return (
         <Container className="card mt-5">
             <div className="card-body">
-                <h4 className="card-title mb-3">{categoryName} </h4>
+                <h4 className="card-title mb-3">{statistics.categoryName} </h4>
 
-                <p className="card-text">Orçamento: <span>R$  1546.50</span></p>
-                <p className="card-text">Valor Atual: <span>R$  1246.75</span></p>
-                <p className="card-text">Valor Estipulado: <span>R$  1946.40</span></p>
+                <p className="card-text">Orçamento: <span>R$ {statistics.categoryBudget}</span></p>
+                <p className="card-text">Valor Atual: <span>R$  {statistics.currentAmountTotal}</span></p>
+                <p className="card-text">Valor Estipulado: <span>R$  {statistics.totalStipulated}</span></p>
 
                 <div className={'card-info mb-3 ' + infoClassName} >
                     <Accordion defaultActiveKey="0">
@@ -40,10 +46,10 @@ export function ProductHeader() {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                    <p>10 produtos nessa lista</p>
-                                    <p>7 produtos comprados</p>
-                                    <p>3 produtos não comprados</p>
-                                    <p>1250 reais gasto no momento.</p>
+                                    <p>{statistics.numberOfProducts} produtos nessa lista</p>
+                                    <p>{statistics.numberOfProductsPurchased} produtos comprados</p>
+                                    <p>{statistics.numberOfProductsNotPurchased} produtos não comprados</p>
+                                    <p>{statistics.currentAmountSpent} reais gasto no momento.</p>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
@@ -54,7 +60,7 @@ export function ProductHeader() {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
-                                    <p>Você economizou 40 reais</p>
+                                    <p>Você economizou {statistics.amountSaved} reais</p>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
@@ -65,8 +71,8 @@ export function ProductHeader() {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body>
-                                    <p>Você ainda tem 150 reais para gastar</p>
-                                    <p>Caso compre todos os produtos, ficará com 50 reais</p>
+                                    <p>Você ainda tem {statistics.availableToSpend} reais para gastar</p>
+                                    <p>Caso compre todos os produtos, ficará com {statistics.availableToSpendIfBuyAll} reais</p>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>

@@ -6,7 +6,7 @@ export interface StatisticData {
     totalStipulated: string;
     categoryName: string;
     categoryBudget: string;
-    currentAmountToSpent: string;
+    currentAmountSpent: string;
     currentAmountTotal: string;
     currentAmountStipulated: string;
     amountSaved: string;
