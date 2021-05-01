@@ -2,9 +2,8 @@ import {Form, Modal,} from "react-bootstrap";
 import {Content} from "../styles";
 import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import MyAlert from "../../Alert";
-import {InputCheckbox, InputNumber, InputText} from "../../Inputs";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {CategoryContext} from "../../../contexts/CategoryContext";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
@@ -13,10 +12,15 @@ import {SelectItem} from "../../../interfaces/selectItemInterface";
 
 export function TransferModal() {
     const {showTransferModal, closeTransferModal} = useContext(ModalContext);
-    const {categories} = useContext(CategoryContext);
+    const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
     const {selectedItems} = useContext(SelectedItemsContext);
+
+    useEffect(() => {
+        loadCategoriesNonPageable();
+    }, [loadCategoriesNonPageable])
+
     return (
-        <Modal centered animated={'true'} show={true} className={"rounded-0"} onHide={closeTransferModal}>
+        <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">Mover / copiar produtos</Modal.Title>
