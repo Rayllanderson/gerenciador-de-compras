@@ -4,6 +4,7 @@ import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 import {ProductPostBody, ProductPutBody} from "../interfaces/productInterface";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
+import {SelectItem} from "../interfaces/selectItemInterface";
 
 export default class ProductController implements Pageable {
     BASE_URL: string;
@@ -30,6 +31,10 @@ export default class ProductController implements Pageable {
 
     delete(id: string) {
         return api.delete(this.BASE_URL + '/' + id, {headers: getAuthHeader()});
+    }
+
+    deleteVarious(data:SelectItem[]){
+        return api.delete(this.BASE_URL, {headers: getAuthHeader(), data: data});
     }
 
     copyProductsToAnotherCategory(data: TransferProduct){

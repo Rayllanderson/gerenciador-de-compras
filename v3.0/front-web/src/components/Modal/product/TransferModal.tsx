@@ -3,7 +3,7 @@ import {Content} from "../styles";
 import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import MyAlert from "../../Alert";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
-import {useContext, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {CategoryContext} from "../../../contexts/CategoryContext";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
@@ -19,12 +19,16 @@ export function TransferModal() {
     const {selectedItems} = useContext(SelectedItemsContext);
     const {action, transferModalTitle} = useContext(ActionModalContext);
 
-    useEffect(() => {
-        loadCategoriesNonPageable();
+    const setDefaultNewCategoryId = useCallback(() => {
         if (!!categories[0]){
             setNewCategoryId(categories[0].id);
         }
-    }, [loadCategoriesNonPageable, setNewCategoryId])
+    }, [setNewCategoryId])
+
+    useEffect(() => {
+        loadCategoriesNonPageable();
+        setDefaultNewCategoryId();
+    }, [loadCategoriesNonPageable, setDefaultNewCategoryId])
 
     return (
         <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>

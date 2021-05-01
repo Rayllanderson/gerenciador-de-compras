@@ -15,6 +15,7 @@ interface ConfirmModalContextContextData {
 
     duplicateCategoryAction: () => void,
     removeVariousCategoriesAction: () => void,
+    removeVariousProductsAction: () => void,
     copyProductsAction: () => void
     moveProductsAction: () => void
 }
@@ -28,8 +29,8 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [transferModalTitle, setTransferModalTitle] = useState<'Copiar' | 'Mover'>('Copiar');
 
     const {openConfirmModal, openTransferModal} = useContext(ModalContext);
-    const {duplicateCategories, removeVarious} = useContext(CategoryContext)
-    const {copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
+    const {duplicateCategories, removeVarious} = useContext(CategoryContext);
+    const {copyProductsToAnotherCategory, moveProductsToAnotherCategory, removeVarious: removeVariousProducts} = useContext(ProductContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -42,6 +43,12 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         setConfirmModalText('Você tem certeza que deseja remover permanentemente as listas selecionadas?')
         setAction(() => removeVarious);
     }, [openConfirmModal, removeVarious]);
+
+    const removeVariousProductsAction = useCallback(() => {
+        openConfirmModal();
+        setConfirmModalText('Você tem certeza que deseja remover permanentemente os produtos selecionadas?')
+        setAction(() => removeVariousProducts);
+    }, [openConfirmModal, removeVariousProducts]);
 
     const copyProductsAction = useCallback(() => {
         openTransferModal();
@@ -58,7 +65,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
-            copyProductsAction, transferModalTitle, moveProductsAction
+            copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction
         }}>
             {children}
         </ActionModalContext.Provider>

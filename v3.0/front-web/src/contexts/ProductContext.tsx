@@ -36,6 +36,7 @@ interface ProductContextData {
     selectedProduct: ProductResponseBody,
     copyProductsToAnotherCategory: () => void,
     moveProductsToAnotherCategory: () => void,
+    removeVarious: () => void,
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);
@@ -230,12 +231,27 @@ export function ProductProvider({children}: ProductProviderProps) {
             })
     }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, loadPage])
 
+    const removeVarious = useCallback(async () => {
+        const api = new ProductController(currentCategoryId);
+        await api.deleteVarious(selectedItems)
+            .then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Prontinho!',
+                    description: `Os produtos selecionados foram excluídos.`
+                })
+                loadPage(api);
+            }).catch((err) => console.log(err.response.data.message));
+        clearSelectedItems();
+        closeConfirmModal();
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
+
     return (
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
             isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
             submit, setToEdit, remove, setToRemove, selectedProduct, copyProductsToAnotherCategory, handleNewCategoryIdChange,
-            moveProductsToAnotherCategory, setNewCategoryId
+            moveProductsToAnotherCategory, setNewCategoryId, removeVarious
         }}>
             {children}
         </ProductContext.Provider>

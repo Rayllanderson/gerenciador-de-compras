@@ -22,7 +22,7 @@ interface RouteParams {
 export default function ProductPage(){
     const params = useParams<RouteParams>();
     const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext);
-    const {copyProductsAction, moveProductsAction} = useContext(ActionModalContext);
+    const {copyProductsAction, moveProductsAction, removeVariousProductsAction} = useContext(ActionModalContext);
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
@@ -41,7 +41,8 @@ export default function ProductPage(){
                 onClick={moveProductsAction}>  Mover  </YellowButton>
                 <CyanSecondaryButton className={'btn '} title={'Copiar produtos selecionados para outra categoria'}
                 onClick={copyProductsAction}>Copiar</CyanSecondaryButton>
-                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
+                <RedButton className={'btn ms-4'} title={'Deletar selecionados'}
+                onClick={removeVariousProductsAction}>Deletar </RedButton>
             </SelectItemsButtons>
 
             <ProductModal/>

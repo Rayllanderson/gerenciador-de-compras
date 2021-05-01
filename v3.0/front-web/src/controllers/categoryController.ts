@@ -50,6 +50,4 @@ export default class CategoryController implements Pageable {
     getAllPageable(page: number, size:number = 20): Promise<AxiosResponse> {
         return api.get(`/categories?size=${size}&page=${page}`, {headers: getAuthHeader()});
     };
-
-    //TODO: delete vários e mover categoria
 }
