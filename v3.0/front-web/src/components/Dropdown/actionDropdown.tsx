@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {FiMoreVertical} from "react-icons/all";
 import {Dropdown} from "react-bootstrap";
 import {ActionDropdownContent} from './styles'
-import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
+import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 
 export function ActionDropdown() {
 

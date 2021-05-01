@@ -3,8 +3,8 @@ import {Content} from "./styles";
 import {CloseButton} from "../Buttons/CloseButton/closeButton";
 import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 import {useContext} from "react";
-import {ConfirmModalContext} from "../../context/ConfirmModalContext";
-import {ModalContext} from "../../context/ModalContext";
+import {ConfirmModalContext} from "../../contexts/ConfirmModalContext";
+import {ModalContext} from "../../contexts/ModalContext";
 
 
 export function ConfirmModal() {

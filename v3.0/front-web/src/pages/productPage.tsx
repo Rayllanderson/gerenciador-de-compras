@@ -11,7 +11,8 @@ import {DeleteModal} from "../components/Modal/DeleteModal";
 import {MyPagination} from "../components/Paginations/Pagination";
 import ProductController from "../controllers/productController";
 import {useParams} from "react-router-dom";
-import {ProductContext} from "../context/ProductContext";
+import {ProductContext} from "../contexts/ProductContext";
+import {TransferModal} from "../components/Modal/product/TransferModal";
 
 interface RouteParams {
     id: string
@@ -42,6 +43,8 @@ export default function ProductPage(){
             <ProductModal/>
             <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
                          action={remove}/>
+
+            <TransferModal/>
         </div>
     )
 }

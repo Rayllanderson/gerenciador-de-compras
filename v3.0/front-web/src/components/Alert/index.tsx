@@ -1,6 +1,6 @@
 import {Alert} from 'react-bootstrap'
 import {useContext} from "react";
-import {AlertContext} from "../../context/AlertContext";
+import {AlertContext} from "../../contexts/AlertContext";
 
 
 export default function MyAlert() {

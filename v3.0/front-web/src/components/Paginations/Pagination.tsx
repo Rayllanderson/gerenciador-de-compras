@@ -1,7 +1,7 @@
 import {Pagination} from "react-bootstrap";
 import {Pageable as PaginationInterface} from '../../interfaces/page';
 import {useContext} from "react";
-import {PaginationContext} from "../../context/PaginationContext";
+import {PaginationContext} from "../../contexts/PaginationContext";
 import {Container} from "./styles";
 
 interface Props {

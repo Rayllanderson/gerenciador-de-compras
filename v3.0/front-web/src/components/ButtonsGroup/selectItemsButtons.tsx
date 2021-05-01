@@ -1,7 +1,7 @@
 import {SelectButtonsContainer} from './styles'
 import {ReactNode, useContext} from "react";
-import {SelectedItemsContext} from "../../context/SelectedItemsContext";
-import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
+import {SelectedItemsContext} from "../../contexts/SelectedItemsContext";
+import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 import {CloseButton} from "../Buttons/CloseButton/closeButton";
 
 interface Props {

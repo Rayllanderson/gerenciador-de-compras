@@ -3,7 +3,7 @@ import {Content} from "./styles";
 import {CloseButton} from "../Buttons/CloseButton/closeButton";
 import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 import {useContext} from "react";
-import {ModalContext} from "../../context/ModalContext";
+import {ModalContext} from "../../contexts/ModalContext";
 
 interface Props {
     text: string,

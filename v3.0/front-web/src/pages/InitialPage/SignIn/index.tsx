@@ -3,7 +3,7 @@ import {InputWithIcon} from "../../../components/Inputs";
 import {FiLock, FiUser} from "react-icons/all";
 import {Button} from "../../../components/Buttons/InitialPage";
 import {useContext} from "react";
-import {LoginContext} from "../../../context/LoginContext";
+import {LoginContext} from "../../../contexts/LoginContext";
 
 export default function LoginPage() {
     const {login, handleUsernameChange, handlePasswordChange, username, password} = useContext(LoginContext);

@@ -2,7 +2,7 @@ import {PrimaryButton} from "../Buttons/styles";
 import {FiSearch} from "react-icons/all";
 import {Container} from "./styles";
 import {useContext} from "react";
-import {PaginationContext} from "../../context/PaginationContext";
+import {PaginationContext} from "../../contexts/PaginationContext";
 
 interface Props{
     placeholder?: string;

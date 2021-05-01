@@ -1,8 +1,8 @@
 import {CategoryCard} from "./CategoryCard";
 import {useContext, useEffect} from "react";
-import {PaginationContext} from "../../../context/PaginationContext";
+import {PaginationContext} from "../../../contexts/PaginationContext";
 import CategoryController from "../../../controllers/categoryController";
-import { CategoryResponseBody } from "../../../interfaces/categoryInterface";
+import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
 
 
 export default function CategoryList() {

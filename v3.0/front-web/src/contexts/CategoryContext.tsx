@@ -17,11 +17,12 @@ interface CategoryProviderProps {
 
 interface CategoryContextData {
     categories: CategoryResponseBody[],
+    setCategories: (categories: CategoryResponseBody[]) => void
     name: string,
     budget: string,
     action: string,
     selectedCategory: CategoryResponseBody,
-    getCategoriesPageable: () => void,
+    loadCategoriesNonPageable: () => void,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleBudgetChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     submit: () => void,
@@ -55,10 +56,10 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     const [budget, setBudget] = useState<string>('');
     const [action, setAction] = useState<'save' | 'edit'>('save');
 
-    const getCategoriesPageable = useCallback(async () => {
-        await new CategoryController().findAll()
+    const loadCategoriesNonPageable = useCallback(async () => {
+        await new CategoryController().findAllNonPageable()
             .then((response) => {
-                setCategories(response.data.content);
+                setCategories(response.data);
             }).catch(err => console.log(err))
     }, [])
 
@@ -199,7 +200,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     return (
         <CategoryContext.Provider value={{
             categories, name, budget,
-            getCategoriesPageable,
+            loadCategoriesNonPageable,
             handleBudgetChange,
             handleNameChange,
             setToSave,
@@ -209,7 +210,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             action,
             remove, setToRemove,
             duplicateCategories,
-            removeVarious
+            removeVarious,
+            setCategories
         }}>
             {children}
         </CategoryContext.Provider>

@@ -4,10 +4,10 @@ import {CategoryCardContainer} from '../styles'
 import {CardAddon} from "../CardAddon";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
 import {useContext} from "react";
-import {VisibilityCardItemContext} from "../../../context/CardItemVisibilityContext";
+import {VisibilityCardItemContext} from "../../../contexts/CardItemVisibilityContext";
 import {DeleteButton, EditButton} from '../../Buttons'
-import {CategoryContext} from "../../../context/CategoryContext";
-import {GeneralContext} from "../../../context/GeneralContex";
+import {CategoryContext} from "../../../contexts/CategoryContext";
+import {GeneralContext} from "../../../contexts/GeneralContex";
 
 interface Props {
     category: CategoryResponseBody;

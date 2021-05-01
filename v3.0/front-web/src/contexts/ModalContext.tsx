@@ -9,12 +9,15 @@ interface ModalContextContextData {
     showAddModal: boolean,
     showRemoveModal: boolean,
     showConfirmModal: boolean,
+    showTransferModal: boolean,
     openAddModal: () => void,
     closeAddModal: () => void,
     openRemoveModal: () => void,
     closeRemoveModal: () => void,
     openConfirmModal: () => void,
     closeConfirmModal: () => void,
+    openTransferModal: () => void,
+    closeTransferModal: () => void,
 }
 
 export const ModalContext = createContext<ModalContextContextData>({} as ModalContextContextData);
@@ -24,6 +27,7 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
     const [showRemoveModal, setShowRemoveModal] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [showTransferModal, setShowTransferModal] = useState<boolean>(false);
 
     function openAddModal() {
         setShowAddModal(true);
@@ -49,11 +53,20 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
         setShowConfirmModal(false);
     }
 
+    function openTransferModal() {
+        setShowTransferModal(true);
+    }
+
+    function closeTransferModal() {
+        setShowTransferModal(false);
+    }
+
     return (
         <ModalContext.Provider value={{
             closeAddModal, closeRemoveModal, openAddModal,
             openRemoveModal, showRemoveModal, showAddModal,
-            closeConfirmModal, openConfirmModal, showConfirmModal
+            closeConfirmModal, openConfirmModal, showConfirmModal,
+            closeTransferModal, openTransferModal, showTransferModal
         }}>
             {children}
         </ModalContext.Provider>

@@ -2,7 +2,7 @@ import {CardItem} from "./CardItem";
 import {CardHeader} from "./CardHeader";
 import {ProductCard} from "../styles";
 import {useContext, useEffect} from "react";
-import {PaginationContext} from "../../../context/PaginationContext";
+import {PaginationContext} from "../../../contexts/PaginationContext";
 import ProductController from "../../../controllers/productController";
 import {ProductResponseBody} from "../../../interfaces/productInterface";
 

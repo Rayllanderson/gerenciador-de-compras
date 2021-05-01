@@ -5,8 +5,8 @@ import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import {InputNumber, InputText} from "../../Inputs";
 import '../styles.css'
 import {useContext} from "react";
-import {ModalContext} from "../../../context/ModalContext";
-import {CategoryContext} from "../../../context/CategoryContext";
+import {ModalContext} from "../../../contexts/ModalContext";
+import {CategoryContext} from "../../../contexts/CategoryContext";
 import MyAlert from "../../Alert";
 
 

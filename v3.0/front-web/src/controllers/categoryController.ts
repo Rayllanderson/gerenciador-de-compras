@@ -10,6 +10,10 @@ export default class CategoryController implements Pageable {
         return api.get('/categories', {headers: getAuthHeader()});
     }
 
+    findAllNonPageable() {
+        return api.get('/categories/non-pageable', {headers: getAuthHeader()});
+    }
+
     post(data: CategoryPostBody) {
         return api.post('/categories', data, {headers: getAuthHeader()});
     }

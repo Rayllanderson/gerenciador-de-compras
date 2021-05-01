@@ -3,7 +3,7 @@ import {Container} from "../styles";
 import {InputWithIcon} from "../../../components/Inputs";
 import {Button} from "../../../components/Buttons/InitialPage";
 import {useContext} from "react";
-import {RegisterContext} from "../../../context/RegisterContext";
+import {RegisterContext} from "../../../contexts/RegisterContext";
 
 
 export function RegisterPage() {

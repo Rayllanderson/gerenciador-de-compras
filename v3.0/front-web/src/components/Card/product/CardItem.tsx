@@ -4,8 +4,8 @@ import {FiCheck, FiX} from "react-icons/all";
 import {ProductResponseBody} from "../../../interfaces/productInterface";
 import {DeleteButton, EditButton} from "../../Buttons";
 import {useContext} from "react";
-import {VisibilityCardItemContext} from "../../../context/CardItemVisibilityContext";
-import {ProductContext} from "../../../context/ProductContext";
+import {VisibilityCardItemContext} from "../../../contexts/CardItemVisibilityContext";
+import {ProductContext} from "../../../contexts/ProductContext";
 
 interface Props {
     product: ProductResponseBody

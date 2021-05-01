@@ -1,6 +1,6 @@
 import {FiAlertCircle, FiCheckCircle, FiInfo, FiXCircle} from "react-icons/fi";
 import {useContext, useEffect} from 'react';
-import {ToastContext, ToastMessage} from "../../context/ToastContext";
+import {ToastContext, ToastMessage} from "../../contexts/ToastContext";
 import {ThemeContext} from "styled-components";
 
 interface Props {

@@ -1,6 +1,6 @@
 import {ReactNode, useCallback, useContext, useEffect, useState} from "react";
-import {VisibilityCardItemContext} from "../../context/CardItemVisibilityContext";
-import {SelectedItemsContext} from "../../context/SelectedItemsContext";
+import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
+import {SelectedItemsContext} from "../../contexts/SelectedItemsContext";
 import {AddonsContainer} from "./styles";
 import {CheckboxContainer} from '../Inputs/styles'
 import {InputCheckbox} from "../Inputs";

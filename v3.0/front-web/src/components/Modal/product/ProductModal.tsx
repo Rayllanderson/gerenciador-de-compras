@@ -5,8 +5,8 @@ import {InputCheckbox, InputNumber, InputText} from "../../Inputs";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
 import '../styles.css'
 import {useContext} from "react";
-import {ModalContext} from "../../../context/ModalContext";
-import {ProductContext} from "../../../context/ProductContext";
+import {ModalContext} from "../../../contexts/ModalContext";
+import {ProductContext} from "../../../contexts/ProductContext";
 import MyAlert from "../../Alert";
 
 export function ProductModal() {

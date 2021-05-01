@@ -10,8 +10,8 @@ import {MyPagination} from "../components/Paginations/Pagination";
 import CategoryController from "../controllers/categoryController";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
-import {CategoryContext} from "../context/CategoryContext";
-import {ConfirmModalContext} from "../context/ConfirmModalContext";
+import {CategoryContext} from "../contexts/CategoryContext";
+import {ConfirmModalContext} from "../contexts/ConfirmModalContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
