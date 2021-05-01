@@ -13,6 +13,7 @@ import ProductController from "../controllers/productController";
 import {useParams} from "react-router-dom";
 import {ProductContext} from "../contexts/ProductContext";
 import {TransferModal} from "../components/Modal/product/TransferModal";
+import {ActionModalContext} from "../contexts/ActionModalContext";
 
 interface RouteParams {
     id: string
@@ -20,7 +21,8 @@ interface RouteParams {
 
 export default function ProductPage(){
     const params = useParams<RouteParams>();
-    const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext)
+    const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext);
+    const {copyProductsAction} = useContext(ActionModalContext);
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
@@ -36,7 +38,8 @@ export default function ProductPage(){
             <MyPagination controller={new ProductController(params.id)}/>
             <SelectItemsButtons>
                 <YellowButton className={'btn me-4'} title={'Duplicar selecionados '}>  Mover  </YellowButton>
-                <CyanSecondaryButton className={'btn '} title={'Duplicar selecionados'}>Copiar</CyanSecondaryButton>
+                <CyanSecondaryButton className={'btn '} title={'Copiar produtos selecionados para outra categoria'}
+                onClick={copyProductsAction}>Copiar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
             </SelectItemsButtons>
 

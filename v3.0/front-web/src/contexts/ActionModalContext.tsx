@@ -2,6 +2,7 @@
 import {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {CategoryContext} from "./CategoryContext";
 import {ModalContext} from "./ModalContext";
+import {ProductContext} from "./ProductContext";
 
 interface ConfirmModalContextProviderProps {
     children: ReactNode;
@@ -10,20 +11,24 @@ interface ConfirmModalContextProviderProps {
 interface ConfirmModalContextContextData {
     action: () => void,
     confirmModalText: string,
+    transferModalTitle: 'Copiar' | 'Mover',
 
     duplicateCategoryAction: () => void,
     removeVariousCategoriesAction: () => void,
+    copyProductsAction: () => void
 }
 
-export const ConfirmModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
+export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
 
 export function ConfirmModalProvider({ children }: ConfirmModalContextProviderProps) {
 
     const [action, setAction] = useState<() => void>(() => {});
     const [confirmModalText, setConfirmModalText] = useState<string>('');
-    const {openConfirmModal} = useContext(ModalContext)
+    const [transferModalTitle, setTransferModalTitle] = useState<'Copiar' | 'Mover'>('Copiar');
 
+    const {openConfirmModal, openTransferModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext)
+    const {copyProductsToAnotherCategory} = useContext(ProductContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -37,13 +42,19 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         setAction(() => removeVarious);
     }, [openConfirmModal, removeVarious]);
 
+    const copyProductsAction = useCallback(() => {
+        openTransferModal();
+        setAction(() => copyProductsToAnotherCategory);
+        setTransferModalTitle('Copiar');
+    } ,[openTransferModal, copyProductsToAnotherCategory])
 
     return (
-        <ConfirmModalContext.Provider value={{
-            confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction
+        <ActionModalContext.Provider value={{
+            confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
+            copyProductsAction, transferModalTitle
         }}>
             {children}
-        </ConfirmModalContext.Provider>
+        </ActionModalContext.Provider>
     )
 }
 

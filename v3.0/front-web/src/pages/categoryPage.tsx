@@ -11,11 +11,11 @@ import CategoryController from "../controllers/categoryController";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 import {CategoryContext} from "../contexts/CategoryContext";
-import {ConfirmModalContext} from "../contexts/ConfirmModalContext";
+import {ActionModalContext} from "../contexts/ActionModalContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
-    const {duplicateCategoryAction, removeVariousCategoriesAction} = useContext(ConfirmModalContext);
+    const {duplicateCategoryAction, removeVariousCategoriesAction} = useContext(ActionModalContext);
     const controller = new CategoryController();
 
     return (

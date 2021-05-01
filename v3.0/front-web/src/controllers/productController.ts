@@ -3,6 +3,7 @@ import {getAuthHeader} from "../services/auth";
 import {Pageable} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 import {ProductPostBody, ProductPutBody} from "../interfaces/productInterface";
+import {TransferProduct} from "../interfaces/trasnferProductInterface";
 
 export default class ProductController implements Pageable {
     BASE_URL: string;
@@ -29,6 +30,10 @@ export default class ProductController implements Pageable {
 
     delete(id: string) {
         return api.delete(this.BASE_URL + '/' + id, {headers: getAuthHeader()});
+    }
+
+    copyProductsToAnotherCategory(data: TransferProduct){
+        return api.post(`${this.BASE_URL}/copy`, data, {headers: getAuthHeader()});
     }
 
     findByName(search:string, page:number, size?:number) {

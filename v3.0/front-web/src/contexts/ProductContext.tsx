@@ -8,6 +8,7 @@ import ProductController from "../controllers/productController";
 import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interfaces/productInterface";
 import {validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
+import {TransferProduct} from "../interfaces/trasnferProductInterface";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -25,12 +26,14 @@ interface ProductContextData {
     handleStipulatedPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleNewCategoryIdChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     setToSave: () => void,
     setToEdit: (product: ProductResponseBody) => void,
     setToRemove: (product: ProductResponseBody) => void,
     submit: () => void,
     remove: () => void,
-    selectedProduct: ProductResponseBody
+    selectedProduct: ProductResponseBody,
+    copyProductsToAnotherCategory: () => void,
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);
@@ -44,7 +47,8 @@ export function ProductProvider({children}: ProductProviderProps) {
         closeAddModal,
         openRemoveModal,
         closeRemoveModal,
-        closeConfirmModal
+        closeConfirmModal,
+        closeTransferModal
     } = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
@@ -55,7 +59,8 @@ export function ProductProvider({children}: ProductProviderProps) {
     const [spentPrice, setSpentPrice] = useState<string>('0');
     const [isPurchased, setIsPurchased] = useState<boolean>(false);
     const [action, setAction] = useState<'save' | 'edit'>('save');
-    const [selectedProduct, setSelectedProduct] = useState<ProductResponseBody>({} as ProductResponseBody)
+    const [selectedProduct, setSelectedProduct] = useState<ProductResponseBody>({} as ProductResponseBody);
+    const [newCategoryId, setNewCategoryId] = useState<string>('');
 
     /*Handle change functions*/
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +73,10 @@ export function ProductProvider({children}: ProductProviderProps) {
 
     const handleSpentPriceChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSpentPrice(e.target.value);
+    }, [])
+
+    const handleNewCategoryIdChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewCategoryId(e.target.value);
     }, [])
 
     const handleIsPurchasedChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,13 +186,31 @@ export function ProductProvider({children}: ProductProviderProps) {
             loadPage(api);
             clearSelectedProduct();
         })
-    }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name])
+    }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
+
+    const copyProductsToAnotherCategory = useCallback(async () => {
+        const data: TransferProduct = {
+            selectItems: selectedItems,
+            currentCategoryId: currentCategoryId,
+            newCategoryId: newCategoryId
+        }
+        await new ProductController(currentCategoryId).copyProductsToAnotherCategory(data)
+            .then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Copiados!',
+                    description: 'Os produtos foram copiados para categoria selecionada.'
+                })
+                closeTransferModal();
+                clearSelectedItems();
+            })
+    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId])
 
     return (
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
             isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
-            submit, setToEdit, remove, setToRemove, selectedProduct
+            submit, setToEdit, remove, setToRemove, selectedProduct, copyProductsToAnotherCategory, handleNewCategoryIdChange
         }}>
             {children}
         </ProductContext.Provider>

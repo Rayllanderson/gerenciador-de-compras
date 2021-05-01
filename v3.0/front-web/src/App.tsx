@@ -16,7 +16,7 @@ import {ProductProvider} from "./contexts/ProductContext";
 import {ModalProvider} from "./contexts/ModalContext";
 import {AlertProvider} from "./contexts/AlertContext";
 import {GeneralProvider} from "./contexts/GeneralContex";
-import {ConfirmModalProvider} from "./contexts/ConfirmModalContext";
+import {ConfirmModalProvider} from "./contexts/ActionModalContext";
 import {ConfirmModal} from "./components/Modal/ConfirmModal";
 
 function App() {
