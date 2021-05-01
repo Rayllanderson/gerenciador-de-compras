@@ -43,12 +43,14 @@ public class StatisticService {
         BigDecimal availableToSpend = StatisticUtil.getAvailableToSpend(category, currentAmountToSpent);
         BigDecimal availableToSpendIfBuyAll = StatisticUtil.getAvailableToSpendIfBuyAll(availableToSpend, currentAmountStipulated);
         BigDecimal categoryBudget = StatisticUtil.getCategoryBudget(category);
+        String categoryName = category.getName();
         boolean isCompleted = StatisticUtil.isCompleted(allProductsFromCategory);
 
         //setando os valores
         return StatisticResponseBody.builder()
                 .availableToSpend(availableToSpend)
                 .completed(isCompleted)
+                .categoryName(categoryName)
                 .categoryBudget(categoryBudget)
                 .currentAmountTotal(currentAmountTotal)
                 .currentAmountToSpent(currentAmountToSpent)
