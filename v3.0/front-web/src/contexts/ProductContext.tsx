@@ -244,7 +244,7 @@ export function ProductProvider({children}: ProductProviderProps) {
             }).catch((err) => console.log(err.response.data.message));
         clearSelectedItems();
         closeConfirmModal();
-    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId])
 
     return (
         <ProductContext.Provider value={{

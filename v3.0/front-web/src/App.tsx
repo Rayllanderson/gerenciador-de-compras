@@ -18,6 +18,7 @@ import {AlertProvider} from "./contexts/AlertContext";
 import {GeneralProvider} from "./contexts/GeneralContex";
 import {ConfirmModalProvider} from "./contexts/ActionModalContext";
 import {ConfirmModal} from "./components/Modal/ConfirmModal";
+import {StatisticProvider} from "./contexts/StatisticContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -38,11 +39,13 @@ function App() {
                                                         <GeneralProvider>
                                                             <CategoryProvider>
                                                                 <ProductProvider>
-                                                                    <ConfirmModalProvider>
-                                                                        <GlobalStyle/>
-                                                                        <Routes/>
-                                                                        <ConfirmModal/>
-                                                                    </ConfirmModalProvider>
+                                                                    <StatisticProvider>
+                                                                        <ConfirmModalProvider>
+                                                                            <GlobalStyle/>
+                                                                            <Routes/>
+                                                                            <ConfirmModal/>
+                                                                        </ConfirmModalProvider>
+                                                                    </StatisticProvider>
                                                                 </ProductProvider>
                                                             </CategoryProvider>
                                                         </GeneralProvider>
