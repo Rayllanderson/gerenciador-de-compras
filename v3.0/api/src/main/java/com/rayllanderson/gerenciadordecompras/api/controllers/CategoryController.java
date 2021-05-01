@@ -35,7 +35,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findAll(userId, pageable));
     }
 
-    @GetMapping
+    @GetMapping("/non-pageable")
     public ResponseEntity<List<Category>> findAllNonPageable(@AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
         return ResponseEntity.ok(categoryService.findAllNonPageable(userId));
