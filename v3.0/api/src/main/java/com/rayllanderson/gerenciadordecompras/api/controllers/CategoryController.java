@@ -30,9 +30,15 @@ public class CategoryController {
     private final UserUtil myUserUtil;
 
     @GetMapping
-    public ResponseEntity<Page<Category>> findAll(Pageable pageable, @AuthenticationPrincipal UserDetails user){
+    public ResponseEntity<Page<Category>> findAllPageable(Pageable pageable, @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
         return ResponseEntity.ok(categoryService.findAll(userId, pageable));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Category>> findAllNonPageable(@AuthenticationPrincipal UserDetails user){
+        Long userId = myUserUtil.getUserId(user);
+        return ResponseEntity.ok(categoryService.findAllNonPageable(userId));
     }
 
     @PostMapping
@@ -83,5 +89,4 @@ public class CategoryController {
         categoryService.duplicateCategory(data, userId);
         return ResponseEntity.noContent().build();
     }
-
 }

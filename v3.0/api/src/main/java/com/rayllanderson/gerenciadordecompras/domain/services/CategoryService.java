@@ -94,6 +94,7 @@ public class CategoryService {
                 .currentCategoryId(originalCategoryId)
                 .selectItems(getSelectItemsFromCategory(originalCategory, userId))
                 .newCategoryId(duplicatedCategory.getId())
+                .userId(userId)
                 .build();
         productService.copyProductsToAnotherCategory(transferProductRequest);
     }
