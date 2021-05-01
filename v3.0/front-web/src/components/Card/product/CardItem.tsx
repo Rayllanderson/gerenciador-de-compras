@@ -13,14 +13,14 @@ interface Props {
 
 export function CardItem({product}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
-    const {setToEdit} = useContext(ProductContext);
+    const {setToEdit, setToRemove} = useContext(ProductContext);
     return (
         <ProductCardBody>
 
             <div className={'addons'}>
                 <CardAddon id={product.id} name={product.name}>
                     {editButtonIsVisible && <EditButton onClick={() => setToEdit(product)}/>}
-                    {deleteButtonIsVisible && <DeleteButton/>}
+                    {deleteButtonIsVisible && <DeleteButton onClick={() => setToRemove(product)}/>}
                 </CardAddon>
             </div>
 

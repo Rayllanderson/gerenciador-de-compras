@@ -51,10 +51,10 @@ export const SecondaryButton = styled(Button)`
 
 
 export const RedButton = styled(Button)`
-     background: #ff9580;
+     background: #f55;
       color: ${props => props.theme.colors.background}!important;
      &:hover{
-         background: ${darken(0.1, '#ff9580')}!important;
+         background: ${darken(0.1, '#f55')}!important;
           color: ${props => props.theme.colors.background}!important;
      }
      

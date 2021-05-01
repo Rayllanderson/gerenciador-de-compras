@@ -8,7 +8,6 @@ import ProductController from "../controllers/productController";
 import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interfaces/productInterface";
 import {validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
-import {CategoryResponseBody} from "../interfaces/categoryInterface";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -28,8 +27,10 @@ interface ProductContextData {
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     setToSave: () => void,
     setToEdit: (product: ProductResponseBody) => void,
+    setToRemove: (product: ProductResponseBody) => void,
     submit: () => void,
-
+    remove: () => void,
+    selectedProduct: ProductResponseBody
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);
@@ -104,6 +105,11 @@ export function ProductProvider({children}: ProductProviderProps) {
         setIsPurchased(productToBeEdited.purchased);
     }, [openAddModal, closeAlert])
 
+    const setToRemove = useCallback((productToBeRemoved: ProductResponseBody) => {
+        setSelectedProduct(productToBeRemoved);
+        openRemoveModal();
+    }, [openRemoveModal])
+
     /* api */
     const save = useCallback(() => {
         const productToBeSaved: ProductPostBody = {
@@ -158,11 +164,26 @@ export function ProductProvider({children}: ProductProviderProps) {
         if (action === 'edit') edit();
     }, [action, save, edit])
 
+
+    const remove = useCallback(async () => {
+        const api = new ProductController(currentCategoryId);
+        await api.delete(selectedProduct.id).then(() => {
+            addToast({
+                type: 'success',
+                title: 'Feito!',
+                description: `A lista ${selectedProduct.name} foi excluído!`
+            });
+            closeRemoveModal();
+            loadPage(api);
+            clearSelectedProduct();
+        })
+    }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name])
+
     return (
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
             isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
-            submit, setToEdit
+            submit, setToEdit, remove, setToRemove, selectedProduct
         }}>
             {children}
         </ProductContext.Provider>

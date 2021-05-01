@@ -19,7 +19,7 @@ interface RouteParams {
 
 export default function ProductPage(){
     const params = useParams<RouteParams>();
-    const {setToSave, setCurrentCategoryId} = useContext(ProductContext)
+    const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext)
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
@@ -40,7 +40,8 @@ export default function ProductPage(){
             </SelectItemsButtons>
 
             <ProductModal/>
-            <DeleteModal text={'Você tem certeza que deseja excluir o produto x?'} action={() => {}}/>
+            <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
+                         action={remove}/>
         </div>
     )
 }
