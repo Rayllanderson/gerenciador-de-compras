@@ -25,6 +25,9 @@ public class StatisticResponseBody {
     private Integer numberOfProductsNotPurchased = 0;
     @Builder.Default
     private BigDecimal totalStipulated = BigDecimal.ZERO;
+
+    private String categoryName;
+
     @Builder.Default
     private BigDecimal categoryBudget  = BigDecimal.ZERO;
 

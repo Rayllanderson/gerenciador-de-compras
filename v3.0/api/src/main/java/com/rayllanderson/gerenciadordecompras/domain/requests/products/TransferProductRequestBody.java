@@ -20,6 +20,7 @@ import java.util.List;
 public class TransferProductRequestBody {
     private List<SelectItemsRequestBody> selectItems;
     private Long currentCategoryId;
+    @NotNull
     private Long newCategoryId;
     private Long userId;
 }
