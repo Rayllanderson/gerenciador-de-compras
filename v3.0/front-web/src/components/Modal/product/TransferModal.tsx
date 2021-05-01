@@ -15,13 +15,16 @@ import {ProductContext} from "../../../contexts/ProductContext";
 export function TransferModal() {
     const {showTransferModal, closeTransferModal} = useContext(ModalContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
-    const {handleNewCategoryIdChange} = useContext(ProductContext);
+    const {handleNewCategoryIdChange, setNewCategoryId} = useContext(ProductContext);
     const {selectedItems} = useContext(SelectedItemsContext);
     const {action, transferModalTitle} = useContext(ActionModalContext);
 
     useEffect(() => {
         loadCategoriesNonPageable();
-    }, [loadCategoriesNonPageable])
+        if (!!categories[0]){
+            setNewCategoryId(categories[0].id);
+        }
+    }, [loadCategoriesNonPageable, setNewCategoryId])
 
     return (
         <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>

@@ -28,12 +28,14 @@ interface ProductContextData {
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleNewCategoryIdChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     setToSave: () => void,
+    setNewCategoryId: (id: string) => void,
     setToEdit: (product: ProductResponseBody) => void,
     setToRemove: (product: ProductResponseBody) => void,
     submit: () => void,
     remove: () => void,
     selectedProduct: ProductResponseBody,
     copyProductsToAnotherCategory: () => void,
+    moveProductsToAnotherCategory: () => void,
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);
@@ -201,16 +203,39 @@ export function ProductProvider({children}: ProductProviderProps) {
                     title: 'Copiados!',
                     description: 'Os produtos foram copiados para categoria selecionada.'
                 })
+                setNewCategoryId('');
                 closeTransferModal();
                 clearSelectedItems();
             })
     }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId])
 
+    const moveProductsToAnotherCategory = useCallback(async () => {
+        const data: TransferProduct = {
+            selectItems: selectedItems,
+            currentCategoryId: currentCategoryId,
+            newCategoryId: newCategoryId
+        }
+        const api = new ProductController(currentCategoryId);
+        await api.moveProductsToAnotherCategory(data)
+            .then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Movidos!',
+                    description: 'Os produtos foram movidos para categoria selecionada.'
+                })
+                setNewCategoryId('');
+                closeTransferModal();
+                clearSelectedItems();
+                loadPage(api)
+            })
+    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, loadPage])
+
     return (
         <ProductContext.Provider value={{
             handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
             isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
-            submit, setToEdit, remove, setToRemove, selectedProduct, copyProductsToAnotherCategory, handleNewCategoryIdChange
+            submit, setToEdit, remove, setToRemove, selectedProduct, copyProductsToAnotherCategory, handleNewCategoryIdChange,
+            moveProductsToAnotherCategory, setNewCategoryId
         }}>
             {children}
         </ProductContext.Provider>

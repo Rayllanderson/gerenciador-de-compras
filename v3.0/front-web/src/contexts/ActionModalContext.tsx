@@ -16,6 +16,7 @@ interface ConfirmModalContextContextData {
     duplicateCategoryAction: () => void,
     removeVariousCategoriesAction: () => void,
     copyProductsAction: () => void
+    moveProductsAction: () => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -28,7 +29,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
 
     const {openConfirmModal, openTransferModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext)
-    const {copyProductsToAnotherCategory} = useContext(ProductContext);
+    const {copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -48,10 +49,16 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         setTransferModalTitle('Copiar');
     } ,[openTransferModal, copyProductsToAnotherCategory])
 
+    const moveProductsAction = useCallback(() => {
+        openTransferModal();
+        setAction(() => moveProductsToAnotherCategory);
+        setTransferModalTitle('Mover');
+    } ,[openTransferModal, moveProductsToAnotherCategory])
+
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
-            copyProductsAction, transferModalTitle
+            copyProductsAction, transferModalTitle, moveProductsAction
         }}>
             {children}
         </ActionModalContext.Provider>

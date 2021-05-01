@@ -36,6 +36,10 @@ export default class ProductController implements Pageable {
         return api.post(`${this.BASE_URL}/copy`, data, {headers: getAuthHeader()});
     }
 
+    moveProductsToAnotherCategory(data: TransferProduct){
+        return api.post(`${this.BASE_URL}/move`, data, {headers: getAuthHeader()});
+    }
+
     findByName(search:string, page:number, size?:number) {
         return api.get(`${this.BASE_URL}/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }

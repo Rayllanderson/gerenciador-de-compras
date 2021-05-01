@@ -22,7 +22,7 @@ interface RouteParams {
 export default function ProductPage(){
     const params = useParams<RouteParams>();
     const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext);
-    const {copyProductsAction} = useContext(ActionModalContext);
+    const {copyProductsAction, moveProductsAction} = useContext(ActionModalContext);
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
@@ -37,7 +37,8 @@ export default function ProductPage(){
             <ProductList categoryId={params.id}/>
             <MyPagination controller={new ProductController(params.id)}/>
             <SelectItemsButtons>
-                <YellowButton className={'btn me-4'} title={'Duplicar selecionados '}>  Mover  </YellowButton>
+                <YellowButton className={'btn me-4'} title={'Mover produtos selecionados para outra categoria'}
+                onClick={moveProductsAction}>  Mover  </YellowButton>
                 <CyanSecondaryButton className={'btn '} title={'Copiar produtos selecionados para outra categoria'}
                 onClick={copyProductsAction}>Copiar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}>Deletar </RedButton>
