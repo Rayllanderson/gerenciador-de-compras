@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,8 @@ public class ProductService {
     public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId, Long userId){
         assertions.assertThatCategoryIsValid(categoryId, userId);
         Product product = ProductMapper.toProduct(productPostRequestBody);
+        if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
+        if (product.getStipulatedPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
         product.setCategory(new Category(categoryId));
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
@@ -65,6 +68,8 @@ public class ProductService {
     @Transactional
     public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
         Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
+        if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
+        if (product.getStipulatedPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
         UpdateUtil.updateProductData(productPutRequestBody, product);
         Long possibleNewCategoryId = productPutRequestBody.getCategoryId();
         boolean hasChangedCategory = possibleNewCategoryId != null && !possibleNewCategoryId.equals(categoryId);

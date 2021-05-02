@@ -53,7 +53,7 @@ public class StatisticService {
                 .categoryName(categoryName)
                 .categoryBudget(categoryBudget)
                 .currentAmountTotal(currentAmountTotal)
-                .currentAmountToSpent(currentAmountToSpent)
+                .currentAmountSpent(currentAmountToSpent)
                 .currentAmountStipulated(currentAmountStipulated)
                 .availableToSpendIfBuyAll(availableToSpendIfBuyAll)
                 .amountSaved(amountSaved).numberOfProducts(numberOfProducts)
@@ -79,7 +79,7 @@ public class StatisticService {
                 data.setAvailableToSpend(data.getAvailableToSpend().add(s.getAvailableToSpend()));
                 data.setAvailableToSpendIfBuyAll(data.getAvailableToSpendIfBuyAll().add(s.getAvailableToSpendIfBuyAll()));
                 data.setCurrentAmountStipulated(data.getCurrentAmountStipulated().add(s.getCurrentAmountStipulated()));
-                data.setCurrentAmountToSpent(data.getCurrentAmountToSpent().add(s.getCurrentAmountToSpent()));
+                data.setCurrentAmountSpent(data.getCurrentAmountSpent().add(s.getCurrentAmountSpent()));
                 data.setCurrentAmountTotal(data.getCurrentAmountTotal().add(s.getCurrentAmountTotal()));
                 data.setNumberOfProducts(data.getNumberOfProducts() + s.getNumberOfProducts());
                 data.setNumberOfProductsPurchased(data.getNumberOfProductsPurchased() + s.getNumberOfProductsPurchased());

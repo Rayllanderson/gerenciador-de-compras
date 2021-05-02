@@ -58,6 +58,27 @@ class CategoryControllerIT extends BaseApiTest{
     }
 
     @Test
+    void findAll_FindAllCategoriesPageableWithPercentage_WhenSuccessful() {
+
+        Category category = CategoryCreator.createCategoryToBeSaved();
+        category = categoryRepository.save(category);
+        Product boughtProduct = ProductCreator.createProductToBeSaved();
+        Product nonBoughtProduct = ProductCreator.createANonPurchasedProductToBeSaved();
+        boughtProduct.setCategory(category);
+        nonBoughtProduct.setCategory(category);
+        productRepository.saveAll(Arrays.asList(boughtProduct, nonBoughtProduct));
+
+        BigDecimal expectedPercentage = new BigDecimal("50.00");
+
+        HttpHeaders headers = getHeaders();
+        PageableResponse<Category> categoryPage = rest.exchange(BASE_API_URL, HttpMethod.GET, new HttpEntity<>(headers),
+                new ParameterizedTypeReference<PageableResponse<Category>>() {
+                }).getBody();
+        Assertions.assertThat(categoryPage).isNotNull().isNotEmpty().hasSize(1);
+        Assertions.assertThat(categoryPage.toList().get(0).getCompletedPercentage()).isEqualTo(expectedPercentage);
+    }
+
+    @Test
     void save_SaveCategory_WhenSuccessful() {
         CategoryPostRequestBody categoryToBeSaved = CategoryPostRequestBodyCreator.createCategoryPostRequestBody();
         String expectedName = categoryToBeSaved.getName();

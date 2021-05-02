@@ -35,7 +35,7 @@ public class StatisticResponseBody {
      * Soma dos valores gastos até o momento.
      */
     @Builder.Default
-    private BigDecimal currentAmountToSpent = BigDecimal.ZERO;
+    private BigDecimal currentAmountSpent = BigDecimal.ZERO;
 
     /**
      * Soma dos valores gastos com os valores estipulados. Ou seja, se um produto foi comprado, considera o valor gasto, senão,
