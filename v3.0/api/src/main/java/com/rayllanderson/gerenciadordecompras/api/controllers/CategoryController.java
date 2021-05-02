@@ -8,6 +8,7 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.services.CategoryService;
+import com.rayllanderson.gerenciadordecompras.domain.utils.CategoryUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,10 +30,14 @@ public class CategoryController {
 
     private final UserUtil myUserUtil;
 
+    private final CategoryUtil categoryUtil;
+
     @GetMapping
     public ResponseEntity<Page<Category>> findAllPageable(Pageable pageable, @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(categoryService.findAll(userId, pageable));
+        Page<Category> categories = categoryService.findAll(userId, pageable);
+        categoryUtil.setCompletedPercentage(categories.toList());
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/non-pageable")

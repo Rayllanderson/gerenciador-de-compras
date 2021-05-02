@@ -27,6 +27,9 @@ public class Category {
     @DecimalMax("999999")
     private BigDecimal budget;
 
+    @Transient
+    private BigDecimal completedPercentage;
+
     @JsonIgnore
     @ManyToOne
     private User user;

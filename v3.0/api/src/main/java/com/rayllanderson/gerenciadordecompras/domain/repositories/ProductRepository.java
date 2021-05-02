@@ -43,4 +43,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("from Product as p where p.purchased = false and p.category.user.id = ?1")
     Page<Product> findNonPurchasedFromUser(Long userId, Pageable pageable);
+
+    Integer countProductByCategoryIdAndCategoryUserId(Long categoryId, Long userId);
+
+    @Query("select count (p) from Product as p where p.purchased = true and p.category.id = ?1 and p.category.user.id = ?2")
+    Integer countProductPurchased(Long categoryId, Long userId);
+
+    @Query("select count (p) from Product as p where p.purchased = false and p.category.id = ?1 and p.category.user.id = ?2")
+    Integer countProductNonPurchased(Long categoryId, Long userId);
+
 }
