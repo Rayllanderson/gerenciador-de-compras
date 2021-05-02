@@ -30,6 +30,12 @@ export default createGlobalStyle`
     zoom: 115%
   }
   
+  @media(max-width: 768px) {
+    body {
+        zoom: 100%!important;
+    }
+  }
+  
   a {
      text-decoration: none;
   }

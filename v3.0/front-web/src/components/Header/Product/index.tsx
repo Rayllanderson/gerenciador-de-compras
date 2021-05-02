@@ -46,6 +46,7 @@ export function ProductHeader() {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
+                                    <p>{statistics.completed ? 'Lista concluída' : 'Lista não concluída'}</p>
                                     <p>{statistics.numberOfProducts} produtos nessa lista</p>
                                     <p>{statistics.numberOfProductsPurchased} produtos comprados</p>
                                     <p>{statistics.numberOfProductsNotPurchased} produtos não comprados</p>

@@ -51,7 +51,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
 
     const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<CategoryPutBody>({} as CategoryPutBody);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryResponseBody>({} as CategoryResponseBody);
     const [name, setName] = useState<string>('');
     const [budget, setBudget] = useState<string>('');
     const [action, setAction] = useState<'save' | 'edit'>('save');
@@ -79,7 +79,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     const setToSave = useCallback(() => {
         closeAlert();
         clearInputs();
-        setSelectedCategory({} as CategoryPutBody);
+        setSelectedCategory({} as CategoryResponseBody);
         openAddModal();
         setAction('save');
     }, [openAddModal, clearInputs, closeAlert])
@@ -123,7 +123,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
 
     const edit = useCallback(() => {
-        const categoryToBeEdited = {
+        const categoryToBeEdited: CategoryPutBody = {
             id: selectedCategory.id,
             name: name,
             budget: getNumberWithoutMask(budget)

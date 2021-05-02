@@ -12,6 +12,7 @@ export interface CategoryPutBody extends CategoryModel {
 
 export interface CategoryResponseBody extends CategoryModel{
     id: string;
+    completedPercentage: number;
 }
 
 export interface TransferCategoryRequestBody {

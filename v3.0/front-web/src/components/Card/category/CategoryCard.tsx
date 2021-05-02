@@ -32,7 +32,8 @@ export function CategoryCard({category}: Props) {
                     </Link>
                 </div>
                 <Link to={`/categories/${category.id}/products`} className={'footer'} onClick={clearPreviousData}>
-                    <ProgressBar now={50} label={'50%'} title={`${50}% concluída`}/>
+                    <ProgressBar now={category.completedPercentage} label={`${category.completedPercentage}%`} max={100}
+                                 title={`${category.completedPercentage}% concluída`}/>
                 </Link>
             </div>
 
