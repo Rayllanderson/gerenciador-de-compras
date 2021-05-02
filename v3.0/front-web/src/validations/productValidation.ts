@@ -18,3 +18,11 @@ export function validateEdit(product: ProductPutBody){
         stipulatedPrice: product.stipulatedPrice, spentPrice: product.spentPrice, purchased: product.purchased});
     return Promise.all([promiseId, promiseRestOfData]);
 }
+
+export function assertThatNewCategoryIdIsNotEmpty(newCategoryId: string){
+    return new Promise<string>(function (resolve, reject) {
+        const isEmptyOrInvalid = newCategoryId === '' || !isNotEmpty(newCategoryId) || newCategoryId === 'DEFAULT';
+        if (isEmptyOrInvalid) reject({message: 'Selecione uma lista de destino.'});
+        resolve('The fields has been successful validated.');
+    })
+}

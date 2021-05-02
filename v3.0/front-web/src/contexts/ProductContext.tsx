@@ -6,7 +6,7 @@ import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import ProductController from "../controllers/productController";
 import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interfaces/productInterface";
-import {validateEdit, validateSave} from "../validations/productValidation";
+import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
 
@@ -26,7 +26,7 @@ interface ProductContextData {
     handleStipulatedPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleNewCategoryIdChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    handleNewCategoryIdChange: (e: any) => void,
     setToSave: () => void,
     setNewCategoryId: (id: string) => void,
     setToEdit: (product: ProductResponseBody) => void,
@@ -78,7 +78,7 @@ export function ProductProvider({children}: ProductProviderProps) {
         setSpentPrice(e.target.value);
     }, [])
 
-    const handleNewCategoryIdChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNewCategoryIdChange = useCallback((e: any) => {
         setNewCategoryId(e.target.value);
     }, [])
 
@@ -183,7 +183,7 @@ export function ProductProvider({children}: ProductProviderProps) {
             addToast({
                 type: 'success',
                 title: 'Feito!',
-                description: `A lista ${selectedProduct.name} foi excluído!`
+                description: `O produto ${selectedProduct.name} foi excluído!`
             });
             closeRemoveModal();
             loadPage(api);
@@ -191,45 +191,51 @@ export function ProductProvider({children}: ProductProviderProps) {
         })
     }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
 
-    const copyProductsToAnotherCategory = useCallback(async () => {
+    console.log(newCategoryId)
+    const copyProductsToAnotherCategory = useCallback(() => {
         const data: TransferProduct = {
             selectItems: selectedItems,
             currentCategoryId: currentCategoryId,
             newCategoryId: newCategoryId
         }
-        await new ProductController(currentCategoryId).copyProductsToAnotherCategory(data)
-            .then(() => {
-                addToast({
-                    type: 'success',
-                    title: 'Copiados!',
-                    description: 'Os produtos foram copiados para categoria selecionada.'
-                })
-                setNewCategoryId('');
-                closeTransferModal();
-                clearSelectedItems();
-            })
-    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId])
+        assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
+            await new ProductController(currentCategoryId).copyProductsToAnotherCategory(data)
+                .then(() => {
+                    addToast({
+                        type: 'success',
+                        title: 'Copiados!',
+                        description: 'Os produtos foram copiados para categoria selecionada.'
+                    })
+                    setNewCategoryId('');
+                    closeTransferModal();
+                    clearSelectedItems();
+                }).catch((err) => console.log(err))//erro da api
+        }).catch(err => addAlert(err.message))
+    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, addAlert])
 
-    const moveProductsToAnotherCategory = useCallback(async () => {
+    const moveProductsToAnotherCategory = useCallback(() => {
         const data: TransferProduct = {
             selectItems: selectedItems,
             currentCategoryId: currentCategoryId,
             newCategoryId: newCategoryId
         }
-        const api = new ProductController(currentCategoryId);
-        await api.moveProductsToAnotherCategory(data)
-            .then(() => {
-                addToast({
-                    type: 'success',
-                    title: 'Movidos!',
-                    description: 'Os produtos foram movidos para categoria selecionada.'
-                })
-                setNewCategoryId('');
-                closeTransferModal();
-                clearSelectedItems();
-                loadPage(api)
-            })
-    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, loadPage])
+        assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
+            const api = new ProductController(currentCategoryId);
+            await api.moveProductsToAnotherCategory(data)
+                .then(() => {
+                    addToast({
+                        type: 'success',
+                        title: 'Movidos!',
+                        description: 'Os produtos foram movidos para categoria selecionada.'
+                    })
+                    setNewCategoryId('');
+                    closeTransferModal();
+                    clearSelectedItems();
+                    loadPage(api)
+                }).catch((err) => console.log(err))//erro da api
+        }).catch(err => addAlert(err.message))
+    }, [addToast, closeTransferModal, clearSelectedItems,
+            selectedItems, currentCategoryId, newCategoryId, addAlert, loadPage])
 
     const removeVarious = useCallback(async () => {
         const api = new ProductController(currentCategoryId);
@@ -248,13 +254,30 @@ export function ProductProvider({children}: ProductProviderProps) {
 
     return (
         <ProductContext.Provider value={{
-            handleIsPurchasedChange, handleSpentPriceChange, handleStipulatedPriceChange, handleNameChange,
-            isPurchased, stipulatedPrice, spentPrice, action, name, setToSave, currentCategoryId, setCurrentCategoryId,
-            submit, setToEdit, remove, setToRemove, selectedProduct, copyProductsToAnotherCategory, handleNewCategoryIdChange,
-            moveProductsToAnotherCategory, setNewCategoryId, removeVarious
+            handleIsPurchasedChange,
+            handleSpentPriceChange,
+            handleStipulatedPriceChange,
+            handleNameChange,
+            isPurchased,
+            stipulatedPrice,
+            spentPrice,
+            action,
+            name,
+            setToSave,
+            currentCategoryId,
+            setCurrentCategoryId,
+            submit,
+            setToEdit,
+            remove,
+            setToRemove,
+            selectedProduct,
+            copyProductsToAnotherCategory,
+            handleNewCategoryIdChange,
+            moveProductsToAnotherCategory,
+            setNewCategoryId,
+            removeVarious
         }}>
             {children}
         </ProductContext.Provider>
     )
 }
-

@@ -3,7 +3,7 @@ import {Content} from "../styles";
 import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import MyAlert from "../../Alert";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
-import {useCallback, useContext, useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {CategoryContext} from "../../../contexts/CategoryContext";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
@@ -15,20 +15,13 @@ import {ProductContext} from "../../../contexts/ProductContext";
 export function TransferModal() {
     const {showTransferModal, closeTransferModal} = useContext(ModalContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
-    const {handleNewCategoryIdChange, setNewCategoryId} = useContext(ProductContext);
+    const {handleNewCategoryIdChange} = useContext(ProductContext);
     const {selectedItems} = useContext(SelectedItemsContext);
     const {action, transferModalTitle} = useContext(ActionModalContext);
 
-    const setDefaultNewCategoryId = useCallback(() => {
-        if (!!categories[0]){
-            setNewCategoryId(categories[0].id);
-        }
-    }, [setNewCategoryId])
-
     useEffect(() => {
         loadCategoriesNonPageable();
-        setDefaultNewCategoryId();
-    }, [loadCategoriesNonPageable, setDefaultNewCategoryId])
+    }, [loadCategoriesNonPageable])
 
     return (
         <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>
@@ -42,12 +35,13 @@ export function TransferModal() {
                     <h5>Produtos selecionados</h5>
                     {selectedItems.map((product: SelectItem) => <p key={JSON.stringify(product)}>{product.name}</p>)}
                     <Form.Group >
-                        <Form.Label>Escolha a categoria para {transferModalTitle.toLocaleLowerCase()}</Form.Label>
-                        <Form.Control as="select" onChange={handleNewCategoryIdChange}>
+                        <Form.Label>Escolha a lista para {transferModalTitle.toLocaleLowerCase()}</Form.Label>
+                        <select className="form-select" onChange={handleNewCategoryIdChange} defaultValue={'DEFAULT'}>
+                            <option disabled value={'DEFAULT'}>Selecione a lista</option>
                             {categories.map((category: CategoryResponseBody) =>
                                 <option value={category.id}  key={JSON.stringify(category)}>{category.name}</option>
                             )}
-                        </Form.Control>
+                        </select>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
