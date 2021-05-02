@@ -54,7 +54,7 @@ public class ProductService {
         assertions.assertThatCategoryIsValid(categoryId, userId);
         Product product = ProductMapper.toProduct(productPostRequestBody);
         if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
-        if (product.getStipulatedPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
+        if (product.getStipulatedPrice() == null) product.setStipulatedPrice(BigDecimal.ZERO);
         product.setCategory(new Category(categoryId));
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
