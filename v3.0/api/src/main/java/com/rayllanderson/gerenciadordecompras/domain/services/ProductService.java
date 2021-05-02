@@ -69,7 +69,7 @@ public class ProductService {
     public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
         Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
         if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
-        if (product.getStipulatedPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
+        if (product.getStipulatedPrice() == null) product.setStipulatedPrice(BigDecimal.ZERO);
         UpdateUtil.updateProductData(productPutRequestBody, product);
         Long possibleNewCategoryId = productPutRequestBody.getCategoryId();
         boolean hasChangedCategory = possibleNewCategoryId != null && !possibleNewCategoryId.equals(categoryId);
