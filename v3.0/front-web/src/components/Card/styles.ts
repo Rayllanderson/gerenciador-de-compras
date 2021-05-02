@@ -30,6 +30,10 @@ export const CategoryCardContainer = styled(CardContainer)`
      background: ${props => props.theme.colors.progressBar};
   }
   
+  .progress{
+    ${props => props.theme.title === 'dark' && 'background: #323238!important;'}
+  }
+  
   a {
     text-decoration: none;
     color: transparent;!important;

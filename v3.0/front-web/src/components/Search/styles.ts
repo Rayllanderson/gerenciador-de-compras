@@ -5,7 +5,7 @@ export const Container = styled.div `
     margin-top: 4rem;
    
     input{
-        border: 2px solid #fff!important; 
+        border: 2px solid ${props => props.theme.colors.backgroundSecondary}!important; 
     }
     div{
         height: 50px;

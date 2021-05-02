@@ -8,6 +8,7 @@ interface Props{
 }
 export default function ToggleSwitchTheme({toggleTheme}: Props){
     const {title, colors} = useContext(ThemeContext);
+    const onAndOffColor = title === 'light' ? '#e9ecef' : '#323238';
     return (
         <Switch onChange={toggleTheme}
                 checked={title === 'dark'}
@@ -42,8 +43,8 @@ export default function ToggleSwitchTheme({toggleTheme}: Props){
                 height={10}
                 width={32}
                 handleDiameter={22}
-                offColor={colors.backgroundSecondary}
-                onColor={colors.backgroundSecondary}
+                offColor={onAndOffColor}
+                onColor={onAndOffColor}
                 onHandleColor={colors.primary}
                 offHandleColor={colors.primary}
                 activeBoxShadow={`0px 0px 1px 2px ${colors.primary}`}

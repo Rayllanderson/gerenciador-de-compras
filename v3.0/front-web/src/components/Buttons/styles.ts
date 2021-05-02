@@ -51,19 +51,18 @@ export const SecondaryButton = styled(Button)`
 
 
 export const RedButton = styled(Button)`
-     background: #f55;
-      color: ${props => props.theme.colors.background}!important;
+     background: #e83f5b;
      &:hover{
-         background: ${darken(0.1, '#f55')}!important;
-          color: ${props => props.theme.colors.background}!important;
+         background: ${darken(0.1, '#e83f5b')}!important;
+         color: var(--white);
      }
      
      &:active{
-        background: ${darken(0.12, '#ff9580')}!important;
+        background: ${darken(0.12, '#e83f5b')}!important;
      }
      
      &:focus{
-        background: ${darken(0.12, '#ff9580')}!important;
+        background: ${darken(0.12, '#e83f5b')}!important;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `
@@ -87,20 +86,20 @@ export const CyanButton = styled(Button)`
 `
 
 export const YellowButton = styled(Button)`
-     background: var(--yellow);
+     background: #f7df1e;
      color: var(--black);
      
      &:hover{
-         background: ${darken(0.1, '#ffff80')}!important;
+         background: ${darken(0.1, '#f7df1e')}!important;
          color: var(--black);
      }
      
      &:active{
-        background: ${darken(0.12, '#ffff80')}!important;
+        background: ${darken(0.12, '#f7df1e')}!important;
      }
      
      &:focus{
-        background: ${darken(0.12, '#ffff80')}!important;
+        background: ${darken(0.12, '#f7df1e')}!important;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `

@@ -20,7 +20,7 @@ export default function ProductList({categoryId}: Props) {
     }, [loadPage, categoryId])
     return (
         <div className={"container"} style={{maxWidth: 750, margin: '0 auto'}}>
-            <div style={{animation: 'appearFromBottom 1s'}}>
+            <div className={'appearFromBottom'}>
 
                 <CardHeader/>
 

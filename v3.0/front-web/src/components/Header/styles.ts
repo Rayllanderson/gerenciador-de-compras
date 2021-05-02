@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     margin: 0 auto;
-    background: ${props => props.theme.colors.background};
+    background: ${props => props.theme.colors.backgroundSecondary};
     color: ${props => props.theme.colors.primary};
     border: 2px solid ${props => props.theme.colors.primary};
     width: 250px;

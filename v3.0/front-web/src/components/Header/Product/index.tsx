@@ -30,7 +30,7 @@ export function ProductHeader() {
         }
     }
     return (
-        <Container className="card mt-5">
+        <Container className="card mt-5 appearSmoothly">
             <div className="card-body">
                 <h4 className="card-title mb-3">{statistics.categoryName} </h4>
 

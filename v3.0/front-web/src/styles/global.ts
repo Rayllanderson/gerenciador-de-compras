@@ -30,19 +30,15 @@ export default createGlobalStyle`
     zoom: 115%
   }
   
-  @media(max-width: 768px) {
-    body {
-        zoom: 100%!important;
-    }
-  }
-  
   a {
      text-decoration: none;
   }
   
   input, select{
-     border-color: #ffff!important;
-     box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05)
+     border-color: ${props => props.theme.colors.backgroundSecondary}!important;
+     box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05);
+     background-color: ${props => props.theme.colors.backgroundSecondary}!important;
+     color: ${props => props.theme.colors.text}!important;
      
          /*
         background-color: ${props => props.theme.colors.backgroundSecondary}!important;
@@ -54,7 +50,7 @@ export default createGlobalStyle`
         /* ${props => props.theme.title === 'light' ?
         `border: 0.5px solid ${props.theme.colors.primary}!important` :
         `;`}*/
-    }
+  }
   
   input:focus,
   select:focus{
@@ -67,7 +63,7 @@ export default createGlobalStyle`
      border: none!important;
   }
   .button {
-      color: white;
+    color: white;
     transition: 0.3s;
     font-weight: 500;
     &:active{
@@ -119,6 +115,10 @@ export default createGlobalStyle`
   
   .appearFromBottom{
     animation: appearFromBottom 1s;
+  }  
+  
+  .appearSmoothly{
+    animation: appearSmoothly 1s;
   }
     
   :root {
@@ -132,7 +132,7 @@ export default createGlobalStyle`
     --cyan: #80ffea;
     --cyanSecondary: #ccfff6;
     --cyanLight: hsla(170,100%,75%,5%);
-    --green: #8aff80;
+    --green: #04d361;
     --greenLight: #21B534;
     --greenSecondary: #d0ffcc;
     --orange: #ffca80;
@@ -141,10 +141,10 @@ export default createGlobalStyle`
     --pink: #ff80bf;
     --pinkSecondary: #ffcce6;
     --pinkLight: hsla(330,100%,75%,5%);
-    --purple: #9580ff;
+    --purple: #8257e6;
     --purpleSecondary: #d5ccff;
     --purpleLight: hsl(250,100%,75%,5%);
-    --red: #ff9580;
+    --red: #e83f5b;
     --redSecondary: #ffd5cc;
     --redLight: #ff5a5f;
     --yellow: #ffff80;
@@ -230,21 +230,50 @@ export default createGlobalStyle`
     --cyan-green: linear-gradient(var(--gradientDegree),var(--cyan),var(--green));
     --cyan-pink: linear-gradient(var(--gradientDegree),var(--cyan),var(--pink));
     --pink-purple: linear-gradient(var(--gradientDegree),var(--pink),var(--purple));
+    --red-purple: linear-gradient(var(--gradientDegree),var(--redLight),var(--color-purple));
     --inventada: linear-gradient(var(--gradientDegree),var(--pink),var(--purple));
     
-    @keyframes appearFromLeft {
-       from {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
     
-    @keyframes appearFromRight {
-        from {
+    --color-background: #121214;
+    --color-green: #04d361;
+    --color-red: #e83f5b;
+    --color-orange: #fd951f;
+    --color-yellow: #f7df1e;
+    --color-purple: #8257e6;
+    --color-purple-hover: #9466ff;
+    --color-secondary: #e1e1e6;
+    --color-text: #a8a8b3;
+    --color-support: #737380;
+    --color-shape: #202024;
+    --color-shape-hover: #29292e;
+    --color-icons: #41414d;
+    --color-borders: #323238;
+    --color-black: #0d0d0f;
+    --color-white: #fff
+  }
+    
+  @keyframes appearFromLeft {
+     from {
+        opacity: 0;
+        transform: translateX(-50px);
+     }
+     to {
+        opacity: 1;
+        transform: translateX(0);
+     }
+  }
+  
+    @keyframes appearSmoothly {
+     from {
+        opacity: 0;
+     }
+     to {
+        opacity: 1;
+     }
+  }
+    
+  @keyframes appearFromRight {
+     from {
             opacity: 0;
             transform: translateX(50px);
         }
@@ -275,4 +304,10 @@ export default createGlobalStyle`
             transform: translateY(0);
         }
     }
+    
+  @media(max-width: 768px) {
+    body {
+        zoom: 100%!important;
+    }
+  }
 `;

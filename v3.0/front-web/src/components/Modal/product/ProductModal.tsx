@@ -17,7 +17,7 @@ export function ProductModal() {
 
     const title = action === 'save' ? 'Novo produto' : 'Editar produto';
     return (
-        <Modal centered animated={'true'} show={showAddModal} className={"rounded-0"} onHide={closeAddModal}>
+        <Modal centered show={showAddModal} className={"rounded-0"} onHide={closeAddModal}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">{title}</Modal.Title>

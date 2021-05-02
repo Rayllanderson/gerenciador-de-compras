@@ -25,9 +25,11 @@ export function CategoryModal() {
                 <Modal.Body style={{border: 'none'}}>
                     <MyAlert />
                     <div className="mb-3">
-                        <InputText placeholder={title} value={name} onChange={handleNameChange}/>
+                        <label className="form-label">Nome</label>
+                        <InputText placeholder={'Nome da lista'} value={name} onChange={handleNameChange}/>
                     </div>
                     <div>
+                        <label className="form-label">Orçamento</label>
                         <InputNumber placeholder={'Orçamento R$'} value={budget} onChange={handleBudgetChange}/>
                     </div>
                 </Modal.Body>

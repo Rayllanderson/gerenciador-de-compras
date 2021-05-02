@@ -2,12 +2,12 @@ const dark = {
     title: 'dark',
 
     colors: {
-        background: '#282a36',
-        backgroundSecondary: '#414558',
-        primary: '#9580ff',
-        progressBar: 'var(--purple-red)',
+        background: '#121214',
+        backgroundSecondary: '#202024',
+        primary: '#8257e6',
+        progressBar: 'var(--red-purple)',
         reversePrimary: '#ff80bf',
-        text: '#f8f8f2',
+        text: 'rgb(255, 255, 255)',
         textSecondary: '#fff'
     }
 }

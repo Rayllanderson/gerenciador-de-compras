@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {darken} from "polished";
 
 export const Container = styled.div`
 
@@ -10,11 +11,11 @@ export const Container = styled.div`
         transition: 0.3s;
          font-size: 1.1rem;
         margin-top: 2.4rem;
-        color: ${props => props.theme.colors.text};
+        color: ${props => props.theme.colors.primary};
     }
 
      a:hover {
-        color: ${props => props.theme.colors.primary}!important;
+        color: ${props => darken(0.1, props.theme.colors.primary)}!important;
     }
 
 `

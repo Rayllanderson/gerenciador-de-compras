@@ -21,15 +21,15 @@ export const Container = styled.div<ContainerProps>`
       border-radius: 5px;
       
       span {
-        background-color:#ffff!important;
-        border: 2px solid #ffff;
+        background-color:${props => props.theme.colors.backgroundSecondary}!important;
+        border: 2px solid ${props => props.theme.colors.backgroundSecondary};
         border-right: 0 solid;
         transition: 0.2s;
         color: #6c757d;
       }
       
       input {
-         border: 2px solid #ffff!important;
+         border: 2px solid ${props => props.theme.colors.backgroundSecondary}!important;
          border-left: 0 solid!important;
          box-shadow: none!important;
       }

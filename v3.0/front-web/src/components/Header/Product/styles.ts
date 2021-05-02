@@ -5,7 +5,7 @@ export const Container = styled.div`
     text-align: center;
     margin: 0 auto;
     
-    background: ${props => props.theme.colors.background};
+    background: ${props => props.theme.colors.backgroundSecondary};
     color: ${props => props.theme.colors.primary};
     border: 2px solid ${props => props.theme.colors.primary}!important;
     
@@ -16,6 +16,7 @@ export const Container = styled.div`
     p{
         line-height: 1.1;
         color: ${props => props.theme.colors.text};
+        opacity: 1;
     }
     
     .icon{
@@ -42,9 +43,15 @@ export const Container = styled.div`
      }
      
     .card-content{
-        background: ${props => props.theme.colors.background};
+        background: ${props => props.theme.colors.backgroundSecondary};
         border: 1px solid ${props => props.theme.title === 'light' ? 'white' : 'black'};
     }
+    
+    ${props => props.theme.title === 'dark' && `
+    .collapse, .collapsing{
+    background: #29292e!important;
+    }`};
+    
     
     .card-content-header{
         cursor: pointer;
