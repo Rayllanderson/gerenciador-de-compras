@@ -1,4 +1,3 @@
-
 import {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {CategoryContext} from "./CategoryContext";
 import {ModalContext} from "./ModalContext";
@@ -30,7 +29,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
 
     const {openConfirmModal, openTransferModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
-    const {copyProductsToAnotherCategory, moveProductsToAnotherCategory, removeVarious: removeVariousProducts} = useContext(ProductContext);
+    const {removeVarious: removeVariousProducts} = useContext(ProductContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -52,15 +51,13 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
 
     const copyProductsAction = useCallback(() => {
         openTransferModal();
-        setAction(() => copyProductsToAnotherCategory);
         setTransferModalTitle('Copiar');
-    } ,[openTransferModal, copyProductsToAnotherCategory])
+    } ,[openTransferModal])
 
     const moveProductsAction = useCallback(() => {
         openTransferModal();
-        setAction(() => moveProductsToAnotherCategory);
         setTransferModalTitle('Mover');
-    } ,[openTransferModal, moveProductsToAnotherCategory])
+    } ,[openTransferModal])
 
     return (
         <ActionModalContext.Provider value={{

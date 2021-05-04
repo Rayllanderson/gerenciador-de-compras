@@ -3,7 +3,7 @@ import {Content} from "../styles";
 import {CloseButton} from "../../Buttons/CloseButton/closeButton";
 import MyAlert from "../../Alert";
 import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
-import {useContext, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {CategoryContext} from "../../../contexts/CategoryContext";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
@@ -15,13 +15,20 @@ import {ProductContext} from "../../../contexts/ProductContext";
 export function TransferModal() {
     const {showTransferModal, closeTransferModal} = useContext(ModalContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
-    const {handleNewCategoryIdChange} = useContext(ProductContext);
+    const {handleNewCategoryIdChange, copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
     const {selectedItems} = useContext(SelectedItemsContext);
-    const {action, transferModalTitle} = useContext(ActionModalContext);
+    const {transferModalTitle} = useContext(ActionModalContext);
 
     useEffect(() => {
         loadCategoriesNonPageable();
     }, [loadCategoriesNonPageable])
+
+    const action = useCallback(
+        () => {
+            transferModalTitle === 'Copiar' ? copyProductsToAnotherCategory() : moveProductsToAnotherCategory();
+        },
+        [copyProductsToAnotherCategory, moveProductsToAnotherCategory, transferModalTitle],
+    );
 
     return (
         <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>

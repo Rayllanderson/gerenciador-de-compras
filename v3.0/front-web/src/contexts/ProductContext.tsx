@@ -191,7 +191,6 @@ export function ProductProvider({children}: ProductProviderProps) {
         })
     }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
 
-    console.log(newCategoryId)
     const copyProductsToAnotherCategory = useCallback(() => {
         const data: TransferProduct = {
             selectItems: selectedItems,
