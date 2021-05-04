@@ -5,8 +5,3 @@ export interface TransferProduct {
     currentCategoryId: string,
     newCategoryId: string
 }
-
-export interface Test {
-    name: string,
-    action(): void;
-}

@@ -3,13 +3,13 @@ export interface StatisticData {
     numberOfProducts: number;
     numberOfProductsPurchased: number;
     numberOfProductsNotPurchased: number;
-    totalStipulated: string;
+    totalStipulated: number;
     categoryName: string;
-    categoryBudget: string;
-    currentAmountSpent: string;
-    currentAmountTotal: string;
-    currentAmountStipulated: string;
-    amountSaved: string;
-    availableToSpend: string;
-    availableToSpendIfBuyAll: string;
+    categoryBudget: number;
+    currentAmountSpent: number;
+    currentAmountTotal: number;
+    currentAmountStipulated: number;
+    amountSaved: number;
+    availableToSpend: number;
+    availableToSpendIfBuyAll: number;
 }
