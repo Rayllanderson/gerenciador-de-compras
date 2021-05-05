@@ -26,6 +26,12 @@ public class StatisticResponseBody {
     @Builder.Default
     private BigDecimal totalStipulated = BigDecimal.ZERO;
 
+    /**
+     * Armazena o valor: 'Quanto falta pra gastar?'
+     */
+    @Builder.Default
+    private BigDecimal amountToSpend = BigDecimal.ZERO;
+
     private String categoryName;
 
     @Builder.Default
