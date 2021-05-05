@@ -43,11 +43,7 @@ export default class CategoryController implements Pageable {
         return api.get(`/categories/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }
 
-    findAllPageable(size: number, page: number) {
-        return api.get(`/categories?size=${size}&page=${page}`, {headers: getAuthHeader()});
+    getAllPageable(page: number, sort: string, order: string, size?: number): Promise<AxiosResponse> {
+        return api.get(`/categories?size=${size}&page=${page}&sort=${sort},${order}`, {headers: getAuthHeader()});
     }
-
-    getAllPageable(page: number, size:number = 20): Promise<AxiosResponse> {
-        return api.get(`/categories?size=${size}&page=${page}`, {headers: getAuthHeader()});
-    };
 }

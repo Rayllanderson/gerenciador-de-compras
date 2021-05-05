@@ -15,6 +15,6 @@ export interface Page {
 }
 
 export interface Pageable {
-    getAllPageable(page: number, size?: number): Promise<AxiosResponse>,
+    getAllPageable(page: number, sort: string, order:string, size?: number): Promise<AxiosResponse>,
     findByName(search: string, page: number, size?: number): Promise<AxiosResponse>
 }

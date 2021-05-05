@@ -83,7 +83,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const closeFilterModalAction = useCallback(() => {
         closeFilterModal();
         //setar tudo pro default...
-    }, [openFilterModal]);
+    }, [closeFilterModal]);
 
 
     return (

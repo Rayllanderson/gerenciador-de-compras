@@ -53,8 +53,8 @@ export default class ProductController implements Pageable {
         return api.get(`${this.BASE_URL}?size=${size}&page=${page}`, {headers: getAuthHeader()});
     }
 
-    getAllPageable(page: number, size:number = 20): Promise<AxiosResponse> {
-        return api.get(`${this.BASE_URL}?size=${size}&page=${page}`, {headers: getAuthHeader()});
+    getAllPageable(page: number, sort:string, order:string = 'asc', size:number = 20): Promise<AxiosResponse> {
+        return api.get(`${this.BASE_URL}?size=${size}&page=${page}&sort=${sort},${order}`, {headers: getAuthHeader()});
     };
 
     fetchStatistics() {

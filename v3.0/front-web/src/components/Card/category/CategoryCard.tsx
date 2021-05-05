@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {CategoryCardContainer} from '../styles'
 import {CardAddon} from "../CardAddon";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 import {VisibilityCardItemContext} from "../../../contexts/CardItemVisibilityContext";
 import {DeleteButton, EditButton} from '../../Buttons'
 import {CategoryContext} from "../../../contexts/CategoryContext";
@@ -16,7 +16,11 @@ interface Props {
 export function CategoryCard({category}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
     const {setToEdit, setToRemove} = useContext(CategoryContext);
-    const {clearPreviousData} = useContext(GeneralContext);
+    const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
+    const clearData = useCallback(() => {
+        clearPreviousData();
+        clearPaginationSettings();
+    }, [clearPreviousData, clearPaginationSettings])
     return (
         <CategoryCardContainer>
 
@@ -31,7 +35,7 @@ export function CategoryCard({category}: Props) {
                         <p className="card-text ">R$ {category.budget}</p>
                     </Link>
                 </div>
-                <Link to={`/categories/${category.id}/products`} className={'footer'} onClick={clearPreviousData}>
+                <Link to={`/categories/${category.id}/products`} className={'footer'} onClick={clearData}>
                     <ProgressBar now={category.completedPercentage} label={`${category.completedPercentage}%`} max={100}
                                  title={`${category.completedPercentage}% concluída`}/>
                 </Link>

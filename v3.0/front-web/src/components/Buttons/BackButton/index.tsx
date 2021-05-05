@@ -1,7 +1,7 @@
 import {FiChevronLeft} from "react-icons/all";
 import {Header} from "./styles";
 import {Link} from 'react-router-dom'
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 import {GeneralContext} from "../../../contexts/GeneralContex";
 
 interface Props {
@@ -9,11 +9,15 @@ interface Props {
     to: string
 }
 export default function BackButtonHeader({ to }: Props) {
-    const {clearPreviousData} = useContext(GeneralContext);
+    const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
+    const clearData = useCallback(() => {
+        clearPreviousData();
+        clearPaginationSettings();
+    }, [clearPreviousData, clearPaginationSettings])
     return (
         <Header className={'container '}>
             <div>&nbsp;</div>
-            <Link to={to} onClick={clearPreviousData}>
+            <Link to={to} onClick={clearData}>
                 <FiChevronLeft size={17} />Voltar
             </Link>
         </Header>
