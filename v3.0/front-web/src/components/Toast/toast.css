@@ -1,8 +1,8 @@
 .toastContainer {
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
-   margin: 30px;
+    margin: 30px;
     overflow: hidden;
     z-index: 999;
 }
