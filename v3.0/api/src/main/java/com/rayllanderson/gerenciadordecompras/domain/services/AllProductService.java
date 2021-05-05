@@ -10,6 +10,7 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferAllProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.validations.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,6 +86,7 @@ public class AllProductService {
             Product productToBeCopied = ProductMapper.createANewProduct(product);
             productToBeCopied.setId(null);
             productToBeCopied.setCategory(new Category(data.getNewCategoryId()));
+            ProductValidation.validatePrices(product);
             productRepository.save(productToBeCopied);
         });
     }
@@ -95,6 +97,7 @@ public class AllProductService {
         products.forEach(product -> {
             Product productToBeMoved = ProductMapper.createANewProduct(product);
             productToBeMoved.setCategory(new Category(data.getNewCategoryId()));
+            ProductValidation.validatePrices(product);
             productRepository.save(productToBeMoved);
         });
     }

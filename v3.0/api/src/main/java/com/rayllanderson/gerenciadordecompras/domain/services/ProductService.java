@@ -12,13 +12,13 @@ import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequest
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
 import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
+import com.rayllanderson.gerenciadordecompras.domain.validations.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,9 +53,8 @@ public class ProductService {
     public ProductPostResponseBody save(ProductPostRequestBody productPostRequestBody, Long categoryId, Long userId){
         assertions.assertThatCategoryIsValid(categoryId, userId);
         Product product = ProductMapper.toProduct(productPostRequestBody);
-        if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
-        if (product.getStipulatedPrice() == null) product.setStipulatedPrice(BigDecimal.ZERO);
         product.setCategory(new Category(categoryId));
+        ProductValidation.validatePrices(product);
         return ProductMapper.toProductPostResponseBody(productRepository.save(product));
     }
 
@@ -68,8 +67,7 @@ public class ProductService {
     @Transactional
     public void update(ProductPutRequestBody productPutRequestBody, Long categoryId, Long userId){
         Product product = this.findById(productPutRequestBody.getId(), categoryId, userId);
-        if (product.getSpentPrice() == null) product.setSpentPrice(BigDecimal.ZERO);
-        if (product.getStipulatedPrice() == null) product.setStipulatedPrice(BigDecimal.ZERO);
+        ProductValidation.validatePrices(product);
         UpdateUtil.updateProductData(productPutRequestBody, product);
         Long possibleNewCategoryId = productPutRequestBody.getCategoryId();
         boolean hasChangedCategory = possibleNewCategoryId != null && !possibleNewCategoryId.equals(categoryId);
@@ -106,6 +104,7 @@ public class ProductService {
             Product productToBeCopied = ProductMapper.createANewProduct(product);
             productToBeCopied.setId(null);
             productToBeCopied.setCategory(new Category(data.getNewCategoryId()));
+            ProductValidation.validatePrices(product);
             productRepository.save(productToBeCopied);
         });
     }
@@ -116,6 +115,7 @@ public class ProductService {
         products.forEach(product -> {
             Product productToBeMoved = ProductMapper.createANewProduct(product);
             productToBeMoved.setCategory(new Category(data.getNewCategoryId()));
+            ProductValidation.validatePrices(product);
             productRepository.save(productToBeMoved);
         });
     }

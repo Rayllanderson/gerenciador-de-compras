@@ -150,7 +150,29 @@ class ProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         Assertions.assertThat(responseEntity.getBody()).isNotNull();
         Assertions.assertThat(responseEntity.getBody().getName()).isEqualTo(expectedName);
+    }
 
+    @Test
+    void save_SavesProductAndAssertPricesIsNotNull_WhenSuccessful() {
+        Category currentCategory = categoryRepository.save(CategoryCreator.createCategoryToBeSaved());
+        Long currentCategoryId = currentCategory.getId();
+
+        ProductPostRequestBody productToBeSaved = ProductPostRequestBodyCreator.createProductPostRequestBody();
+
+        productToBeSaved.setStipulatedPrice(null);
+        productToBeSaved.setSpentPrice(null);
+
+        String apiUrl = BASE_API_URL + "/" + currentCategoryId + "/products";
+
+        ResponseEntity<ProductPostResponseBody> responseEntity = post(apiUrl, productToBeSaved, ProductPostResponseBody.class);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(responseEntity.getBody()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getSpentPrice()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getStipulatedPrice()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getSpentPrice()).isEqualTo(BigDecimal.ZERO);
+        Assertions.assertThat(responseEntity.getBody().getStipulatedPrice()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
