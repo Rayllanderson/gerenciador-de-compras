@@ -56,5 +56,10 @@ export const Container = styled.div`
     .card-content-header{
         cursor: pointer;
     }
+    
+    .center-left{
+        display: inline-block;
+        text-align: left
+    }
      
 `

@@ -6,6 +6,7 @@ export interface StatisticData {
     totalStipulated: number;
     categoryName: string;
     categoryBudget: number;
+    amountToSpend: number;
     currentAmountSpent: number;
     currentAmountTotal: number;
     currentAmountStipulated: number;
