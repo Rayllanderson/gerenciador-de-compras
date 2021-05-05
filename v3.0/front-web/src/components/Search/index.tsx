@@ -3,6 +3,7 @@ import {FiSearch} from "react-icons/all";
 import {Container} from "./styles";
 import {useContext} from "react";
 import {PaginationContext} from "../../contexts/PaginationContext";
+import {InputSearch} from "../Inputs";
 
 interface Props{
     placeholder?: string;
@@ -14,9 +15,7 @@ export default function Search({action, placeholder}: Props){
     return (
         <Container className="container">
             <div className='input-group input-group-lg' >
-                <input type="search" className="rounded-md py-1 px-3 form-control"
-                       value={search} onChange={handleSearchChange}
-                       placeholder={placeholder}/>
+                <InputSearch value={search} onChange={handleSearchChange} placeholder={placeholder}/>
                 <PrimaryButton type="button" className="btn btn-lg" onClick={action}> <FiSearch/> </PrimaryButton>
             </div>
         </Container>

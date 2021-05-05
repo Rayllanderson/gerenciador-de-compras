@@ -88,7 +88,10 @@ export function ProductHeader() {
                                     {statistics.categoryBudget !== 0 ?
                                         <>
                                             <AvailableToSpendText value={statistics.availableToSpend}/>
+
+                                            {!statistics.completed &&
                                             <AvailableToSpendIfBuyAllText value={statistics.availableToSpendIfBuyAll}/>
+                                            }
                                         </>
                                         :
                                         <p>Sua lista não possui orçamento. Adicione um pra ver algo aqui.</p>

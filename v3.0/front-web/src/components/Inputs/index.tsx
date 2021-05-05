@@ -1,5 +1,5 @@
 import {Form} from "react-bootstrap";
-import {CheckboxContainer, Container} from './styles';
+import {CheckboxContainer, InputWithIconContainer, SearchInput} from './styles';
 import React, {useCallback, useRef, useState} from "react";
 // @ts-ignore
 import CurrencyInput from 'react-currency-input';
@@ -25,6 +25,14 @@ export function InputText({placeholder, value, onChange}: Props) {
     return (
         <input type={'text'} placeholder={placeholder}
                className="form-control form-control-lg" onChange={onChange} value={value}/>
+    )
+}
+
+export function InputSearch({placeholder, value, onChange}: Props) {
+    return (
+        <SearchInput type="search" className="rounded-md py-1 px-3 form-control"
+                   value={value} onChange={onChange}
+                   placeholder={placeholder} />
     )
 }
 
@@ -57,7 +65,7 @@ export function InputWithIcon({onChange, value, placeholder, icon: Icon, require
     }, []);
 
     return (
-        <Container className="input-group" isFocused={isFocused} isFilled={isFilled}>
+        <InputWithIconContainer className="input-group" isFocused={isFocused} isFilled={isFilled}>
             <span className="input-group-text">
                  <Icon/>
             </span>
@@ -69,6 +77,6 @@ export function InputWithIcon({onChange, value, placeholder, icon: Icon, require
                    onFocus={() => setIsFocused(true)}
                    onBlur={handleInputBlur}
                    ref={inputRef} required={required}/>
-        </Container>
+        </InputWithIconContainer>
     )
 }

@@ -16,7 +16,7 @@ export const CheckboxContainer = styled.div`
       }
 `
 
-export const Container = styled.div<ContainerProps>`
+export const InputWithIconContainer = styled.div<ContainerProps>`
       box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05);
       border-radius: 5px;
       
@@ -57,4 +57,11 @@ export const Container = styled.div<ContainerProps>`
       .input-group-text{
         font-size: 1.2rem;
       }
+`
+
+export const SearchInput = styled.input `
+    border: 2px solid ${props => props.theme.colors.backgroundSecondary}!important; 
+    &:focus{
+      border-color: ${props => props.theme.colors.primary}!important;
+    }
 `
