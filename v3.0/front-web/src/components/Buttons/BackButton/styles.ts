@@ -10,7 +10,7 @@ export const Header = styled.div`
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: ${props => props.theme.colors.text};
+    color: ${props => props.theme.colors.primary};
     transition: color 0.2s;
     &:hover{
       color: ${props => props && darken(0.1, props.theme.colors.primary)};

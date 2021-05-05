@@ -56,6 +56,7 @@ export const ProductCard = styled(CardContainer)`
       cursor: unset;
       padding: 10px;
       background: ${props => props.theme.colors.backgroundSecondary}!important;
+      border-radius: 7px;
 `
 
 export const ProductCardBody = styled.div`
