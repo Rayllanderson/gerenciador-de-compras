@@ -7,7 +7,7 @@ import {InputSearch} from "../Inputs";
 
 interface Props{
     placeholder?: string;
-    action: () => void,
+    action?: () => void,
 }
 
 export default function Search({action, placeholder}: Props){

@@ -11,6 +11,7 @@ interface ConfirmModalContextContextData {
     action: () => void,
     confirmModalText: string,
     transferModalTitle: 'Copiar' | 'Mover',
+    filterType: 'product' | 'category',
 
     duplicateCategoryAction: () => void,
     removeVariousCategoriesAction: () => void,
@@ -18,6 +19,9 @@ interface ConfirmModalContextContextData {
     copyProductsAction: () => void
     moveProductsAction: () => void
     closeTransferModalAction: () => void
+    openFilterCategoryModalAction: () => void
+    openFilterProductModalAction: () => void
+    closeFilterModalAction: () => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -27,8 +31,9 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [action, setAction] = useState<() => void>(() => {});
     const [confirmModalText, setConfirmModalText] = useState<string>('');
     const [transferModalTitle, setTransferModalTitle] = useState<'Copiar' | 'Mover'>('Copiar');
+    const [filterType, setFilterType] = useState<'product' | 'category'>('category');
 
-    const {openConfirmModal, openTransferModal, closeTransferModal} = useContext(ModalContext);
+    const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
     const {removeVarious: removeVariousProducts, setNewCategoryId} = useContext(ProductContext);
 
@@ -65,11 +70,28 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         closeTransferModal();
     },[setNewCategoryId, closeTransferModal])
 
+    const openFilterCategoryModalAction = useCallback(() => {
+        setFilterType('category');
+        openFilterModal();
+    }, [openFilterModal]);
+
+    const openFilterProductModalAction = useCallback(() => {
+        setFilterType('product');
+        openFilterModal();
+    }, [openFilterModal]);
+
+    const closeFilterModalAction = useCallback(() => {
+        closeFilterModal();
+        //setar tudo pro default...
+    }, [openFilterModal]);
+
+
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
             copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction,
-            closeTransferModalAction
+            closeTransferModalAction, openFilterCategoryModalAction, openFilterProductModalAction, filterType,
+            closeFilterModalAction
         }}>
             {children}
         </ActionModalContext.Provider>

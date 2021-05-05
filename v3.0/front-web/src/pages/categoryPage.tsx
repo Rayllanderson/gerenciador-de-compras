@@ -15,15 +15,14 @@ import {ActionModalContext} from "../contexts/ActionModalContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
-    const {duplicateCategoryAction, removeVariousCategoriesAction} = useContext(ActionModalContext);
+    const {duplicateCategoryAction, removeVariousCategoriesAction, openFilterCategoryModalAction} = useContext(ActionModalContext);
     const controller = new CategoryController();
 
     return (
         <div>
             <Header title={'Listas'} Icon={FiList}/>
-            <Search placeholder={'Procurar uma lista...'} action={() => {
-            }}/>
-            <ButtonGroup add={setToSave}/>
+            <Search placeholder={'Procurar uma lista...'} />
+            <ButtonGroup addAction={setToSave} filterAction={openFilterCategoryModalAction}/>
 
             <CategoryList/>
 

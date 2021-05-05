@@ -4,7 +4,11 @@ import {Dropdown} from "react-bootstrap";
 import {ActionDropdownContent} from './styles'
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 
-export function ActionDropdown() {
+interface Props {
+    filterAction: () => void
+}
+
+export function ActionDropdown({filterAction}: Props) {
 
     const {showCheckBox, hideCheckBox, checkBoxIsVisible, showDeleteButton, hideDeleteButton
     , hideEditButton, showEditButton, editButtonIsVisible, deleteButtonIsVisible} = useContext(VisibilityCardItemContext);
@@ -36,7 +40,7 @@ export function ActionDropdown() {
                     <Dropdown.Item onClick={handleDeleteClick}>Remover</Dropdown.Item>
 
                     <Dropdown.Header className="drop-header">Filtros</Dropdown.Header>
-                    <Dropdown.Item>Filtrar</Dropdown.Item>
+                    <Dropdown.Item onClick={filterAction}>Filtrar</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </ActionDropdownContent>

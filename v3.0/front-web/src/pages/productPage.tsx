@@ -22,7 +22,7 @@ interface RouteParams {
 export default function ProductPage(){
     const params = useParams<RouteParams>();
     const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext);
-    const {copyProductsAction, moveProductsAction, removeVariousProductsAction} = useContext(ActionModalContext);
+    const {copyProductsAction, moveProductsAction, removeVariousProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
@@ -31,11 +31,17 @@ export default function ProductPage(){
     return (
         <div style={{minHeight: '100vh'}}>
             <BackButtonHeader to={'/categories'}/>
+
             <ProductHeader />
-            <Search placeholder={'Procurar um produto...'} action={() => {} } />
-            <ButtonGroup add={setToSave}/>
+
+            <Search placeholder={'Procurar um produto...'}/>
+
+            <ButtonGroup addAction={setToSave} filterAction={openFilterProductModalAction}/>
+
             <ProductList categoryId={params.id}/>
+
             <MyPagination controller={new ProductController(params.id)}/>
+
             <SelectItemsButtons>
                 <YellowButton className={'btn me-4'} title={'Mover produtos selecionados para outra categoria'}
                 onClick={moveProductsAction}>  Mover  </YellowButton>
@@ -46,6 +52,7 @@ export default function ProductPage(){
             </SelectItemsButtons>
 
             <ProductModal/>
+
             <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
                          action={remove}/>
 

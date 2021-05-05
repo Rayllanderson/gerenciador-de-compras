@@ -5,18 +5,19 @@ import React from "react";
 import {ActionDropdown} from "../Dropdown/actionDropdown";
 
 interface Props {
-    add: () => void;
+    addAction: () => void,
+    filterAction: () => void
 }
-export function ButtonGroup ({add}: Props){
+export function ButtonGroup ({addAction, filterAction}: Props){
     return (
         <Container className="container">
             <div className={"group-buttons"}>
                 <PrimaryButton className={"btn"} style={{borderBottomRightRadius: 0, borderTopRightRadius: 0}}
-                onClick={add}>
+                onClick={addAction}>
                     <FiPlus size={21}/>
                 </PrimaryButton>
 
-                <ActionDropdown/>
+                <ActionDropdown filterAction={filterAction}/>
                 </div>
         </Container>
     )

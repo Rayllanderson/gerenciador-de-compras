@@ -2,6 +2,9 @@ import {Modal} from "react-bootstrap";
 import {Content} from "./styles";
 import {CloseButton} from "../Buttons/CloseButton/closeButton";
 import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
+import {useContext} from "react";
+import {ActionModalContext} from "../../contexts/ActionModalContext";
+import {ModalContext} from "../../contexts/ModalContext";
 
 interface OptionsValuesData {
     name: string,
@@ -9,6 +12,9 @@ interface OptionsValuesData {
 }
 
 export function FilterModal() {
+
+    const {filterType, closeFilterModalAction} = useContext(ActionModalContext);
+    const {showFilterModal} = useContext(ModalContext);
 
     const categoryOptionsValues: OptionsValuesData[] = [{
         name: 'Nome',
@@ -33,17 +39,20 @@ export function FilterModal() {
     }];
 
     return (
-        <Modal centered show={true} className={"rounded-0"}>
+        <Modal centered show={showFilterModal} className={"rounded-0"} onHide={closeFilterModalAction}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title d-flex align-items-center">Filtrar</Modal.Title>
-                    <CloseButton/>
+                    <CloseButton onClick={closeFilterModalAction}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <div className={'mb-3'}>
                         <label>Ordenar por</label>
                         <select className="form-select">
-                            {productOptionsValues.map((item) =>
+                            {filterType === 'category' && categoryOptionsValues.map((item) =>
+                                    <option value={item.value} key={item.value}>{item.name}</option>
+                            )}
+                            {filterType === 'product' && productOptionsValues.map((item) =>
                                 <option value={item.value} key={item.value}>{item.name}</option>
                             )}
                         </select>
@@ -61,7 +70,7 @@ export function FilterModal() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
-                    <SecondaryButton type="button" className="btn button-secondary">Fechar</SecondaryButton>
+                    <SecondaryButton type="button" className="btn button-secondary" onClick={closeFilterModalAction}>Fechar</SecondaryButton>
                     <PrimaryButton className={"btn"}> Aplicar </PrimaryButton>
                 </Modal.Footer>
             </Content>
