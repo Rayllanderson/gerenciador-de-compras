@@ -19,6 +19,7 @@ import {GeneralProvider} from "./contexts/GeneralContex";
 import {ConfirmModalProvider} from "./contexts/ActionModalContext";
 import {ConfirmModal} from "./components/Modal/ConfirmModal";
 import {StatisticProvider} from "./contexts/StatisticContext";
+import {FilterModal} from "./components/Modal/FilterModal";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -43,6 +44,7 @@ function App() {
                                                                         <ConfirmModalProvider>
                                                                             <GlobalStyle/>
                                                                             <Routes/>
+                                                                            <FilterModal/>
                                                                             <ConfirmModal/>
                                                                         </ConfirmModalProvider>
                                                                     </StatisticProvider>
