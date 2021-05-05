@@ -42,6 +42,11 @@ public class StatisticUtil {
         return products.stream().map(Product::getStipulatedPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public static BigDecimal getAmountToSpend(List<Product> products){
+        if (products.isEmpty()) return BigDecimal.ZERO;
+        return getTotalStipulated(StatisticUtil.getProductsNotPurchased(products));
+    }
+
     public static BigDecimal getCurrentAmountTotal(List<Product> products){
         if (products.isEmpty()) return BigDecimal.ZERO;
         BigDecimal sum = BigDecimal.ZERO;
@@ -55,7 +60,7 @@ public class StatisticUtil {
         return sum;
     }
 
-    public static BigDecimal getCurrentAmountToSpent(List<Product> products){
+    public static BigDecimal getCurrentAmountSpended(List<Product> products){
         if (products.isEmpty()) return BigDecimal.ZERO;
         return products.stream().map(Product::getSpentPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -67,7 +72,6 @@ public class StatisticUtil {
                 .map(product -> product.getStipulatedPrice().subtract(product.getSpentPrice()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-
 
     public static BigDecimal getAmountSaved(List<Product> products){
         List<Product> productsPurchased = StatisticUtil.getProductsPurchased(products);
@@ -91,5 +95,4 @@ public class StatisticUtil {
         if (category.getBudget() == null) return BigDecimal.ZERO;
         return category.getBudget();
     }
-
 }

@@ -150,7 +150,29 @@ class ProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         Assertions.assertThat(responseEntity.getBody()).isNotNull();
         Assertions.assertThat(responseEntity.getBody().getName()).isEqualTo(expectedName);
+    }
 
+    @Test
+    void save_SavesProductAndAssertPricesIsNotNull_WhenSuccessful() {
+        Category currentCategory = categoryRepository.save(CategoryCreator.createCategoryToBeSaved());
+        Long currentCategoryId = currentCategory.getId();
+
+        ProductPostRequestBody productToBeSaved = ProductPostRequestBodyCreator.createProductPostRequestBody();
+
+        productToBeSaved.setStipulatedPrice(null);
+        productToBeSaved.setSpentPrice(null);
+
+        String apiUrl = BASE_API_URL + "/" + currentCategoryId + "/products";
+
+        ResponseEntity<ProductPostResponseBody> responseEntity = post(apiUrl, productToBeSaved, ProductPostResponseBody.class);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(responseEntity.getBody()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getSpentPrice()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getStipulatedPrice()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getSpentPrice()).isEqualTo(BigDecimal.ZERO);
+        Assertions.assertThat(responseEntity.getBody().getStipulatedPrice()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
@@ -414,6 +436,7 @@ class ProductControllerIT extends BaseApiTest{
         BigDecimal expectedCategoryBudget = productSaved.getCategory().getBudget();
         BigDecimal expectedAvailableToSpend = expectedCategoryBudget.subtract(expectedSpentPrice);
         BigDecimal expectedAmountSaved = expectedStipulatedPrice.subtract(expectedSpentPrice);
+        BigDecimal expectedAmountToSpend = BigDecimal.ZERO;
         int expectedNumberOfProducts = 1;
         int expectedNumberOfProductsPurchased = 1;
         int expectedNumberOfProductsNonPurchased = 0;
@@ -434,6 +457,7 @@ class ProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getBody().getNumberOfProducts()).isEqualTo(expectedNumberOfProducts);
         Assertions.assertThat(responseEntity.getBody().getNumberOfProductsPurchased()).isEqualTo(expectedNumberOfProductsPurchased);
         Assertions.assertThat(responseEntity.getBody().getNumberOfProductsNotPurchased()).isEqualTo(expectedNumberOfProductsNonPurchased);
+        Assertions.assertThat(responseEntity.getBody().getAmountToSpend()).isEqualTo(expectedAmountToSpend);
         Assertions.assertThat(responseEntity.getBody().isCompleted()).isEqualTo(true);
     }
 

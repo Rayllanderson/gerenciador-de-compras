@@ -13,13 +13,13 @@ import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequest
 import com.rayllanderson.gerenciadordecompras.domain.requests.categories.TransferCategoryRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferProductRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
+import com.rayllanderson.gerenciadordecompras.domain.validations.CategoryValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class CategoryService {
     public CategoryPostResponseBody save(CategoryPostRequestBody categoryPostRequestBody, Long userId) {
         Category categoryToBeSaved = CategoryMapper.toCategory(categoryPostRequestBody);
         categoryToBeSaved.setUser(new User(userId));
-        if (categoryToBeSaved.getBudget() == null) categoryToBeSaved.setBudget(BigDecimal.ZERO);
+        CategoryValidation.validateCategoryBudget(categoryToBeSaved);
         return CategoryMapper.toCategoryPostResponseBody(categoryRepository.save(categoryToBeSaved));
     }
 
@@ -56,7 +56,7 @@ public class CategoryService {
     @Transactional
     public void update(CategoryPutRequestBody categoryPutRequestBody, Long userId) {
         Category categoryToBeUpdated = findById(categoryPutRequestBody.getId(), userId);
-        if (categoryToBeUpdated.getBudget() == null) categoryToBeUpdated.setBudget(BigDecimal.ZERO);
+        CategoryValidation.validateCategoryBudget(categoryToBeUpdated);
         UpdateUtil.updateCategoryData(categoryPutRequestBody, categoryToBeUpdated);
         categoryRepository.save(categoryToBeUpdated);
     }
@@ -108,5 +108,4 @@ public class CategoryService {
                 .forEach(product -> selectItems.add(new SelectItemsRequestBody(product.getId())));
         return selectItems;
     }
-
 }

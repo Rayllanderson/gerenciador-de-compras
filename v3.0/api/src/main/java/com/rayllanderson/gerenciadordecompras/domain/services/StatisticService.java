@@ -29,13 +29,14 @@ public class StatisticService {
     public StatisticResponseBody getStatistics(Long categoryId, Long userId) {
         Category category = categoryService.findById(categoryId, userId);
         List<Product> allProductsFromCategory = productService.findAllNonPageable(categoryId, userId);
-        // recuperando valores
 
-        BigDecimal currentAmountToSpent = StatisticUtil.getCurrentAmountToSpent(allProductsFromCategory);
+        // recuperando valores
+        BigDecimal currentAmountToSpent = StatisticUtil.getCurrentAmountSpended(allProductsFromCategory);
         BigDecimal amountSaved = StatisticUtil.getAmountSaved(allProductsFromCategory);
         BigDecimal currentAmountStipulated = StatisticUtil.getCurrentAmountStipulated(allProductsFromCategory);
         BigDecimal currentAmountTotal = StatisticUtil.getCurrentAmountTotal(allProductsFromCategory);
         BigDecimal totalStipulated = StatisticUtil.getTotalStipulated(allProductsFromCategory);
+        BigDecimal amountToSpend = StatisticUtil.getAmountToSpend(allProductsFromCategory);
         Integer numberOfProducts = StatisticUtil.getNumberOfProducts(allProductsFromCategory);
         Integer numberOfProductsPurchased = StatisticUtil.getNumberOfProductsPurchased(allProductsFromCategory);
         Integer numberOfProductsNotPurchased = StatisticUtil.getNumberOfProductsNotPurchased(allProductsFromCategory);
@@ -52,6 +53,7 @@ public class StatisticService {
                 .completed(isCompleted)
                 .categoryName(categoryName)
                 .categoryBudget(categoryBudget)
+                .amountToSpend(amountToSpend)
                 .currentAmountTotal(currentAmountTotal)
                 .currentAmountSpent(currentAmountToSpent)
                 .currentAmountStipulated(currentAmountStipulated)

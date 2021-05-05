@@ -85,7 +85,9 @@ public class CategoryController {
     @GetMapping("/search")
     public ResponseEntity<Page<Category>> findByName(@RequestParam String name, Pageable pageable, @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(categoryService.findByName(name, userId, pageable));
+        Page <Category> categories = categoryService.findByName(name, userId, pageable);
+        categoryUtil.setCompletedPercentage(categories.toList());
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping("/copy")
