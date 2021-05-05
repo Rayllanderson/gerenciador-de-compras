@@ -13,11 +13,11 @@ import {ActionModalContext} from "../../../contexts/ActionModalContext";
 import {ProductContext} from "../../../contexts/ProductContext";
 
 export function TransferModal() {
-    const {showTransferModal, closeTransferModal} = useContext(ModalContext);
+    const {showTransferModal} = useContext(ModalContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
     const {handleNewCategoryIdChange, copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
     const {selectedItems} = useContext(SelectedItemsContext);
-    const {transferModalTitle} = useContext(ActionModalContext);
+    const {transferModalTitle, closeTransferModalAction} = useContext(ActionModalContext);
 
     useEffect(() => {
         loadCategoriesNonPageable();
@@ -31,11 +31,11 @@ export function TransferModal() {
     );
 
     return (
-        <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModal}>
+        <Modal centered show={showTransferModal} className={"rounded-0"} onHide={closeTransferModalAction}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title">{transferModalTitle} produtos</Modal.Title>
-                    <CloseButton onClick={closeTransferModal}/>
+                    <CloseButton onClick={closeTransferModalAction}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <MyAlert/>
@@ -54,7 +54,7 @@ export function TransferModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button"
                                      className="btn button-secondary"
-                                     onClick={closeTransferModal}>Fechar</SecondaryButton>
+                                     onClick={closeTransferModalAction}>Fechar</SecondaryButton>
                     <PrimaryButton className={"btn"} onClick={action}> {transferModalTitle} </PrimaryButton>
                 </Modal.Footer>
             </Content>
