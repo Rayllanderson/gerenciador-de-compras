@@ -1,17 +1,37 @@
-import React, {useContext} from "react";
-import {FiMoreVertical} from "react-icons/all";
 import {Dropdown} from "react-bootstrap";
-import {ActionDropdownContent} from './styles'
+import {FiHelpCircle, FiLogOut, FiMoreVertical, FiPieChart, FiSettings} from "react-icons/all";
+import React, {useContext} from "react";
+import {DropdownContent, NavBarContent} from './styles';
+import {FiUser} from "react-icons/fi";
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 
-interface Props {
+interface ActionDropdownProps {
     filterAction: () => void
 }
 
-export function ActionDropdown({filterAction}: Props) {
+export function DropdownNavbar() {
+    return (
+        <NavBarContent>
+            <Dropdown className="content-items" drop='down'>
+                <Dropdown.Toggle variant="dropdown">
+                    < FiSettings size={21}/>
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="drop-menu">
+                    <Dropdown.Item><FiUser/> Minha Conta</Dropdown.Item>
+                    <Dropdown.Item><FiPieChart/> Estatísticas</Dropdown.Item>
+                    <Dropdown.Item><FiHelpCircle/> Ajuda</Dropdown.Item>
+                    <Dropdown.Header> </Dropdown.Header>
+                    <Dropdown.Item><FiLogOut/> Logout</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </NavBarContent>
+    )
+}
+
+export function ActionDropdown({filterAction}: ActionDropdownProps) {
 
     const {showCheckBox, hideCheckBox, checkBoxIsVisible, showDeleteButton, hideDeleteButton
-    , hideEditButton, showEditButton, editButtonIsVisible, deleteButtonIsVisible} = useContext(VisibilityCardItemContext);
+        , hideEditButton, showEditButton, editButtonIsVisible, deleteButtonIsVisible} = useContext(VisibilityCardItemContext);
 
 
     const handleCheckBoxClick = () => {
@@ -27,7 +47,7 @@ export function ActionDropdown({filterAction}: Props) {
     }
 
     return (
-        <ActionDropdownContent >
+        <DropdownContent >
             <Dropdown drop='down'>
                 <Dropdown.Toggle variant="dropdown" className="button-dropdown button button-primary"
                                  style={{borderBottomLeftRadius: 0, borderTopLeftRadius: 0}}>
@@ -43,6 +63,6 @@ export function ActionDropdown({filterAction}: Props) {
                     <Dropdown.Item onClick={filterAction}>Filtrar</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-        </ActionDropdownContent>
+        </DropdownContent>
     )
 }

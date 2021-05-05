@@ -2,7 +2,7 @@ import {Container} from "./styles";
 import {PrimaryButton} from '../Buttons/styles';
 import {FiPlus} from "react-icons/all";
 import React from "react";
-import {ActionDropdown} from "../Dropdown/actionDropdown";
+import {ActionDropdown} from "../Dropdown";
 
 interface Props {
     addAction: () => void,

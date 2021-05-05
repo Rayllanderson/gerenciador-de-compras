@@ -5,6 +5,7 @@ import useToggleTheme from "../../hooks/useToggleTheme";
 import {Dropdown} from "react-bootstrap";
 import {FiSettings, FiShoppingCart} from "react-icons/all";
 import {AuthContext} from "../../contexts/AuthContext";
+import {DropdownNavbar} from "../Dropdown";
 
 
 const Navbar: React.FC = () => {
@@ -18,11 +19,7 @@ const Navbar: React.FC = () => {
                 </div>
                 <div className="d-flex justify-content-end">
                     <ToggleSwitchTheme toggleTheme={toggleTheme}/>
-                    <Dropdown className="content-items" drop='down'>
-                        <Dropdown.Toggle variant="dropdown">
-                            < FiSettings size={21}/>
-                        </Dropdown.Toggle>
-                    </Dropdown>
+                    <DropdownNavbar/>
                 </div>
             </div>
             <button onClick={signOut}>Logout</button>
