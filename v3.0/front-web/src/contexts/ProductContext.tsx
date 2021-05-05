@@ -19,6 +19,7 @@ interface ProductContextData {
     stipulatedPrice: string,
     spentPrice: string,
     isPurchased: boolean,
+    updateStatistic: boolean,
     action: string,
     currentCategoryId: string,
     setCurrentCategoryId: (id: string) => void,
@@ -64,6 +65,7 @@ export function ProductProvider({children}: ProductProviderProps) {
     const [action, setAction] = useState<'save' | 'edit'>('save');
     const [selectedProduct, setSelectedProduct] = useState<ProductResponseBody>({} as ProductResponseBody);
     const [newCategoryId, setNewCategoryId] = useState<string>('');
+    const [updateStatistic, setUpdateStatistic] = useState<boolean>(true);
 
     /*Handle change functions*/
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,6 +124,12 @@ export function ProductProvider({children}: ProductProviderProps) {
         openRemoveModal();
     }, [openRemoveModal])
 
+    //do It After An Update
+    const fetchProducts = useCallback((api: ProductController) => {
+        loadPage(api);
+        setUpdateStatistic(u => !u);
+    },[loadPage])
+
     /* api */
     const save = useCallback(() => {
         const productToBeSaved: ProductPostBody = {
@@ -138,13 +146,13 @@ export function ProductProvider({children}: ProductProviderProps) {
                     title: 'Pronto!',
                     description: 'Produto "' + name + '" foi salvo com sucesso!'
                 })
-                loadPage(api);
+                fetchProducts(api);
                 closeAddModal();
                 clearInputs();
             }).catch(err => console.log(err.response))//erro que vem da api
         }).catch(err => addAlert(err.message));
-    }, [name, spentPrice, stipulatedPrice, isPurchased, currentCategoryId, loadPage, closeAddModal, addToast,
-        clearInputs, addAlert])
+    }, [name, spentPrice, stipulatedPrice, clearInputs, isPurchased, currentCategoryId, fetchProducts, closeAddModal, addToast,
+        addAlert])
 
     const edit = useCallback(() => {
         const productToBeEdited: ProductPutBody = {
@@ -162,14 +170,14 @@ export function ProductProvider({children}: ProductProviderProps) {
                     title: 'Pronto!',
                     description: 'Produto "' + name + '" foi editado com sucesso!'
                 })
-                loadPage(api);
-                closeAddModal();
+                fetchProducts(api);
                 clearInputs();
+                closeAddModal();
                 clearSelectedProduct();
             }).catch(err => console.log(err.response))//erro que vem da api
         }).catch(err => addAlert(err.message));
-    }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, loadPage, closeAddModal, addToast,
-        clearInputs, addAlert, clearSelectedProduct, selectedProduct])
+    }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,
+        addAlert, clearSelectedProduct, selectedProduct, clearInputs])
 
     const submit = useCallback(() => {
         if (action === 'save') save();
@@ -185,11 +193,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                 title: 'Feito!',
                 description: `O produto ${selectedProduct.name} foi excluído!`
             });
+            fetchProducts(api);
             closeRemoveModal();
-            loadPage(api);
             clearSelectedProduct();
         })
-    }, [addToast, closeRemoveModal, loadPage, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
+    }, [addToast, closeRemoveModal, fetchProducts, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
 
     const copyProductsToAnotherCategory = useCallback(() => {
         const data: TransferProduct = {
@@ -230,11 +238,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                     setNewCategoryId('');
                     closeTransferModal();
                     clearSelectedItems();
-                    loadPage(api)
+                    fetchProducts(api);
                 }).catch((err) => console.log(err))//erro da api
         }).catch(err => addAlert(err.message))
     }, [addToast, closeTransferModal, clearSelectedItems,
-            selectedItems, currentCategoryId, newCategoryId, addAlert, loadPage])
+            selectedItems, currentCategoryId, newCategoryId, addAlert, fetchProducts])
 
     const removeVarious = useCallback(async () => {
         const api = new ProductController(currentCategoryId);
@@ -245,11 +253,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                     title: 'Prontinho!',
                     description: `Os produtos selecionados foram excluídos.`
                 })
-                loadPage(api);
+                fetchProducts(api);
             }).catch((err) => console.log(err.response.data.message));
         clearSelectedItems();
         closeConfirmModal();
-    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId])
+    }, [selectedItems, fetchProducts, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId])
 
     return (
         <ProductContext.Provider value={{
@@ -274,7 +282,8 @@ export function ProductProvider({children}: ProductProviderProps) {
             handleNewCategoryIdChange,
             moveProductsToAnotherCategory,
             setNewCategoryId,
-            removeVarious
+            removeVarious,
+            updateStatistic
         }}>
             {children}
         </ProductContext.Provider>
