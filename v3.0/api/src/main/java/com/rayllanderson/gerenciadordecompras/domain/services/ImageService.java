@@ -22,7 +22,9 @@ public class ImageService {
     public void upload (MultipartFile file, Long userId) {
         String contentType = file.getContentType();
         boolean isAnImageFile = ImageValidation.isValidImageFile(contentType);
+        boolean userHasAlreadyAnImage = imageRepository.existsByUserId(userId);
         if (isAnImageFile){
+        if (userHasAlreadyAnImage) delete(userId);
             try {
                 String base64 = ImageUtil.getBase64(file);
                 Image image = Image.builder()
@@ -38,5 +40,10 @@ public class ImageService {
         }else {
             throw new BadRequestException("Tipo de arquivo não é válido.");
         }
+    }
+
+    public void delete (Long userId){
+        if (imageRepository.existsByUserId(userId)) imageRepository.deleteByUserId(userId);
+        else throw new BadRequestException("Não possui foto.");
     }
 }
