@@ -20,6 +20,7 @@ import {ConfirmModalProvider} from "./contexts/ActionModalContext";
 import {ConfirmModal} from "./components/Modal/ConfirmModal";
 import {StatisticProvider} from "./contexts/StatisticContext";
 import {FilterModal} from "./components/Modal/FilterModal";
+import {LogoutProvider} from "./contexts/LogoutContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -34,26 +35,28 @@ function App() {
                                 <AuthProvider>
                                     <LoginProvider>
                                         <RegisterProvider>
-                                            <PaginationProvider>
-                                                <ModalProvider>
-                                                    <AlertProvider>
-                                                        <GeneralProvider>
-                                                            <CategoryProvider>
-                                                                <ProductProvider>
-                                                                    <StatisticProvider>
-                                                                        <ConfirmModalProvider>
-                                                                            <GlobalStyle/>
-                                                                            <Routes/>
-                                                                            <FilterModal/>
-                                                                            <ConfirmModal/>
-                                                                        </ConfirmModalProvider>
-                                                                    </StatisticProvider>
-                                                                </ProductProvider>
-                                                            </CategoryProvider>
-                                                        </GeneralProvider>
-                                                    </AlertProvider>
-                                                </ModalProvider>
-                                            </PaginationProvider>
+                                            <LogoutProvider>
+                                                <PaginationProvider>
+                                                    <ModalProvider>
+                                                        <AlertProvider>
+                                                            <GeneralProvider>
+                                                                <CategoryProvider>
+                                                                    <ProductProvider>
+                                                                        <StatisticProvider>
+                                                                            <ConfirmModalProvider>
+                                                                                <GlobalStyle/>
+                                                                                <Routes/>
+                                                                                <FilterModal/>
+                                                                                <ConfirmModal/>
+                                                                            </ConfirmModalProvider>
+                                                                        </StatisticProvider>
+                                                                    </ProductProvider>
+                                                                </CategoryProvider>
+                                                            </GeneralProvider>
+                                                        </AlertProvider>
+                                                    </ModalProvider>
+                                                </PaginationProvider>
+                                            </LogoutProvider>
                                         </RegisterProvider>
                                     </LoginProvider>
                                 </AuthProvider>

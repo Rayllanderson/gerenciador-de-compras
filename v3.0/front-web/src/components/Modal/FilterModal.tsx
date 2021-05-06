@@ -5,7 +5,7 @@ import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 import {useCallback, useContext} from "react";
 import {ActionModalContext} from "../../contexts/ActionModalContext";
 import {ModalContext} from "../../contexts/ModalContext";
-import {PaginationContext} from "../../contexts/PaginationContext";
+import {DEFAULT_NUMBER_OF_PAGE, PaginationContext} from "../../contexts/PaginationContext";
 
 interface OptionsValuesData {
     name: string,
@@ -46,11 +46,11 @@ export function FilterModal() {
     }, [closeFilterModal])
 
     const cancel = useCallback(() => {
-        setSort(sort);
-        setOrder(order);
-        setSize(size);
+        setSort('');
+        setOrder('asc');
+        setSize(DEFAULT_NUMBER_OF_PAGE);
         closeFilterModal();
-    }, [setSort, setOrder, setSize, closeFilterModal, order, sort, size])
+    }, [setSort, setOrder, setSize, closeFilterModal])
 
     return (
         <Modal centered show={showFilterModal} className={"rounded-0"} onHide={cancel}>

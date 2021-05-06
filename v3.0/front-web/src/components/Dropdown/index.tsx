@@ -4,12 +4,14 @@ import React, {useContext} from "react";
 import {DropdownContent, NavBarContent} from './styles';
 import {FiUser} from "react-icons/fi";
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
+import {LogoutContext} from "../../contexts/LogoutContext";
 
 interface ActionDropdownProps {
     filterAction: () => void
 }
 
 export function DropdownNavbar() {
+    const {logout} = useContext(LogoutContext);
     return (
         <NavBarContent>
             <Dropdown className="content-items" drop='down'>
@@ -21,7 +23,7 @@ export function DropdownNavbar() {
                     <Dropdown.Item><FiPieChart/> Estatísticas</Dropdown.Item>
                     <Dropdown.Item><FiHelpCircle/> Ajuda</Dropdown.Item>
                     <Dropdown.Header> </Dropdown.Header>
-                    <Dropdown.Item><FiLogOut/> Logout</Dropdown.Item>
+                    <Dropdown.Item onClick={logout}><FiLogOut/> Logout</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </NavBarContent>

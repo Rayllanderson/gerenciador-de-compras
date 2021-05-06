@@ -17,10 +17,12 @@ export function CategoryCard({category}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
     const {setToEdit, setToRemove} = useContext(CategoryContext);
     const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
+
     const clearData = useCallback(() => {
         clearPreviousData();
         clearPaginationSettings();
-    }, [clearPreviousData, clearPaginationSettings])
+    }, [clearPreviousData, clearPaginationSettings]);
+
     return (
         <CategoryCardContainer>
 
@@ -30,7 +32,7 @@ export function CategoryCard({category}: Props) {
                         {editButtonIsVisible && <EditButton onClick={() => setToEdit(category)}/>}
                         {deleteButtonIsVisible && <DeleteButton onClick={() => setToRemove(category)}/>}
                     </CardAddon>
-                    <Link to={`/categories/${category.id}/products`} onClick={clearPreviousData}>
+                    <Link to={`/categories/${category.id}/products`} onClick={clearData}>
                         <h5 className="card-title ">{category.name}</h5>
                         <p className="card-text ">R$ {category.budget}</p>
                     </Link>
