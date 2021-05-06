@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {darken} from 'polished';
+import {darken, lighten} from 'polished';
 
 
 export const Button = styled.button`
@@ -90,16 +90,16 @@ export const YellowButton = styled(Button)`
      color: var(--black);
      
      &:hover{
-         background: ${darken(0.1, '#f7df1e')}!important;
+         background: ${lighten(0.1, '#f7df1e')}!important;
          color: var(--black);
      }
      
      &:active{
-        background: ${darken(0.12, '#f7df1e')}!important;
+        background: ${lighten(0.12, '#f7df1e')}!important;
      }
      
      &:focus{
-        background: ${darken(0.12, '#f7df1e')}!important;
+        background: ${lighten(0.12, '#f7df1e')}!important;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `
@@ -123,21 +123,22 @@ export const GreenButton = styled(Button)`
      }
 `
 
+const cyan = '#00b4d8';
 export const CyanSecondaryButton = styled(Button)`
-     background: var(--cyanSecondary);
+      
+     background: cyan;
      color: var(--black);
      
      &:hover{
-         background: ${darken(0.1, '#ccfff6')}!important;
-         color: var(--black);
+         background: ${lighten(0.1, cyan)}!important;
      }
      
      &:active{
-        background: ${darken(0.12, '#ccfff6')}!important;
+        background: ${lighten(0.12, cyan)}!important;
      }
      
      &:focus{
-        background: ${darken(0.12, '#ccfff6')}!important;
+        background: ${lighten(0.12, cyan)}!important;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `

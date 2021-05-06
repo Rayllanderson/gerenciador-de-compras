@@ -1,4 +1,4 @@
-import {PrimaryButton, RedButton} from "./styles";
+import {CyanSecondaryButton, RedButton} from "./styles";
 import {FiEdit2, FiTrash} from "react-icons/all";
 import React from "react";
 
@@ -7,7 +7,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
 
 export function EditButton({...props}: Props) {
     return (
-        <PrimaryButton className="btn btn-sm" {...props}><FiEdit2/></PrimaryButton>
+        <CyanSecondaryButton className="btn btn-sm" {...props}><FiEdit2/></CyanSecondaryButton>
     )
 }
 

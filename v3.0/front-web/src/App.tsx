@@ -35,11 +35,11 @@ function App() {
                                 <AuthProvider>
                                     <LoginProvider>
                                         <RegisterProvider>
-                                            <LogoutProvider>
-                                                <PaginationProvider>
-                                                    <ModalProvider>
-                                                        <AlertProvider>
-                                                            <GeneralProvider>
+                                            <PaginationProvider>
+                                                <ModalProvider>
+                                                    <AlertProvider>
+                                                        <GeneralProvider>
+                                                            <LogoutProvider>
                                                                 <CategoryProvider>
                                                                     <ProductProvider>
                                                                         <StatisticProvider>
@@ -52,11 +52,11 @@ function App() {
                                                                         </StatisticProvider>
                                                                     </ProductProvider>
                                                                 </CategoryProvider>
-                                                            </GeneralProvider>
-                                                        </AlertProvider>
-                                                    </ModalProvider>
-                                                </PaginationProvider>
-                                            </LogoutProvider>
+                                                            </LogoutProvider>
+                                                        </GeneralProvider>
+                                                    </AlertProvider>
+                                                </ModalProvider>
+                                            </PaginationProvider>
                                         </RegisterProvider>
                                     </LoginProvider>
                                 </AuthProvider>
@@ -66,7 +66,8 @@ function App() {
                 </BrowserRouter>
             </div>
         </ThemeProvider>
-    );
+    )
+        ;
 }
 
 export default App;
