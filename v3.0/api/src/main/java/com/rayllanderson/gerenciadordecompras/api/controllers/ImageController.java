@@ -3,7 +3,6 @@ package com.rayllanderson.gerenciadordecompras.api.controllers;
 import com.rayllanderson.gerenciadordecompras.api.utils.UserUtil;
 import com.rayllanderson.gerenciadordecompras.domain.services.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +21,7 @@ public class ImageController {
     public ResponseEntity<Void> upload (@RequestParam MultipartFile file, @AuthenticationPrincipal UserDetails user){
         Long userId = myUserUtil.getUserId(user);
         imageService.upload(file, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping

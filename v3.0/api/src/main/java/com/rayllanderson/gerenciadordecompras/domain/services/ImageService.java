@@ -2,6 +2,7 @@ package com.rayllanderson.gerenciadordecompras.domain.services;
 
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.BadGatewayException;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.BadRequestException;
+import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;
 import com.rayllanderson.gerenciadordecompras.domain.model.Image;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ImageRepository;
@@ -9,6 +10,7 @@ import com.rayllanderson.gerenciadordecompras.domain.utils.ImageUtil;
 import com.rayllanderson.gerenciadordecompras.domain.validations.ImageValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,6 +21,7 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
+    @Transactional
     public void upload (MultipartFile file, Long userId) {
         String contentType = file.getContentType();
         boolean isAnImageFile = ImageValidation.isValidImageFile(contentType);
@@ -42,8 +45,9 @@ public class ImageService {
         }
     }
 
+    @Transactional
     public void delete (Long userId){
         if (imageRepository.existsByUserId(userId)) imageRepository.deleteByUserId(userId);
-        else throw new BadRequestException("Não possui foto.");
+        else throw new NotFoundException("Não possui foto.");
     }
 }

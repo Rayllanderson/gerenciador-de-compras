@@ -17,8 +17,12 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Lob
     private String base64;
     private String contentType;
+
+    @Lob
     private String miniature;
 
     @OneToOne
