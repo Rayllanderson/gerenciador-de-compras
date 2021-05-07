@@ -32,6 +32,7 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Page<Category> findAll(Long userId, Pageable pageable) {
+
         return categoryRepository.findAllByUserId(userId, pageable);
     }
 
