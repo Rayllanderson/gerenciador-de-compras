@@ -33,7 +33,7 @@ public abstract class BaseApiTest {
     @Qualifier("userDetailsService")
     protected UserDetailsService userDetailsService;
 
-    private String jwtToken = "";
+    protected String jwtToken = "";
 
     HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
