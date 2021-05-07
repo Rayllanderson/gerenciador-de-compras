@@ -30,10 +30,11 @@ public class ImageService {
         if (userHasAlreadyAnImage) delete(userId);
             try {
                 String base64 = ImageUtil.getBase64(file);
+                String miniature = ImageUtil.createMiniature(base64);
                 Image image = Image.builder()
-                        .base64(base64)
+                        .base64("data:" + contentType + ";base64," + base64)
                         .contentType(contentType)
-                        .miniature(ImageUtil.createMiniature(base64))
+                        .miniature("data:" + contentType + ";base64," + miniature)
                         .user(new User(userId))
                         .build();
                 imageRepository.save(image);
