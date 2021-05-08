@@ -12,6 +12,8 @@ export const AddonsContainer = styled.div`
  `
 
 export const CardContainer = styled.div`
+    max-width: 750px;
+    
     h5, p{
        color: ${props => props.theme.colors.text};
     }
@@ -21,6 +23,11 @@ export const CardContainer = styled.div`
       border-radius: 5px;
      /* border: 0.1rem solid ${props => props.theme.colors.primary}!important; */
     }
+`
+
+export const AccountCardContainer = styled(CardContainer)`
+    background: ${props => props.theme.colors.backgroundSecondary}!important;
+    border-radius: 5px;
 `
 
 export const CategoryCardContainer = styled(CardContainer)`
