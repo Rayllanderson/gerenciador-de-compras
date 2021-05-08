@@ -128,3 +128,12 @@ export const ProductCardHeader = styled.div`
      color: ${props => props.theme.colors.primary};
    }
 `
+
+export const ProfileCardContainer = styled.div `
+     display: flex;
+    justify-content: center;
+    max-width: 125px;
+    padding: 10px;
+    border: 1px solid ${props => props.theme.colors.primary}!important;
+    transition: .2s;
+`

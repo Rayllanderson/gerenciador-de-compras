@@ -10,7 +10,7 @@ export const Avatar = styled.img `
     width: 200px;
     transition: .2s;
      &:hover{
-        transform: scale(1.05); 
+        transform: scale(1.03); 
         opacity: 0.8;
         cursor: pointer;
     }

@@ -93,6 +93,10 @@ export default createGlobalStyle`
      }
   }
   
+  .hide{
+    display: none;
+  }
+  
   .transition-2{
     transition: all .2s easy;
   }
@@ -130,7 +134,7 @@ export default createGlobalStyle`
     --whiteSecondary: #fff;
     --whiteLight: hsla(60,30%,96%,5%);
     --cyan: #80ffea;
-    --cyanSecondary: #ccfff6;
+    --cyanSecondary: #00b4d8;
     --cyanLight: hsla(170,100%,75%,5%);
     --green: #04d361;
     --greenLight: #21B534;
