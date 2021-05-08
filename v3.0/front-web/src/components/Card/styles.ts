@@ -27,7 +27,12 @@ export const CardContainer = styled.div`
 
 export const AccountCardContainer = styled(CardContainer)`
     background: ${props => props.theme.colors.backgroundSecondary}!important;
+    position: relative;
     border-radius: 5px;
+    min-height: 450px;
+    h5{
+        text-align: center;
+    }
 `
 
 export const CategoryCardContainer = styled(CardContainer)`
@@ -130,10 +135,15 @@ export const ProductCardHeader = styled.div`
 `
 
 export const ProfileCardContainer = styled.div `
-     display: flex;
+    display: flex;
     justify-content: center;
     max-width: 125px;
     padding: 10px;
     border: 1px solid ${props => props.theme.colors.primary}!important;
     transition: .2s;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 10;
+    z-index: 99;
 `

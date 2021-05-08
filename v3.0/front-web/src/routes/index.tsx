@@ -4,7 +4,7 @@ import Route from './Route';
 import CategoryPage from "../pages/CategoryPage";
 import ProductPage from "../pages/ProductPage";
 import {InitialPage} from "../pages/InitialPage";
-import {Account} from "../pages/Account";
+import {Account} from "../pages/account/Account";
 
 const Routes: React.FC = () => (
   <Switch>

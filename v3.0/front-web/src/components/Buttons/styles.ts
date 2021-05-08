@@ -90,16 +90,16 @@ export const YellowButton = styled(Button)`
      color: var(--black);
      
      &:hover{
-         background: ${lighten(0.1, '#f7df1e')}!important;
+         background: ${darken(0.1, '#f7df1e')}!important;
          color: var(--black);
      }
      
      &:active{
-        background: ${lighten(0.12, '#f7df1e')}!important;
+        background: ${darken(0.12, '#f7df1e')}!important;
      }
      
      &:focus{
-        background: ${lighten(0.12, '#f7df1e')}!important;
+        background: ${darken(0.12, '#f7df1e')}!important;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
      }
 `

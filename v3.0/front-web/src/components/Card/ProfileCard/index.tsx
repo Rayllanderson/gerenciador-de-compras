@@ -10,7 +10,7 @@ interface Props{
 
 export default function ProfileCard({opacity}: Props){
     return(
-        <ProfileCardContainer className={'card container mt-2'} style={{opacity: opacity}}>
+        <ProfileCardContainer className={'card container'} style={{opacity: opacity}}>
             <div className={'mb-1'}>
                 <Label htmlFor={"file"} color={'#00b4d8'}>
                   <FiUploadCloud/> Upload
