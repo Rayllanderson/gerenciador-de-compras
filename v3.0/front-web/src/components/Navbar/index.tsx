@@ -1,10 +1,11 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Container} from './styles';
 import ToggleSwitchTheme from "../Switch";
 import useToggleTheme from "../../hooks/useToggleTheme";
 import {FiShoppingCart} from "react-icons/all";
 import {AuthContext} from "../../contexts/AuthContext";
 import {DropdownNavbar} from "../Dropdown";
+import ImageController from "../../controllers/imageController";
 
 
 const Navbar: React.FC = () => {

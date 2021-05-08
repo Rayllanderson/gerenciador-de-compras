@@ -1,11 +1,12 @@
 import {Dropdown} from "react-bootstrap";
 import {FiHelpCircle, FiLogOut, FiMoreVertical, FiPieChart, FiSettings} from "react-icons/all";
 import {Link} from 'react-router-dom';
-import React, {useContext} from "react";
-import {DropdownContent, NavBarContent} from './styles';
+import React, {useCallback, useContext, useEffect, useState} from "react";
+import {DropdownContent, NavBarContent, DropdownNavbarImage} from './styles';
 import {FiUser} from "react-icons/fi";
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 import {LogoutContext} from "../../contexts/LogoutContext";
+import ImageController from "../../controllers/imageController";
 
 interface ActionDropdownProps {
     filterAction: () => void
@@ -13,14 +14,29 @@ interface ActionDropdownProps {
 
 export function DropdownNavbar() {
     const {logout} = useContext(LogoutContext);
+
+    const [miniature, setMiniature] = useState<string>('');
+    useEffect(() => {
+        new ImageController().findMiniature().then((response) => setMiniature(response.data));
+    }, [])
+
+    const closeDropdown = useCallback(() => {
+        // @ts-ignore
+        document.getElementById('dropdown').click();
+    }, [])
     return (
-        <NavBarContent>
+        <NavBarContent hasImage={!!miniature}>
             <Dropdown className="content-items" drop='down'>
-                <Dropdown.Toggle variant="dropdown">
-                    < FiSettings size={21}/>
+                <Dropdown.Toggle variant="dropdown" id={'dropdown'}>
+                    {
+                        miniature ?
+                            <DropdownNavbarImage src={miniature} alt={'miniature'} width={30}/>
+                            :
+                            < FiSettings size={21}/>
+                    }
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="drop-menu">
-                    <Dropdown.Item> <Link to={'/account'}> <FiUser/> Minha Conta </Link></Dropdown.Item>
+                    <Link to={'/account'} onClick={closeDropdown} className={'dropdown-item'}> <FiUser/> Minha Conta </Link>
                     <Dropdown.Item><FiPieChart/> Estatísticas</Dropdown.Item>
                     <Dropdown.Item><FiHelpCircle/> Ajuda</Dropdown.Item>
                     <Dropdown.Header> </Dropdown.Header>
