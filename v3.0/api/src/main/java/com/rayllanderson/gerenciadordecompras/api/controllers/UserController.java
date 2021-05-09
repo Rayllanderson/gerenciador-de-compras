@@ -9,12 +9,10 @@ import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ImageRepository;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.UserRepository;
 import com.rayllanderson.gerenciadordecompras.domain.services.UserService;
-import com.rayllanderson.gerenciadordecompras.domain.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,7 +26,6 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserService userService;
-    private final UserUtil userUtil;
     private final ImageRepository imageRepository;
 
     @GetMapping
@@ -51,24 +48,23 @@ public class UserController {
 
     @PutMapping("/update/password")
     public ResponseEntity<Void> updatePassword(@RequestBody @Valid UserPutPasswordRequestBody user,
-                                               @AuthenticationPrincipal UserDetails userDetails) {
-        user.setId(userUtil.getUserIdByUsername(userDetails.getUsername()));
+                                               @AuthenticationPrincipal User userAuthenticated) {
+        user.setId(userAuthenticated.getId());
         userService.updatePassword(user);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update")
     public ResponseEntity<Void> updateNameUsernameOrEmail(@RequestBody @Valid UserPutRequestBody user,
-                                                          @AuthenticationPrincipal UserDetails userDetails) {
-        user.setId(userUtil.getUserIdByUsername(userDetails.getUsername()));
+                                                          @AuthenticationPrincipal User userAuthenticated) {
+        user.setId(userAuthenticated.getId());
         userService.updateNameUsernameOrEmail(user);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> delete(@AuthenticationPrincipal UserDetails userDetails) {
-        Long userId = userUtil.getUserIdByUsername(userDetails.getUsername());
-        userService.deleteById(userId);
+    public ResponseEntity<Void> delete(@AuthenticationPrincipal User userAuthenticated) {
+        userService.deleteById(userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
