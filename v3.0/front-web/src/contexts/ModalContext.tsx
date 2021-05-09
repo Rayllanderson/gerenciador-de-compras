@@ -12,6 +12,7 @@ interface ModalContextContextData {
     showTransferModal: boolean,
     showFilterModal: boolean,
     showChangeDataModal: boolean,
+    showChangePasswordModal: boolean,
     openAddModal: () => void,
     closeAddModal: () => void,
     openRemoveModal: () => void,
@@ -24,6 +25,8 @@ interface ModalContextContextData {
     closeFilterModal: () => void,
     openChangeDataModal: () => void,
     closeChangeDataModal: () => void,
+    openChangePasswordModal: () => void,
+    closeChangePasswordModal: () => void,
 }
 
 export const ModalContext = createContext<ModalContextContextData>({} as ModalContextContextData);
@@ -36,6 +39,7 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
     const [showTransferModal, setShowTransferModal] = useState<boolean>(false);
     const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
     const [showChangeDataModal, setShowChangeDataModal] = useState<boolean>(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState<boolean>(false);
 
     function openAddModal() {
         setShowAddModal(true);
@@ -85,6 +89,14 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
         setShowChangeDataModal(false);
     }
 
+    function openChangePasswordModal() {
+        setShowChangePasswordModal(true);
+    }
+
+    function closeChangePasswordModal() {
+        setShowChangePasswordModal(false);
+    }
+
     return (
         <ModalContext.Provider value={{
             closeAddModal, closeRemoveModal, openAddModal,
@@ -92,7 +104,8 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
             closeConfirmModal, openConfirmModal, showConfirmModal,
             closeTransferModal, openTransferModal, showTransferModal,
             closeFilterModal, openFilterModal, showFilterModal,
-            closeChangeDataModal, openChangeDataModal, showChangeDataModal
+            closeChangeDataModal, openChangeDataModal, showChangeDataModal,
+            closeChangePasswordModal, openChangePasswordModal, showChangePasswordModal
         }}>
             {children}
         </ModalContext.Provider>

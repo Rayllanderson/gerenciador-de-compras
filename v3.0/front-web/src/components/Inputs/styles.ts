@@ -1,4 +1,5 @@
 import styled, {css} from "styled-components";
+import {darken} from "polished";
 
 interface ContainerProps {
     isFocused: boolean,
@@ -63,5 +64,15 @@ export const SearchInput = styled.input `
     border: 2px solid ${props => props.theme.colors.backgroundSecondary}!important; 
     &:focus{
       border-color: ${props => props.theme.colors.primary}!important;
+    }
+`
+
+export const InputPasswordContainer = styled.div `
+    span{
+        background: ${props => props.theme.colors.backgroundSecondary};
+        color: ${props => props.theme.colors.primary}!important;
+        border: none;
+        cursor: pointer;
+        transition: .2s;
     }
 `

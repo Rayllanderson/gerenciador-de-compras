@@ -1,8 +1,9 @@
 import {Form} from "react-bootstrap";
-import {CheckboxContainer, InputWithIconContainer, SearchInput} from './styles';
+import {CheckboxContainer, InputWithIconContainer, SearchInput, InputPasswordContainer} from './styles';
 import React, {useCallback, useRef, useState} from "react";
 // @ts-ignore
 import CurrencyInput from 'react-currency-input';
+import {FiEye, FiEyeOff} from "react-icons/all";
 
 interface Props {
     placeholder?: string;
@@ -28,11 +29,27 @@ export function InputText({placeholder, value, onChange}: Props) {
     )
 }
 
+export function InputPassword({placeholder, value, onChange}: Props) {
+    const [isVisible, setIsVisible] = useState(false);
+    const toggleVisibility = useCallback(() => {
+        if (isVisible) setIsVisible(false)
+        else setIsVisible(true);
+    }, [isVisible])
+    return (
+        <InputPasswordContainer className="input-group mb-3">
+            <input type={isVisible ? 'text' : 'password'} className="form-control"
+                   placeholder={placeholder} aria-describedby="basic-addon2"
+            value={value} onChange={onChange} />
+            <span className="input-group-text" onClick={toggleVisibility} > {isVisible ? <FiEyeOff/> : <FiEye/>}</span>
+        </InputPasswordContainer>
+    )
+}
+
 export function InputSearch({placeholder, value, onChange}: Props) {
     return (
         <SearchInput type="search" className="rounded-md py-1 px-3 form-control"
-                   value={value} onChange={onChange}
-                   placeholder={placeholder} />
+                     value={value} onChange={onChange}
+                     placeholder={placeholder}/>
     )
 }
 

@@ -24,6 +24,7 @@ interface ConfirmModalContextContextData {
     openFilterProductModalAction: () => void
     closeFilterModalAction: () => void
     openChangeUserDataModalAction: () => void
+    openChangePasswordModalAction: () => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -35,7 +36,8 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [transferModalTitle, setTransferModalTitle] = useState<'Copiar' | 'Mover'>('Copiar');
     const [filterType, setFilterType] = useState<'product' | 'category'>('category');
 
-    const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal, openChangeDataModal} = useContext(ModalContext);
+    const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal,
+        openChangeDataModal, openChangePasswordModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
     const {removeVarious: removeVariousProducts, setNewCategoryId} = useContext(ProductContext);
     const {user, setUsername, setName} = useContext(AccountContext);
@@ -93,12 +95,16 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         openChangeDataModal();
     }, [setName, setUsername, openChangeDataModal, user.name, user.username]);
 
+    const openChangePasswordModalAction = useCallback(() => {
+        openChangePasswordModal();
+    }, [openChangePasswordModal]);
+
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
             copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction,
             closeTransferModalAction, openFilterCategoryModalAction, openFilterProductModalAction, filterType,
-            closeFilterModalAction, openChangeUserDataModalAction
+            closeFilterModalAction, openChangeUserDataModalAction, openChangePasswordModalAction
         }}>
             {children}
         </ActionModalContext.Provider>
