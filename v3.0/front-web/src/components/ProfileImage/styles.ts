@@ -15,3 +15,19 @@ export const Avatar = styled.img `
         cursor: pointer;
     }
 `
+
+export const NonAvatar = styled.div `
+    width: 200px;
+    height: 200px;
+    border: 1px solid ${props => props.theme.colors.primary}!important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+     &:hover{
+        transform: scale(1.03); 
+        opacity: 0.8;
+        cursor: pointer;
+    }
+`
