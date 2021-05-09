@@ -36,12 +36,13 @@ function App() {
                             <CardItemActionProvider>
                                 <AuthProvider>
                                     <LoginProvider>
-                                        <AccountProvider>
-                                            <ProfileImageProvider>
-                                                <RegisterProvider>
-                                                    <PaginationProvider>
-                                                        <ModalProvider>
-                                                            <AlertProvider>
+
+                                        <RegisterProvider>
+                                            <PaginationProvider>
+                                                <ModalProvider>
+                                                    <AlertProvider>
+                                                        <AccountProvider>
+                                                            <ProfileImageProvider>
                                                                 <GeneralProvider>
                                                                     <LogoutProvider>
                                                                         <CategoryProvider>
@@ -58,12 +59,12 @@ function App() {
                                                                         </CategoryProvider>
                                                                     </LogoutProvider>
                                                                 </GeneralProvider>
-                                                            </AlertProvider>
-                                                        </ModalProvider>
-                                                    </PaginationProvider>
-                                                </RegisterProvider>
-                                            </ProfileImageProvider>
-                                        </AccountProvider>
+                                                            </ProfileImageProvider>
+                                                        </AccountProvider>
+                                                    </AlertProvider>
+                                                </ModalProvider>
+                                            </PaginationProvider>
+                                        </RegisterProvider>
                                     </LoginProvider>
                                 </AuthProvider>
                             </CardItemActionProvider>

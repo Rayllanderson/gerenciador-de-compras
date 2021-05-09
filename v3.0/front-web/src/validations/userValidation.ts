@@ -25,7 +25,7 @@ export function validateLogin(user: UserLoginBody) {
         }
 
         const success = !hasNoPassword && !hasNoUsername && !usernameIsInvalid && !passwordIsInvalid;
-        if (success){
+        if (success) {
             resolve('All fields has been successful validated.');
         }
     });
@@ -37,4 +37,23 @@ export function validateRegister(user: UserRegisterBody) {
         password: user.password
     }
     return validateLogin(userToBeValidate);
+}
+
+export function validateField(field: string, fieldName: string) {
+    return new Promise<string>(function (resolve, reject) {
+        const fieldIsEmpty = field.length < 1;
+        if (fieldIsEmpty) {
+            reject({message: fieldName + ' é obrigatório'});
+        }
+
+        const MIN_CHARACTER_LIMIT: number = 3;
+        const fieldIsInvalid = field.length < MIN_CHARACTER_LIMIT;
+        if (fieldIsInvalid) {
+            reject({message: fieldName + ' precisa ter, no mínimo, ' + MIN_CHARACTER_LIMIT + ' caracteres.'});
+        }
+        const success = !fieldIsEmpty && !fieldIsInvalid
+        if (success) {
+            resolve('All fields has been successful validated.');
+        }
+    })
 }

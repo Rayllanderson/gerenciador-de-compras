@@ -17,3 +17,9 @@ export interface UserResponseBody {
     username: string,
     base64: string
 }
+
+export interface UserPutBody {
+    name: string,
+    username: string,
+    email: string
+}

@@ -1,7 +1,16 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
+import {UserPutBody} from "../interfaces/userInterface";
 
 export default class UserController {
+
+    updateData(user:UserPutBody){
+        return api.put('/users/update', user, {headers: getAuthHeader()});
+    }
+
+    updatePassword(password: string){
+        return api.put('/users/update/password', {password: password}, {headers: getAuthHeader()});
+    }
 
     fetchUser(){
         return api.get('/users/details', {headers: getAuthHeader()});

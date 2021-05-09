@@ -40,7 +40,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         openChangeDataModal, openChangePasswordModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
     const {removeVarious: removeVariousProducts, setNewCategoryId} = useContext(ProductContext);
-    const {user, setUsername, setName} = useContext(AccountContext);
+    const {user, setUsername, setName, clearPassword} = useContext(AccountContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -96,8 +96,9 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     }, [setName, setUsername, openChangeDataModal, user.name, user.username]);
 
     const openChangePasswordModalAction = useCallback(() => {
+        clearPassword();
         openChangePasswordModal();
-    }, [openChangePasswordModal]);
+    }, [openChangePasswordModal, clearPassword]);
 
     return (
         <ActionModalContext.Provider value={{
