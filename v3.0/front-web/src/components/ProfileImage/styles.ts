@@ -16,7 +16,7 @@ export const Avatar = styled.img `
     }
 `
 
-export const NonAvatar = styled.div `
+export const DefaultAvatar = styled.div `
     width: 200px;
     height: 200px;
     border: 1px solid ${props => props.theme.colors.primary}!important;

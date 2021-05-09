@@ -6,9 +6,9 @@ import {useContext} from "react";
 import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
 
 export default function ProfileCard(){
-    const {cardOpacity} = useContext(ProfileImageContext)
+    const {cardDisplay} = useContext(ProfileImageContext)
     return(
-        <ProfileCardContainer className={'card container'} style={{opacity: cardOpacity}}>
+        <ProfileCardContainer className={'card container'} style={{display: cardDisplay}}>
             <div className={'mb-1'}>
                 <Label htmlFor={"file"} color={'#00b4d8'}>
                   <FiUploadCloud/> Upload

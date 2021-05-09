@@ -5,7 +5,7 @@ interface ProfileImageProviderProps {
 }
 
 interface ProfileImageContextData {
-    cardOpacity: number,
+    cardDisplay: 'none' | 'block',
     toggleCardVisibility: () => void,
 }
 
@@ -13,16 +13,16 @@ export const ProfileImageContext = createContext<ProfileImageContextData>({} as 
 
 export function ProfileImageProvider({children}: ProfileImageProviderProps) {
 
-    const [cardOpacity, setCardOpacity] = useState<number>(0);
+    const [cardDisplay, setCardOpacity] = useState<'none' | 'block'>('none');
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
 
     const showCard = useCallback(() => {
-        setCardOpacity(1);
+        setCardOpacity("block");
         setCardIsOpen(true);
     }, [setCardOpacity, setCardIsOpen]);
 
     const hideCard = useCallback(() => {
-        setCardOpacity(0);
+        setCardOpacity('none');
         setCardIsOpen(false);
     }, [setCardOpacity, setCardIsOpen]);
 
@@ -33,7 +33,7 @@ export function ProfileImageProvider({children}: ProfileImageProviderProps) {
 
     return (
         <ProfileImageContext.Provider value={{
-            cardOpacity, toggleCardVisibility
+            cardDisplay, toggleCardVisibility
         }}>
             {children}
         </ProfileImageContext.Provider>

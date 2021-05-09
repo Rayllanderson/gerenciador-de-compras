@@ -1,4 +1,4 @@
-import {Avatar, Container, NonAvatar} from './styles';
+import {Avatar, Container, DefaultAvatar} from './styles';
 import {useContext} from "react";
 import {ProfileImageContext} from "../../contexts/ProfileImageContex";
 import {FiUser} from "react-icons/fi";
@@ -22,9 +22,9 @@ export default function ProfileImage({src}: Props) {
                 />
             ) : (
                 <>
-                    <NonAvatar onClick={toggleCardVisibility}>
+                    <DefaultAvatar onClick={toggleCardVisibility}>
                         <FiUser size={60} color={colors.primary}/>
-                    </NonAvatar>
+                    </DefaultAvatar>
                 </>
             )
 
