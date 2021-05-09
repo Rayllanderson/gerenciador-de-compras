@@ -5,9 +5,6 @@ import {Label} from './styles';
 import {useContext} from "react";
 import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
 
-interface Props{
-}
-
 export default function ProfileCard(){
     const {cardOpacity} = useContext(ProfileImageContext)
     return(

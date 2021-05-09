@@ -2,6 +2,7 @@ import {createContext, ReactNode, useCallback, useContext, useState} from 'react
 import {CategoryContext} from "./CategoryContext";
 import {ModalContext} from "./ModalContext";
 import {ProductContext} from "./ProductContext";
+import {AccountContext} from "./AccountContext";
 
 interface ConfirmModalContextProviderProps {
     children: ReactNode;
@@ -22,6 +23,7 @@ interface ConfirmModalContextContextData {
     openFilterCategoryModalAction: () => void
     openFilterProductModalAction: () => void
     closeFilterModalAction: () => void
+    openChangeUserDataModalAction: () => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -33,9 +35,10 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [transferModalTitle, setTransferModalTitle] = useState<'Copiar' | 'Mover'>('Copiar');
     const [filterType, setFilterType] = useState<'product' | 'category'>('category');
 
-    const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal} = useContext(ModalContext);
+    const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal, openChangeDataModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
     const {removeVarious: removeVariousProducts, setNewCategoryId} = useContext(ProductContext);
+    const {user, setUsername, setName} = useContext(AccountContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -82,16 +85,20 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
 
     const closeFilterModalAction = useCallback(() => {
         closeFilterModal();
-        //setar tudo pro default...
     }, [closeFilterModal]);
 
+    const openChangeUserDataModalAction = useCallback(() => {
+        setName(user.name);
+        setUsername(user.username);
+        openChangeDataModal();
+    }, [setName, setUsername, openChangeDataModal, user.name, user.username]);
 
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
             copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction,
             closeTransferModalAction, openFilterCategoryModalAction, openFilterProductModalAction, filterType,
-            closeFilterModalAction
+            closeFilterModalAction, openChangeUserDataModalAction
         }}>
             {children}
         </ActionModalContext.Provider>

@@ -5,9 +5,11 @@ import {PrimaryButton, SecondaryButton} from "../../Buttons/styles";
 import {useContext} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {InputText} from "../../Inputs";
+import {AccountContext} from "../../../contexts/AccountContext";
 
-export function ChangeDataModal() {
+export function ChangeUserDataModal() {
     const {showChangeDataModal, closeChangeDataModal} = useContext(ModalContext);
+    const {username, name, handleUsernameChange, handleNameChange} = useContext(AccountContext);
     return (
         <Modal centered show={showChangeDataModal} className={"rounded-0"} onHide={closeChangeDataModal}>
             <Content>
@@ -18,11 +20,11 @@ export function ChangeDataModal() {
                 <Modal.Body style={{border: 'none'}}>
                     <div className={'mb-3'}>
                         <label>Nome</label>
-                        <InputText/>
+                        <InputText onChange={handleNameChange} value={name}/>
                     </div>
                     <div>
                         <label>Username</label>
-                        <InputText/>
+                        <InputText onChange={handleUsernameChange} value={username}/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
