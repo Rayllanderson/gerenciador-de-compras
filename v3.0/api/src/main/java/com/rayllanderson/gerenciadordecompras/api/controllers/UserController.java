@@ -6,6 +6,7 @@ import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserPutRequestBod
 import com.rayllanderson.gerenciadordecompras.domain.dtos.user.UserResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.mapper.UserMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
+import com.rayllanderson.gerenciadordecompras.domain.repositories.ImageRepository;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.UserRepository;
 import com.rayllanderson.gerenciadordecompras.domain.services.UserService;
 import com.rayllanderson.gerenciadordecompras.domain.utils.UserUtil;
@@ -28,6 +29,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
     private final UserUtil userUtil;
+    private final ImageRepository imageRepository;
 
     @GetMapping
     public ResponseEntity<List<UserResponseBody>> findAll() {
@@ -71,7 +73,9 @@ public class UserController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<UserResponseBody> getUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(UserMapper.toUserResponseBody((User) userDetails));
+    public ResponseEntity<UserResponseBody> getUserDetails(@AuthenticationPrincipal User userAuthenticated) {
+        UserResponseBody user = UserMapper.toUserResponseBody(userAuthenticated);
+        user.setBase64(imageRepository.findBase64(user.getId()));
+        return ResponseEntity.ok(user);
     }
 }

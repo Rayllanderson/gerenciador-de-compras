@@ -14,4 +14,5 @@ public class UserResponseBody {
     private String email;
     private String username;
     private String name;
+    private String base64;
 }
