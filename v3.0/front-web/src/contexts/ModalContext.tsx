@@ -11,6 +11,7 @@ interface ModalContextContextData {
     showConfirmModal: boolean,
     showTransferModal: boolean,
     showFilterModal: boolean,
+    showChangeDataModal: boolean,
     openAddModal: () => void,
     closeAddModal: () => void,
     openRemoveModal: () => void,
@@ -21,6 +22,8 @@ interface ModalContextContextData {
     closeTransferModal: () => void,
     openFilterModal: () => void,
     closeFilterModal: () => void,
+    openChangeDataModal: () => void,
+    closeChangeDataModal: () => void,
 }
 
 export const ModalContext = createContext<ModalContextContextData>({} as ModalContextContextData);
@@ -32,6 +35,7 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [showTransferModal, setShowTransferModal] = useState<boolean>(false);
     const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+    const [showChangeDataModal, setShowChangeDataModal] = useState<boolean>(false);
 
     function openAddModal() {
         setShowAddModal(true);
@@ -73,13 +77,22 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
         setShowFilterModal(false);
     }
 
+    function openChangeDataModal() {
+        setShowChangeDataModal(true);
+    }
+
+    function closeChangeDataModal() {
+        setShowChangeDataModal(false);
+    }
+
     return (
         <ModalContext.Provider value={{
             closeAddModal, closeRemoveModal, openAddModal,
             openRemoveModal, showRemoveModal, showAddModal,
             closeConfirmModal, openConfirmModal, showConfirmModal,
             closeTransferModal, openTransferModal, showTransferModal,
-            closeFilterModal, openFilterModal, showFilterModal
+            closeFilterModal, openFilterModal, showFilterModal,
+            closeChangeDataModal, openChangeDataModal, showChangeDataModal
         }}>
             {children}
         </ModalContext.Provider>

@@ -27,7 +27,7 @@ export function LogoutProvider({children}: LogoutContextProviderProps) {
             title: 'Logout',
             description: "Você fez logout. Até mais!",
         })
-    }, [addToast])
+    }, [addToast, clearPreviousData, signOut])
 
 
     return (

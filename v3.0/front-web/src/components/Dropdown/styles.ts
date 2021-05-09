@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {darken} from "polished";
-import {DropdownNavbar} from "./index";
 
 export const DropdownContent = styled.div `
     .drop-header{

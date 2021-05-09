@@ -2,7 +2,7 @@ import {FiChevronLeft, FiShoppingCart} from "react-icons/all";
 import {Header} from "./styles";
 import React, {useCallback, useContext} from "react";
 import {GeneralContext} from "../../../contexts/GeneralContex";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 interface BackButtonNavbarProps {
     isOnHomePage: boolean
@@ -15,7 +15,7 @@ function BackButtonHeader() {
         clearPreviousData();
         clearPaginationSettings();
         history.goBack();
-    }, [clearPreviousData, clearPaginationSettings])
+    }, [clearPreviousData, clearPaginationSettings, history])
     return (
         <Header className={'container '}>
             <button onClick={clearDataAndBack}>

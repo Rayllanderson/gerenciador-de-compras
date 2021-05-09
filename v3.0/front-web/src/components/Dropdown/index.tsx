@@ -2,11 +2,11 @@ import {Dropdown} from "react-bootstrap";
 import {FiHelpCircle, FiLogOut, FiMoreVertical, FiPieChart, FiSettings} from "react-icons/all";
 import {Link} from 'react-router-dom';
 import React, {useCallback, useContext, useEffect, useState} from "react";
-import {DropdownContent, NavBarContent, DropdownNavbarImage} from './styles';
+import {DropdownContent, DropdownNavbarImage, NavBarContent} from './styles';
 import {FiUser} from "react-icons/fi";
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 import {LogoutContext} from "../../contexts/LogoutContext";
-import ImageController from "../../controllers/imageController";
+import UserController from "../../controllers/userController";
 
 interface ActionDropdownProps {
     filterAction: () => void
@@ -17,7 +17,7 @@ export function DropdownNavbar() {
 
     const [miniature, setMiniature] = useState<string>('');
     useEffect(() => {
-        new ImageController().findMiniature().then((response) => setMiniature(response.data));
+        new UserController().findMiniature().then((response) => setMiniature(response.data));
     }, [])
 
     const closeDropdown = useCallback(() => {

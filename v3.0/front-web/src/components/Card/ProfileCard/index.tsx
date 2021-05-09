@@ -1,4 +1,3 @@
-import {RedButton} from "../../Buttons/styles";
 import {FiUploadCloud} from "react-icons/all";
 import {FiXCircle} from "react-icons/fi";
 import {ProfileCardContainer} from '../styles';

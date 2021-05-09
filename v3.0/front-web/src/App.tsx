@@ -21,6 +21,7 @@ import {ConfirmModal} from "./components/Modal/ConfirmModal";
 import {StatisticProvider} from "./contexts/StatisticContext";
 import {FilterModal} from "./components/Modal/FilterModal";
 import {LogoutProvider} from "./contexts/LogoutContext";
+import {AccountProvider} from "./contexts/AccountContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -34,30 +35,32 @@ function App() {
                             <CardItemActionProvider>
                                 <AuthProvider>
                                     <LoginProvider>
-                                        <RegisterProvider>
-                                            <PaginationProvider>
-                                                <ModalProvider>
-                                                    <AlertProvider>
-                                                        <GeneralProvider>
-                                                            <LogoutProvider>
-                                                                <CategoryProvider>
-                                                                    <ProductProvider>
-                                                                        <StatisticProvider>
-                                                                            <ConfirmModalProvider>
-                                                                                <GlobalStyle/>
-                                                                                <Routes/>
-                                                                                <FilterModal/>
-                                                                                <ConfirmModal/>
-                                                                            </ConfirmModalProvider>
-                                                                        </StatisticProvider>
-                                                                    </ProductProvider>
-                                                                </CategoryProvider>
-                                                            </LogoutProvider>
-                                                        </GeneralProvider>
-                                                    </AlertProvider>
-                                                </ModalProvider>
-                                            </PaginationProvider>
-                                        </RegisterProvider>
+                                        <AccountProvider>
+                                            <RegisterProvider>
+                                                <PaginationProvider>
+                                                    <ModalProvider>
+                                                        <AlertProvider>
+                                                            <GeneralProvider>
+                                                                <LogoutProvider>
+                                                                    <CategoryProvider>
+                                                                        <ProductProvider>
+                                                                            <StatisticProvider>
+                                                                                <ConfirmModalProvider>
+                                                                                    <GlobalStyle/>
+                                                                                    <Routes/>
+                                                                                    <FilterModal/>
+                                                                                    <ConfirmModal/>
+                                                                                </ConfirmModalProvider>
+                                                                            </StatisticProvider>
+                                                                        </ProductProvider>
+                                                                    </CategoryProvider>
+                                                                </LogoutProvider>
+                                                            </GeneralProvider>
+                                                        </AlertProvider>
+                                                    </ModalProvider>
+                                                </PaginationProvider>
+                                            </RegisterProvider>
+                                        </AccountProvider>
                                     </LoginProvider>
                                 </AuthProvider>
                             </CardItemActionProvider>
