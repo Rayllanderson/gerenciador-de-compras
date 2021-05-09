@@ -9,7 +9,7 @@ interface RegisterContextProviderProps {
     children: ReactNode;
 }
 
-interface RegisterContextContextData {
+interface RegisterContextData {
     name: string,
     username: string,
     password: string,
@@ -20,7 +20,7 @@ interface RegisterContextContextData {
 
 }
 
-export const RegisterContext = createContext<RegisterContextContextData>({} as RegisterContextContextData);
+export const RegisterContext = createContext<RegisterContextData>({} as RegisterContextData);
 
 export function RegisterProvider({children}: RegisterContextProviderProps) {
 

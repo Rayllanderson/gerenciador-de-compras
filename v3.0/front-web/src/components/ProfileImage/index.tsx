@@ -1,15 +1,18 @@
 import {Avatar, Container} from './styles';
+import {useContext} from "react";
+import {ProfileImageContext} from "../../contexts/ProfileImageContex";
 
 interface Props {
     src?: string
-    click?: () => void; //temporaria, jaja é passada via context
 }
 
-export default function ProfileImage({src, click}: Props) {
+export default function ProfileImage({src}: Props) {
+
+    const {toggleCardVisibility} = useContext(ProfileImageContext)
 
     return (
         <Container>
-            <Avatar onClick={click}
+            <Avatar onClick={toggleCardVisibility}
                     src={src}
                     alt={'Profile photo'}
             />
