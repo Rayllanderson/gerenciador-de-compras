@@ -1,12 +1,11 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.api.utils.UserUtil;
+import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ImageRepository;
 import com.rayllanderson.gerenciadordecompras.domain.services.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,31 +16,26 @@ public class ImageController {
 
     private final ImageService imageService;
     private final ImageRepository imageRepository;
-    private final UserUtil myUserUtil;
 
     @PostMapping
-    public ResponseEntity<Void> upload (@RequestParam MultipartFile file, @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        imageService.upload(file, userId);
+    public ResponseEntity<Void> upload (@RequestParam MultipartFile file, @AuthenticationPrincipal User userAuthenticated){
+        imageService.upload(file, userAuthenticated.getId());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> delete (@AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        imageService.delete(userId);
+    public ResponseEntity<Void> delete (@AuthenticationPrincipal User userAuthenticated){
+        imageService.delete(userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<String> findBase64(@AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(imageRepository.findBase64(userId));
+    public ResponseEntity<String> findBase64(@AuthenticationPrincipal User userAuthenticated){
+        return ResponseEntity.ok(imageRepository.findBase64(userAuthenticated.getId()));
     }
 
     @GetMapping("/miniature")
-    public ResponseEntity<String> findMiniature(@AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(imageRepository.findMiniature(userId));
+    public ResponseEntity<String> findMiniature(@AuthenticationPrincipal User userAuthenticated){
+        return ResponseEntity.ok(imageRepository.findMiniature(userAuthenticated.getId()));
     }
 }

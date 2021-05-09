@@ -1,9 +1,9 @@
 package com.rayllanderson.gerenciadordecompras.api.controllers;
 
-import com.rayllanderson.gerenciadordecompras.api.utils.UserUtil;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
+import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.StatisticResponseBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferAllProductRequestBody;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,75 +27,64 @@ public class AllProductController {
 
     private final StatisticService statisticService;
     private final AllProductService allProductService;
-    private final UserUtil myUserUtil;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> findAll(Pageable pageable, @AuthenticationPrincipal UserDetails user) {
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(allProductService.findAll(userId, pageable));
+    public ResponseEntity<Page<Product>> findAll(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
+        return ResponseEntity.ok(allProductService.findAll(userAuthenticated.getId(), pageable));
     }
 
     @GetMapping("/purchased")
-    public ResponseEntity<Page<Product>> findAllPurchased(Pageable pageable, @AuthenticationPrincipal UserDetails user) {
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(allProductService.findPurchased(userId, pageable));
+    public ResponseEntity<Page<Product>> findAllPurchased(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
+        return ResponseEntity.ok(allProductService.findPurchased(userAuthenticated.getId(), pageable));
     }
 
     @GetMapping("/non-purchased")
-    public ResponseEntity<Page<Product>> findAllNonPurchased(Pageable pageable, @AuthenticationPrincipal UserDetails user) {
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(allProductService.findNotPurchased(userId, pageable));
+    public ResponseEntity<Page<Product>> findAllNonPurchased(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
+        return ResponseEntity.ok(allProductService.findNotPurchased(userAuthenticated.getId(), pageable));
     }
 
 
     @PostMapping
     public ResponseEntity<ProductPostResponseBody> save(@RequestBody @Valid AllProductPostRequestBody productPostRequestBody,
-                                                        @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody, userId));
+                                                        @AuthenticationPrincipal User userAuthenticated){
+        return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody, userAuthenticated.getId()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        allProductService.deleteById(id, userId);
+    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal User userAuthenticated){
+        allProductService.deleteById(id, userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteVarious(@RequestBody @Valid List<SelectItemsRequestBody> ids,
-                                              @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        allProductService.deleteVariousById(ids, userId);
+                                              @AuthenticationPrincipal User userAuthenticated){
+        allProductService.deleteVariousById(ids, userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
     public ResponseEntity<Page<Product>> findByName(@RequestParam String name, Pageable pageable,
-                                                    @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(allProductService.findByName(name, userId, pageable));
+                                                    @AuthenticationPrincipal User userAuthenticated){
+        return ResponseEntity.ok(allProductService.findByName(name, userAuthenticated.getId(), pageable));
     }
 
     @PostMapping("/copy")
     public ResponseEntity<Void> copyProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data,
-                                                              @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        allProductService.copyProductsToAnotherCategory(data, userId);
+                                                              @AuthenticationPrincipal User userAuthenticated){
+        allProductService.copyProductsToAnotherCategory(data, userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/move")
     public ResponseEntity<Void> moveProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data,
-                                                              @AuthenticationPrincipal UserDetails user){
-        Long userId = myUserUtil.getUserId(user);
-        allProductService.moveProductsToAnotherCategory(data, userId);
+                                                              @AuthenticationPrincipal User userAuthenticated){
+        allProductService.moveProductsToAnotherCategory(data, userAuthenticated.getId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<StatisticResponseBody> getStatistics(@AuthenticationPrincipal UserDetails user) {
-        Long userId = myUserUtil.getUserId(user);
-        return ResponseEntity.ok(statisticService.getStatistics(userId));
+    public ResponseEntity<StatisticResponseBody> getStatistics(@AuthenticationPrincipal User userAuthenticated) {
+        return ResponseEntity.ok(statisticService.getStatistics(userAuthenticated.getId()));
     }
 }

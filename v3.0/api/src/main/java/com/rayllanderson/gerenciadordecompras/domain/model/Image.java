@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -19,10 +20,13 @@ public class Image {
     private Long id;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String base64;
+
     private String contentType;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String miniature;
 
     @OneToOne
