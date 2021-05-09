@@ -1,25 +1,33 @@
-import {FiChevronLeft} from "react-icons/all";
+import {FiChevronLeft, FiShoppingCart} from "react-icons/all";
 import {Header} from "./styles";
-import {Link} from 'react-router-dom'
-import {useCallback, useContext} from "react";
+import React, {useCallback, useContext} from "react";
 import {GeneralContext} from "../../../contexts/GeneralContex";
+import { useHistory } from "react-router-dom";
 
-interface Props {
-    onClick?: () => void,
-    to: string
+interface BackButtonNavbarProps {
+    isOnHomePage: boolean
 }
-export default function BackButtonHeader({ to }: Props) {
+
+function BackButtonHeader() {
     const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
-    const clearData = useCallback(() => {
+    let history = useHistory();
+    const clearDataAndBack = useCallback(() => {
         clearPreviousData();
         clearPaginationSettings();
+        history.goBack();
     }, [clearPreviousData, clearPaginationSettings])
     return (
         <Header className={'container '}>
-            <div>&nbsp;</div>
-            <Link to={to} onClick={clearData}>
-                <FiChevronLeft size={17} />Voltar
-            </Link>
+            <button onClick={clearDataAndBack}>
+                <FiChevronLeft size={17}/>Voltar
+            </button>
         </Header>
+    )
+}
+
+export function BackButtonNavbar({isOnHomePage}: BackButtonNavbarProps) {
+
+    return (
+        isOnHomePage ? <FiShoppingCart size={22}/> : <BackButtonHeader />
     )
 }

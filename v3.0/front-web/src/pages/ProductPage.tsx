@@ -1,5 +1,4 @@
 import React, {useContext, useEffect} from "react";
-import BackButtonHeader from "../components/Buttons/BackButton";
 import Search from "../components/Search";
 import {ProductHeader} from "../components/Header/Product";
 import {ButtonGroup} from "../components/ButtonsGroup";
@@ -30,7 +29,6 @@ export default function ProductPage(){
 
     return (
         <div style={{minHeight: '100vh'}}>
-            <BackButtonHeader to={'/categories'}/>
 
             <ProductHeader />
 

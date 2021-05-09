@@ -4,7 +4,10 @@ import {darken} from "polished";
 export const Header = styled.div`
    max-width:750px;
    
-  a{
+  button{
+    background: transparent;
+    border: none;
+    box-shadow: none!important;
     max-width:100px;
     font-size: 18px;
     display: flex;

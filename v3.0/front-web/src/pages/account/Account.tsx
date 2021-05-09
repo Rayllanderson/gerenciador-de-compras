@@ -26,7 +26,7 @@ export function Account(){
 //  criar um context pra essas funções ae... adeus. raios caindo
 
     return(
-        <AccountCardContainer className={'container mt-5 card'}>
+        <AccountCardContainer className={'container mt-5 card appearFromBottom'}>
             <h5 className={'pt-4 pb-4'}>Sua Conta</h5>
             <div >
                 <ProfileImage src={'5'} click={toggleCardVisibility}/>
