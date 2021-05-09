@@ -1,5 +1,6 @@
 package com.rayllanderson.gerenciadordecompras.api.exceptions.handle;
 
+import com.rayllanderson.gerenciadordecompras.domain.exceptions.BadGatewayException;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.BadRequestException;
 import com.rayllanderson.gerenciadordecompras.domain.exceptions.NotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -42,6 +43,19 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
                 StandardError.builder()
                         .timestamp(LocalDateTime.now())
                         .title("Bad Request")
+                        .message(e.getMessage())
+                        .path(request.getRequestURI())
+                        .status(statusCode.value())
+                        .build());
+    }
+
+    @ExceptionHandler(BadGatewayException.class)
+    public ResponseEntity<StandardError> handleBadGatewayException(BadGatewayException e, HttpServletRequest request) {
+        HttpStatus statusCode = HttpStatus.BAD_GATEWAY;
+        return ResponseEntity.status(statusCode).body(
+                StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .title("Bad Gateway")
                         .message(e.getMessage())
                         .path(request.getRequestURI())
                         .status(statusCode.value())
