@@ -11,5 +11,12 @@ export function getValidationError(err: any){
     if (serverIsOffline) {
         return 'Servidor está dormindo, mas já estamos acordando ele. Tente de novo em alguns segundos.';
     }
-    return err.response.data.fields;
+    const field = getFirstError(err.response.data.fields);
+    const message = getFirstError(err.response.data.fieldsMessage);
+    return field + ': ' + message;
+}
+
+function getFirstError(error: string) {
+    const comingError:string = error + '';
+    return comingError.split(',')[0];
 }

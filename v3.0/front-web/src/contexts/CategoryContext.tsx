@@ -10,6 +10,7 @@ import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import {SelectItem} from "../interfaces/selectItemInterface";
 import {toTransferCategoryRequestBody} from "../utils/selectItemUtil";
+import {getError, getValidationError} from "../utils/handleApiErros";
 
 interface CategoryProviderProps {
     children: ReactNode;
@@ -116,7 +117,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                 loadPage(api);
                 closeAddModal();
                 clearInputs();
-            }).catch(err => console.log(err))
+            }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => {
             addAlert(err.message);
         })
@@ -140,7 +141,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                 closeAddModal();
                 clearInputs();
                 clearSelectedCategory();
-            }).catch(err => console.log(err))
+            }).catch(err => getValidationError(err))
         }).catch(err => {
             addAlert(err.message);
         })
@@ -162,7 +163,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             closeRemoveModal();
             loadPage(api);
             clearSelectedCategory();
-        })
+        }).catch(err => getError(err))
     }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
 
     const duplicateCategories = useCallback(() => {
@@ -176,7 +177,11 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                         description: `Lista ${item.name} duplicada`
                     })
                     loadPage(api);
-                }).catch((err) => console.log(err.response.data.message));
+                }).catch((err) => addToast({
+                    type: "error",
+                    title: 'Error',
+                    description: getError(err)
+                }));
         });
         clearSelectedItems();
         closeConfirmModal();
@@ -192,7 +197,11 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                     description: `As listas selecionadas foram excluídas.`
                 })
                 loadPage(api);
-            }).catch((err) => console.log(err.response.data.message));
+            }).catch((err) => addToast({
+                type: "error",
+                title: 'Error',
+                description: getError(err)
+            }));
         clearSelectedItems();
         closeConfirmModal();
     }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
