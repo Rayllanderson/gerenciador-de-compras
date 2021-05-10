@@ -9,6 +9,8 @@ import {AccountContext} from "../../../contexts/AccountContext";
 import MyAlert from "../../Alert";
 import {Avatar} from "../../ProfileImage/styles";
 import {ActionModalContext} from "../../../contexts/ActionModalContext";
+import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
+import {formatBytes, getPhotoSize} from "../../../utils/profilePhotoUtil";
 
 export function ChangeUserDataModal() {
     const {showChangeDataModal, closeChangeDataModal} = useContext(ModalContext);
@@ -71,7 +73,10 @@ export function ChangePasswordModal() {
 export function PreviewPhotoModal(){
     const {showPreviewPhotoModal} = useContext(ModalContext);
     const {closePreviewPhotoModalAction} = useContext(ActionModalContext);
-    const {uploadFile} = useContext(AccountContext);
+    const {uploadFile, photo} = useContext(AccountContext);
+    const MAX_UPLOAD_FILE_SIZE = 204800;
+    const currentImageSize = getPhotoSize(photo) as number;
+    const cannotUpload: boolean = currentImageSize > MAX_UPLOAD_FILE_SIZE;
     return (
         <Modal centered show={showPreviewPhotoModal} className={"rounded-0"} onHide={closePreviewPhotoModalAction}>
             <Content>
@@ -81,6 +86,12 @@ export function PreviewPhotoModal(){
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <MyAlert/>
+                    <div className={'text-center align-self-lg-end'}>
+                        <p>Tamanho Máximo: {formatBytes(MAX_UPLOAD_FILE_SIZE)}</p>
+                        <p>Tamanho da imagem: <span style={{color: cannotUpload ? 'var(--red)' : 'var(--green)'}}>
+                                {formatBytes(currentImageSize)} </span> </p>
+                        {cannotUpload && <p style={{color: 'var(--red)'}}>Tamanho excedido, tente uma foto menor</p>}
+                    </div>
                     <div className={'d-flex justify-content-center'}>
                     <Avatar id={'image'} alt={'Profile photo'}/>
                     </div>
@@ -88,7 +99,7 @@ export function PreviewPhotoModal(){
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closePreviewPhotoModalAction}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={uploadFile}> Salvar foto </PrimaryButton>
+                    <PrimaryButton className={"btn"} onClick={uploadFile} disabled={cannotUpload}> Salvar foto </PrimaryButton>
                 </Modal.Footer>
             </Content>
         </Modal>

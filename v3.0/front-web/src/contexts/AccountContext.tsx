@@ -24,6 +24,7 @@ interface AccountContextContextData {
     uploadFile: () => void;
     removeFile: () => void;
     clearPhoto: () => void;
+    photo: string | Blob | undefined,
     setName: (value: string) => void;
     setUsername: (value: string) => void;
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -207,7 +208,8 @@ export function AccountProvider({children}: AccountContextProviderProps) {
             uploadFile,
             hasChangedImage,
             removeFile,
-            clearPhoto
+            clearPhoto,
+            photo
         }}>
             {children}
         </AccountContext.Provider>
