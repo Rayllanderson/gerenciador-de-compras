@@ -6,23 +6,26 @@ import {useContext} from "react";
 import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
 import {AccountContext} from "../../../contexts/AccountContext";
 
-export default function ProfileCard(){
+export default function ProfileCard() {
     const {cardDisplay} = useContext(ProfileImageContext);
     const {handleImageChange} = useContext(AccountContext);
-    return(
+    const hasFile: boolean = !!document.getElementById('profileImage');
+    return (
         <ProfileCardContainer className={'card container'} style={{display: cardDisplay}}>
             <div className={'mb-1'}>
                 <Label htmlFor={"file"} color={'#00b4d8'}>
-                  <FiUploadCloud/> Upload
+                    <FiUploadCloud/> Upload
                 </Label>
                 <input type={'file'} hidden id={'file'} accept={'image/jpeg, image/png'} onChange={handleImageChange}/>
             </div>
 
+            {hasFile &&
             <div>
                 <Label color={'#e83f5b'}>
                     <FiXCircle/> Remover
                 </Label>
             </div>
+            }
         </ProfileCardContainer>
     )
 }

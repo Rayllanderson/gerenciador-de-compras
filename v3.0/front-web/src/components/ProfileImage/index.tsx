@@ -16,7 +16,7 @@ export default function ProfileImage({src}: Props) {
     return (
         <Container >
             {!!src ? (
-                <Avatar onClick={toggleCardVisibility}
+                <Avatar onClick={toggleCardVisibility} id={'profileImage'}
                     src={src}
                     alt={'Profile photo'}
                 />

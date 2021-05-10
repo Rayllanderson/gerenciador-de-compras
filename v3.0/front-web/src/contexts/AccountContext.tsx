@@ -79,7 +79,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     fetchUser();
                     closeChangeDataModal();
                 }).catch(err => {
-                    addAlert(err.message)
+                    addAlert(err.message) // tratar
                 })
         }).catch(err => {
             addAlert(err.message)
@@ -97,7 +97,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     })
                     closeChangePasswordModal();
                 }).catch(err => {
-                    addAlert(err.message)
+                    addAlert(err.message) // tratar
                 })
         }).catch(err => {
             addAlert(err.message)
@@ -127,7 +127,6 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         data.append('file', photo as string | Blob);
         new UserController().uploadPhoto(data)
             .then(() => {
-                console.log('success')
                 closePreviewPhotoModal();
                 addToast({
                     type: 'success',
@@ -135,8 +134,10 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     description: 'Sua foto foi alterada!'
                 })
                 fetchUser().then();
-            }).catch(err => console.log(err))
-    }, [photo, closePreviewPhotoModal, addToast, fetchUser])
+                // @ts-ignore
+                document.getElementById('profileImage').click(); //pra sumir o card de 'upload e remove'
+            }).catch(err => addAlert(err.message)) // tratar erro
+    }, [photo, closePreviewPhotoModal, addToast, fetchUser, addAlert])
 
     return (
         <AccountContext.Provider value={{
