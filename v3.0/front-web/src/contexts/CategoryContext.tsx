@@ -141,7 +141,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
                 closeAddModal();
                 clearInputs();
                 clearSelectedCategory();
-            }).catch(err => getValidationError(err))
+            }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => {
             addAlert(err.message);
         })
@@ -163,7 +163,11 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             closeRemoveModal();
             loadPage(api);
             clearSelectedCategory();
-        }).catch(err => getError(err))
+        }).catch(err => addToast({
+            type: "error",
+            title: 'Error',
+            description: getError(err)
+        }));
     }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
 
     const duplicateCategories = useCallback(() => {

@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
         const currentPath = window.location.href;
         const HOME_PAGE_NAME = 'categories';
         setIsOnHomePage(currentPath.includes(HOME_PAGE_NAME) && (!currentPath.includes(HOME_PAGE_NAME + '/')))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setIsOnHomePage, window.location.href])
 
     return (

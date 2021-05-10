@@ -4,6 +4,7 @@ import {ToastContext} from "./ToastContext";
 import {useHistory} from 'react-router-dom';
 import {validateRegister} from "../validations/userValidation";
 import {UserRegisterBody} from "../interfaces/userInterface";
+import {getValidationError} from "../utils/handleApiErros";
 
 interface RegisterContextProviderProps {
     children: ReactNode;
@@ -52,7 +53,7 @@ export function RegisterProvider({children}: RegisterContextProviderProps) {
                 addToast({
                     type: 'error',
                     title: 'Erro',
-                    description: err.response.data.fields, //tratar erros depois
+                    description: getValidationError(err)
                 });
             })
         }).catch(err => {

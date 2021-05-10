@@ -3,6 +3,7 @@ import {AuthContext} from "./AuthContext";
 import {ToastContext} from "./ToastContext";
 import {validateLogin} from "../validations/userValidation";
 import {UserLoginBody} from "../interfaces/userInterface";
+import {getValidationError} from "../utils/handleApiErros";
 
 interface LoginContextProviderProps {
     children: ReactNode;
@@ -43,7 +44,7 @@ export function LoginProvider({children}: LoginContextProviderProps) {
                 addToast({
                     type: 'error',
                     title: 'Erro',
-                    description: err.response.data.message, //tratar erros depois
+                    description: getValidationError(err),
                 });
             })
         }).catch(err => {

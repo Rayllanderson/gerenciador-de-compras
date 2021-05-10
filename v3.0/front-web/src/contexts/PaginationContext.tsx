@@ -1,6 +1,8 @@
-import React, {createContext, ReactNode, useCallback, useState} from 'react';
+import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
 import {Page, Pageable} from "../interfaces/page";
 import {createAnEmptyPagination} from "../utils/paginationUtil";
+import {getError} from "../utils/handleApiErros";
+import {ToastContext} from "./ToastContext";
 
 interface PaginationProviderProps {
     children: ReactNode;
@@ -38,31 +40,49 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     const [searchType, setSearchType] = useState<'search' | 'all'>('all');
     const [search, setSearch] = useState('');
 
+    const {addToast} = useContext(ToastContext)
+
     const loadPage = useCallback(async (controller: Pageable) => {
         if (searchType === 'all') {
             await controller.getAllPageable(0, sort, order, size).then((response) => {
                 setPagination(response.data)
-            }).catch(err => console.log(err))
+            }).catch(err => addToast({
+                type: 'error',
+                title: 'Error',
+                description: getError(err)
+            }));
         }
         if (searchType === 'search') {
             await controller.findByName(search as string, 0, size).then((response) => {
                 setPagination(response.data);
-            }).catch(err => console.log(err))
+            }).catch(err => addToast({
+                type: 'error',
+                title: 'Error',
+                description: getError(err)
+            }));
         }
-    }, [size, searchType, search, sort, order])
+    }, [size, searchType, search, sort, order, addToast])
 
     const setPage = useCallback(async (controller: Pageable, page: number) => {
         if (searchType === 'all') {
             await controller.getAllPageable(page, sort, order, size).then((response) => {
                 setPagination(response.data);
-            }).catch(err => console.log(err))
+            }).catch(err => addToast({
+                type: 'error',
+                title: 'Error',
+                description: getError(err)
+            }));
         }
         if (searchType === 'search') {
             await controller.findByName(search, page, size).then((response) => {
                 setPagination(response.data);
-            }).catch(err => console.log(err))
+            }).catch(err => addToast({
+                type: 'error',
+                title: 'Error',
+                description: getError(err)
+            }));
         }
-    }, [size, searchType, search, sort, order])
+    }, [size, searchType, search, sort, order, addToast])
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchType("search");

@@ -9,6 +9,7 @@ import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interface
 import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
+import {getError, getValidationError} from "../utils/handleApiErros";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -149,7 +150,7 @@ export function ProductProvider({children}: ProductProviderProps) {
                 fetchProducts(api);
                 closeAddModal();
                 clearInputs();
-            }).catch(err => console.log(err.response))//erro que vem da api
+            }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => addAlert(err.message));
     }, [name, spentPrice, stipulatedPrice, clearInputs, isPurchased, currentCategoryId, fetchProducts, closeAddModal, addToast,
         addAlert])
@@ -174,7 +175,7 @@ export function ProductProvider({children}: ProductProviderProps) {
                 clearInputs();
                 closeAddModal();
                 clearSelectedProduct();
-            }).catch(err => console.log(err.response))//erro que vem da api
+            }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => addAlert(err.message));
     }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,
         addAlert, clearSelectedProduct, selectedProduct, clearInputs])
@@ -183,7 +184,6 @@ export function ProductProvider({children}: ProductProviderProps) {
         if (action === 'save') save();
         if (action === 'edit') edit();
     }, [action, save, edit])
-
 
     const remove = useCallback(async () => {
         const api = new ProductController(currentCategoryId);
@@ -194,9 +194,13 @@ export function ProductProvider({children}: ProductProviderProps) {
                 description: `O produto ${selectedProduct.name} foi excluído!`
             });
             fetchProducts(api);
-            closeRemoveModal();
             clearSelectedProduct();
-        })
+        }).catch(err => addToast({
+            type: 'error',
+            title: 'Error',
+            description: getError(err)
+        }));
+        closeRemoveModal();
     }, [addToast, closeRemoveModal, fetchProducts, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
 
     const copyProductsToAnotherCategory = useCallback(() => {
@@ -214,9 +218,13 @@ export function ProductProvider({children}: ProductProviderProps) {
                         description: 'Os produtos foram copiados para categoria selecionada.'
                     })
                     setNewCategoryId('');
-                    closeTransferModal();
                     clearSelectedItems();
-                }).catch((err) => console.log(err))//erro da api
+                }).catch((err) => addToast({
+                    type: 'error',
+                    title: 'Error',
+                    description: getError(err)
+                }));
+            closeTransferModal();
         }).catch(err => addAlert(err.message))
     }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, addAlert])
 
@@ -239,7 +247,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                     closeTransferModal();
                     clearSelectedItems();
                     fetchProducts(api);
-                }).catch((err) => console.log(err))//erro da api
+                }).catch((err) => addToast({
+                    type: 'error',
+                    title: 'Error',
+                    description: getError(err)
+                }));
         }).catch(err => addAlert(err.message))
     }, [addToast, closeTransferModal, clearSelectedItems,
             selectedItems, currentCategoryId, newCategoryId, addAlert, fetchProducts])
@@ -254,7 +266,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                     description: `Os produtos selecionados foram excluídos.`
                 })
                 fetchProducts(api);
-            }).catch((err) => console.log(err.response.data.message));
+            }).catch((err) => addToast({
+                type: 'error',
+                title: 'Error',
+                description: getError(err)
+            }));
         clearSelectedItems();
         closeConfirmModal();
     }, [selectedItems, fetchProducts, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId])
