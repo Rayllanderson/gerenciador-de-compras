@@ -6,7 +6,7 @@ import {CyanSecondaryButton, YellowButton} from "../../components/Buttons/styles
 import {Footer, InformationContainer} from './styles';
 import {AccountContext} from "../../contexts/AccountContext";
 import {ActionModalContext} from "../../contexts/ActionModalContext";
-import {ChangePasswordModal, ChangeUserDataModal} from "../../components/Modal/account";
+import {ChangePasswordModal, ChangeUserDataModal, PreviewPhotoModal} from "../../components/Modal/account";
 
 export function Account() {
 
@@ -37,6 +37,7 @@ export function Account() {
 
             <ChangeUserDataModal/>
             <ChangePasswordModal/>
+            <PreviewPhotoModal/>
         </AccountCardContainer>
     )
 }

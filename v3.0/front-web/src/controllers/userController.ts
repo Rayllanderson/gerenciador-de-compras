@@ -12,6 +12,10 @@ export default class UserController {
         return api.put('/users/update/password', {password: password}, {headers: getAuthHeader()});
     }
 
+    uploadPhoto(file: any){
+        return api.post('/image',  file, {headers: getAuthHeader()});
+    }
+
     fetchUser(){
         return api.get('/users/details', {headers: getAuthHeader()});
     }

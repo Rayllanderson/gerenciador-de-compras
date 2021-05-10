@@ -19,11 +19,13 @@ interface AccountContextContextData {
     update: () => void;
     updatePassword: () => void;
     clearPassword: () => void;
+    uploadFile: () => void;
     setName: (value: string) => void;
     setUsername: (value: string) => void;
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const AccountContext = createContext<AccountContextContextData>({} as AccountContextContextData);
@@ -34,10 +36,16 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [photo, setPhoto] = useState<string | Blob>();
 
     const {addToast} = useContext(ToastContext);
     const {addAlert} = useContext(AlertContext);
-    const {closeChangeDataModal, closeChangePasswordModal} = useContext(ModalContext);
+    const {
+        closeChangeDataModal,
+        closeChangePasswordModal,
+        openPreviewPhotoModal,
+        closePreviewPhotoModal
+    } = useContext(ModalContext);
 
     const fetchUser = useCallback(async () => {
         await new UserController().fetchUser().then((response) => {
@@ -96,10 +104,44 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         })
     }, [addToast, password, addAlert, closeChangePasswordModal])
 
+    const handleImageChange = useCallback(async (e: any) => {
+        const file = e.target.files[0];
+        if (!!file) {
+            setPhoto(file);
+            await openPreviewPhotoModal();
+            const target = document.getElementById('image');
+            const previewPhoto = () => {
+                let reader = new FileReader();
+                reader.onloadend = function () {
+                    // @ts-ignore
+                    target.src = reader.result;
+                };
+                reader.readAsDataURL(file)
+            }
+            previewPhoto();
+        }
+    }, [openPreviewPhotoModal])
+
+    const uploadFile = useCallback(() => {
+        const data = new FormData();
+        data.append('file', photo as string | Blob);
+        new UserController().uploadPhoto(data)
+            .then(() => {
+                console.log('success')
+                closePreviewPhotoModal();
+                addToast({
+                    type: 'success',
+                    title: 'Pronto',
+                    description: 'Sua foto foi alterada!'
+                })
+                fetchUser().then();
+            }).catch(err => console.log(err))
+    }, [photo, closePreviewPhotoModal, addToast, fetchUser])
+
     return (
         <AccountContext.Provider value={{
             fetchUser, user, handleUsernameChange, handleNameChange, name, username, setUsername, setName,
-            handlePasswordChange, password, update, updatePassword, clearPassword
+            handlePasswordChange, password, update, updatePassword, clearPassword, handleImageChange, uploadFile
         }}>
             {children}
         </AccountContext.Provider>

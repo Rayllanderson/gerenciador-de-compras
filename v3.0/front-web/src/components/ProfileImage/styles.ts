@@ -8,6 +8,7 @@ export const Avatar = styled.img `
     position: inline-block;
     border-radius: 50%;
     width: 200px;
+    height: 200px;
     transition: .2s;
      &:hover{
         transform: scale(1.03); 

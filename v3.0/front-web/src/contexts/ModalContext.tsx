@@ -13,6 +13,7 @@ interface ModalContextContextData {
     showFilterModal: boolean,
     showChangeDataModal: boolean,
     showChangePasswordModal: boolean,
+    showPreviewPhotoModal: boolean,
     openAddModal: () => void,
     closeAddModal: () => void,
     openRemoveModal: () => void,
@@ -27,6 +28,8 @@ interface ModalContextContextData {
     closeChangeDataModal: () => void,
     openChangePasswordModal: () => void,
     closeChangePasswordModal: () => void,
+    openPreviewPhotoModal: () => void,
+    closePreviewPhotoModal: () => void,
 }
 
 export const ModalContext = createContext<ModalContextContextData>({} as ModalContextContextData);
@@ -40,6 +43,7 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
     const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
     const [showChangeDataModal, setShowChangeDataModal] = useState<boolean>(false);
     const [showChangePasswordModal, setShowChangePasswordModal] = useState<boolean>(false);
+    const [showPreviewPhotoModal, setShowPreviewPhotoModal] = useState<boolean>(false);
 
     function openAddModal() {
         setShowAddModal(true);
@@ -97,6 +101,14 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
         setShowChangePasswordModal(false);
     }
 
+    function openPreviewPhotoModal() {
+        setShowPreviewPhotoModal(true);
+    }
+
+    function closePreviewPhotoModal() {
+        setShowPreviewPhotoModal(false);
+    }
+
     return (
         <ModalContext.Provider value={{
             closeAddModal, closeRemoveModal, openAddModal,
@@ -105,7 +117,8 @@ export function ModalProvider({ children }: ModalContextProviderProps) {
             closeTransferModal, openTransferModal, showTransferModal,
             closeFilterModal, openFilterModal, showFilterModal,
             closeChangeDataModal, openChangeDataModal, showChangeDataModal,
-            closeChangePasswordModal, openChangePasswordModal, showChangePasswordModal
+            closeChangePasswordModal, openChangePasswordModal, showChangePasswordModal,
+            closePreviewPhotoModal, openPreviewPhotoModal, showPreviewPhotoModal
         }}>
             {children}
         </ModalContext.Provider>
