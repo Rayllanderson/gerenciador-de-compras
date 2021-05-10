@@ -34,7 +34,7 @@ public class ImageService {
                 Image image = Image.builder()
                         .base64("data:" + contentType + ";base64," + base64)
                         .contentType(contentType)
-                        .miniature("data:" + contentType + ";base64," + miniature)
+                        .miniature(miniature)
                         .user(new User(userId))
                         .build();
                 imageRepository.save(image);
