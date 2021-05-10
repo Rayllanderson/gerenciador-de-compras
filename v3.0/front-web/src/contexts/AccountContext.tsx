@@ -15,6 +15,7 @@ interface AccountContextContextData {
     name: string,
     username: string,
     password: string,
+    hasChangedImage: boolean,
     fetchUser: () => void;
     update: () => void;
     updatePassword: () => void;
@@ -37,6 +38,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [photo, setPhoto] = useState<string | Blob>();
+    const [hasChangedImage, setHasChangedImage] = useState<boolean>(false)
 
     const {addToast} = useContext(ToastContext);
     const {addAlert} = useContext(AlertContext);
@@ -134,6 +136,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     description: 'Sua foto foi alterada!'
                 })
                 fetchUser().then();
+                setHasChangedImage(i => !i);
                 // @ts-ignore
                 document.getElementById('profileImage').click(); //pra sumir o card de 'upload e remove'
             }).catch(err => addAlert(err.message)) // tratar erro
@@ -142,7 +145,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     return (
         <AccountContext.Provider value={{
             fetchUser, user, handleUsernameChange, handleNameChange, name, username, setUsername, setName,
-            handlePasswordChange, password, update, updatePassword, clearPassword, handleImageChange, uploadFile
+            handlePasswordChange, password, update, updatePassword, clearPassword, handleImageChange, uploadFile, hasChangedImage
         }}>
             {children}
         </AccountContext.Provider>

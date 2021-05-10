@@ -7,6 +7,7 @@ import {FiUser} from "react-icons/fi";
 import {VisibilityCardItemContext} from "../../contexts/CardItemVisibilityContext";
 import {LogoutContext} from "../../contexts/LogoutContext";
 import UserController from "../../controllers/userController";
+import {AccountContext} from "../../contexts/AccountContext";
 
 interface ActionDropdownProps {
     filterAction: () => void
@@ -14,11 +15,13 @@ interface ActionDropdownProps {
 
 export function DropdownNavbar() {
     const {logout} = useContext(LogoutContext);
+    const {hasChangedImage} = useContext(AccountContext);
 
     const [miniature, setMiniature] = useState<string>('');
+
     useEffect(() => {
         new UserController().findMiniature().then((response) => setMiniature(response.data));
-    }, [])
+    }, [hasChangedImage])
 
     const closeDropdown = useCallback(() => {
         // @ts-ignore
