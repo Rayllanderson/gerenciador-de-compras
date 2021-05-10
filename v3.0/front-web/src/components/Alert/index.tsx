@@ -8,7 +8,7 @@ export default function MyAlert() {
     const {show, closeAlert, message} = useContext(AlertContext);
     return (
         <Container>
-            <Alert show={show} className="alert-dismissible alert" transition={false}>
+            <Alert show={show} className="alert-dismissible alert" >
                 <strong>
                     <FiAlertTriangle/> {message}
                 </strong>

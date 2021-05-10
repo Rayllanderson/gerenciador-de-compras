@@ -22,6 +22,9 @@ export function AlertProvider({ children }: AlertContextProviderProps) {
     function addAlert(message: string) {
         setShow(true);
         setMessage(message);
+        setTimeout(() => {
+            setShow(false)
+        }, 3500)
     }
 
     function closeAlert() {

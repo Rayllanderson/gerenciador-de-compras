@@ -5,6 +5,7 @@ import {validateField} from "../validations/userValidation";
 import {ToastContext} from "./ToastContext";
 import {AlertContext} from "./AlertContext";
 import {ModalContext} from "./ModalContext";
+import {getError} from "../utils/handleApiErros";
 
 interface AccountContextProviderProps {
     children: ReactNode;
@@ -55,8 +56,14 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     const fetchUserData = useCallback(async () => {
         await new UserController().fetchUserData().then((response) => {
             setUser(response.data);
-        }).catch((err) => console.log(err))
-    }, [setUser])
+        }).catch(err => {
+            addToast({
+                type: "error",
+                title: 'Algo de errado aconteceu',
+                description: getError(err)
+            })
+        })
+    }, [setUser, addToast])
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -84,7 +91,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     fetchUserData();
                     closeChangeDataModal();
                 }).catch(err => {
-                    addAlert(err.message) // tratar
+                    addAlert(getError(err));
                 })
         }).catch(err => {
             addAlert(err.message)
@@ -102,7 +109,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     })
                     closeChangePasswordModal();
                 }).catch(err => {
-                    addAlert(err.message) // tratar
+                    addAlert(getError(err))
                 })
         }).catch(err => {
             addAlert(err.message)
@@ -162,7 +169,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                 setHasChangedImage(i => !i);
                 closeUploadCard();
                 clearPhoto();
-            }).catch(err => addAlert(err.message)) // tratar erro
+            }).catch(err => addAlert(getError(err)))
     }, [photo, closePreviewPhotoModal, addToast, fetchUserData, addAlert, closeUploadCard, clearPhoto])
 
     const removeFile = useCallback(async () => {
@@ -178,7 +185,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                 fetchUserData().then();
                 closeUploadCard();
                 clearPhoto();
-            })
+            }).catch(err => getError(err))
     }, [setHasChangedImage, closeConfirmModal, fetchUserData, addToast, closeUploadCard, clearPhoto])
 
     return (
