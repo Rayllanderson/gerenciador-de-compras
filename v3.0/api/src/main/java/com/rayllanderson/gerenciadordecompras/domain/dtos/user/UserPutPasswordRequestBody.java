@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserPutPasswordRequestBody  {
 
-    @NotNull
     private Long id;
 
     @NotNull

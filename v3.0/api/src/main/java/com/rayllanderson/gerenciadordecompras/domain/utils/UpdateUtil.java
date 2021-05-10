@@ -29,6 +29,6 @@ public class UpdateUtil {
     }
 
     public static void updateNameUsernameOrEmailFromUser(UserPutRequestBody source, User target) {
-        BeanUtils.copyProperties(source, target, "id", "password", "username", "authorities");
+        BeanUtils.copyProperties(source, target, "id", "password", "authorities");
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,19 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
                         .timestamp(LocalDateTime.now())
                         .title("Bad Request")
                         .message(e.getMessage())
+                        .path(request.getRequestURI())
+                        .status(statusCode.value())
+                        .build());
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<StandardError> handleMaxUploadSizeExceededException(HttpServletRequest request) {
+        HttpStatus statusCode = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(statusCode).body(
+                StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .title("Bad Request")
+                        .message("Tamanho máximo de upload excedido. Tamanho máximo: 200KB")
                         .path(request.getRequestURI())
                         .status(statusCode.value())
                         .build());
