@@ -22,7 +22,7 @@ export default function ProfileImage({src}: Props) {
                 />
             ) : (
                 <>
-                    <DefaultAvatar onClick={toggleCardVisibility}>
+                    <DefaultAvatar onClick={toggleCardVisibility} id={'defaultImage'}>
                         <FiUser size={60} color={colors.primary}/>
                     </DefaultAvatar>
                 </>

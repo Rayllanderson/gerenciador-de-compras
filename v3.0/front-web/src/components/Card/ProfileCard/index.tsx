@@ -5,10 +5,12 @@ import {Label} from './styles';
 import {useContext} from "react";
 import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
 import {AccountContext} from "../../../contexts/AccountContext";
+import {ActionModalContext} from "../../../contexts/ActionModalContext";
 
 export default function ProfileCard() {
     const {cardDisplay} = useContext(ProfileImageContext);
     const {handleImageChange} = useContext(AccountContext);
+    const {removePhotoAction} = useContext(ActionModalContext);
     const hasFile: boolean = !!document.getElementById('profileImage');
     return (
         <ProfileCardContainer className={'card container'} style={{display: cardDisplay}}>
@@ -21,7 +23,7 @@ export default function ProfileCard() {
 
             {hasFile &&
             <div>
-                <Label color={'#e83f5b'}>
+                <Label color={'#e83f5b'} onClick={removePhotoAction}>
                     <FiXCircle/> Remover
                 </Label>
             </div>

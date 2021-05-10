@@ -8,6 +8,7 @@ import {InputPassword, InputText} from "../../Inputs";
 import {AccountContext} from "../../../contexts/AccountContext";
 import MyAlert from "../../Alert";
 import {Avatar} from "../../ProfileImage/styles";
+import {ActionModalContext} from "../../../contexts/ActionModalContext";
 
 export function ChangeUserDataModal() {
     const {showChangeDataModal, closeChangeDataModal} = useContext(ModalContext);
@@ -68,14 +69,15 @@ export function ChangePasswordModal() {
 }
 
 export function PreviewPhotoModal(){
-    const {showPreviewPhotoModal, closePreviewPhotoModal} = useContext(ModalContext);
+    const {showPreviewPhotoModal} = useContext(ModalContext);
+    const {closePreviewPhotoModalAction} = useContext(ActionModalContext);
     const {uploadFile} = useContext(AccountContext);
     return (
-        <Modal centered show={showPreviewPhotoModal} className={"rounded-0"} onHide={closePreviewPhotoModal}>
+        <Modal centered show={showPreviewPhotoModal} className={"rounded-0"} onHide={closePreviewPhotoModalAction}>
             <Content>
                 <Modal.Header style={{border: 'none'}}>
                     <Modal.Title className="modal-title d-flex align-items-center">Preview</Modal.Title>
-                    <CloseButton onClick={closePreviewPhotoModal}/>
+                    <CloseButton onClick={closePreviewPhotoModalAction}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
                     <MyAlert/>
@@ -85,7 +87,7 @@ export function PreviewPhotoModal(){
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
-                                     onClick={closePreviewPhotoModal}>Fechar</SecondaryButton>
+                                     onClick={closePreviewPhotoModalAction}>Fechar</SecondaryButton>
                     <PrimaryButton className={"btn"} onClick={uploadFile}> Salvar foto </PrimaryButton>
                 </Modal.Footer>
             </Content>

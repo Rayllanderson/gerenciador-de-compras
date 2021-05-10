@@ -7,6 +7,7 @@ import {Footer, InformationContainer} from './styles';
 import {AccountContext} from "../../contexts/AccountContext";
 import {ActionModalContext} from "../../contexts/ActionModalContext";
 import {ChangePasswordModal, ChangeUserDataModal, PreviewPhotoModal} from "../../components/Modal/account";
+import {ConfirmModal} from "../../components/Modal/ConfirmModal";
 
 export function Account() {
 
@@ -38,6 +39,7 @@ export function Account() {
             <ChangeUserDataModal/>
             <ChangePasswordModal/>
             <PreviewPhotoModal/>
+            <ConfirmModal/>
         </AccountCardContainer>
     )
 }

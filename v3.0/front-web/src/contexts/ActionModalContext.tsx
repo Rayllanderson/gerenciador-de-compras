@@ -25,6 +25,8 @@ interface ConfirmModalContextContextData {
     closeFilterModalAction: () => void
     openChangeUserDataModalAction: () => void
     openChangePasswordModalAction: () => void
+    removePhotoAction: () => void
+    closePreviewPhotoModalAction: () => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -37,10 +39,10 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
     const [filterType, setFilterType] = useState<'product' | 'category'>('category');
 
     const {openConfirmModal, openTransferModal, closeTransferModal, openFilterModal, closeFilterModal,
-        openChangeDataModal, openChangePasswordModal} = useContext(ModalContext);
+        openChangeDataModal, openChangePasswordModal, closePreviewPhotoModal} = useContext(ModalContext);
     const {duplicateCategories, removeVarious} = useContext(CategoryContext);
     const {removeVarious: removeVariousProducts, setNewCategoryId} = useContext(ProductContext);
-    const {user, setUsername, setName, clearPassword} = useContext(AccountContext);
+    const {user, setUsername, setName, clearPassword, removeFile, clearPhoto} = useContext(AccountContext);
 
     const duplicateCategoryAction = useCallback(() => {
         openConfirmModal();
@@ -100,12 +102,24 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         openChangePasswordModal();
     }, [openChangePasswordModal, clearPassword]);
 
+    const closePreviewPhotoModalAction = useCallback(() => {
+        closePreviewPhotoModal();
+        clearPhoto();
+    }, [clearPhoto, closePreviewPhotoModal])
+
+    const removePhotoAction = useCallback(() => {
+        openConfirmModal();
+        setConfirmModalText('Você tem certeza que deseja remover sua foto de perfil?')
+        setAction(() => removeFile);
+    }, [openConfirmModal, removeFile]);
+
     return (
         <ActionModalContext.Provider value={{
             confirmModalText, duplicateCategoryAction, action, removeVariousCategoriesAction,
             copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction,
             closeTransferModalAction, openFilterCategoryModalAction, openFilterProductModalAction, filterType,
-            closeFilterModalAction, openChangeUserDataModalAction, openChangePasswordModalAction
+            closeFilterModalAction, openChangeUserDataModalAction, openChangePasswordModalAction, removePhotoAction,
+            closePreviewPhotoModalAction
         }}>
             {children}
         </ActionModalContext.Provider>

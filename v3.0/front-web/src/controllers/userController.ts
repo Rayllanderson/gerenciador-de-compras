@@ -16,7 +16,11 @@ export default class UserController {
         return api.post('/image',  file, {headers: getAuthHeader()});
     }
 
-    fetchUser(){
+    removePhoto(){
+        return api.delete('/image', {headers: getAuthHeader()});
+    }
+
+    fetchUserData(){
         return api.get('/users/details', {headers: getAuthHeader()});
     }
 

@@ -21,6 +21,8 @@ interface AccountContextContextData {
     updatePassword: () => void;
     clearPassword: () => void;
     uploadFile: () => void;
+    removeFile: () => void;
+    clearPhoto: () => void;
     setName: (value: string) => void;
     setUsername: (value: string) => void;
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -46,11 +48,12 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         closeChangeDataModal,
         closeChangePasswordModal,
         openPreviewPhotoModal,
-        closePreviewPhotoModal
+        closePreviewPhotoModal,
+        closeConfirmModal
     } = useContext(ModalContext);
 
-    const fetchUser = useCallback(async () => {
-        await new UserController().fetchUser().then((response) => {
+    const fetchUserData = useCallback(async () => {
+        await new UserController().fetchUserData().then((response) => {
             setUser(response.data);
         }).catch((err) => console.log(err))
     }, [setUser])
@@ -78,7 +81,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                         title: 'Pronto',
                         description: 'Seus dados foram alterados!'
                     })
-                    fetchUser();
+                    fetchUserData();
                     closeChangeDataModal();
                 }).catch(err => {
                     addAlert(err.message) // tratar
@@ -86,7 +89,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         }).catch(err => {
             addAlert(err.message)
         })
-    }, [addToast, fetchUser, name, username, addAlert, closeChangeDataModal])
+    }, [addToast, fetchUserData, name, username, addAlert, closeChangeDataModal])
 
     const updatePassword = useCallback(() => {
         validateField(password, 'Senha').then(async () => {
@@ -124,10 +127,30 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         }
     }, [openPreviewPhotoModal])
 
-    const uploadFile = useCallback(() => {
+    const clearPhoto = useCallback(() => {
+        const file = (document.getElementById('file')) as HTMLInputElement;
+        if(file){
+            file.value = '';
+        }
+    }, [])
+
+    /**
+     *  pra sumir o card de 'upload e remove'
+     */
+    const closeUploadCard = useCallback(() => {
+       const profileImageCard = document.getElementById('profileImage');
+       if (!!profileImageCard) {
+           profileImageCard.click();
+           return;
+       }
+       const defaultImageCard =  document.getElementById('defaultImage');
+       if (!!defaultImageCard) defaultImageCard.click();
+    }, [])
+
+    const uploadFile = useCallback(async () => {
         const data = new FormData();
         data.append('file', photo as string | Blob);
-        new UserController().uploadPhoto(data)
+        await new UserController().uploadPhoto(data)
             .then(() => {
                 closePreviewPhotoModal();
                 addToast({
@@ -135,17 +158,49 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                     title: 'Pronto',
                     description: 'Sua foto foi alterada!'
                 })
-                fetchUser().then();
+                fetchUserData().then();
                 setHasChangedImage(i => !i);
-                // @ts-ignore
-                document.getElementById('profileImage').click(); //pra sumir o card de 'upload e remove'
+                closeUploadCard();
+                clearPhoto();
             }).catch(err => addAlert(err.message)) // tratar erro
-    }, [photo, closePreviewPhotoModal, addToast, fetchUser, addAlert])
+    }, [photo, closePreviewPhotoModal, addToast, fetchUserData, addAlert, closeUploadCard, clearPhoto])
+
+    const removeFile = useCallback(async () => {
+        await new UserController().removePhoto()
+            .then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto',
+                    description: 'Sua foto foi removida!'
+                });
+                setHasChangedImage(i => !i);
+                closeConfirmModal();
+                fetchUserData().then();
+                closeUploadCard();
+                clearPhoto();
+            })
+    }, [setHasChangedImage, closeConfirmModal, fetchUserData, addToast, closeUploadCard, clearPhoto])
 
     return (
         <AccountContext.Provider value={{
-            fetchUser, user, handleUsernameChange, handleNameChange, name, username, setUsername, setName,
-            handlePasswordChange, password, update, updatePassword, clearPassword, handleImageChange, uploadFile, hasChangedImage
+            fetchUser: fetchUserData,
+            user,
+            handleUsernameChange,
+            handleNameChange,
+            name,
+            username,
+            setUsername,
+            setName,
+            handlePasswordChange,
+            password,
+            update,
+            updatePassword,
+            clearPassword,
+            handleImageChange,
+            uploadFile,
+            hasChangedImage,
+            removeFile,
+            clearPhoto
         }}>
             {children}
         </AccountContext.Provider>
