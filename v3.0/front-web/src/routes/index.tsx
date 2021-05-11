@@ -5,7 +5,7 @@ import CategoryPage from "../pages/CategoryPage";
 import ProductPage from "../pages/ProductPage";
 import {InitialPage} from "../pages/InitialPage";
 import {Account} from "../pages/account/Account";
-import {StatisticPage} from "../pages/Statistic";
+import StatisticPage from "../pages/statistic";
 
 const Routes: React.FC = () => (
   <Switch>
