@@ -90,6 +90,7 @@ public class StatisticService {
                 data.setNumberOfProductsNotPurchased(data.getNumberOfProductsNotPurchased() + s.getNumberOfProductsNotPurchased());
                 data.setTotalStipulated(data.getTotalStipulated().add(s.getTotalStipulated()));
                 data.setStipulatedValueFromBoughtProducts(data.getStipulatedValueFromBoughtProducts().add(s.getStipulatedValueFromBoughtProducts()));
+                data.setAmountToSpend(data.getAmountToSpend().add(s.getAmountToSpend()));
             });
             return data;
         }else return null;
