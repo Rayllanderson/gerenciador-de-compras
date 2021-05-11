@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import Chart from 'react-apexcharts';
 import {ThemeContext} from "styled-components";
+import {StatisticContext} from "../../contexts/StatisticContext";
 
 const chartColors = {
     green: '#26e7a6',
@@ -14,9 +15,10 @@ const chartColors = {
 export function PieChart() {
 
     const {colors} = useContext(ThemeContext);
+    const {statistics} = useContext(StatisticContext);
 
     const mockData = {
-        series: [17, 10],
+        series: [statistics.numberOfProductsPurchased, statistics.numberOfProductsNotPurchased],
         labels: ['Comprados', 'Não Comprados']
     }
 

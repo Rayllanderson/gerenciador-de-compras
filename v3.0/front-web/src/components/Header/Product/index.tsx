@@ -22,7 +22,7 @@ export function ProductHeader() {
 
     const {
         fetchStatisticsFromCurrentCategory,
-        statisticsFromCurrentCategory: statistics
+        statistics: statistics
     } = useContext(StatisticContext);
 
     useEffect(() => {
