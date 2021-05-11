@@ -12,6 +12,7 @@ export function getValidationError(err: any){
         return 'Servidor está dormindo, mas já estamos acordando ele. Tente de novo em alguns segundos.';
     }
     const field = getFirstError(err.response.data.fields);
+    if (field === 'undefined') return ''; //false
     const message = getFirstError(err.response.data.fieldsMessage);
     return field + ': ' + message;
 }

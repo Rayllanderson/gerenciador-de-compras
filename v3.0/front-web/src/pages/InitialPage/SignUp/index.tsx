@@ -4,12 +4,19 @@ import {InputWithIcon} from "../../../components/Inputs";
 import {Button} from "../../../components/Buttons/InitialPage";
 import {useContext} from "react";
 import {RegisterContext} from "../../../contexts/RegisterContext";
+import {ButtonWithLoader} from "../../../components/Buttons";
+import {PrimaryButton} from "../../../components/Buttons/styles";
+import {LoadingContext} from "../../../contexts/LoadingContex";
 
 
 export function RegisterPage() {
 
-    const {register, handleNameChange, handlePasswordChange, handleUsernameChange,
-    name, username, password} = useContext(RegisterContext);
+    const {
+        register, handleNameChange, handlePasswordChange, handleUsernameChange,
+        name, username, password
+    } = useContext(RegisterContext);
+
+    const {btnIsLoading} = useContext(LoadingContext);
 
     return (
         <Container className='inputs'>
@@ -32,7 +39,10 @@ export function RegisterPage() {
                                value={password} required/>
             </div>
             <div className='loginButton d-grid gap-2'>
-                <Button onClick={register}>Registrar</Button>
+                {btnIsLoading ?
+                    <ButtonWithLoader Button={PrimaryButton} className={'btn-lg'} type={'large'}/> :
+                    <Button onClick={register}>Registrar</Button>
+                }
             </div>
         </Container>
     );

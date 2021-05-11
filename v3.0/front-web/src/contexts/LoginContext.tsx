@@ -3,7 +3,8 @@ import {AuthContext} from "./AuthContext";
 import {ToastContext} from "./ToastContext";
 import {validateLogin} from "../validations/userValidation";
 import {UserLoginBody} from "../interfaces/userInterface";
-import {getValidationError} from "../utils/handleApiErros";
+import {getError, getValidationError} from "../utils/handleApiErros";
+import {LoadingContext} from "./LoadingContex";
 
 interface LoginContextProviderProps {
     children: ReactNode;
@@ -27,13 +28,15 @@ export function LoginProvider({children}: LoginContextProviderProps) {
 
     const {signIn} = useContext(AuthContext);
     const {addToast} = useContext(ToastContext);
+    const {setButtonToLoad, clearButtonLoading} = useContext(LoadingContext);
 
-    const login = useCallback( () => {
+    const login = useCallback( async () => {
         const user: UserLoginBody = {
             username: username,
             password: password
         }
-        validateLogin(user).then(async () => {
+        setButtonToLoad();
+       await validateLogin(user).then(async () => {
             await signIn({username, password}).then(() => {
                 addToast({
                     type: 'success',
@@ -41,10 +44,11 @@ export function LoginProvider({children}: LoginContextProviderProps) {
                     description: "Login realizado com sucesso!",
                 });
             }).catch(err => {
+                const message:string = !!getValidationError(err) ? getValidationError(err) : getError(err);
                 addToast({
                     type: 'error',
                     title: 'Erro',
-                    description: getValidationError(err),
+                    description: message,
                 });
             })
         }).catch(err => {
@@ -54,8 +58,8 @@ export function LoginProvider({children}: LoginContextProviderProps) {
                 description: err.message,
             });
         });
-
-    }, [username, password, signIn, addToast])
+        clearButtonLoading();
+    }, [username, password, signIn, addToast, setButtonToLoad, clearButtonLoading])
 
     const handleUsernameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)

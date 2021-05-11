@@ -8,9 +8,9 @@ interface LoadingProviderProps {
 interface LoadingContextData {
     isLoading: boolean;
     btnIsLoading: boolean;
-    setButtonToLoading: () => void
+    setButtonToLoad: () => void
     clearButtonLoading: () => void
-    setToLoading: () => void
+    setToLoad: () => void
     clearLoading: () => void
 
 }
@@ -21,7 +21,7 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [btnIsLoading, setBtnIsLoading] = useState(false);
 
-    const setButtonToLoading = useCallback(() => {
+    const setButtonToLoad = useCallback(() => {
         setBtnIsLoading(true);
     }, [])
 
@@ -29,7 +29,7 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
         setBtnIsLoading(false);
     }, [])
 
-    const setToLoading = useCallback(() => {
+    const setToLoad = useCallback(() => {
         setIsLoading(true)
     }, [])
 
@@ -39,7 +39,7 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
 
     return (
         <LoadingContext.Provider value={{
-            isLoading, btnIsLoading, setToLoading, clearLoading, clearButtonLoading, setButtonToLoading
+            isLoading, btnIsLoading, setToLoad, clearLoading, clearButtonLoading, setButtonToLoad
         }}>
             {children}
         </LoadingContext.Provider>

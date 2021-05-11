@@ -1,8 +1,12 @@
+interface LoaderProps {
+    size?: 'sm' | 'md';
+}
 
-export function LoaderCircle() {
+export function LoaderCircle({size}: LoaderProps) {
+    const spinnerSize = size === 'sm' ? 'spinner-border-sm' : ''
     return (
         <div className="d-flex justify-content-center">
-        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
+            <div className={`spinner-border ${spinnerSize} text-light`} role="status"/>
         </div>
     );
 }
