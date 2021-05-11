@@ -3,6 +3,7 @@ import {useContext, useEffect} from "react";
 import {PaginationContext} from "../../../contexts/PaginationContext";
 import CategoryController from "../../../controllers/categoryController";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
+import {CategoryCardLoader} from "../../Loader/card/category";
 
 
 export default function CategoryList() {
@@ -17,6 +18,7 @@ export default function CategoryList() {
             <div style={{animation: 'appearFromBottom 1s'}}>
 
                 <div className="row row-cols-1 row-cols-md-3 g-4" style={{maxWidth: 750, margin: '0 auto'}}>
+                    <CategoryCardLoader/>
                     {pagination.content.map((category: CategoryResponseBody | {}) =>
                         category &&
                         <CategoryCard category={category as CategoryResponseBody} key={JSON.stringify(category)}/>
