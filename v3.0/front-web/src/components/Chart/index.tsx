@@ -2,15 +2,8 @@ import React, {useContext} from "react";
 import Chart from 'react-apexcharts';
 import {ThemeContext} from "styled-components";
 import {StatisticContext} from "../../contexts/StatisticContext";
+import {chartColors} from "../../utils/colorsUtil";
 
-const chartColors = {
-    green: '#26e7a6',
-    yellow: '#febc3b',
-    blue: '#008ffb',
-    pink: '#d830eb',
-    purple: '#8b75d7',
-    red: '#e83f5b'
-}
 
 export function PieChart() {
 
@@ -135,7 +128,7 @@ export function HorizontalChart() {
         series: [{
             name: 'R$',
             data: [statistics.amountSaved, statistics.amountToSpend, statistics.currentAmountSpent,
-                statistics.currentAmountStipulated, statistics.currentAmountTotal],
+                statistics.totalStipulated, statistics.currentAmountTotal],
         }],
     }
     const options = {
