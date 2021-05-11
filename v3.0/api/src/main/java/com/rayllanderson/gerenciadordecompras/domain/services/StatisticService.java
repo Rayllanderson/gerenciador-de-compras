@@ -37,6 +37,7 @@ public class StatisticService {
         BigDecimal currentAmountTotal = StatisticUtil.getCurrentAmountTotal(allProductsFromCategory);
         BigDecimal totalStipulated = StatisticUtil.getTotalStipulated(allProductsFromCategory);
         BigDecimal amountToSpend = StatisticUtil.getAmountToSpend(allProductsFromCategory);
+        BigDecimal stipulatedValueFromBoughtProducts = StatisticUtil.getStipulatedValueFromBoughtProducts(allProductsFromCategory);
         Integer numberOfProducts = StatisticUtil.getNumberOfProducts(allProductsFromCategory);
         Integer numberOfProductsPurchased = StatisticUtil.getNumberOfProductsPurchased(allProductsFromCategory);
         Integer numberOfProductsNotPurchased = StatisticUtil.getNumberOfProductsNotPurchased(allProductsFromCategory);
@@ -61,6 +62,7 @@ public class StatisticService {
                 .amountSaved(amountSaved).numberOfProducts(numberOfProducts)
                 .numberOfProductsNotPurchased(numberOfProductsNotPurchased)
                 .numberOfProductsPurchased(numberOfProductsPurchased)
+                .stipulatedValueFromBoughtProducts(stipulatedValueFromBoughtProducts)
                 .totalStipulated(totalStipulated).build();
     }
 
@@ -87,6 +89,7 @@ public class StatisticService {
                 data.setNumberOfProductsPurchased(data.getNumberOfProductsPurchased() + s.getNumberOfProductsPurchased());
                 data.setNumberOfProductsNotPurchased(data.getNumberOfProductsNotPurchased() + s.getNumberOfProductsNotPurchased());
                 data.setTotalStipulated(data.getTotalStipulated().add(s.getTotalStipulated()));
+                data.setStipulatedValueFromBoughtProducts(data.getStipulatedValueFromBoughtProducts().add(s.getStipulatedValueFromBoughtProducts()));
             });
             return data;
         }else return null;
