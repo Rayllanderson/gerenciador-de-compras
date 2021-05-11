@@ -3,6 +3,7 @@ import {Page, Pageable} from "../interfaces/page";
 import {createAnEmptyPagination} from "../utils/paginationUtil";
 import {getError} from "../utils/handleApiErros";
 import {ToastContext} from "./ToastContext";
+import {LoadingContext} from "./LoadingContex";
 
 interface PaginationProviderProps {
     children: ReactNode;
@@ -40,9 +41,11 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     const [searchType, setSearchType] = useState<'search' | 'all'>('all');
     const [search, setSearch] = useState('');
 
-    const {addToast} = useContext(ToastContext)
+    const {addToast} = useContext(ToastContext);
+    const {setToLoad, clearLoading} = useContext(LoadingContext);
 
     const loadPage = useCallback(async (controller: Pageable) => {
+        setToLoad();
         if (searchType === 'all') {
             await controller.getAllPageable(0, sort, order, size).then((response) => {
                 setPagination(response.data)
@@ -61,9 +64,11 @@ export function PaginationProvider({children}: PaginationProviderProps) {
                 description: getError(err)
             }));
         }
-    }, [size, searchType, search, sort, order, addToast])
+        clearLoading();
+    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading])
 
     const setPage = useCallback(async (controller: Pageable, page: number) => {
+        setToLoad();
         if (searchType === 'all') {
             await controller.getAllPageable(page, sort, order, size).then((response) => {
                 setPagination(response.data);
@@ -82,7 +87,8 @@ export function PaginationProvider({children}: PaginationProviderProps) {
                 description: getError(err)
             }));
         }
-    }, [size, searchType, search, sort, order, addToast])
+        clearLoading();
+    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading])
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchType("search");
