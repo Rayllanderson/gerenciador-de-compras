@@ -54,14 +54,17 @@ export function PieChart() {
 
 export function ColumnChart() {
     const {title, colors: themeColors} = useContext(ThemeContext);
+    const {statistics} = useContext(StatisticContext);
     const theme: 'dark' | 'light' = title === 'dark' ? 'dark' : 'light';
 
-    const colors = [chartColors.blue, chartColors.pink, chartColors.green];//ou vermelho
+    const amountSavedColor = statistics.amountSaved > 0 ? chartColors.green : chartColors.red
+
+    const colors = [chartColors.blue, chartColors.pink, amountSavedColor];
 
     const mockData = {
         series: [{
             name: 'R$',
-            data: [2100, 2200, 1000],
+            data: [statistics.currentAmountSpent, statistics.stipulatedValueFromBoughtProducts, statistics.amountSaved],
         }],
     }
     const options = {
@@ -122,14 +125,17 @@ export function ColumnChart() {
 
 export function HorizontalChart() {
     const {title, colors: themeColors} = useContext(ThemeContext);
+    const {statistics} = useContext(StatisticContext);
     const theme: 'dark' | 'light' = title === 'dark' ? 'dark' : 'light';
 
-    const colors = [chartColors.green, chartColors.yellow, chartColors.blue, chartColors.pink, chartColors.purple];
+    const amountSavedColor = statistics.amountSaved > 0 ? chartColors.green : chartColors.red
+    const colors = [amountSavedColor, chartColors.yellow, chartColors.blue, chartColors.pink, chartColors.purple];
 
     const mockData = {
         series: [{
             name: 'R$',
-            data: [2100, 2200, 1000, 4322, 1222],
+            data: [statistics.amountSaved, statistics.amountToSpend, statistics.currentAmountSpent,
+                statistics.currentAmountStipulated, statistics.currentAmountTotal],
         }],
     }
     const options = {

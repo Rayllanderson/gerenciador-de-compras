@@ -26,7 +26,7 @@ export default function StatisticPage() {
                         <select className={'form-select mt-3'} onChange={handleSelectChange} defaultValue={'all'}>
                             <option value={'all'}>Todas as listas</option>
                             {categories.map(category =>
-                                <option value={category.id}>{category.name}</option>
+                                <option value={category.id} key={category.id}>{category.name}</option>
                             )}
                         </select>
                     </SelectContainer>

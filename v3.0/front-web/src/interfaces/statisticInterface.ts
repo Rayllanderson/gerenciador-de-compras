@@ -10,6 +10,7 @@ export interface StatisticData {
     currentAmountSpent: number;
     currentAmountTotal: number;
     currentAmountStipulated: number;
+    stipulatedValueFromBoughtProducts: number,
     amountSaved: number;
     availableToSpend: number;
     availableToSpendIfBuyAll: number;
