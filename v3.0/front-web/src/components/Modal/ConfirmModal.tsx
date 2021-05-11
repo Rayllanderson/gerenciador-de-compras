@@ -5,11 +5,14 @@ import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 import {useContext} from "react";
 import {ActionModalContext} from "../../contexts/ActionModalContext";
 import {ModalContext} from "../../contexts/ModalContext";
+import {ButtonWithLoader} from "../Buttons";
+import {LoadingContext} from "../../contexts/LoadingContex";
 
 
 export function ConfirmModal() {
     const {action, confirmModalText} = useContext(ActionModalContext);
-    const {showConfirmModal, closeConfirmModal} = useContext(ModalContext)
+    const {showConfirmModal, closeConfirmModal} = useContext(ModalContext);
+    const {btnIsLoading} = useContext(LoadingContext);
     return (
         <Modal centered show={showConfirmModal} className={"rounded-0"} onHide={closeConfirmModal}>
             <Content>
@@ -23,7 +26,12 @@ export function ConfirmModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closeConfirmModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={action}> Sim </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={action}> Sim </PrimaryButton>
+                    }
+
                 </Modal.Footer>
             </Content>
         </Modal>

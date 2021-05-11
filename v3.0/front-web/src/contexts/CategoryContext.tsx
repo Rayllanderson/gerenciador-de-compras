@@ -11,6 +11,7 @@ import {SelectedItemsContext} from "./SelectedItemsContext";
 import {SelectItem} from "../interfaces/selectItemInterface";
 import {toTransferCategoryRequestBody} from "../utils/selectItemUtil";
 import {getError, getValidationError} from "../utils/handleApiErros";
+import {LoadingContext} from "./LoadingContex";
 
 interface CategoryProviderProps {
     children: ReactNode;
@@ -50,6 +51,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
     } = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
+    const {setButtonToLoad, clearButtonLoading} = useContext(LoadingContext);
 
     const [categories, setCategories] = useState<CategoryResponseBody[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<CategoryResponseBody>({} as CategoryResponseBody);
@@ -92,7 +94,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         setAction('edit');
         setName(categoryToBeEdited.name);
         setBudget(categoryToBeEdited.budget);
-    }, [openAddModal, closeAlert])
+        clearButtonLoading(); //só pra garantir que não vai estar carregando
+    }, [openAddModal, closeAlert, clearButtonLoading])
 
     const setToRemove = useCallback((categoryToBeRemoved: CategoryResponseBody) => {
         setSelectedCategory(categoryToBeRemoved);
@@ -101,12 +104,13 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const clearSelectedCategory = useCallback(() => setSelectedCategory({} as CategoryResponseBody), [])
 
-    const save = useCallback(() => {
+    const save = useCallback(async () => {
         const categoryToBeSaved = {
             name: name,
             budget: getNumberWithoutMask(budget)
         }
-        validateSave(categoryToBeSaved).then(async () => {
+        setButtonToLoad();
+        await validateSave(categoryToBeSaved).then(async () => {
             const api = new CategoryController();
             await api.post(categoryToBeSaved).then(() => {
                 addToast({
@@ -121,7 +125,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         }).catch(err => {
             addAlert(err.message);
         })
-    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert])
+        clearButtonLoading();
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearButtonLoading, setButtonToLoad])
 
     const edit = useCallback(() => {
         const categoryToBeEdited: CategoryPutBody = {
@@ -129,6 +134,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             name: name,
             budget: getNumberWithoutMask(budget)
         }
+        setButtonToLoad();
         validateEdit(categoryToBeEdited).then(async () => {
             const api = new CategoryController();
             await api.put(categoryToBeEdited).then(() => {
@@ -145,7 +151,9 @@ export function CategoryProvider({children}: CategoryProviderProps) {
         }).catch(err => {
             addAlert(err.message);
         })
-    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearSelectedCategory, selectedCategory.id])
+        clearButtonLoading();
+    }, [budget, name, loadPage, closeAddModal, addToast, clearInputs, addAlert, clearSelectedCategory, selectedCategory.id,
+        clearButtonLoading, setButtonToLoad])
 
     const submit = useCallback(() => {
         if (action === 'save') save();
@@ -154,6 +162,7 @@ export function CategoryProvider({children}: CategoryProviderProps) {
 
     const remove = useCallback(async () => {
         const api = new CategoryController();
+        setButtonToLoad();
         await api.delete(selectedCategory.id).then(() => {
             addToast({
                 type: 'success',
@@ -168,31 +177,36 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             title: 'Error',
             description: getError(err)
         }));
-    }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name])
+        clearButtonLoading();
+    }, [addToast, closeRemoveModal, loadPage, clearSelectedCategory, selectedCategory.id, selectedCategory.name,
+        clearButtonLoading, setButtonToLoad])
 
     const duplicateCategories = useCallback(() => {
         const api = new CategoryController();
+        setButtonToLoad();
         selectedItems.forEach(async (item: SelectItem) => {
-            await api.duplicateCategory(toTransferCategoryRequestBody(item))
+           await api.duplicateCategory(toTransferCategoryRequestBody(item))
                 .then(() => {
                     addToast({
                         type: 'success',
                         title: 'Feito!',
                         description: `Lista ${item.name} duplicada`
-                    })
+                    });
                     loadPage(api);
                 }).catch((err) => addToast({
-                    type: "error",
-                    title: 'Error',
-                    description: getError(err)
-                }));
+                type: "error",
+                title: 'Error',
+                description: getError(err)
+            }));
         });
         clearSelectedItems();
         closeConfirmModal();
-    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
+        clearButtonLoading();
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal, clearButtonLoading, setButtonToLoad])
 
     const removeVarious = useCallback(async () => {
         const api = new CategoryController();
+        setButtonToLoad();
         await api.deleteVarious(selectedItems)
             .then(() => {
                 addToast({
@@ -208,7 +222,8 @@ export function CategoryProvider({children}: CategoryProviderProps) {
             }));
         clearSelectedItems();
         closeConfirmModal();
-    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal])
+        clearButtonLoading();
+    }, [selectedItems, loadPage, clearSelectedItems, addToast, closeConfirmModal, clearButtonLoading, setButtonToLoad])
 
     return (
         <CategoryContext.Provider value={{

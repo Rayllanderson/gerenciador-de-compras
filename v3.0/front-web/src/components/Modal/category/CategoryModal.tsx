@@ -8,11 +8,14 @@ import {useContext} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {CategoryContext} from "../../../contexts/CategoryContext";
 import MyAlert from "../../Alert";
+import {LoadingContext} from "../../../contexts/LoadingContex";
+import {ButtonWithLoader} from "../../Buttons";
 
 
 export function CategoryModal() {
     const {showAddModal, closeAddModal} = useContext(ModalContext);
     const {budget, handleBudgetChange, name, handleNameChange, submit, action} = useContext(CategoryContext);
+    const {btnIsLoading} = useContext(LoadingContext);
 
     const title = action === 'edit' ? 'Editar lista' : 'Nova Lista';
     return (
@@ -23,7 +26,7 @@ export function CategoryModal() {
                     <CloseButton onClick={closeAddModal}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
-                    <MyAlert />
+                    <MyAlert/>
                     <div className="mb-3">
                         <label className="form-label">Nome</label>
                         <InputText placeholder={'Nome da lista'} value={name} onChange={handleNameChange}/>
@@ -34,8 +37,13 @@ export function CategoryModal() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>
-                    <SecondaryButton type="button" className="btn button-secondary" onClick={closeAddModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
+                    <SecondaryButton type="button" className="btn button-secondary"
+                                     onClick={closeAddModal}>Fechar</SecondaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>
