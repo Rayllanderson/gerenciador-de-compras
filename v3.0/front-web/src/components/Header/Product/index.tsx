@@ -20,10 +20,7 @@ export function ProductHeader() {
 
     const [iconDirection, setIconDirection] = useState<'down' | 'up'>('down');
 
-    const {
-        fetchStatisticsFromCurrentCategory,
-        statistics: statistics
-    } = useContext(StatisticContext);
+    const {fetchStatisticsFromCurrentCategory, statistics} = useContext(StatisticContext);
 
     useEffect(() => {
         fetchStatisticsFromCurrentCategory();

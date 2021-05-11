@@ -9,7 +9,6 @@ import {AccountContext} from "../../../contexts/AccountContext";
 import MyAlert from "../../Alert";
 import {Avatar} from "../../ProfileImage/styles";
 import {ActionModalContext} from "../../../contexts/ActionModalContext";
-import {ProfileImageContext} from "../../../contexts/ProfileImageContex";
 import {formatBytes, getPhotoSize} from "../../../utils/profilePhotoUtil";
 
 export function ChangeUserDataModal() {
