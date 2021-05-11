@@ -10,6 +10,8 @@ import MyAlert from "../../Alert";
 import {Avatar} from "../../ProfileImage/styles";
 import {ActionModalContext} from "../../../contexts/ActionModalContext";
 import {formatBytes, getPhotoSize} from "../../../utils/profilePhotoUtil";
+import {ButtonWithLoader} from "../../Buttons";
+import {LoadingContext} from "../../../contexts/LoadingContex";
 
 export function ChangeUserDataModal() {
     const {showChangeDataModal, closeChangeDataModal} = useContext(ModalContext);
@@ -45,6 +47,7 @@ export function ChangeUserDataModal() {
 export function ChangePasswordModal() {
     const {showChangePasswordModal, closeChangePasswordModal} = useContext(ModalContext);
     const {password, handlePasswordChange, updatePassword} = useContext(AccountContext);
+    const {btnIsLoading} = useContext(LoadingContext);
     return (
         <Modal centered show={showChangePasswordModal} className={"rounded-0"} onHide={closeChangePasswordModal}>
             <Content>
@@ -62,7 +65,11 @@ export function ChangePasswordModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closeChangePasswordModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={updatePassword}> Alterar </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={updatePassword}> Alterar </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>

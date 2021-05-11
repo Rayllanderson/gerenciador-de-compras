@@ -4,6 +4,8 @@ import {CloseButton} from "../Buttons/CloseButton/closeButton";
 import {PrimaryButton, SecondaryButton} from "../Buttons/styles";
 import {useContext} from "react";
 import {ModalContext} from "../../contexts/ModalContext";
+import {LoadingContext} from "../../contexts/LoadingContex";
+import {ButtonWithLoader} from "../Buttons";
 
 interface Props {
     text: string,
@@ -12,6 +14,7 @@ interface Props {
 
 export function DeleteModal({text, action}: Props) {
     const {showRemoveModal, closeRemoveModal} = useContext(ModalContext);
+    const {btnIsLoading} = useContext(LoadingContext);
     return (
         <Modal centered show={showRemoveModal} className={"rounded-0"} onHide={closeRemoveModal}>
             <Content>
@@ -25,7 +28,11 @@ export function DeleteModal({text, action}: Props) {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closeRemoveModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={action}> Excluir </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={action}> Excluir </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>

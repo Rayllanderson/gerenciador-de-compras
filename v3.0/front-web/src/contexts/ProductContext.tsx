@@ -10,6 +10,7 @@ import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
 import {getError, getValidationError} from "../utils/handleApiErros";
+import {LoadingContext} from "./LoadingContex";
 
 interface ProductProviderProps {
     children: ReactNode;
@@ -57,6 +58,7 @@ export function ProductProvider({children}: ProductProviderProps) {
     } = useContext(ModalContext);
     const {addAlert, closeAlert} = useContext(AlertContext);
     const {selectedItems, clearSelectedItems} = useContext(SelectedItemsContext);
+    const {setButtonToLoad, clearButtonLoading} = useContext(LoadingContext);
 
     const [currentCategoryId, setCurrentCategoryId] = useState<string>('');
     const [name, setName] = useState<string>('');
@@ -107,7 +109,8 @@ export function ProductProvider({children}: ProductProviderProps) {
         clearInputs();
         openAddModal();
         setAction('save');
-    }, [openAddModal, clearInputs, closeAlert])
+        clearButtonLoading();
+    }, [openAddModal, clearInputs, closeAlert, clearButtonLoading])
 
     const setToEdit = useCallback((productToBeEdited: ProductResponseBody) => {
         closeAlert();
@@ -118,21 +121,23 @@ export function ProductProvider({children}: ProductProviderProps) {
         setStipulatedPrice(productToBeEdited.stipulatedPrice);
         setSpentPrice(productToBeEdited.spentPrice);
         setIsPurchased(productToBeEdited.purchased);
-    }, [openAddModal, closeAlert])
+        clearButtonLoading();
+    }, [openAddModal, closeAlert, clearButtonLoading])
 
     const setToRemove = useCallback((productToBeRemoved: ProductResponseBody) => {
         setSelectedProduct(productToBeRemoved);
         openRemoveModal();
-    }, [openRemoveModal])
+        clearButtonLoading();
+    }, [openRemoveModal, clearButtonLoading])
 
     //do It After An Update
     const fetchProducts = useCallback((api: ProductController) => {
         loadPage(api);
         setUpdateStatistic(u => !u);
-    },[loadPage])
+    }, [loadPage])
 
     /* api */
-    const save = useCallback(() => {
+    const save = useCallback(async () => {
         const productToBeSaved: ProductPostBody = {
             name: name,
             stipulatedPrice: getNumberWithoutMask(stipulatedPrice),
@@ -140,7 +145,8 @@ export function ProductProvider({children}: ProductProviderProps) {
             purchased: isPurchased
         }
         const api = new ProductController(currentCategoryId);
-        validateSave(productToBeSaved).then(async () => {
+        setButtonToLoad();
+        await validateSave(productToBeSaved).then(async () => {
             await api.post(productToBeSaved).then(() => {
                 addToast({
                     type: 'success',
@@ -152,10 +158,11 @@ export function ProductProvider({children}: ProductProviderProps) {
                 clearInputs();
             }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => addAlert(err.message));
+        clearButtonLoading();
     }, [name, spentPrice, stipulatedPrice, clearInputs, isPurchased, currentCategoryId, fetchProducts, closeAddModal, addToast,
-        addAlert])
+        addAlert, setButtonToLoad, clearButtonLoading])
 
-    const edit = useCallback(() => {
+    const edit = useCallback(async () => {
         const productToBeEdited: ProductPutBody = {
             id: selectedProduct.id,
             name: name,
@@ -164,7 +171,8 @@ export function ProductProvider({children}: ProductProviderProps) {
             purchased: isPurchased
         }
         const api = new ProductController(currentCategoryId);
-        validateEdit(productToBeEdited).then(async () => {
+        setButtonToLoad();
+        await validateEdit(productToBeEdited).then(async () => {
             await api.put(productToBeEdited).then(() => {
                 addToast({
                     type: 'success',
@@ -177,16 +185,18 @@ export function ProductProvider({children}: ProductProviderProps) {
                 clearSelectedProduct();
             }).catch(err => addAlert(getValidationError(err)))
         }).catch(err => addAlert(err.message));
+        clearButtonLoading();
     }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,
-        addAlert, clearSelectedProduct, selectedProduct, clearInputs])
+        addAlert, clearSelectedProduct, selectedProduct, clearInputs, clearButtonLoading, setButtonToLoad])
 
     const submit = useCallback(() => {
-        if (action === 'save') save();
-        if (action === 'edit') edit();
+        if (action === 'save') save().then();
+        if (action === 'edit') edit().then();
     }, [action, save, edit])
 
     const remove = useCallback(async () => {
         const api = new ProductController(currentCategoryId);
+        setButtonToLoad();
         await api.delete(selectedProduct.id).then(() => {
             addToast({
                 type: 'success',
@@ -200,16 +210,19 @@ export function ProductProvider({children}: ProductProviderProps) {
             title: 'Error',
             description: getError(err)
         }));
+        clearButtonLoading();
         closeRemoveModal();
-    }, [addToast, closeRemoveModal, fetchProducts, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId])
+    }, [addToast, closeRemoveModal, fetchProducts, clearSelectedProduct, selectedProduct.id, selectedProduct.name, currentCategoryId,
+        setButtonToLoad, clearButtonLoading])
 
-    const copyProductsToAnotherCategory = useCallback(() => {
+    const copyProductsToAnotherCategory = useCallback(async () => {
         const data: TransferProduct = {
             selectItems: selectedItems,
             currentCategoryId: currentCategoryId,
             newCategoryId: newCategoryId
         }
-        assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
+        setButtonToLoad();
+        await assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
             await new ProductController(currentCategoryId).copyProductsToAnotherCategory(data)
                 .then(() => {
                     addToast({
@@ -224,17 +237,20 @@ export function ProductProvider({children}: ProductProviderProps) {
                     title: 'Error',
                     description: getError(err)
                 }));
+            clearButtonLoading();
             closeTransferModal();
         }).catch(err => addAlert(err.message))
-    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, addAlert])
+    }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, currentCategoryId, newCategoryId, addAlert,
+        setButtonToLoad, clearButtonLoading])
 
-    const moveProductsToAnotherCategory = useCallback(() => {
+    const moveProductsToAnotherCategory = useCallback(async () => {
         const data: TransferProduct = {
             selectItems: selectedItems,
             currentCategoryId: currentCategoryId,
             newCategoryId: newCategoryId
         }
-        assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
+        setButtonToLoad();
+        await assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
             const api = new ProductController(currentCategoryId);
             await api.moveProductsToAnotherCategory(data)
                 .then(() => {
@@ -253,11 +269,13 @@ export function ProductProvider({children}: ProductProviderProps) {
                     description: getError(err)
                 }));
         }).catch(err => addAlert(err.message))
+        clearButtonLoading();
     }, [addToast, closeTransferModal, clearSelectedItems,
-            selectedItems, currentCategoryId, newCategoryId, addAlert, fetchProducts])
+        selectedItems, currentCategoryId, newCategoryId, addAlert, fetchProducts, clearButtonLoading, setButtonToLoad])
 
     const removeVarious = useCallback(async () => {
         const api = new ProductController(currentCategoryId);
+        setButtonToLoad();
         await api.deleteVarious(selectedItems)
             .then(() => {
                 addToast({
@@ -273,7 +291,8 @@ export function ProductProvider({children}: ProductProviderProps) {
             }));
         clearSelectedItems();
         closeConfirmModal();
-    }, [selectedItems, fetchProducts, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId])
+        clearButtonLoading();
+    }, [selectedItems, fetchProducts, clearSelectedItems, addToast, closeConfirmModal, currentCategoryId, setButtonToLoad, clearButtonLoading])
 
     return (
         <ProductContext.Provider value={{

@@ -8,12 +8,15 @@ import {useContext} from "react";
 import {ModalContext} from "../../../contexts/ModalContext";
 import {ProductContext} from "../../../contexts/ProductContext";
 import MyAlert from "../../Alert";
+import {ButtonWithLoader} from "../../Buttons";
+import {LoadingContext} from "../../../contexts/LoadingContex";
 
 export function ProductModal() {
 
     const {showAddModal, closeAddModal} = useContext(ModalContext);
     const {name, handleNameChange, stipulatedPrice, action, handleStipulatedPriceChange
-    , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice, submit} = useContext(ProductContext)
+    , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice, submit} = useContext(ProductContext);
+    const {btnIsLoading} = useContext(LoadingContext);
 
     const title = action === 'save' ? 'Novo produto' : 'Editar produto';
     return (
@@ -60,7 +63,11 @@ export function ProductModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button"
                                      className="btn button-secondary" onClick={closeAddModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={submit}> Salvar </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>

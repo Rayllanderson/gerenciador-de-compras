@@ -11,6 +11,8 @@ import {SelectedItemsContext} from "../../../contexts/SelectedItemsContext";
 import {SelectItem} from "../../../interfaces/selectItemInterface";
 import {ActionModalContext} from "../../../contexts/ActionModalContext";
 import {ProductContext} from "../../../contexts/ProductContext";
+import {ButtonWithLoader} from "../../Buttons";
+import {LoadingContext} from "../../../contexts/LoadingContex";
 
 export function TransferModal() {
     const {showTransferModal} = useContext(ModalContext);
@@ -18,6 +20,7 @@ export function TransferModal() {
     const {handleNewCategoryIdChange, copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
     const {selectedItems} = useContext(SelectedItemsContext);
     const {transferModalTitle, closeTransferModalAction} = useContext(ActionModalContext);
+    const {btnIsLoading} = useContext(LoadingContext);
 
     useEffect(() => {
         loadCategoriesNonPageable();
@@ -55,7 +58,11 @@ export function TransferModal() {
                     <SecondaryButton type="button"
                                      className="btn button-secondary"
                                      onClick={closeTransferModalAction}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={action}> {transferModalTitle} </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={action}> {transferModalTitle} </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>
