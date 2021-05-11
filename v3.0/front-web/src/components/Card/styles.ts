@@ -36,6 +36,9 @@ export const AccountCardContainer = styled(CardContainer)`
 `
 
 export const StatisticCardContainer = styled(AccountCardContainer) `
+     h4{
+        text-align: center;
+     }
      .apexcharts-menu-icon, .apexcharts-toolbar{
         svg {
         fill: ${props => props.theme.colors.text}!important;
