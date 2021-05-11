@@ -2,8 +2,17 @@ import {StatisticCardContainer} from "../../components/Card/styles";
 import {ColumnChart, HorizontalChart, PieChart} from "../../components/Chart";
 import {PieChartContainer, BarChartContainer, SelectContainer} from './styles';
 import {FiPieChart} from "react-icons/all";
+import {useContext, useEffect} from "react";
+import {CategoryContext} from "../../contexts/CategoryContext";
 
 export default function StatisticPage() {
+
+    const {loadCategoriesNonPageable, categories} = useContext(CategoryContext);
+
+    useEffect(() => {
+        loadCategoriesNonPageable();
+    }, [loadCategoriesNonPageable])
+
     return (
         <div className={'container mt-5 '} style={{maxWidth: '750px'}}>
             <StatisticCardContainer>
@@ -11,9 +20,11 @@ export default function StatisticPage() {
                 <div className={'pt-3 container'}>
                     <h5>Selecione a lista desejada</h5>
                     <SelectContainer>
-                        <select className={'form-select mt-3'}>
-                            <option>Todas as listas</option>
-                            <option>Lista 2</option>
+                        <select className={'form-select mt-3'} onChange={() => {}} defaultValue={'all'}>
+                            <option value={'all'}>Todas as listas</option>
+                            {categories.map(category =>
+                                <option value={category.id}>{category.name}</option>
+                            )}
                         </select>
                     </SelectContainer>
                 </div>
