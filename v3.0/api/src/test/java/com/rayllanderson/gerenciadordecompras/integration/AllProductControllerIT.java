@@ -288,6 +288,7 @@ class AllProductControllerIT extends BaseApiTest{
         BigDecimal expectedCategoryBudget = productSaved.getCategory().getBudget();
         BigDecimal expectedAvailableToSpend = expectedCategoryBudget.subtract(expectedSpentPrice);
         BigDecimal expectedAmountSaved = expectedStipulatedPrice.subtract(expectedSpentPrice);
+        BigDecimal expectedAmountToSpend = BigDecimal.ZERO;
         int expectedNumberOfProducts = 1;
         int expectedNumberOfProductsPurchased = 1;
         int expectedNumberOfProductsNonPurchased = 0;
@@ -308,6 +309,7 @@ class AllProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getBody().getNumberOfProductsNotPurchased()).isEqualTo(expectedNumberOfProductsNonPurchased);
         Assertions.assertThat(responseEntity.getBody().isCompleted()).isEqualTo(false); //não tem categoria, portanto, false
         Assertions.assertThat(responseEntity.getBody().getStipulatedValueFromBoughtProducts()).isEqualTo(expectedStipulatedPrice);
+        Assertions.assertThat(responseEntity.getBody().getAmountToSpend()).isEqualTo(expectedAmountToSpend);
     }
 
     /**
