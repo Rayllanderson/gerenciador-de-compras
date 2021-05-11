@@ -459,6 +459,7 @@ class ProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getBody().getNumberOfProductsNotPurchased()).isEqualTo(expectedNumberOfProductsNonPurchased);
         Assertions.assertThat(responseEntity.getBody().getAmountToSpend()).isEqualTo(expectedAmountToSpend);
         Assertions.assertThat(responseEntity.getBody().isCompleted()).isEqualTo(true);
+        Assertions.assertThat(responseEntity.getBody().getStipulatedValueFromBoughtProducts()).isEqualTo(expectedStipulatedPrice);
     }
 
     /**

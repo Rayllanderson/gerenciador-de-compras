@@ -42,6 +42,12 @@ public class StatisticUtil {
         return products.stream().map(Product::getStipulatedPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public static BigDecimal getStipulatedValueFromBoughtProducts(List<Product> products){
+        if (products.isEmpty()) return BigDecimal.ZERO;
+        return StatisticUtil.getProductsPurchased(products)
+                .stream().map(Product::getStipulatedPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     public static BigDecimal getAmountToSpend(List<Product> products){
         if (products.isEmpty()) return BigDecimal.ZERO;
         return getTotalStipulated(StatisticUtil.getProductsNotPurchased(products));

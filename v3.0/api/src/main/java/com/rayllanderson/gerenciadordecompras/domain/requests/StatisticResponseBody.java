@@ -50,6 +50,9 @@ public class StatisticResponseBody {
     @Builder.Default
     private BigDecimal currentAmountTotal = BigDecimal.ZERO;
 
+    @Builder.Default
+    private BigDecimal stipulatedValueFromBoughtProducts = BigDecimal.ZERO;
+
     /**
      * Soma dos valores estipulados dos produtos que não foram comprados
      */
