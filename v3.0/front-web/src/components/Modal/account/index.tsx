@@ -16,6 +16,7 @@ import {LoadingContext} from "../../../contexts/LoadingContex";
 export function ChangeUserDataModal() {
     const {showChangeDataModal, closeChangeDataModal} = useContext(ModalContext);
     const {username, name, handleUsernameChange, handleNameChange, update} = useContext(AccountContext);
+    const {btnIsLoading} = useContext(LoadingContext);
     return (
         <Modal centered show={showChangeDataModal} className={"rounded-0"} onHide={closeChangeDataModal}>
             <Content>
@@ -37,7 +38,11 @@ export function ChangeUserDataModal() {
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closeChangeDataModal}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={update}> Alterar </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={update}> Alterar </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>
@@ -80,6 +85,7 @@ export function PreviewPhotoModal(){
     const {showPreviewPhotoModal} = useContext(ModalContext);
     const {closePreviewPhotoModalAction} = useContext(ActionModalContext);
     const {uploadFile, photo} = useContext(AccountContext);
+    const {btnIsLoading} = useContext(LoadingContext);
     const MAX_UPLOAD_FILE_SIZE = 204800;
     const currentImageSize = getPhotoSize(photo) as number;
     const cannotUpload: boolean = currentImageSize > MAX_UPLOAD_FILE_SIZE;
@@ -105,7 +111,12 @@ export function PreviewPhotoModal(){
                 <Modal.Footer style={{border: 'none'}}>
                     <SecondaryButton type="button" className="btn button-secondary"
                                      onClick={closePreviewPhotoModalAction}>Fechar</SecondaryButton>
-                    <PrimaryButton className={"btn"} onClick={uploadFile} disabled={cannotUpload}> Salvar foto </PrimaryButton>
+                    {
+                        btnIsLoading ?
+                            <ButtonWithLoader Button={PrimaryButton} type={'normal'}/> :
+                            <PrimaryButton className={"btn"} onClick={uploadFile} disabled={cannotUpload}> Salvar
+                                foto </PrimaryButton>
+                    }
                 </Modal.Footer>
             </Content>
         </Modal>

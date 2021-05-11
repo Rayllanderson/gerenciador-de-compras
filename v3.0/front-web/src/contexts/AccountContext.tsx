@@ -6,6 +6,7 @@ import {ToastContext} from "./ToastContext";
 import {AlertContext} from "./AlertContext";
 import {ModalContext} from "./ModalContext";
 import {getError} from "../utils/handleApiErros";
+import {LoadingContext} from "./LoadingContex";
 
 interface AccountContextProviderProps {
     children: ReactNode;
@@ -53,6 +54,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         closePreviewPhotoModal,
         closeConfirmModal
     } = useContext(ModalContext);
+    const {setButtonToLoad, clearButtonLoading} = useContext(LoadingContext);
 
     const fetchUserData = useCallback(async () => {
         await new UserController().fetchUserData().then((response) => {
@@ -80,8 +82,9 @@ export function AccountProvider({children}: AccountContextProviderProps) {
 
     const clearPassword = useCallback(() => setPassword(''), []);
 
-    const update = useCallback(() => {
-        validateField(username, 'Username').then(async () => {
+    const update = useCallback(async () => {
+        setButtonToLoad();
+        await validateField(username, 'Username').then(async () => {
             await new UserController().updateData({username: username, name: name, email: ''})
                 .then(() => {
                     addToast({
@@ -97,10 +100,12 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         }).catch(err => {
             addAlert(err.message)
         })
-    }, [addToast, fetchUserData, name, username, addAlert, closeChangeDataModal])
+        clearButtonLoading();
+    }, [addToast, fetchUserData, name, username, addAlert, closeChangeDataModal, setButtonToLoad, clearButtonLoading])
 
-    const updatePassword = useCallback(() => {
-        validateField(password, 'Senha').then(async () => {
+    const updatePassword = useCallback(async () => {
+        setButtonToLoad();
+        await validateField(password, 'Senha').then(async () => {
             await new UserController().updatePassword(password)
                 .then(() => {
                     addToast({
@@ -115,7 +120,8 @@ export function AccountProvider({children}: AccountContextProviderProps) {
         }).catch(err => {
             addAlert(err.message)
         })
-    }, [addToast, password, addAlert, closeChangePasswordModal])
+        clearButtonLoading();
+    }, [addToast, password, addAlert, closeChangePasswordModal, setButtonToLoad, clearButtonLoading])
 
     const handleImageChange = useCallback(async (e: any) => {
         const file = e.target.files[0];
@@ -158,6 +164,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     const uploadFile = useCallback(async () => {
         const data = new FormData();
         data.append('file', photo as string | Blob);
+        setButtonToLoad();
         await new UserController().uploadPhoto(data)
             .then(() => {
                 closePreviewPhotoModal();
@@ -170,10 +177,12 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                 setHasChangedImage(i => !i);
                 closeUploadCard();
                 clearPhoto();
-            }).catch(err => addAlert(getError(err)))
-    }, [photo, closePreviewPhotoModal, addToast, fetchUserData, addAlert, closeUploadCard, clearPhoto])
+            }).catch(err => addAlert(getError(err)));
+        clearButtonLoading();
+    }, [photo, closePreviewPhotoModal, addToast, fetchUserData, addAlert, closeUploadCard, clearPhoto, setButtonToLoad, clearButtonLoading])
 
     const removeFile = useCallback(async () => {
+        setButtonToLoad();
         await new UserController().removePhoto()
             .then(() => {
                 addToast({
@@ -186,8 +195,9 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                 fetchUserData().then();
                 closeUploadCard();
                 clearPhoto();
-            }).catch(err => getError(err))
-    }, [setHasChangedImage, closeConfirmModal, fetchUserData, addToast, closeUploadCard, clearPhoto])
+            }).catch(err => getError(err));
+        clearButtonLoading();
+    }, [setHasChangedImage, closeConfirmModal, fetchUserData, addToast, closeUploadCard, clearPhoto, clearButtonLoading, setButtonToLoad])
 
     return (
         <AccountContext.Provider value={{
