@@ -40,7 +40,7 @@ export function DropdownNavbar() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="drop-menu">
                     <Link to={'/account'} onClick={closeDropdown} className={'dropdown-item'}> <FiUser/> Minha Conta </Link>
-                    <Dropdown.Item><FiPieChart/> Estatísticas</Dropdown.Item>
+                    <Link to={'/statistics'} onClick={closeDropdown} className={'dropdown-item'}> <FiPieChart/> Estatísticas </Link>
                     <Dropdown.Item><FiHelpCircle/> Ajuda</Dropdown.Item>
                     <Dropdown.Header> </Dropdown.Header>
                     <Dropdown.Item onClick={logout}><FiLogOut/> Logout</Dropdown.Item>

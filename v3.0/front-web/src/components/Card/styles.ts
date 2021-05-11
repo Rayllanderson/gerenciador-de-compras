@@ -35,6 +35,25 @@ export const AccountCardContainer = styled(CardContainer)`
     }
 `
 
+export const StatisticCardContainer = styled(AccountCardContainer) `
+     .apexcharts-menu-icon, .apexcharts-toolbar{
+        svg {
+        fill: ${props => props.theme.colors.text}!important;
+        }
+     }
+     .apexcharts-menu{
+        background-color: ${props => props.theme.colors.background}!important;
+        color: ${props => props.theme.colors.primary}!important;
+        border-color: ${props => props.theme.colors.primary};
+     }
+      .apexcharts-menu-item{
+          &:hover{
+                background-color: ${props => props.theme.colors.primary}!important;
+                color: ${props => props.theme.colors.text}!important;
+            }
+      }
+`
+
 export const CategoryCardContainer = styled(CardContainer)`
   border: 1.5px solid ${props => props.theme.colors.background}!important;
   

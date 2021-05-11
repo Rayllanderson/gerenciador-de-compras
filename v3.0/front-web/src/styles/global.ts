@@ -13,6 +13,7 @@ export default createGlobalStyle`
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
   body, input, button {
     font-family: 'Fira Code', monospace;
