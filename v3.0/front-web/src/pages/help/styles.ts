@@ -35,6 +35,7 @@ export const HelpContent = styled.div`
 `
 export const HelpContentHeader = styled.h5`
   color: ${props => props.theme.colors.primary}!important;
+  margin-top: 2rem;
 `
 
 export const Image = styled.img`
