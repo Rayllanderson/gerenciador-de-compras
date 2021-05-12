@@ -4,7 +4,7 @@ import {darken} from "polished";
 export const Header = styled.div`
    max-width:750px;
    
-  button{
+  button, a{
     background: transparent;
     border: none;
     box-shadow: none!important;

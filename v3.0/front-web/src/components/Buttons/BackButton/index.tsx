@@ -1,8 +1,8 @@
-import {FiChevronLeft, FiShoppingCart} from "react-icons/all";
+import {AiOutlineArrowLeft, AiOutlineHome, FiShoppingCart} from "react-icons/all";
 import {Header} from "./styles";
 import React, {useCallback, useContext} from "react";
 import {GeneralContext} from "../../../contexts/GeneralContex";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 interface BackButtonNavbarProps {
     isOnHomePage: boolean
@@ -11,16 +11,25 @@ interface BackButtonNavbarProps {
 function BackButtonHeader() {
     const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
     let history = useHistory();
-    const clearDataAndBack = useCallback(() => {
+
+    const clearData = useCallback(() => {
         clearPreviousData();
         clearPaginationSettings();
-        history.goBack();
     }, [clearPreviousData, clearPaginationSettings, history])
+
+    const clearDataAndBack = useCallback(() => {
+        clearData();
+        history.goBack();
+    }, [clearData, history]);
+
     return (
-        <Header className={'container '}>
-            <button onClick={clearDataAndBack}>
-                <FiChevronLeft size={17}/>Voltar
+        <Header className={'container d-flex'}>
+            <button onClick={clearDataAndBack} title={'Voltar'}>
+                <AiOutlineArrowLeft size={22}/>
             </button>
+            <Link to={'/categories'} onClick={clearData} className={'mx-3 d-flex'} title={'Ir para suas Listas'}>
+                <AiOutlineHome size={22}/>
+            </Link>
         </Header>
     )
 }
