@@ -3,7 +3,7 @@ import {useContext, useEffect} from "react";
 import {PaginationContext} from "../../../contexts/PaginationContext";
 import CategoryController from "../../../controllers/categoryController";
 import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
-import {CategoryCardLoader} from "../../Loader/card/category";
+import {CategoryCardLoader} from "../../Loader/card";
 import {LoadingContext} from "../../../contexts/LoadingContex";
 import {EmptyMessage} from '../../Text/styles';
 

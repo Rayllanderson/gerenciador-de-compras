@@ -8,11 +8,14 @@ import {AccountContext} from "../../contexts/AccountContext";
 import {ActionModalContext} from "../../contexts/ActionModalContext";
 import {ChangePasswordModal, ChangeUserDataModal, PreviewPhotoModal} from "../../components/Modal/account";
 import {ConfirmModal} from "../../components/Modal/ConfirmModal";
+import {NameLoader} from "../../components/Loader/account";
+import {LoadingContext} from "../../contexts/LoadingContex";
 
 export function Account() {
 
     const {fetchUser, user} = useContext(AccountContext);
     const {openChangeUserDataModalAction, openChangePasswordModalAction} = useContext(ActionModalContext);
+    const {isLoading} = useContext(LoadingContext);
 
     useEffect(() => {
        fetchUser();
@@ -27,8 +30,8 @@ export function Account() {
             </div>
 
             <InformationContainer>
-                <p>Olá, <strong> {user.name}</strong>! </p>
-                <p>Seu username é <strong>{user.username}</strong></p>
+                <p>Olá,  {isLoading ? <NameLoader/> : <strong> {user.name + '!'}</strong>} </p>
+                <p>Seu username é  {isLoading ? <NameLoader/> : <strong>{user.username}</strong>}</p>
             </InformationContainer>
 
             <Footer className={'pb-3'}>

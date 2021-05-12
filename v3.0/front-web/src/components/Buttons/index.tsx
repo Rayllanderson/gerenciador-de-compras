@@ -1,7 +1,7 @@
 import {CyanSecondaryButton, RedButton} from "./styles";
 import {FiEdit2, FiTrash} from "react-icons/all";
 import React from "react";
-import {LoaderCircle} from "../Loader";
+import {CircleLoader} from "../Loader";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
 }
@@ -28,6 +28,6 @@ export function ButtonWithLoader({Button, className, type}: ButtonLoaderProps) {
     const buttonType = type === 'large' ? 'btn-lg' : '';
     const loaderSize = type === 'large' ? 'md' : 'sm';
     return(
-        <Button className={'btn ' + className + ' ' + buttonType} disabled> <LoaderCircle size={loaderSize}/> </Button>
+        <Button className={'btn ' + className + ' ' + buttonType} disabled> <CircleLoader size={loaderSize}/> </Button>
     )
 }

@@ -47,6 +47,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
 
     const {addToast} = useContext(ToastContext);
     const {addAlert} = useContext(AlertContext);
+    const {setToLoad, clearLoading} = useContext(LoadingContext);
     const {
         closeChangeDataModal,
         closeChangePasswordModal,
@@ -57,6 +58,7 @@ export function AccountProvider({children}: AccountContextProviderProps) {
     const {setButtonToLoad, clearButtonLoading} = useContext(LoadingContext);
 
     const fetchUserData = useCallback(async () => {
+        setToLoad();
         await new UserController().fetchUserData().then((response) => {
             setUser(response.data);
         }).catch(err => {
@@ -66,7 +68,8 @@ export function AccountProvider({children}: AccountContextProviderProps) {
                 description: getError(err)
             })
         })
-    }, [setUser, addToast])
+        clearLoading();
+    }, [setUser, addToast, setToLoad, clearLoading])
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
