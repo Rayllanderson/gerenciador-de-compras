@@ -24,7 +24,7 @@ export function ProductListLoader() {
         isMobile() ? setThirdXWidth(200) : setThirdXWidth(415);
         isMobile() ? setFourthXWidth(300) : setFourthXWidth(600);
 
-        setTimeout(() => setIsVisible(true), 250);
+        setTimeout(() => setIsVisible(true), 450);
         if (!isVisible) return () => {
         };
     }, [setIsVisible])

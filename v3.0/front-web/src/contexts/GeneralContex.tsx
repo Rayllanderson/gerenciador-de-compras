@@ -20,8 +20,7 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
     const {setSearchType, setSearch, setSort, setSize, setOrder} = useContext(PaginationContext);
     const {hideCheckBox, hideDeleteButton, hideEditButton} = useContext(VisibilityCardItemContext);
     const {clearSelectedItems} = useContext(SelectedItemsContext);
-    const {setCurrentCategoryId} = useContext(ProductContext)
-    
+
     const clearPreviousData = useCallback(() => {
         setSearchType('all');
         hideDeleteButton();
@@ -29,8 +28,7 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
         hideCheckBox();
         clearSelectedItems();
         setSearch('');
-        setCurrentCategoryId('');
-    }, [setSearchType, hideEditButton, hideDeleteButton, clearSelectedItems, hideCheckBox, setSearch, setCurrentCategoryId])
+    }, [setSearchType, hideEditButton, hideDeleteButton, clearSelectedItems, hideCheckBox, setSearch])
 
     const clearPaginationSettings = useCallback(() => {
         setSort('');

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import Header from "../components/Header";
 import {FiList} from "react-icons/all";
 import Search from "../components/Search";
@@ -12,11 +12,15 @@ import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons"
 import {CyanSecondaryButton, RedButton} from '../components/Buttons/styles'
 import {CategoryContext} from "../contexts/CategoryContext";
 import {ActionModalContext} from "../contexts/ActionModalContext";
+import {ProductContext} from "../contexts/ProductContext";
 
 export default function CategoryPage() {
     const {setToSave, remove, selectedCategory} = useContext(CategoryContext);
     const {duplicateCategoryAction, removeVariousCategoriesAction, openFilterCategoryModalAction} = useContext(ActionModalContext);
     const controller = new CategoryController();
+    const {setCurrentCategoryId} = useContext(ProductContext);
+
+    useEffect(() =>  setCurrentCategoryId(''), []);
 
     return (
         <div>

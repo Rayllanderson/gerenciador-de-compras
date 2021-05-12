@@ -6,3 +6,5 @@ export const chartColors = {
     purple: '#8b75d7',
     red: '#e83f5b'
 }
+
+export const cyan = '#00b4d8';

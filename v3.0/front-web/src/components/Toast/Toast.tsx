@@ -2,6 +2,7 @@ import {FiAlertCircle, FiCheckCircle, FiInfo, FiXCircle} from "react-icons/fi";
 import {useContext, useEffect} from 'react';
 import {ToastContext, ToastMessage} from "../../contexts/ToastContext";
 import {ThemeContext} from "styled-components";
+import {cyan} from "../../utils/colorsUtil";
 
 interface Props {
     type?: string;
@@ -9,10 +10,10 @@ interface Props {
 }
 
 export default function Toast({message}: Props) {
-    const {title, colors} = useContext(ThemeContext)
+    const {colors} = useContext(ThemeContext)
     const {removeToast} = useContext(ToastContext);
     let background = colors.backgroundSecondary;
-    let color = `${title === 'dark' ? 'var(--cyan)' : 'var(--cyanLight)'}`;
+    let color = cyan;
     const icons = {
         info: <FiInfo size={20}/>,
         success: <FiCheckCircle size={20}/>,
@@ -20,10 +21,10 @@ export default function Toast({message}: Props) {
     }
     switch (message.type) {
         case 'success':
-            color = `${title === 'dark' ? 'var(--green)' : 'var(--greenLight)'}`;
+            color = 'var(--green)';
             break;
         case 'error':
-            color = `${title === 'dark' ? 'var(--red)' : 'var(--redLight)'}`;
+            color = 'var(--red)';
             break;
     }
 

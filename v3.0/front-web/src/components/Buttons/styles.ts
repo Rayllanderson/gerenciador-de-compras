@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {darken, lighten} from 'polished';
+import {cyan} from "../../utils/colorsUtil";
 
 
 export const Button = styled.button`
@@ -123,7 +124,7 @@ export const GreenButton = styled(Button)`
      }
 `
 
-const cyan = '#00b4d8';
+
 export const CyanSecondaryButton = styled(Button)`
       
      background: cyan;

@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 export function NameLoader() {
     const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
-        setTimeout(() => setIsVisible(true), 250);
+        setTimeout(() => setIsVisible(true), 450);
         if (!isVisible) return () => {
         };
     }, [isVisible])
