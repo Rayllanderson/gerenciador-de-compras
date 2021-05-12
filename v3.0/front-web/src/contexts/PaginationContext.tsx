@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useCallback, useContext, useState} from 'react';
-import {Page, Pageable} from "../interfaces/page";
+import {Page, Pageable, PageType} from "../interfaces/page";
 import {createAnEmptyPagination} from "../utils/paginationUtil";
 import {getError} from "../utils/handleApiErros";
 import {ToastContext} from "./ToastContext";
@@ -29,6 +29,9 @@ interface PaginationContextData {
     order: 'asc' | 'desc',
     setSort: (sortBy: string) => void,
     setOrder: (value: 'asc' | 'desc') => void,
+    handlePageTypeChange: (value: any) => void,
+    setPageType: (value: PageType) => void,
+    pageType: PageType
 }
 
 export const PaginationContext = createContext<PaginationContextData>({} as PaginationContextData);
@@ -39,6 +42,7 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     const [size, setSize] = useState<number>(DEFAULT_NUMBER_OF_PAGE);
     const [sort, setSort] = useState<string>('');
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+    const [pageType, setPageType] = useState<PageType>({type: 'all'});
 
     const [searchType, setSearchType] = useState<'search' | 'all'>('all');
     const [search, setSearch] = useState('');
@@ -49,7 +53,7 @@ export function PaginationProvider({children}: PaginationProviderProps) {
     const loadPage = useCallback(async (controller: Pageable) => {
         setToLoad();
         if (searchType === 'all') {
-            await controller.getAllPageable(0, sort, order, size).then((response) => {
+            await controller.getPageable(0, sort, order, pageType, size).then((response) => {
                 setPagination(response.data)
             }).catch(err => addToast({
                 type: 'error',
@@ -67,12 +71,12 @@ export function PaginationProvider({children}: PaginationProviderProps) {
             }));
         }
         clearLoading();
-    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading])
+    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading, pageType])
 
     const setPage = useCallback(async (controller: Pageable, page: number) => {
         setToLoad();
         if (searchType === 'all') {
-            await controller.getAllPageable(page, sort, order, size).then((response) => {
+            await controller.getPageable(page, sort, order, pageType, size).then((response) => {
                 setPagination(response.data);
             }).catch(err => addToast({
                 type: 'error',
@@ -90,13 +94,16 @@ export function PaginationProvider({children}: PaginationProviderProps) {
             }));
         }
         clearLoading();
-    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading])
+    }, [size, searchType, search, sort, order, addToast, setToLoad, clearLoading, pageType])
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchType("search");
         setSearch(e.target.value);
-        if (e.target.value.length === 0) setSearchType('all');
-    }, [setSearchType])
+        if (e.target.value.length === 0) {
+            setSearchType('all');
+            setPageType({type: 'all'});
+        }
+    }, [setSearchType, setPageType])
 
     const handleSortChange = useCallback((e: any) => {
         setSort(e.target.value)
@@ -110,12 +117,16 @@ export function PaginationProvider({children}: PaginationProviderProps) {
         setOrder(e.target.value)
     }, [])
 
+    const handlePageTypeChange = useCallback((e: any) => {
+        setPageType({type: e.target.value})
+    }, [])
+
     return (
         <PaginationContext.Provider value={{pagination, setPagination, setPage, loadPage, size, setSize,
             sort, setSort, handleSortChange, handleSizeChange,
             handleOrderChange, order, setOrder,
-            setSearchType, handleSearchChange,
-            setSearch, search}}>
+            setSearchType, handleSearchChange, handlePageTypeChange,
+            setSearch, search, setPageType, pageType}}>
             {children}
         </PaginationContext.Provider>
     )

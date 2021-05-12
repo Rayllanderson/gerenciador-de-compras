@@ -15,7 +15,7 @@ function BackButtonHeader() {
     const clearData = useCallback(() => {
         clearPreviousData();
         clearPaginationSettings();
-    }, [clearPreviousData, clearPaginationSettings, history])
+    }, [clearPreviousData, clearPaginationSettings])
 
     const clearDataAndBack = useCallback(() => {
         clearData();

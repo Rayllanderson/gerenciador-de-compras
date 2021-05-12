@@ -16,7 +16,7 @@ export const GeneralContext = createContext<GeneralContextContextData>({} as Gen
 
 export function GeneralProvider({children}: GeneralContextProviderProps) {
 
-    const {setSearchType, setSearch, setSort, setSize, setOrder} = useContext(PaginationContext);
+    const {setSearchType, setSearch, setSort, setSize, setOrder, setPageType} = useContext(PaginationContext);
     const {hideCheckBox, hideDeleteButton, hideEditButton} = useContext(VisibilityCardItemContext);
     const {clearSelectedItems} = useContext(SelectedItemsContext);
 
@@ -32,8 +32,9 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
     const clearPaginationSettings = useCallback(() => {
         setSort('');
         setSize(DEFAULT_NUMBER_OF_PAGE);
-        setOrder('asc')
-    }, [setSort, setSize, setOrder])
+        setOrder('asc');
+        setPageType({type: 'all'});
+    }, [setSort, setSize, setOrder, setPageType])
 
     return (
         <GeneralContext.Provider value={{

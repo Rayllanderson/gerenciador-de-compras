@@ -18,7 +18,7 @@ export default function StatisticPage() {
 
     return (
         <div className={'container mt-5'} style={{maxWidth: '750px'}}>
-            <StatisticCardContainer className={'card'}>
+            <StatisticCardContainer className={'card appearFromBottom'}>
                 <h4 className={'pt-4'}><FiPieChart/> Estatísticas </h4>
                 <div className={'pt-3 container'}>
                     <h5>Selecione a lista desejada</h5>

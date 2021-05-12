@@ -14,7 +14,11 @@ export interface Page {
     numberOfElements: number,
 }
 
+export interface PageType {
+    type: 'all' | 'purchased' | 'non-purchased'
+}
+
 export interface Pageable {
-    getAllPageable(page: number, sort: string, order:string, size?: number): Promise<AxiosResponse>,
+    getPageable(page: number, sort: string, order:string, type: PageType, size?: number): Promise<AxiosResponse>,
     findByName(search: string, page: number, size?: number): Promise<AxiosResponse>
 }

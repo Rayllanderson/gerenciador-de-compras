@@ -1,6 +1,6 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
-import {Pageable} from "../interfaces/page";
+import {Pageable, PageType} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 import {ProductPostBody, ProductPutBody} from "../interfaces/productInterface";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
@@ -49,12 +49,9 @@ export default class ProductController implements Pageable {
         return api.get(`${this.BASE_URL}/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }
 
-    findAllPageable(size: number, page: number) {
-        return api.get(`${this.BASE_URL}?size=${size}&page=${page}`, {headers: getAuthHeader()});
-    }
-
-    getAllPageable(page: number, sort:string, order:string = 'asc', size:number = 20): Promise<AxiosResponse> {
-        return api.get(`${this.BASE_URL}?size=${size}&page=${page}&sort=${sort},${order}`, {headers: getAuthHeader()});
+    getPageable(page: number, sort:string, order:string = 'asc', pageType: PageType = {type: 'all'}, size:number = 20): Promise<AxiosResponse> {
+        const url = pageType.type === 'all' ? this.BASE_URL : `${this.BASE_URL}/${pageType.type}`;
+        return api.get(`${url}?size=${size}&page=${page}&sort=${sort},${order}`, {headers: getAuthHeader()});
     };
 
     fetchStatistics() {

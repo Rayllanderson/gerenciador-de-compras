@@ -1,6 +1,6 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
-import {Pageable} from "../interfaces/page";
+import {Pageable, PageType} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 
 export default class AllProductController implements Pageable {
@@ -18,7 +18,7 @@ export default class AllProductController implements Pageable {
         return {} as Promise<AxiosResponse>
     }
 
-    getAllPageable(page: number, sort: string, order: string, size?: number): Promise<AxiosResponse> {
+    getPageable(page: number, sort: string, order: string, pageType: PageType = {type: 'all'}, size?: number): Promise<AxiosResponse> {
         return {} as Promise<AxiosResponse>
     }
 }

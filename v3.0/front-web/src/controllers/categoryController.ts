@@ -1,7 +1,7 @@
 import api from "../services/api";
 import {getAuthHeader} from "../services/auth";
 import {CategoryPostBody, CategoryPutBody, TransferCategoryRequestBody} from "../interfaces/categoryInterface";
-import {Pageable} from "../interfaces/page";
+import {Pageable, PageType} from "../interfaces/page";
 import {AxiosResponse} from "axios";
 import {SelectItem} from "../interfaces/selectItemInterface";
 
@@ -43,7 +43,7 @@ export default class CategoryController implements Pageable {
         return api.get(`/categories/search?name=${search}&page=${page}&size=${size}`, {headers: getAuthHeader()});
     }
 
-    getAllPageable(page: number, sort: string, order: string, size?: number): Promise<AxiosResponse> {
+    getPageable(page: number, sort: string, order: string, pageType: PageType = {type: 'all'}, size?: number): Promise<AxiosResponse> {
         return api.get(`/categories?size=${size}&page=${page}&sort=${sort},${order}`, {headers: getAuthHeader()});
     }
 }
