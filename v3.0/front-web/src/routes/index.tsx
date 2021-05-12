@@ -7,6 +7,8 @@ import {InitialPage} from "../pages/InitialPage";
 import {Account} from "../pages/account/Account";
 import StatisticPage from "../pages/statistic";
 import {HelpPage} from "../pages/help";
+import NotFound from "../pages/notFound";
+import {Redirect} from "react-router-dom";
 
 const Routes: React.FC = () => (
   <Switch>
@@ -17,6 +19,8 @@ const Routes: React.FC = () => (
     <Route path="/account" exact component={Account} isPrivate hasNavBar />
     <Route path="/statistics" exact component={StatisticPage} isPrivate hasNavBar />
     <Route path="/help" exact component={HelpPage} isPrivate hasNavBar />
+    <Route path="/404" exact component={NotFound} hasNavBar isPrivate />
+    <Redirect to="/404" />
   </Switch>
 )
 

@@ -30,7 +30,7 @@ export const HelpContent = styled.div`
    } 
    
    p{
-     text-indent: 50px;
+     text-indent: 20px;
    }
 `
 export const HelpContentHeader = styled.h5`

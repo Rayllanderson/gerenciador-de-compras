@@ -35,6 +35,11 @@ export const AccountCardContainer = styled(CardContainer)`
     }
 `
 
+export const NotFoundCardContainer = styled(CardContainer)`
+    background: ${props => props.theme.colors.background}!important;
+    display: flex;
+`
+
 export const StatisticCardContainer = styled(AccountCardContainer) `
      h4{
         text-align: center;
