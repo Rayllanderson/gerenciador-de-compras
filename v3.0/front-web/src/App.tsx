@@ -44,22 +44,22 @@ function App() {
                                                         <AlertProvider>
                                                             <AccountProvider>
                                                                 <ProfileImageProvider>
-                                                                    <GeneralProvider>
-                                                                        <LogoutProvider>
-                                                                            <CategoryProvider>
-                                                                                <ProductProvider>
-                                                                                    <StatisticProvider>
-                                                                                        <ConfirmModalProvider>
+                                                                    <LogoutProvider>
+                                                                        <CategoryProvider>
+                                                                            <ProductProvider>
+                                                                                <StatisticProvider>
+                                                                                    <ConfirmModalProvider>
+                                                                                        <GeneralProvider>
                                                                                             <GlobalStyle/>
                                                                                             <Routes/>
                                                                                             <FilterModal/>
                                                                                             <ConfirmModal/>
-                                                                                        </ConfirmModalProvider>
-                                                                                    </StatisticProvider>
-                                                                                </ProductProvider>
-                                                                            </CategoryProvider>
-                                                                        </LogoutProvider>
-                                                                    </GeneralProvider>
+                                                                                        </GeneralProvider>
+                                                                                    </ConfirmModalProvider>
+                                                                                </StatisticProvider>
+                                                                            </ProductProvider>
+                                                                        </CategoryProvider>
+                                                                    </LogoutProvider>
                                                                 </ProfileImageProvider>
                                                             </AccountProvider>
                                                         </AlertProvider>

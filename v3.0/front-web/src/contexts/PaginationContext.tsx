@@ -9,6 +9,8 @@ interface PaginationProviderProps {
     children: ReactNode;
 }
 
+export const DEFAULT_NUMBER_OF_PAGE: number = 6;
+
 interface PaginationContextData {
     pagination: Page,
     setPage: (controller: Pageable, page: number) => void,
@@ -118,6 +120,3 @@ export function PaginationProvider({children}: PaginationProviderProps) {
         </PaginationContext.Provider>
     )
 }
-
-export const DEFAULT_NUMBER_OF_PAGE: number = 6;
-

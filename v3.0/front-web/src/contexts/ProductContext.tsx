@@ -156,7 +156,10 @@ export function ProductProvider({children}: ProductProviderProps) {
                 fetchProducts(api);
                 closeAddModal();
                 clearInputs();
-            }).catch(err => addAlert(getValidationError(err)))
+            }).catch(err => {
+                const message:string = !!getValidationError(err) ? getValidationError(err) : getError(err);
+                addAlert(message)
+            })
         }).catch(err => addAlert(err.message));
         clearButtonLoading();
     }, [name, spentPrice, stipulatedPrice, clearInputs, isPurchased, currentCategoryId, fetchProducts, closeAddModal, addToast,
@@ -183,7 +186,10 @@ export function ProductProvider({children}: ProductProviderProps) {
                 clearInputs();
                 closeAddModal();
                 clearSelectedProduct();
-            }).catch(err => addAlert(getValidationError(err)))
+            }).catch(err => {
+                const message:string = !!getValidationError(err) ? getValidationError(err) : getError(err);
+                addAlert(message)
+            })
         }).catch(err => addAlert(err.message));
         clearButtonLoading();
     }, [name, currentCategoryId, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,

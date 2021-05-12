@@ -19,7 +19,6 @@ export default function CategoryList() {
     return (
         <div className={"container"} style={{minHeight: '40vh'}}>
             <div style={{animation: 'appearFromBottom 1s'}}>
-
                 <div className="row row-cols-1 row-cols-md-3 g-4" style={{maxWidth: 750, margin: '0 auto'}}>
                     {isLoading ? loaderLength.map((loader) => <CategoryCardLoader key={loader}/>) : (
                         pagination.content.length === 0 ? <EmptyMessage className={'container'}> Nenhuma lista encontrada </EmptyMessage> :
@@ -28,7 +27,6 @@ export default function CategoryList() {
                             <CategoryCard category={category as CategoryResponseBody} key={JSON.stringify(category)}/>
                         )
                     )}
-
                 </div>
             </div>
         </div>

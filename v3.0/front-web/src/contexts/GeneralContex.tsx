@@ -2,6 +2,7 @@ import React, {createContext, ReactNode, useCallback, useContext} from 'react';
 import {DEFAULT_NUMBER_OF_PAGE, PaginationContext} from "./PaginationContext";
 import {VisibilityCardItemContext} from "./CardItemVisibilityContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
+import {ProductContext} from "./ProductContext";
 
 interface GeneralContextProviderProps {
     children: ReactNode;
@@ -19,6 +20,7 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
     const {setSearchType, setSearch, setSort, setSize, setOrder} = useContext(PaginationContext);
     const {hideCheckBox, hideDeleteButton, hideEditButton} = useContext(VisibilityCardItemContext);
     const {clearSelectedItems} = useContext(SelectedItemsContext);
+    const {setCurrentCategoryId} = useContext(ProductContext)
     
     const clearPreviousData = useCallback(() => {
         setSearchType('all');
@@ -27,7 +29,8 @@ export function GeneralProvider({children}: GeneralContextProviderProps) {
         hideCheckBox();
         clearSelectedItems();
         setSearch('');
-    }, [setSearchType, hideEditButton, hideDeleteButton, clearSelectedItems, hideCheckBox, setSearch])
+        setCurrentCategoryId('');
+    }, [setSearchType, hideEditButton, hideDeleteButton, clearSelectedItems, hideCheckBox, setSearch, setCurrentCategoryId])
 
     const clearPaginationSettings = useCallback(() => {
         setSort('');
