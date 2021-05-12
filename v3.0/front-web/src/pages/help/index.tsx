@@ -1,6 +1,6 @@
 import {HelpCardContainer} from '../../components/Card/styles';
 import {Title, SubTitle} from '../../components/Text/styles';
-import {FiHelpCircle} from "react-icons/all";
+import {FiFacebook, FiGithub, FiHelpCircle, FiLinkedin} from "react-icons/all";
 import {Summary, SummaryHeader, SummaryItem, HelpContent, HelpContentHeader, Image} from './styles';
 import React from "react";
 
@@ -29,13 +29,13 @@ export function HelpPage() {
                 <SummaryItem href={'#moveProducts'}>Como mover produtos pra outra lista?</SummaryItem>
 
                 <SummaryHeader className={'pt-3'}>Card de Produtos</SummaryHeader>
-                <SummaryItem>O que significa Valor Atual?</SummaryItem>
-                <SummaryItem>O que significa Valor Estipulado?</SummaryItem>
+                <SummaryItem href={'#cardCurrentPrice'}>O que significa Valor Atual?</SummaryItem>
+                <SummaryItem href={'#cardStipulatedPrice'}>O que significa Valor Estipulado?</SummaryItem>
 
                 <SummaryHeader className={'pt-3'}>Minha Conta</SummaryHeader>
-                <SummaryItem>Como colocar uma foto de perfil?</SummaryItem>
-                <SummaryItem>Como mudar Username ou nome?</SummaryItem>
-                <SummaryItem>Como mudar a Senha?</SummaryItem>
+                <SummaryItem href={'#changeProfileImage'}>Como colocar uma foto de perfil?</SummaryItem>
+                <SummaryItem href={'#changeUsernameAndName'}>Como mudar Username ou nome?</SummaryItem>
+                <SummaryItem href={'#changePassword'}>Como mudar a Senha?</SummaryItem>
             </Summary>
             <hr/>
             <HelpContent>
@@ -137,8 +137,58 @@ export function HelpPage() {
                 <Image className={'img-fluid rounded '}
                        src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
 
-            </HelpContent>
 
+                <SubTitle className={'pt-3'}>Card de produtos</SubTitle>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+
+                <HelpContentHeader id={'cardCurrentPrice'}> O que significa Valor Atual?</HelpContentHeader>
+                <p>
+                    Significa a soma dos valores dos produtos que você já comprou (valor pago) com a soma do valor
+                    dos produtos que ainda não comprou.
+                </p>
+                <p>Exemplificando: Digamos que você quer comprar um computado, para isso, vamos dizer que
+                    um computador é composto por 2 peças principais: Monitor e gabinete. O monitor você achava que iria
+                    pagar R$ 800 reais e o gabinete R$800 reais também. Você pegou uma boa promoção e pagou R$ 700 no
+                    monitor, e a partir de agora, o valor total passará ser de R$ 1500 em vez de R$ 1600, somando 700
+                    (valor pago no monitor) e 800 do valor do produto que ainda não comprou.
+                </p>
+                <HelpContentHeader id={'cardStipulatedPrice'}> O que significa Valor Estipulado?</HelpContentHeader>
+                <p>Significa a soma do valor que acha que vai pagar de todos os produtos da lista.
+                    Não considera o valor pago aqui.</p>
+
+
+                <SubTitle className={'pt-3'}>Minha conta</SubTitle>
+                <HelpContentHeader id={'changeProfileImage'}> Como colocar uma foto de perfil?</HelpContentHeader>
+                <p>Para usar uma foto de perfil basta clicar no ícone que fica no canto superior direito, depois em Minha Conta.</p>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+                <p>Chegando em sua conta, Basta clicar na foto de perfil e em seguida upload.</p>
+                <p>Note que, existe um tamanho limite para realizar upload da imagem, então fique atento (a).</p>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+
+                <HelpContentHeader id={'changeUsernameAndName'}> Como mudar Username ou nome?</HelpContentHeader>
+                <p>Para mudar o nome ou username, siga os mesmos passos <a href={'#changeProfileImage'}> acima</a> mas,
+                    ao invés de clicar na foto, clique em alterar dados, o botão azul. Irá surgir uma tela para você
+                    alterar seus dados. O username deve conter, no mínimo, 3 caracteres, e, no máximo, 50. O nome é opcional.</p>
+                <p>Observação: Ao alterar o <strong>username</strong>, é importante fazer Logoff e realizar o login novamente </p>
+
+                <HelpContentHeader id={'changePassword'}> Como mudar a Senha?</HelpContentHeader>
+                <p>Da mesma forma, siga os passos <a href={'#changeProfileImage'}> acima</a> até chegar na tela de
+                    <i>Sua conta.</i>
+                Agora é só clicar no botão amarelo de <strong>Alterar senha</strong>. A senha deve conter,
+                    no mínimo, 3 caracteres, e, no máximo, 50. </p>
+
+                <SubTitle className={'pt-3'}>Dúvidas?</SubTitle>
+                <p>Ficou com alguma dúvida? Você pode me encontrar nas seguintes redes sociais:
+                </p>
+                <ul className={'navbar-nav'}>
+                    <li className={"nav-item"}> <a target='_blank' href={'https://github.com/Rayllanderson'}><FiGithub/> Github </a></li>
+                    <li className={"nav-item"}> <a target='_blank' href={'https://www.linkedin.com/in/rayllanderson/'}><FiLinkedin/> Linkedin </a></li>
+                    <li className={"nav-item"}> <a target='_blank' href={'https://www.facebook.com/rayllanderson.goncalves/'}><FiFacebook/> Facebook </a></li>
+                </ul>
+            </HelpContent>
         </HelpCardContainer>
     )
 }

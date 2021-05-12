@@ -24,6 +24,7 @@ export const SummaryItem = styled.a`
 export const HelpContent = styled.div`
    text-align: left!important;
    padding-left: 1rem;
+   padding-bottom: 2rem;
    h5{
     text-align: left!important;
    } 
