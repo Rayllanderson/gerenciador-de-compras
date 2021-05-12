@@ -2,7 +2,6 @@ import React, {createContext, ReactNode, useCallback, useContext} from 'react';
 import {DEFAULT_NUMBER_OF_PAGE, PaginationContext} from "./PaginationContext";
 import {VisibilityCardItemContext} from "./CardItemVisibilityContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
-import {ProductContext} from "./ProductContext";
 
 interface GeneralContextProviderProps {
     children: ReactNode;

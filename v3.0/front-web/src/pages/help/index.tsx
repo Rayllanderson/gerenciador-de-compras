@@ -183,9 +183,9 @@ export function HelpPage() {
                 <p>Ficou com alguma dúvida? Você pode me encontrar nas seguintes redes sociais:
                 </p>
                 <ul className={'navbar-nav'}>
-                    <li className={"nav-item"}> <a target='_blank' href={'https://github.com/Rayllanderson'}><FiGithub/> Github </a></li>
-                    <li className={"nav-item"}> <a target='_blank' href={'https://www.linkedin.com/in/rayllanderson/'}><FiLinkedin/> Linkedin </a></li>
-                    <li className={"nav-item"}> <a target='_blank' href={'https://www.facebook.com/rayllanderson.goncalves/'}><FiFacebook/> Facebook </a></li>
+                    <li className={"nav-item"}> <a target='_blank' rel="noreferrer" href={'https://github.com/Rayllanderson'}><FiGithub/> Github </a></li>
+                    <li className={"nav-item"}> <a target='_blank' rel="noreferrer" href={'https://www.linkedin.com/in/rayllanderson/'}><FiLinkedin/> Linkedin </a></li>
+                    <li className={"nav-item"}> <a target='_blank' rel="noreferrer" href={'https://www.facebook.com/rayllanderson.goncalves/'}><FiFacebook/> Facebook </a></li>
                 </ul>
             </HelpContent>
         </HelpCardContainer>

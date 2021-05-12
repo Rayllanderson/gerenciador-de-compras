@@ -20,7 +20,7 @@ export default function CategoryPage() {
     const controller = new CategoryController();
     const {setCurrentCategoryId} = useContext(ProductContext);
 
-    useEffect(() =>  setCurrentCategoryId(''), []);
+    useEffect(() =>  setCurrentCategoryId(''), [setCurrentCategoryId]);
 
     return (
         <div>

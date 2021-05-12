@@ -27,7 +27,7 @@ export function ProductListLoader() {
         setTimeout(() => setIsVisible(true), 450);
         if (!isVisible) return () => {
         };
-    }, [setIsVisible])
+    }, [setIsVisible, isVisible])
 
     return (
         isVisible ?
