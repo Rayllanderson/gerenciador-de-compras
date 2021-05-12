@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import {darken} from "polished";
-import {cyan} from "../../utils/colorsUtil";
 
 export const Summary = styled.div`
     text-align: left;
-    padding: 5rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
  `
 
-export const SummaryHeader = styled.h5 `
-   color: ${cyan};
+export const SummaryHeader = styled.h5`
 `
 
 export const SummaryItem = styled.a`
@@ -16,8 +15,28 @@ export const SummaryItem = styled.a`
    color: ${props => props.theme.colors.primary};
    text-decoration: underline;
    cursor: pointer;
-   padding-left: 12px;
+   text-indent: 12px;
    &:hover{
     color: ${props => props && darken(0.1, props.theme.colors.primary)};
    }
+`
+
+export const HelpContent = styled.div`
+   text-align: left!important;
+   padding-left: 1rem;
+   h5{
+    text-align: left!important;
+   } 
+   
+   p{
+     text-indent: 50px;
+   }
+`
+export const HelpContentHeader = styled.h5`
+  color: ${props => props.theme.colors.primary}!important;
+`
+
+export const Image = styled.img`
+   display: block;
+   margin: 0 auto;
 `

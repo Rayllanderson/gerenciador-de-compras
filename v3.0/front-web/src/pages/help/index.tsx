@@ -1,7 +1,7 @@
 import {HelpCardContainer} from '../../components/Card/styles';
 import {Title, SubTitle} from '../../components/Text/styles';
 import {FiHelpCircle} from "react-icons/all";
-import {Summary, SummaryHeader, SummaryItem} from './styles';
+import {Summary, SummaryHeader, SummaryItem, HelpContent, HelpContentHeader, Image} from './styles';
 import React from "react";
 
 export function HelpPage() {
@@ -11,13 +11,12 @@ export function HelpPage() {
             <SubTitle className={'pt-5'}>Sumário</SubTitle>
             <Summary className={'pt-2'}>
                 <SummaryHeader> Listas </SummaryHeader>
-                <SummaryItem>Como adicionar uma nova lista?</SummaryItem>
-                <SummaryItem>O que significa a barra que fica nas listas?</SummaryItem>
-                <SummaryItem>Como edita uma lista?</SummaryItem>
-                <SummaryItem>Como apaga uma lista?</SummaryItem>
-                <SummaryItem>Como apaga várias lista de uma vez?</SummaryItem>
-                <SummaryItem>Duplicando Listas</SummaryItem>
-                <SummaryItem>Como duplicar uma lista?</SummaryItem>
+                <SummaryItem href={'#newList'}>Como adicionar uma nova lista?</SummaryItem>
+                <SummaryItem href={'#progressBar'}>O que significa a barra que fica nas listas?</SummaryItem>
+                <SummaryItem href={'#editList'}>Como edita uma lista?</SummaryItem>
+                <SummaryItem href={'#removeList'}>Como apaga uma lista?</SummaryItem>
+                <SummaryItem href={'#removeMultiplesLists'}>Como apaga várias lista de uma vez?</SummaryItem>
+                <SummaryItem href={'#duplicateList'}>Duplicando Listas</SummaryItem>
 
                 <SummaryHeader className={'pt-3'}> Produtos </SummaryHeader>
                 <SummaryItem>Como eu adiciono um produto?</SummaryItem>
@@ -39,6 +38,48 @@ export function HelpPage() {
                 <SummaryItem>Como mudar Username ou nome?</SummaryItem>
                 <SummaryItem>Como mudar a Senha?</SummaryItem>
             </Summary>
+            <hr/>
+            <HelpContent>
+                <SubTitle className={'pt-3'}>Listas</SubTitle>
+                <HelpContentHeader id={'newList'}> Como adicionar uma nova lista? </HelpContentHeader>
+                <p> Para adicionar uma nova lista, basta clicar no símbolo de + (Mais) como o da imagem abaixo. </p>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+                <p> Após clicar, irá surgir uma tela e apenas o nome é obrigatório. Orçamento pode ser qualquer valor
+                    e totalmente opcional. No entanto, não terá como calcular o valor disponível
+                    para gastar de uma lista sem orçamento.</p>
+
+                <HelpContentHeader id={'progressBar'}>O que significa a barra que fica nas listas?</HelpContentHeader>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+                <p>Significa o progresso de produtos comprados sua lista. Uma lista com progresso de 50%,
+                    significa que metade dos produtos foram comprados, por exemplo.</p>
+
+                <HelpContentHeader id={'editList'}>Como edita uma lista?</HelpContentHeader>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+                <p>Após clicar nos 3 pontos (como o da imagem) basta selecionar <strong>Editar</strong>, e então editar a lista que deseja</p>
+
+                <HelpContentHeader id={'removeList'}>Como apaga uma lista?</HelpContentHeader>
+                <Image className={'img-fluid rounded '}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+                <p>Após clicar nos 3 pontos (como o da imagem) basta selecionar <strong>Remover</strong>, e então editar a lista que deseja</p>
+
+                <HelpContentHeader id={'removeMultiplesLists'}>Como apaga várias lista de uma vez?</HelpContentHeader>
+                <p>Clicando nos <a href={'#options'}>3 pontinhos (como na imagem acima)</a> Selecione a opção <strong>Selecionar</strong>
+                 agora é só selecionar as listas desejadas que deseja remover </p>
+                <Image className={'img-fluid rounded '} id={'options'}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+
+                <HelpContentHeader id={'duplicateList'}>Duplicando Listas</HelpContentHeader>
+                <p>Nova funcionalidade exclusivamente da versão 3.0 xD. Para duplicar uma lista, basta seguir os mesmos passos
+                <a href={'#removeMultiplesLists'}> acima</a>, porém, ao invés de escolher 'Remover', selecione <strong>Duplicar </strong></p>
+                <p>Quando se duplica uma lista, todos os produtos dentro dela também serão duplicados mantendo seu estado original,
+                e a nova lista terá o nome da original seguido de 'cópia' </p>
+                <Image className={'img-fluid rounded '} id={'options'}
+                       src={"https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/ScreenShot_20210512014627.png?raw=true"}/>
+            </HelpContent>
+
         </HelpCardContainer>
     )
 }
