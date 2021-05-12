@@ -169,3 +169,7 @@ export const ProfileCardContainer = styled.div `
     top: 10;
     z-index: 99;
 `
+
+export const HelpCardContainer = styled(CardContainer) `
+    background: ${props => props.theme.colors.backgroundSecondary}!important;
+`

@@ -1,7 +1,7 @@
 import {AccountCardContainer} from "../../components/Card/styles";
 import ProfileImage from "../../components/ProfileImage";
 import ProfileCard from "../../components/Card/ProfileCard";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import {CyanSecondaryButton, YellowButton} from "../../components/Buttons/styles";
 import {Footer, InformationContainer} from './styles';
 import {AccountContext} from "../../contexts/AccountContext";
@@ -10,6 +10,7 @@ import {ChangePasswordModal, ChangeUserDataModal, PreviewPhotoModal} from "../..
 import {ConfirmModal} from "../../components/Modal/ConfirmModal";
 import {NameLoader} from "../../components/Loader/account";
 import {LoadingContext} from "../../contexts/LoadingContex";
+import {FiUser} from "react-icons/fi";
 
 export function Account() {
 
@@ -23,7 +24,7 @@ export function Account() {
 
     return (
         <AccountCardContainer className={'container mt-5 card appearFromBottom'}>
-            <h5 className={'pt-4 pb-4'}>Sua Conta</h5>
+            <h5 className={'pt-4 pb-4'}> <FiUser/> Sua Conta</h5>
             <div>
                 <ProfileImage src={user.base64}/>
                 <ProfileCard />

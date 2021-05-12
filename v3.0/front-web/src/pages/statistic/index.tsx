@@ -17,8 +17,8 @@ export default function StatisticPage() {
     }, [loadCategoriesNonPageable, fetchStatisticsFromAllProducts])
 
     return (
-        <div className={'container mt-5 '} style={{maxWidth: '750px'}}>
-            <StatisticCardContainer>
+        <div className={'container mt-5'} style={{maxWidth: '750px'}}>
+            <StatisticCardContainer className={'card'}>
                 <h4 className={'pt-4'}><FiPieChart/> Estatísticas </h4>
                 <div className={'pt-3 container'}>
                     <h5>Selecione a lista desejada</h5>

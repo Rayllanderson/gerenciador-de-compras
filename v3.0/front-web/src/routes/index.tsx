@@ -6,6 +6,7 @@ import ProductPage from "../pages/ProductPage";
 import {InitialPage} from "../pages/InitialPage";
 import {Account} from "../pages/account/Account";
 import StatisticPage from "../pages/statistic";
+import {HelpPage} from "../pages/help";
 
 const Routes: React.FC = () => (
   <Switch>
@@ -15,6 +16,7 @@ const Routes: React.FC = () => (
     <Route path="/categories/:id/products" exact component={ProductPage} isPrivate hasNavBar />
     <Route path="/account" exact component={Account} isPrivate hasNavBar />
     <Route path="/statistics" exact component={StatisticPage} isPrivate hasNavBar />
+    <Route path="/help" exact component={HelpPage} isPrivate hasNavBar />
   </Switch>
 )
 

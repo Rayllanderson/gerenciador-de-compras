@@ -5,3 +5,11 @@ export const EmptyMessage = styled.div `
     text-align: center;
     max-width: 750px;
 `
+
+export const Title = styled.h4`
+     text-align: center;
+`
+
+export const SubTitle = styled.h5`
+     text-align: center;
+`
