@@ -21,12 +21,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ImageControllerIT extends BaseApiTest{
+public class UserImageIT extends BaseApiTest{
 
     @Autowired
     private MockMvc mvc;
 
-    private final String BASE_URL = "/api/v1/image";
+    private final String BASE_URL = "/api/v1/users/image";
 
     @Test
     public void upload_FileUploaded_WhenSuccessful() throws Exception {

@@ -2,6 +2,9 @@ package com.rayllanderson.gerenciadordecompras.api.controllers;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.model.User;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
@@ -29,62 +32,76 @@ public class AllProductController {
     private final AllProductService allProductService;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> findAll(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
-        return ResponseEntity.ok(allProductService.findAll(userAuthenticated.getId(), pageable));
+    public ResponseEntity<Page<Product>> findAll(Pageable pageable, @AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(allProductService.findAll(authenticatedUser.getId(), pageable));
     }
 
     @GetMapping("/purchased")
-    public ResponseEntity<Page<Product>> findAllPurchased(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
-        return ResponseEntity.ok(allProductService.findPurchased(userAuthenticated.getId(), pageable));
+    public ResponseEntity<Page<Product>> findAllPurchased(Pageable pageable, @AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(allProductService.findPurchased(authenticatedUser.getId(), pageable));
     }
 
     @GetMapping("/non-purchased")
-    public ResponseEntity<Page<Product>> findAllNonPurchased(Pageable pageable, @AuthenticationPrincipal User userAuthenticated) {
-        return ResponseEntity.ok(allProductService.findNotPurchased(userAuthenticated.getId(), pageable));
+    public ResponseEntity<Page<Product>> findAllNonPurchased(Pageable pageable, @AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(allProductService.findNotPurchased(authenticatedUser.getId(), pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseBody> findById(@PathVariable Long id, @AuthenticationPrincipal User authenticatedUser) {
+        Product foundProduct = allProductService.findById(id, authenticatedUser.getId());
+        return ResponseEntity.ok(ProductMapper.toProductResponseBody(foundProduct));
+    }
 
     @PostMapping
     public ResponseEntity<ProductPostResponseBody> save(@RequestBody @Valid AllProductPostRequestBody productPostRequestBody,
-                                                        @AuthenticationPrincipal User userAuthenticated){
-        return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody, userAuthenticated.getId()));
+                                                        @AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(allProductService.save(productPostRequestBody,
+                authenticatedUser.getId()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody ProductPutRequestBody productPutRequestBody,
+                                       @AuthenticationPrincipal User authenticatedUser) {
+        productPutRequestBody.setId(id);
+        allProductService.update(productPutRequestBody, authenticatedUser.getId());
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal User userAuthenticated){
-        allProductService.deleteById(id, userAuthenticated.getId());
+    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal User authenticatedUser) {
+        allProductService.deleteById(id, authenticatedUser.getId());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteVarious(@RequestBody @Valid List<SelectItemsRequestBody> ids,
-                                              @AuthenticationPrincipal User userAuthenticated){
-        allProductService.deleteVariousById(ids, userAuthenticated.getId());
+                                              @AuthenticationPrincipal User authenticatedUser) {
+        allProductService.deleteVariousById(ids, authenticatedUser.getId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
     public ResponseEntity<Page<Product>> findByName(@RequestParam String name, Pageable pageable,
-                                                    @AuthenticationPrincipal User userAuthenticated){
-        return ResponseEntity.ok(allProductService.findByName(name, userAuthenticated.getId(), pageable));
+                                                    @AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(allProductService.findByName(name, authenticatedUser.getId(), pageable));
     }
 
     @PostMapping("/copy")
     public ResponseEntity<Void> copyProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data,
-                                                              @AuthenticationPrincipal User userAuthenticated){
-        allProductService.copyProductsToAnotherCategory(data, userAuthenticated.getId());
+                                                              @AuthenticationPrincipal User authenticatedUser) {
+        allProductService.copyProductsToAnotherCategory(data, authenticatedUser.getId());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/move")
     public ResponseEntity<Void> moveProductsToAnotherCategory(@RequestBody @Valid TransferAllProductRequestBody data,
-                                                              @AuthenticationPrincipal User userAuthenticated){
-        allProductService.moveProductsToAnotherCategory(data, userAuthenticated.getId());
+                                                              @AuthenticationPrincipal User authenticatedUser) {
+        allProductService.moveProductsToAnotherCategory(data, authenticatedUser.getId());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<StatisticResponseBody> getStatistics(@AuthenticationPrincipal User userAuthenticated) {
-        return ResponseEntity.ok(statisticService.getStatistics(userAuthenticated.getId()));
+    public ResponseEntity<StatisticResponseBody> getStatistics(@AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(statisticService.getStatistics(authenticatedUser.getId()));
     }
 }

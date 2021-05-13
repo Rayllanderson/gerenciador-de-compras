@@ -10,6 +10,8 @@ import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.ProductRepository;
 import com.rayllanderson.gerenciadordecompras.domain.requests.SelectItemsRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.requests.products.TransferAllProductRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.utils.UpdateUtil;
+import com.rayllanderson.gerenciadordecompras.domain.validations.Assertions;
 import com.rayllanderson.gerenciadordecompras.domain.validations.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ public class AllProductService {
 
     private final ProductRepository productRepository;
     private final ProductService productService;
+    private final Assertions assertions;
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Long userId, Pageable pageable){
@@ -57,8 +60,18 @@ public class AllProductService {
         return productService.save(ProductMapper.toProductPostRequestBody(product), product.getCategoryId(), userId);
     }
 
+    @Transactional
     public void update (ProductPutRequestBody productPutRequestBody, Long userId){
-        productService.update(productPutRequestBody, productPutRequestBody.getId(), userId);
+        Product product = this.findById(productPutRequestBody.getId(), userId);
+        ProductValidation.validatePrices(product);
+        UpdateUtil.updateProductData(productPutRequestBody, product);
+        Long possibleNewCategoryId = productPutRequestBody.getCategoryId();
+        boolean hasChangedCategory = possibleNewCategoryId != null && !possibleNewCategoryId.equals(product.getCategory().getId());
+        if (hasChangedCategory){
+            assertions.assertThatCategoryIsValid(productPutRequestBody.getCategoryId(), userId);
+            product.setCategory(new Category(possibleNewCategoryId));
+        }
+        productRepository.save(product);
     }
 
     public void deleteById (Long productId, Long userId){
