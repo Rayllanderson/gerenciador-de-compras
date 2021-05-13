@@ -25,7 +25,7 @@ export function CardItem({product, context}: Props) {
             </div>
 
             <div className="body">
-                <div className={'card-item'}>
+                <div className={'card-item text-center'}>
                     <h5 className="card-title">{product.name}</h5>
                 </div>
 

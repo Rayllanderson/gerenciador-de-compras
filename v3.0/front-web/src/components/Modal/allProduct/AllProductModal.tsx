@@ -16,8 +16,9 @@ import {CategoryContext} from "../../../contexts/CategoryContext";
 export function AllProductModal() {
 
     const {showAddModal, closeAddModal} = useContext(ModalContext);
-    const {name, handleNameChange, stipulatedPrice, action, handleStipulatedPriceChange
-    , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice, submit, handleNewCategoryIdChange
+    const {
+        name, handleNameChange, stipulatedPrice, action, handleStipulatedPriceChange
+        , isPurchased, handleIsPurchasedChange, handleSpentPriceChange, spentPrice, submit, handleNewCategoryIdChange
     } = useContext(AllProductContext);
     const {btnIsLoading} = useContext(LoadingContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
@@ -35,7 +36,7 @@ export function AllProductModal() {
                     <CloseButton onClick={closeAddModal}/>
                 </Modal.Header>
                 <Modal.Body style={{border: 'none'}}>
-                    <MyAlert />
+                    <MyAlert/>
                     <div className="mb-3">
                         <label className="form-label">Nome do produto</label>
                         <InputText placeholder={'Nome do produto'} value={name} onChange={handleNameChange}/>
@@ -62,20 +63,21 @@ export function AllProductModal() {
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Já comprou o produto? &nbsp;
                             </label>
-                            <InputCheckbox onChange={handleIsPurchasedChange} checked={isPurchased} />
+                            <InputCheckbox onChange={handleIsPurchasedChange} checked={isPurchased}/>
                             <span>{isPurchased ? 'Sim' : 'Não'}</span>
                         </div>
                     </div>
-
-                    <Form.Group >
+                    {action === 'save' &&
+                    <Form.Group>
                         <Form.Label>Escolha a lista de destino</Form.Label>
                         <select className="form-select" onChange={handleNewCategoryIdChange} defaultValue={'DEFAULT'}>
                             <option disabled value={'DEFAULT'}>Selecione a lista</option>
                             {categories.map((category: CategoryResponseBody) =>
-                                <option value={category.id}  key={JSON.stringify(category)}>{category.name}</option>
+                                <option value={category.id} key={JSON.stringify(category)}>{category.name}</option>
                             )}
                         </select>
                     </Form.Group>
+                    }
 
                 </Modal.Body>
                 <Modal.Footer style={{border: 'none'}}>

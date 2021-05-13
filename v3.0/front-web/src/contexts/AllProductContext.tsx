@@ -6,8 +6,7 @@ import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import {
     AllProductPostRequestBody,
-    AllProductPutRequestBody,
-    ProductContextInterface,
+    ProductContextInterface, ProductPutBody,
     ProductResponseBody
 } from "../interfaces/productInterface";
 import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../validations/productValidation";
@@ -21,7 +20,7 @@ interface AllProductProviderProps {
     children: ReactNode;
 }
 
-export interface AllProductContextData extends ProductContextInterface{
+export interface AllProductContextData extends ProductContextInterface {
 
 }
 
@@ -152,36 +151,33 @@ export function AllProductProvider({children}: AllProductProviderProps) {
         addAlert, setButtonToLoad, clearButtonLoading, newCategoryId])
 
     const edit = useCallback(async () => {
-        const productToBeEdited: AllProductPutRequestBody = {
+        const productToBeEdited: ProductPutBody = {
             id: selectedProduct.id,
             name: name,
             stipulatedPrice: getNumberWithoutMask(stipulatedPrice),
             spentPrice: getNumberWithoutMask(spentPrice),
             purchased: isPurchased,
-            categoryId: newCategoryId
         }
         const api = new AllProductController();
         setButtonToLoad();
-        await validateEdit(productToBeEdited).then(() => {
-            assertThatNewCategoryIdIsNotEmpty(newCategoryId).then (async() => {
-                await api.put(productToBeEdited).then(() => {
-                    addToast({
-                        type: 'success',
-                        title: 'Pronto!',
-                        description: 'Produto "' + name + '" foi editado com sucesso!'
-                    })
-                    fetchProducts(api);
-                    clearInputs();
-                    closeAddModal();
-                    clearSelectedProduct();
-                }).catch(err => {
-                    const message: string = !!getValidationError(err) ? getValidationError(err) : getError(err);
-                    addAlert(message)
+        await validateEdit(productToBeEdited).then(async () => {
+            await api.put(productToBeEdited).then(() => {
+                addToast({
+                    type: 'success',
+                    title: 'Pronto!',
+                    description: 'Produto "' + name + '" foi editado com sucesso!'
                 })
-            }).catch(err => addAlert(err.message))
-        }).catch(err => addAlert(err.message));
+                fetchProducts(api);
+                clearInputs();
+                closeAddModal();
+                clearSelectedProduct();
+            }).catch(err => {
+                const message: string = !!getValidationError(err) ? getValidationError(err) : getError(err);
+                addAlert(message)
+            })
+        }).catch(err => addAlert(err.message))
         clearButtonLoading();
-    }, [name, newCategoryId, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,
+    }, [name, stipulatedPrice, spentPrice, isPurchased, fetchProducts, closeAddModal, addToast,
         addAlert, clearSelectedProduct, selectedProduct, clearInputs, clearButtonLoading, setButtonToLoad])
 
     const submit = useCallback(() => {

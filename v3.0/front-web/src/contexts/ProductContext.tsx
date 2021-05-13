@@ -22,6 +22,7 @@ interface ProductProviderProps {
 }
 
 export interface ProductContextData extends ProductContextInterface{
+
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);
