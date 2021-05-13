@@ -37,6 +37,6 @@ function BackButtonHeader() {
 export function BackButtonNavbar({isOnHomePage}: BackButtonNavbarProps) {
 
     return (
-        isOnHomePage ? <FiShoppingCart size={22}/> : <BackButtonHeader />
+        isOnHomePage ? <Link to={'/home'} className={'link'}> <FiShoppingCart size={22}/> </Link> : <BackButtonHeader />
     )
 }

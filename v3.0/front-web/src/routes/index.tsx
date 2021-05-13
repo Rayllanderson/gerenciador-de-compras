@@ -9,11 +9,13 @@ import StatisticPage from "../pages/statistic";
 import {HelpPage} from "../pages/help";
 import NotFound from "../pages/notFound";
 import {Redirect} from "react-router-dom";
+import Home from "../pages/home/Home";
 
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={InitialPage} />
     <Route path="/register" exact component={InitialPage} />
+    <Route path="/home" exact component={Home} hasNavBar isPrivate />
     <Route path="/categories" exact component={CategoryPage} isPrivate hasNavBar />
     <Route path="/categories/:id/products" exact component={ProductPage} isPrivate hasNavBar />
     <Route path="/account" exact component={Account} isPrivate hasNavBar />

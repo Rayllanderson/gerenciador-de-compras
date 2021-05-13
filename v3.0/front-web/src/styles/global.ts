@@ -40,17 +40,6 @@ export default createGlobalStyle`
      box-shadow: 0px 7px 10px 1px rgba(0,0,0,0.05);
      background-color: ${props => props.theme.colors.backgroundSecondary}!important;
      color: ${props => props.theme.colors.text}!important;
-     
-         /*
-        background-color: ${props => props.theme.colors.backgroundSecondary}!important;
-        color: ${props => props.theme.colors.text}!important;*/
-       /* border: 0.5px solid ${props => props.theme.colors.primary}!important; */
-        /*   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px!important;*/
-        /* box-shadow: ${props => props && rgba(props.theme.colors.primary, 0.15)} 0px 48px 100px 0px!important;*/
-        /*border: 0.5px solid ${props => props.theme.colors.primary}!important;*/
-        /* ${props => props.theme.title === 'light' ?
-        `border: 0.5px solid ${props.theme.colors.primary}!important` :
-        `;`}*/
   }
   
   input:focus,
@@ -76,12 +65,12 @@ export default createGlobalStyle`
     }
   }
   
-  .button-primary{
+  .button-primary, .link-primary{
      background: ${props => props.theme.colors.primary}!important;
      color: ${props => props.theme.colors.background}!important;
      &:hover{
          background: ${props => props && darken(0.1, props.theme.colors.primary)}!important;
-          color: ${props => props.theme.colors.background}!important;
+         color: white!important;
      }
      
      &:active{
@@ -91,6 +80,23 @@ export default createGlobalStyle`
      &:focus{
           border-color: ${props => props && darken(0.12, props.theme.colors.primary)}!important;
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.025)!important;
+     }
+  }
+  
+  .link {
+    color: ${props => props.theme.colors.primary};
+    transition: color 0.2s;
+    &:hover{
+      color: ${props => props && darken(0.1, props.theme.colors.primary)};
+    }
+  }
+  
+  .transparent{
+     background: transparent!important;
+     color: ${props => props.theme.colors.primary}!important;
+     border: 1px solid ${props => props.theme.colors.primary};
+     &:hover{
+         background:  ${props => props.theme.colors.primary}!important;
      }
   }
   
