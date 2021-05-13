@@ -235,7 +235,8 @@ export function AllProductProvider({children}: AllProductProviderProps) {
         }
         setButtonToLoad();
         await assertThatNewCategoryIdIsNotEmpty(data.newCategoryId).then(async () => {
-            await new AllProductController().copyProductsToAnotherCategory(data)
+            const api = new AllProductController();
+            await api.copyProductsToAnotherCategory(data)
                 .then(() => {
                     addToast({
                         type: 'success',
@@ -244,6 +245,7 @@ export function AllProductProvider({children}: AllProductProviderProps) {
                     })
                     setNewCategoryId('');
                     clearSelectedItems();
+                    fetchProducts(api);
                 }).catch((err) => addToast({
                     type: 'error',
                     title: 'Error',
@@ -253,7 +255,7 @@ export function AllProductProvider({children}: AllProductProviderProps) {
             closeTransferModal();
         }).catch(err => addAlert(err.message))
     }, [addToast, closeTransferModal, clearSelectedItems, selectedItems, newCategoryId, addAlert,
-        setButtonToLoad, clearButtonLoading])
+        setButtonToLoad, clearButtonLoading, fetchProducts])
 
     const moveProductsToAnotherCategory = useCallback(async () => {
         const data: TransferAllProductRequestBody = {
@@ -282,7 +284,7 @@ export function AllProductProvider({children}: AllProductProviderProps) {
         }).catch(err => addAlert(err.message))
         clearButtonLoading();
     }, [addToast, closeTransferModal, clearSelectedItems,
-        selectedItems, currentCategoryId, newCategoryId, addAlert, fetchProducts, clearButtonLoading, setButtonToLoad])
+        selectedItems, newCategoryId, addAlert, fetchProducts, clearButtonLoading, setButtonToLoad])
 
     const removeVarious = useCallback(async () => {
         const api = new AllProductController();

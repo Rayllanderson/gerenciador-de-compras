@@ -27,6 +27,7 @@ interface ConfirmModalContextContextData {
     openChangePasswordModalAction: () => void
     removePhotoAction: () => void
     closePreviewPhotoModalAction: () => void
+    removeProductsAction: (action: () => void) => void
 }
 
 export const ActionModalContext = createContext<ConfirmModalContextContextData>({} as ConfirmModalContextContextData);
@@ -61,6 +62,12 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
         setConfirmModalText('Você tem certeza que deseja remover permanentemente os produtos selecionadas?')
         setAction(() => removeVariousProducts);
     }, [openConfirmModal, removeVariousProducts]);
+
+    const removeProductsAction = useCallback((action: () => void) => {
+        openConfirmModal();
+        setConfirmModalText('Você tem certeza que deseja remover permanentemente os produtos selecionadas?')
+        setAction(() => action);
+    }, [openConfirmModal]);
 
     const copyProductsAction = useCallback(() => {
         openTransferModal();
@@ -119,7 +126,7 @@ export function ConfirmModalProvider({ children }: ConfirmModalContextProviderPr
             copyProductsAction, transferModalTitle, moveProductsAction, removeVariousProductsAction,
             closeTransferModalAction, openFilterCategoryModalAction, openFilterProductModalAction, filterType,
             closeFilterModalAction, openChangeUserDataModalAction, openChangePasswordModalAction, removePhotoAction,
-            closePreviewPhotoModalAction
+            closePreviewPhotoModalAction, removeProductsAction
         }}>
             {children}
         </ActionModalContext.Provider>

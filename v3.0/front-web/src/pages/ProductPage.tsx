@@ -21,7 +21,8 @@ interface RouteParams {
 
 export default function ProductPage(){
     const params = useParams<RouteParams>();
-    const {setToSave, setCurrentCategoryId, remove, selectedProduct} = useContext(ProductContext);
+    const {setToSave, setCurrentCategoryId, remove, selectedProduct, handleNewCategoryIdChange,
+        copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
     const {copyProductsAction, moveProductsAction, removeVariousProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
     const {fetchStatisticsFromCurrentCategory} = useContext(StatisticContext);
 
@@ -57,7 +58,8 @@ export default function ProductPage(){
             <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
                          action={remove}/>
 
-            <TransferModal/>
+            <TransferModal copyAction={copyProductsToAnotherCategory} moveAction={moveProductsToAnotherCategory}
+                           handleCategoryIdChange={handleNewCategoryIdChange}/>
         </div>
     )
 }

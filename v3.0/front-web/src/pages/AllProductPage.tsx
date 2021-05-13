@@ -5,18 +5,19 @@ import {ButtonGroup} from "../components/ButtonsGroup";
 import ProductList from "../components/Card/product/ProductList";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton, YellowButton} from "../components/Buttons/styles";
-import {ProductModal} from "../components/Modal/product/ProductModal";
 import {DeleteModal} from "../components/Modal/DeleteModal";
 import {MyPagination} from "../components/Paginations/Pagination";
-import {ProductContext} from "../contexts/ProductContext";
 import {TransferModal} from "../components/Modal/product/TransferModal";
 import {ActionModalContext} from "../contexts/ActionModalContext";
 import AllProductController from "../controllers/allProductController";
 import {StatisticContext} from "../contexts/StatisticContext";
+import {AllProductModal} from "../components/Modal/allProduct/AllProductModal";
+import {AllProductContext} from "../contexts/AllProductContext";
 
 export default function AllProductPage(){
-    const {setToSave, remove, selectedProduct} = useContext(ProductContext);
-    const {copyProductsAction, moveProductsAction, removeVariousProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
+    const {setToSave, remove, selectedProduct, removeVarious, handleNewCategoryIdChange,
+        copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(AllProductContext);
+    const {copyProductsAction, moveProductsAction, removeProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
     const {fetchStatisticsFromAllProducts} = useContext(StatisticContext);
     return (
         <div style={{minHeight: '100vh'}}>
@@ -37,15 +38,15 @@ export default function AllProductPage(){
                 <CyanSecondaryButton className={'btn '} title={'Copiar produtos selecionados para outra categoria'}
                 onClick={copyProductsAction}>Copiar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}
-                onClick={removeVariousProductsAction}>Deletar </RedButton>
+                onClick={() => removeProductsAction(removeVarious)}>Deletar </RedButton>
             </SelectItemsButtons>
 
-            <ProductModal/>
+            <AllProductModal/>
 
             <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
                          action={remove}/>
-
-            <TransferModal/>
+            <TransferModal copyAction={copyProductsToAnotherCategory} moveAction={moveProductsToAnotherCategory}
+                           handleCategoryIdChange={handleNewCategoryIdChange}/>
         </div>
     )
 }

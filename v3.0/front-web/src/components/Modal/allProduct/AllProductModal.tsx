@@ -57,7 +57,7 @@ export function AllProductModal() {
                         )
                     }
 
-                    <div >
+                    <div className="mb-3">
                         <div className={'d-flex justify-content-start'}>
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Já comprou o produto? &nbsp;
