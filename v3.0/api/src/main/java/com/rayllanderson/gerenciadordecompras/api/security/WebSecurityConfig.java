@@ -37,8 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         AuthenticationManager authManager = authenticationManager();
         http    .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/login", "/api/v1/users/details").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/{id}").hasRole("ADMIN")
+                .antMatchers("/api/v1/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/users/image", "/api/v1/users/details").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/v1/users/{id:\\d+}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
