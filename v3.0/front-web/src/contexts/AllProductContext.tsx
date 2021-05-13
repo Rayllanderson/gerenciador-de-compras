@@ -4,7 +4,12 @@ import {PaginationContext} from "./PaginationContext";
 import {ModalContext} from "./ModalContext";
 import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
-import {AllProductPostRequestBody, AllProductPutRequestBody, ProductResponseBody} from "../interfaces/productInterface";
+import {
+    AllProductPostRequestBody,
+    AllProductPutRequestBody,
+    ProductContextInterface,
+    ProductResponseBody
+} from "../interfaces/productInterface";
 import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {getError, getValidationError} from "../utils/handleApiErros";
@@ -16,30 +21,8 @@ interface AllProductProviderProps {
     children: ReactNode;
 }
 
-interface AllProductContextData {
-    name: string,
-    stipulatedPrice: string,
-    spentPrice: string,
-    isPurchased: boolean,
-    updateStatistic: boolean,
-    action: string,
-    currentCategoryId: string,
-    setCurrentCategoryId: (id: string) => void,
-    handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleStipulatedPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleNewCategoryIdChange: (e: any) => void,
-    setToSave: () => void,
-    setNewCategoryId: (id: string) => void,
-    setToEdit: (product: AllProductPutRequestBody) => void,
-    setToRemove: (product: ProductResponseBody) => void,
-    submit: () => void,
-    remove: () => void,
-    selectedProduct: ProductResponseBody,
-    copyProductsToAnotherCategory: () => void,
-    moveProductsToAnotherCategory: () => void,
-    removeVarious: () => void,
+export interface AllProductContextData extends ProductContextInterface{
+
 }
 
 export const AllProductContext = createContext<AllProductContextData>({} as AllProductContextData);
@@ -113,7 +96,7 @@ export function AllProductProvider({children}: AllProductProviderProps) {
         clearButtonLoading();
     }, [openAddModal, clearInputs, closeAlert, clearButtonLoading])
 
-    const setToEdit = useCallback((productToBeEdited: AllProductPutRequestBody) => {
+    const setToEdit = useCallback((productToBeEdited: ProductResponseBody) => {
         closeAlert();
         openAddModal();
         setSelectedProduct(productToBeEdited);
@@ -122,7 +105,6 @@ export function AllProductProvider({children}: AllProductProviderProps) {
         setStipulatedPrice(productToBeEdited.stipulatedPrice);
         setSpentPrice(productToBeEdited.spentPrice);
         setIsPurchased(productToBeEdited.purchased);
-        setNewCategoryId(productToBeEdited.categoryId);
         clearButtonLoading();
     }, [openAddModal, closeAlert, clearButtonLoading])
 

@@ -5,7 +5,12 @@ import {ModalContext} from "./ModalContext";
 import {AlertContext} from "./AlertContext";
 import {SelectedItemsContext} from "./SelectedItemsContext";
 import ProductController from "../controllers/productController";
-import {ProductPostBody, ProductPutBody, ProductResponseBody} from "../interfaces/productInterface";
+import {
+    ProductContextInterface,
+    ProductPostBody,
+    ProductPutBody,
+    ProductResponseBody
+} from "../interfaces/productInterface";
 import {assertThatNewCategoryIdIsNotEmpty, validateEdit, validateSave} from "../validations/productValidation";
 import {getNumberWithoutMask} from "../validations/inputValidation";
 import {TransferProduct} from "../interfaces/trasnferProductInterface";
@@ -16,30 +21,7 @@ interface ProductProviderProps {
     children: ReactNode;
 }
 
-interface ProductContextData {
-    name: string,
-    stipulatedPrice: string,
-    spentPrice: string,
-    isPurchased: boolean,
-    updateStatistic: boolean,
-    action: string,
-    currentCategoryId: string,
-    setCurrentCategoryId: (id: string) => void,
-    handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleStipulatedPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleSpentPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleIsPurchasedChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    handleNewCategoryIdChange: (e: any) => void,
-    setToSave: () => void,
-    setNewCategoryId: (id: string) => void,
-    setToEdit: (product: ProductResponseBody) => void,
-    setToRemove: (product: ProductResponseBody) => void,
-    submit: () => void,
-    remove: () => void,
-    selectedProduct: ProductResponseBody,
-    copyProductsToAnotherCategory: () => void,
-    moveProductsToAnotherCategory: () => void,
-    removeVarious: () => void,
+export interface ProductContextData extends ProductContextInterface{
 }
 
 export const ProductContext = createContext<ProductContextData>({} as ProductContextData);

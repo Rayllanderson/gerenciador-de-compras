@@ -40,7 +40,7 @@ export default function ProductPage(){
 
             <ButtonGroup addAction={setToSave} filterAction={openFilterProductModalAction}/>
 
-            <ProductList controller={controller}/>
+            <ProductList controller={controller} context={ProductContext}/>
 
             <MyPagination controller={controller}/>
 

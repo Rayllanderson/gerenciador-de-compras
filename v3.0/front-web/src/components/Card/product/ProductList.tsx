@@ -1,9 +1,9 @@
 import {CardItem} from "./CardItem";
 import {CardHeader} from "./CardHeader";
 import {ProductCard} from "../styles";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import {PaginationContext} from "../../../contexts/PaginationContext";
-import {ProductResponseBody} from "../../../interfaces/productInterface";
+import {ProductContextInterface, ProductResponseBody} from "../../../interfaces/productInterface";
 import {EmptyMessage} from '../../Text/styles';
 import {LoadingContext} from "../../../contexts/LoadingContex";
 import {ProductListLoader} from "../../Loader/product";
@@ -11,10 +11,11 @@ import {Pageable} from "../../../interfaces/page";
 
 
 interface Props {
-    controller: Pageable
+    controller: Pageable;
+    context: React.Context<ProductContextInterface>;
 }
 
-export default function ProductList({controller}: Props) {
+export default function ProductList({controller, context}: Props) {
 
     const {pagination, loadPage} = useContext(PaginationContext);
     const {isLoading} = useContext(LoadingContext);
@@ -40,7 +41,7 @@ export default function ProductList({controller}: Props) {
                                     isLoading ? loaderLength.map(loader => <ProductListLoader key={loader}/>) :
                                     pagination.content.map((product: ProductResponseBody | {}) =>
                                         product &&
-                                        <CardItem product={product as ProductResponseBody} key={JSON.stringify(product)}/>
+                                        <CardItem context={context} product={product as ProductResponseBody} key={JSON.stringify(product)}/>
                                     )}
                         </ProductCard>
                     </div>

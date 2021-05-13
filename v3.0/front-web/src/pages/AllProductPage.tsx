@@ -28,7 +28,7 @@ export default function AllProductPage(){
 
             <ButtonGroup addAction={setToSave} filterAction={openFilterProductModalAction}/>
 
-            <ProductList controller={new AllProductController()}/>
+            <ProductList controller={new AllProductController()} context={AllProductContext}/>
 
             <MyPagination controller={new AllProductController()}/>
 
