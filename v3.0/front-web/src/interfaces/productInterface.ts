@@ -21,3 +21,8 @@ export interface ProductResponseBody extends ProductModel{
 export interface AllProductPostRequestBody extends ProductModel{
     categoryId: string;
 }
+
+export interface AllProductPutRequestBody extends ProductModel{
+    id: string;
+    categoryId: string;
+}
