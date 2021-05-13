@@ -13,18 +13,22 @@ import {
     NumberOfProductsText
 } from "../../Text/Statistic";
 
-export function ProductHeader() {
+interface Props {
+    fetchStatisticFunction: () => void;
+}
+
+export function ProductHeader({fetchStatisticFunction}: Props) {
 
     const [visibility, setVisibility] = useState(false);
     const [infoClassName, setInfoClassName] = useState<'more-info' | 'more-info-collapsed'>('more-info-collapsed');
 
     const [iconDirection, setIconDirection] = useState<'down' | 'up'>('down');
 
-    const {fetchStatisticsFromCurrentCategory, statistics} = useContext(StatisticContext);
+    const {statistics} = useContext(StatisticContext);
 
     useEffect(() => {
-        fetchStatisticsFromCurrentCategory();
-    }, [fetchStatisticsFromCurrentCategory])
+        fetchStatisticFunction();
+    }, [fetchStatisticFunction])
 
     const toggleVisibility = () => {
         if (visibility) {

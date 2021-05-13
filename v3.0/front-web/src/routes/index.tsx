@@ -10,6 +10,7 @@ import {HelpPage} from "../pages/help";
 import NotFound from "../pages/notFound";
 import {Redirect} from "react-router-dom";
 import Home from "../pages/home/Home";
+import AllProductPage from "../pages/AllProductPage";
 
 const Routes: React.FC = () => (
   <Switch>
@@ -18,6 +19,7 @@ const Routes: React.FC = () => (
     <Route path="/home" exact component={Home} hasNavBar isPrivate />
     <Route path="/categories" exact component={CategoryPage} isPrivate hasNavBar />
     <Route path="/categories/:id/products" exact component={ProductPage} isPrivate hasNavBar />
+    <Route path="/all-products" exact component={AllProductPage} isPrivate hasNavBar />
     <Route path="/account" exact component={Account} isPrivate hasNavBar />
     <Route path="/statistics" exact component={StatisticPage} isPrivate hasNavBar />
     <Route path="/help" exact component={HelpPage} isPrivate hasNavBar />

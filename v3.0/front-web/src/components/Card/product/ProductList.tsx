@@ -3,26 +3,26 @@ import {CardHeader} from "./CardHeader";
 import {ProductCard} from "../styles";
 import {useContext, useEffect} from "react";
 import {PaginationContext} from "../../../contexts/PaginationContext";
-import ProductController from "../../../controllers/productController";
 import {ProductResponseBody} from "../../../interfaces/productInterface";
 import {EmptyMessage} from '../../Text/styles';
 import {LoadingContext} from "../../../contexts/LoadingContex";
 import {ProductListLoader} from "../../Loader/product";
+import {Pageable} from "../../../interfaces/page";
 
 
 interface Props {
-    categoryId: string
+    controller: Pageable
 }
 
-export default function ProductList({categoryId}: Props) {
+export default function ProductList({controller}: Props) {
 
     const {pagination, loadPage} = useContext(PaginationContext);
     const {isLoading} = useContext(LoadingContext);
     const loaderLength = [1, 2, 3, 4, 5, 6];
 
     useEffect(() => {
-        loadPage(new ProductController(categoryId));
-    }, [loadPage, categoryId])
+        loadPage(controller);
+    }, [loadPage])
 
     return (
         <div className={"container"} style={{maxWidth: 750, margin: '0 auto'}}>
