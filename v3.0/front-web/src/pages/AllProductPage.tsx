@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import Search from "../components/Search";
 import {ProductHeader} from "../components/Header/Product";
 import {ButtonGroup} from "../components/ButtonsGroup";
@@ -19,6 +19,11 @@ export default function AllProductPage(){
         copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(AllProductContext);
     const {copyProductsAction, moveProductsAction, removeProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
     const {fetchStatisticsFromAllProducts} = useContext(StatisticContext);
+
+    useEffect(() => {
+        document.title = 'Todos os Produtos'
+    }, [])
+
     return (
         <div style={{minHeight: '100vh'}}>
 

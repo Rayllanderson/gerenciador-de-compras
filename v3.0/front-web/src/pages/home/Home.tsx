@@ -1,5 +1,5 @@
 import {HomeContainer, BorderWrapper} from "./styles";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {AuthContext} from "../../contexts/AuthContext";
 import {SubTitle, Title} from "../../components/Text/styles";
 import {Link} from 'react-router-dom';
@@ -9,6 +9,10 @@ export default function Home() {
     const {user} = useContext(AuthContext);
     // @ts-ignore
     const name = user.name ? user.name : 'Convidado';
+
+    useEffect(() => {
+        document.title = 'Home'
+    }, [])
 
     return (
         <BorderWrapper className={'container card mt-5'}>

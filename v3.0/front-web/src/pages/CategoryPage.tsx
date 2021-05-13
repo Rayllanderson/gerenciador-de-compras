@@ -20,7 +20,10 @@ export default function CategoryPage() {
     const controller = new CategoryController();
     const {setCurrentCategoryId} = useContext(ProductContext);
 
-    useEffect(() =>  setCurrentCategoryId(''), [setCurrentCategoryId]);
+    useEffect(() =>  {
+        setCurrentCategoryId('')
+        document.title = 'Listas';
+    } , [setCurrentCategoryId]);
 
     return (
         <div>

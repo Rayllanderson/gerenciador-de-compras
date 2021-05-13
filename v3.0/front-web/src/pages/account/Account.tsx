@@ -20,6 +20,7 @@ export function Account() {
 
     useEffect(() => {
        fetchUser();
+        document.title = 'Conta';
     }, [fetchUser])
 
     return (

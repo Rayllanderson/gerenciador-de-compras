@@ -28,6 +28,7 @@ export default function ProductPage(){
 
     useEffect(() => {
         setCurrentCategoryId(params.id);
+        document.title = 'Produtos';
     }, [params.id, setCurrentCategoryId])
 
     const controller = new ProductController(params.id);

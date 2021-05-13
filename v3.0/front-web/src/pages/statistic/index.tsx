@@ -14,6 +14,7 @@ export default function StatisticPage() {
     useEffect(() => {
         loadCategoriesNonPageable();
         fetchStatisticsFromAllProducts();
+        document.title = 'Estatísticas'
     }, [loadCategoriesNonPageable, fetchStatisticsFromAllProducts])
 
     return (
