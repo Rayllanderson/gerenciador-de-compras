@@ -2,6 +2,9 @@ package com.rayllanderson.gerenciadordecompras.integration;
 
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.AllProductPostRequestBody;
 import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPostResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductPutRequestBody;
+import com.rayllanderson.gerenciadordecompras.domain.dtos.product.ProductResponseBody;
+import com.rayllanderson.gerenciadordecompras.domain.mapper.ProductMapper;
 import com.rayllanderson.gerenciadordecompras.domain.model.Category;
 import com.rayllanderson.gerenciadordecompras.domain.model.Product;
 import com.rayllanderson.gerenciadordecompras.domain.repositories.CategoryRepository;
@@ -128,6 +131,48 @@ class AllProductControllerIT extends BaseApiTest{
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void findById_ReturnsProduct_WhenSuccessful() {
+        Product productSaved = getProductWithCategorySaved();
+
+        Long expectedId = productSaved.getId();
+        String apiUrl = BASE_API_URL + "/" + expectedId;
+
+        ResponseEntity<ProductResponseBody> responseEntity = get(apiUrl, ProductResponseBody.class);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(responseEntity.getBody()).isNotNull();
+        Assertions.assertThat(responseEntity.getBody().getId()).isEqualTo(expectedId);
+    }
+
+    @Test
+    void update_UpdatesProduct_WhenSuccessful() {
+        Product productSaved = getProductWithCategorySaved();
+
+        ProductPutRequestBody productToBeUpdated = ProductMapper.toProductPutRequestBody(productSaved);
+
+        String apiUrl = BASE_API_URL + "/" + productSaved.getId();
+
+        ResponseEntity<Void> responseEntity = put(apiUrl, productToBeUpdated, Void.class);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    void update_Returns404_WhenProductNotExists() {
+        long inexistenteId = 65644L;
+        String apiUrl = BASE_API_URL + "/" + inexistenteId;
+
+        Product nonSavedProduct = ProductCreator.createProductToBeSaved();
+        ProductPutRequestBody productToBeUpdated = ProductMapper.toProductPutRequestBody(nonSavedProduct);
+
+        ResponseEntity<Void> responseEntity = put(apiUrl, productToBeUpdated, Void.class);
+
+        Assertions.assertThat(responseEntity).isNotNull();
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 
     @Test
     void delete_DeleteProduct_WhenSuccessful() {
@@ -328,6 +373,7 @@ class AllProductControllerIT extends BaseApiTest{
         productToBeSaved.setCategory(currentCategory);
         return productRepository.save(productToBeSaved);
     }
+
 
     Product getProductNonPurchasedWithDifferentCategory(){
         Category currentCategory = categoryRepository.save(CategoryCreator.createAnotherOneCategoryToBeSaved());
