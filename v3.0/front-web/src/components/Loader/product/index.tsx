@@ -39,7 +39,7 @@ export function ProductListLoader() {
                 backgroundColor={background}
                 foregroundColor={foreground}
             >
-                <rect x={firstXWidth} y="25" rx="2" ry="2" width="83" height="30"/>
+                <rect x={firstXWidth} y="25" rx="2" ry="2" width="90" height="30"/>
                 <rect x={secondXWidth} y="25" rx="2" ry="2" width="32" height="30"/>
                 <rect x={thirdXWidth} y="25" rx="0" ry="0" width="56" height="30"/>
                 <rect x={fourthXWidth} y="25" rx="0" ry="0" width="56" height="30"/>

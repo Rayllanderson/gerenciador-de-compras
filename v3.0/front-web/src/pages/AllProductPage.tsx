@@ -5,45 +5,37 @@ import {ButtonGroup} from "../components/ButtonsGroup";
 import ProductList from "../components/Card/product/ProductList";
 import {SelectItemsButtons} from "../components/ButtonsGroup/selectItemsButtons";
 import {CyanSecondaryButton, RedButton, YellowButton} from "../components/Buttons/styles";
-import {ProductModal} from "../components/Modal/product/ProductModal";
 import {DeleteModal} from "../components/Modal/DeleteModal";
 import {MyPagination} from "../components/Paginations/Pagination";
-import ProductController from "../controllers/productController";
-import {useParams} from "react-router-dom";
-import {ProductContext} from "../contexts/ProductContext";
 import {TransferModal} from "../components/Modal/product/TransferModal";
 import {ActionModalContext} from "../contexts/ActionModalContext";
+import AllProductController from "../controllers/allProductController";
 import {StatisticContext} from "../contexts/StatisticContext";
+import {AllProductModal} from "../components/Modal/allProduct/AllProductModal";
+import {AllProductContext} from "../contexts/AllProductContext";
 
-interface RouteParams {
-    id: string
-}
-
-export default function ProductPage(){
-    const params = useParams<RouteParams>();
-    const {setToSave, setCurrentCategoryId, remove, selectedProduct, handleNewCategoryIdChange,
-        copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
-    const {copyProductsAction, moveProductsAction, removeVariousProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
-    const {fetchStatisticsFromCurrentCategory} = useContext(StatisticContext);
+export default function AllProductPage(){
+    const {setToSave, remove, selectedProduct, removeVarious, handleNewCategoryIdChange,
+        copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(AllProductContext);
+    const {copyProductsAction, moveProductsAction, removeProductsAction, openFilterProductModalAction} = useContext(ActionModalContext);
+    const {fetchStatisticsFromAllProducts} = useContext(StatisticContext);
 
     useEffect(() => {
-        setCurrentCategoryId(params.id);
-        document.title = 'Produtos';
-    }, [params.id, setCurrentCategoryId])
+        document.title = 'Todos os Produtos'
+    }, [])
 
-    const controller = new ProductController(params.id);
     return (
         <div style={{minHeight: '100vh'}}>
 
-            <ProductHeader fetchStatisticFunction={fetchStatisticsFromCurrentCategory}/>
+            <ProductHeader fetchStatisticFunction={fetchStatisticsFromAllProducts}/>
 
             <Search placeholder={'Procurar um produto...'}/>
 
             <ButtonGroup addAction={setToSave} filterAction={openFilterProductModalAction}/>
 
-            <ProductList controller={controller} context={ProductContext}/>
+            <ProductList controller={new AllProductController()} context={AllProductContext}/>
 
-            <MyPagination controller={controller}/>
+            <MyPagination controller={new AllProductController()}/>
 
             <SelectItemsButtons>
                 <YellowButton className={'btn me-4'} title={'Mover produtos selecionados para outra categoria'}
@@ -51,14 +43,13 @@ export default function ProductPage(){
                 <CyanSecondaryButton className={'btn '} title={'Copiar produtos selecionados para outra categoria'}
                 onClick={copyProductsAction}>Copiar</CyanSecondaryButton>
                 <RedButton className={'btn ms-4'} title={'Deletar selecionados'}
-                onClick={removeVariousProductsAction}>Deletar </RedButton>
+                onClick={() => removeProductsAction(removeVarious)}>Deletar </RedButton>
             </SelectItemsButtons>
 
-            <ProductModal/>
+            <AllProductModal/>
 
             <DeleteModal text={`Você tem certeza que deseja excluir o produto ${selectedProduct.name}?`}
                          action={remove}/>
-
             <TransferModal copyAction={copyProductsToAnotherCategory} moveAction={moveProductsToAnotherCategory}
                            handleCategoryIdChange={handleNewCategoryIdChange}/>
         </div>

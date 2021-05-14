@@ -4,13 +4,26 @@ import {ThemeContext} from "styled-components";
 import {StatisticContext} from "../../contexts/StatisticContext";
 import {chartColors} from "../../utils/colorsUtil";
 
+interface SeriesData {
+    name: string;
+    data: number[];
+}
+
+interface PieChartData {
+    labels: string[];
+    series: number[]
+}
+
+interface ColumnChartData {
+    series: SeriesData[];
+}
 
 export function PieChart() {
 
     const {colors} = useContext(ThemeContext);
     const {statistics} = useContext(StatisticContext);
 
-    const mockData = {
+    const mockData:PieChartData = {
         series: [statistics.numberOfProductsPurchased, statistics.numberOfProductsNotPurchased],
         labels: ['Comprados', 'Não Comprados']
     }
@@ -54,7 +67,7 @@ export function ColumnChart() {
 
     const colors = [chartColors.blue, chartColors.pink, amountSavedColor];
 
-    const mockData = {
+    const mockData: ColumnChartData = {
         series: [{
             name: 'R$',
             data: [statistics.currentAmountSpent, statistics.stipulatedValueFromBoughtProducts, statistics.amountSaved],
@@ -124,7 +137,7 @@ export function HorizontalChart() {
     const amountSavedColor = statistics.amountSaved > 0 ? chartColors.green : chartColors.red
     const colors = [amountSavedColor, chartColors.yellow, chartColors.blue, chartColors.pink, chartColors.purple];
 
-    const mockData = {
+    const mockData: ColumnChartData = {
         series: [{
             name: 'R$',
             data: [statistics.amountSaved, statistics.amountToSpend, statistics.currentAmountSpent,

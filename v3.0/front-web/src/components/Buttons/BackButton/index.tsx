@@ -6,9 +6,11 @@ import {Link, useHistory} from "react-router-dom";
 
 interface BackButtonNavbarProps {
     isOnHomePage: boolean
+    isOnCategoryPage: boolean
 }
 
-function BackButtonHeader() {
+
+export function BackButtonNavbar({isOnHomePage, isOnCategoryPage}: BackButtonNavbarProps) {
     const {clearPreviousData, clearPaginationSettings} = useContext(GeneralContext);
     let history = useHistory();
 
@@ -24,19 +26,27 @@ function BackButtonHeader() {
 
     return (
         <Header className={'container d-flex'}>
-            <button onClick={clearDataAndBack} title={'Voltar'}>
-                <AiOutlineArrowLeft size={22}/>
-            </button>
-            <Link to={'/categories'} onClick={clearData} className={'mx-3 d-flex'} title={'Ir para suas Listas'}>
-                <AiOutlineHome size={22}/>
-            </Link>
+            {isOnHomePage ?
+                <Link to={'/categories'} className={'link'} title={'Ir para suas Listas'}>
+                    <FiShoppingCart size={22}/>
+                </Link>
+                :
+                isOnCategoryPage ?
+                    <Link to={'/home'} className={' d-flex'} title={'Home'}>
+                        <AiOutlineHome size={22}/>
+                    </Link>
+                    : (
+                        <>
+                            <button onClick={clearDataAndBack} title={'Voltar'}>
+                                <AiOutlineArrowLeft size={22}/>
+                            </button>
+                            <Link to={'/categories'} onClick={clearData} className={'mx-3 d-flex'} title={'Home'}>
+                                <FiShoppingCart size={22}/>
+                            </Link>
+                        </>
+                    )
+            }
         </Header>
-    )
-}
 
-export function BackButtonNavbar({isOnHomePage}: BackButtonNavbarProps) {
-
-    return (
-        isOnHomePage ? <FiShoppingCart size={22}/> : <BackButtonHeader />
     )
 }

@@ -2,9 +2,14 @@ import {HelpCardContainer} from '../../components/Card/styles';
 import {Title, SubTitle} from '../../components/Text/styles';
 import {FiFacebook, FiGithub, FiHelpCircle, FiLinkedin} from "react-icons/all";
 import {Summary, SummaryHeader, SummaryItem, HelpContent, HelpContentHeader, Image} from './styles';
-import React from "react";
+import React, {useEffect} from "react";
 
 export function HelpPage() {
+
+    useEffect(() => {
+        document.title = 'Ajuda'
+    }, [])
+
     return (
         <HelpCardContainer className={'container card mt-5'}>
             <Title className={'pt-4'}> <FiHelpCircle/> Ajuda </Title>

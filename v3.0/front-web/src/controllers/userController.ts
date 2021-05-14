@@ -13,18 +13,19 @@ export default class UserController {
     }
 
     uploadPhoto(file: any){
-        return api.post('/image',  file, {headers: getAuthHeader()});
+        return api.post('/users/image',  file, {headers: getAuthHeader()});
     }
 
     removePhoto(){
-        return api.delete('/image', {headers: getAuthHeader()});
+        return api.delete('/users/image', {headers: getAuthHeader()});
+    }
+
+    findMiniature() {
+        return api.get('/users/image/miniature', {headers: getAuthHeader()});
     }
 
     fetchUserData(){
         return api.get('/users/details', {headers: getAuthHeader()});
     }
 
-    findMiniature() {
-        return api.get('/image/miniature', {headers: getAuthHeader()});
-    }
 }

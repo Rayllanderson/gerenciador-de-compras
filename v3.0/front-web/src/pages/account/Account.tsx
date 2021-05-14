@@ -20,7 +20,10 @@ export function Account() {
 
     useEffect(() => {
        fetchUser();
+        document.title = 'Conta';
     }, [fetchUser])
+
+    const name = user.name ? user.name : 'Convidado'
 
     return (
         <AccountCardContainer className={'container mt-5 card appearFromBottom'}>
@@ -31,7 +34,7 @@ export function Account() {
             </div>
 
             <InformationContainer>
-                <p>Olá,  {isLoading ? <NameLoader/> : <strong> {user.name + '!'}</strong>} </p>
+                <p>Olá,  {isLoading ? <NameLoader/> : <strong> {name + '!'}</strong>} </p>
                 <p>Seu username é  {isLoading ? <NameLoader/> : <strong>{user.username}</strong>}</p>
             </InformationContainer>
 

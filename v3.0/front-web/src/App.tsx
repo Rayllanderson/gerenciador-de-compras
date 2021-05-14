@@ -24,6 +24,7 @@ import {LogoutProvider} from "./contexts/LogoutContext";
 import {AccountProvider} from "./contexts/AccountContext";
 import {ProfileImageProvider} from "./contexts/ProfileImageContex";
 import {LoadingProvider} from "./contexts/LoadingContex";
+import {AllProductProvider} from "./contexts/AllProductContext";
 
 function App() {
     const {theme} = useToggleTheme();
@@ -47,16 +48,18 @@ function App() {
                                                                     <GeneralProvider>
                                                                         <LogoutProvider>
                                                                             <CategoryProvider>
-                                                                                <ProductProvider>
-                                                                                    <StatisticProvider>
-                                                                                        <ConfirmModalProvider>
-                                                                                            <GlobalStyle/>
-                                                                                            <Routes/>
-                                                                                            <FilterModal/>
-                                                                                            <ConfirmModal/>
-                                                                                        </ConfirmModalProvider>
-                                                                                    </StatisticProvider>
-                                                                                </ProductProvider>
+                                                                                <AllProductProvider>
+                                                                                    <ProductProvider>
+                                                                                        <StatisticProvider>
+                                                                                            <ConfirmModalProvider>
+                                                                                                <GlobalStyle/>
+                                                                                                <Routes/>
+                                                                                                <FilterModal/>
+                                                                                                <ConfirmModal/>
+                                                                                            </ConfirmModalProvider>
+                                                                                        </StatisticProvider>
+                                                                                    </ProductProvider>
+                                                                                </AllProductProvider>
                                                                             </CategoryProvider>
                                                                         </LogoutProvider>
                                                                     </GeneralProvider>
@@ -76,7 +79,6 @@ function App() {
             </div>
         </ThemeProvider>
     )
-        ;
 }
 
 export default App;

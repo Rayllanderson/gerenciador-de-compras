@@ -10,14 +10,19 @@ import {CategoryResponseBody} from "../../../interfaces/categoryInterface";
 import {SelectedItemsContext} from "../../../contexts/SelectedItemsContext";
 import {SelectItem} from "../../../interfaces/selectItemInterface";
 import {ActionModalContext} from "../../../contexts/ActionModalContext";
-import {ProductContext} from "../../../contexts/ProductContext";
 import {ButtonWithLoader} from "../../Buttons";
 import {LoadingContext} from "../../../contexts/LoadingContex";
 
-export function TransferModal() {
+interface Props {
+    copyAction: () => void,
+    moveAction: () => void,
+    handleCategoryIdChange: (e: any) => void;
+}
+
+export function TransferModal({copyAction, moveAction, handleCategoryIdChange}: Props) {
     const {showTransferModal} = useContext(ModalContext);
     const {categories, loadCategoriesNonPageable} = useContext(CategoryContext);
-    const {handleNewCategoryIdChange, copyProductsToAnotherCategory, moveProductsToAnotherCategory} = useContext(ProductContext);
+
     const {selectedItems} = useContext(SelectedItemsContext);
     const {transferModalTitle, closeTransferModalAction} = useContext(ActionModalContext);
     const {btnIsLoading} = useContext(LoadingContext);
@@ -28,9 +33,9 @@ export function TransferModal() {
 
     const action = useCallback(
         () => {
-            transferModalTitle === 'Copiar' ? copyProductsToAnotherCategory() : moveProductsToAnotherCategory();
+            transferModalTitle === 'Copiar' ? copyAction() : moveAction();
         },
-        [copyProductsToAnotherCategory, moveProductsToAnotherCategory, transferModalTitle],
+        [copyAction, moveAction, transferModalTitle],
     );
 
     return (
@@ -46,7 +51,7 @@ export function TransferModal() {
                     {selectedItems.map((product: SelectItem) => <p key={JSON.stringify(product)}>{product.name}</p>)}
                     <Form.Group >
                         <Form.Label>Escolha a lista para {transferModalTitle.toLocaleLowerCase()}</Form.Label>
-                        <select className="form-select" onChange={handleNewCategoryIdChange} defaultValue={'DEFAULT'}>
+                        <select className="form-select" onChange={handleCategoryIdChange} defaultValue={'DEFAULT'}>
                             <option disabled value={'DEFAULT'}>Selecione a lista</option>
                             {categories.map((category: CategoryResponseBody) =>
                                 <option value={category.id}  key={JSON.stringify(category)}>{category.name}</option>
