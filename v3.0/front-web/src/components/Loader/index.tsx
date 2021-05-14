@@ -1,3 +1,6 @@
+import {useContext} from "react";
+import {ThemeContext} from "styled-components";
+
 interface LoaderProps {
     size?: 'sm' | 'md';
 }
@@ -13,7 +16,8 @@ export function CircleLoader({size}: LoaderProps) {
 
 export function BallLoader({size}: LoaderProps) {
     const spinnerSize = size === 'sm' ? 'spinner-grow-sm' : ''
+    const {colors} = useContext(ThemeContext);
     return (
-            <div className={`spinner-grow ${spinnerSize} text-light mx-1`} role="status"/>
+            <div className={`spinner-grow ${spinnerSize} mx-1`} role="status" style={{color: colors.textSecondary}}/>
     );
 }

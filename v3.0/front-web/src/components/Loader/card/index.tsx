@@ -41,9 +41,9 @@ export function CategoryCardLoader() {
 
     return (
         isVisible ? (
-            <CategoryCardContainer>
+            <CategoryCardContainer  className={'loader'}>
                 <div className="card h-100">
-                    <div className="card-body">
+                    <div className="card-body ">
                         <Loader/>
                     </div>
                 </div>

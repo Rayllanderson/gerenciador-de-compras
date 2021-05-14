@@ -100,6 +100,21 @@ export default createGlobalStyle`
      }
   }
   
+    .loader {
+        animation-name: loader-delay;
+        animation-delay: 0ms;
+        animation-duration: 350ms;
+    }
+
+    @keyframes loader-delay {
+        from {
+            opacity: 0.0;
+        }
+        to {
+            opacity: 1.0;
+        }
+    }
+  
   .hide{
     display: none;
   }

@@ -24,7 +24,7 @@ export function ProductListLoader() {
         isMobile() ? setThirdXWidth(200) : setThirdXWidth(415);
         isMobile() ? setFourthXWidth(300) : setFourthXWidth(600);
 
-        setTimeout(() => setIsVisible(true), 450);
+        setTimeout(() => setIsVisible(true), 250);
         if (!isVisible) return () => {
         };
     }, [setIsVisible, isVisible])
@@ -38,6 +38,7 @@ export function ProductListLoader() {
                 viewBox={`0 0 ${width} 70`}
                 backgroundColor={background}
                 foregroundColor={foreground}
+                className={'loader'}
             >
                 <rect x={firstXWidth} y="25" rx="2" ry="2" width="90" height="30"/>
                 <rect x={secondXWidth} y="25" rx="2" ry="2" width="32" height="30"/>

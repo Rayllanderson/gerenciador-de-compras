@@ -5,13 +5,13 @@ import {useEffect, useState} from "react";
 export function NameLoader() {
     const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
-        setTimeout(() => setIsVisible(true), 450);
+        setTimeout(() => setIsVisible(true), 250);
         if (!isVisible) return () => {
         };
     }, [isVisible])
     return (
         isVisible ?
-            <NameLoaderContainer>
+            <NameLoaderContainer className={'loader'}>
                 <BallLoader size={'sm'}/>
                 <BallLoader size={'sm'}/>
                 <BallLoader size={'sm'}/>
