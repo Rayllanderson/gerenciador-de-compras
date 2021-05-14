@@ -23,6 +23,7 @@ export default function ProductList({controller, context}: Props) {
 
     useEffect(() => {
         loadPage(controller);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadPage])
 
     return (
