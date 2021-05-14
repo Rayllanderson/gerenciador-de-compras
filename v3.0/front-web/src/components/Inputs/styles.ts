@@ -33,6 +33,10 @@ export const InputWithIconContainer = styled.div<ContainerProps>`
          border-left: 0 solid!important;
          box-shadow: none!important;
       }
+      
+      input:focus{
+        border-color: ${props1 => props1.theme.colors.primary}!important;
+      }
      
      ${props => props.isFocused && css`
             color: ${props1 => props1.theme.colors.primary}!important;
