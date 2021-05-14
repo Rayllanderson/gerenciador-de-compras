@@ -26,7 +26,7 @@ export function CategoryCard({category}: Props) {
     return (
         <CategoryCardContainer>
 
-            <div className="card h-100">
+            <div className="card h-100 loader">
                 <div className="card-body">
                     <CardAddon id={category.id} name={category.name}>
                         {editButtonIsVisible && <EditButton onClick={() => setToEdit(category)}/>}

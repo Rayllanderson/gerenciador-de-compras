@@ -103,7 +103,7 @@ export default createGlobalStyle`
     .loader {
         animation-name: loader-delay;
         animation-delay: 0ms;
-        animation-duration: 350ms;
+        animation-duration: 750ms;
     }
 
     @keyframes loader-delay {

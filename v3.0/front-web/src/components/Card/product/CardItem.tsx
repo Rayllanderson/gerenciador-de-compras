@@ -15,7 +15,7 @@ export function CardItem({product, context}: Props) {
     const {deleteButtonIsVisible, editButtonIsVisible} = useContext(VisibilityCardItemContext);
     const {setToEdit, setToRemove} = useContext(context);
     return (
-        <ProductCardBody>
+        <ProductCardBody className={'loader'}>
 
             <div className={'addons'}>
                 <CardAddon id={product.id} name={product.name}>

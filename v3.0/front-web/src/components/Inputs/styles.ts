@@ -64,7 +64,7 @@ export const InputWithIconContainer = styled.div<ContainerProps>`
 `
 
 export const SearchInput = styled.input `
-    border: 2px solid ${props => props.theme.colors.backgroundSecondary}!important; 
+    border: none;
     &:focus{
       border-color: ${props => props.theme.colors.primary}!important;
     }
