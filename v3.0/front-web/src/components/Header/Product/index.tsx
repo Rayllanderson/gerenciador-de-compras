@@ -23,12 +23,15 @@ export function ProductHeader({fetchStatisticFunction}: Props) {
     const [infoClassName, setInfoClassName] = useState<'more-info' | 'more-info-collapsed'>('more-info-collapsed');
 
     const [iconDirection, setIconDirection] = useState<'down' | 'up'>('down');
+    const [isOnProductPage, setIsOnProductPage] = useState<boolean>(false);
 
     const {statistics} = useContext(StatisticContext);
 
     useEffect(() => {
+        const currentPath = window.location.href;
+        setIsOnProductPage(currentPath.includes('products') && !currentPath.includes('all-products'))
         fetchStatisticFunction();
-    }, [fetchStatisticFunction])
+    }, [fetchStatisticFunction, setIsOnProductPage])
 
     const toggleVisibility = () => {
         if (visibility) {
@@ -44,10 +47,15 @@ export function ProductHeader({fetchStatisticFunction}: Props) {
     return (
         <Container className="card mt-5 appearSmoothly">
             <div className="card-body">
-                <h4 className="card-title mb-3">{statistics.categoryName} </h4>
+                {isOnProductPage ?
+                    <h4 className="card-title mb-3">{statistics.categoryName} </h4> :
+                    <h4 className="card-title mb-3">Todos os produtos </h4>
+                }
 
                 <div className={'mb-3'}>
+                    {isOnProductPage &&
                     <p className="card-text">Orçamento: <span>R$ {statistics.categoryBudget}</span></p>
+                    }
                     <p className="card-text">Valor Atual: <span>R$ {statistics.currentAmountTotal}</span></p>
                     <p className="card-text">Valor Estipulado: <span>R$ {statistics.totalStipulated}</span></p>
                 </div>
@@ -80,6 +88,7 @@ export function ProductHeader({fetchStatisticFunction}: Props) {
                             </Accordion.Collapse>
                         </Card>
 
+                        {isOnProductPage &&
                         <Card className={'card-content'}>
                             <Accordion.Toggle as={Card.Header} eventKey="2" className={"card-content-header"}>
                                 Valor disponível para gastar
@@ -100,6 +109,7 @@ export function ProductHeader({fetchStatisticFunction}: Props) {
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
+                        }
                     </Accordion>
                 </div>
 

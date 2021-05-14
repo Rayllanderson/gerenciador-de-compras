@@ -23,6 +23,8 @@ export function Account() {
         document.title = 'Conta';
     }, [fetchUser])
 
+    const name = user.name ? user.name : 'Convidado'
+
     return (
         <AccountCardContainer className={'container mt-5 card appearFromBottom'}>
             <h5 className={'pt-4 pb-4'}> <FiUser/> Sua Conta</h5>
@@ -32,7 +34,7 @@ export function Account() {
             </div>
 
             <InformationContainer>
-                <p>Olá,  {isLoading ? <NameLoader/> : <strong> {user.name + '!'}</strong>} </p>
+                <p>Olá,  {isLoading ? <NameLoader/> : <strong> {name + '!'}</strong>} </p>
                 <p>Seu username é  {isLoading ? <NameLoader/> : <strong>{user.username}</strong>}</p>
             </InformationContainer>
 
