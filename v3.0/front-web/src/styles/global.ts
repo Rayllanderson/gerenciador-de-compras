@@ -114,6 +114,10 @@ export default createGlobalStyle`
             opacity: 1.0;
         }
     }
+
+::-webkit-scrollbar {
+    display: none;
+}
   
   .hide{
     display: none;
