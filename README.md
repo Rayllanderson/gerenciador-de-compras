@@ -5,12 +5,13 @@
 
 https://gerenciador-de-compras-rayllanderson.netlify.app
 
-Versão 3.0 is out!!!
+Versão 3.0 is out!!! [Confira as Mudanças](https://github.com/Rayllanderson/gerenciador-de-compras/releases/tag/v3.0)
 
 Gerenciador de compras é uma aplicação web que consiste na organização de suas listas de compras. A Aplicação tem o foco de organizar seus gastos de acordo com cada lista para dar lhe dar mais controle e evitar fica calculando diversas vezes. Basta adicionar os produtos em sua lista e então a aplicação vai guardar os valores, gerar informações úteis, como, também, gráficos baseados nessas listas.
 Gerenciador de compras é uma aplicação desenvolvida para uso pessoal.
 
 ## 🎨 Web
+
 
 ### Tela de listas
 <img src="https://user-images.githubusercontent.com/63964369/118383287-dff3f980-b5d2-11eb-82af-f343b76dda86.png" width="90%" height="90%" >
@@ -19,9 +20,8 @@ Gerenciador de compras é uma aplicação desenvolvida para uso pessoal.
 ### Tela de produtos
 <img src="https://user-images.githubusercontent.com/63964369/118383262-b33fe200-b5d2-11eb-9a53-e9bfdeed4057.png" width="90%" height="90%" >
 
-
-### Estatísticas
-<img src="https://user-images.githubusercontent.com/63964369/118383300-ff8b2200-b5d2-11eb-9ccf-f15e631b2169.png" width="90%" height="90%" >
+### Theme Switch
+![theme switch](https://user-images.githubusercontent.com/63964369/118383933-cce42800-b5d8-11eb-8274-8066efc98a77.gif)
 
 
 ## 📱 Mobile
