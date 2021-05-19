@@ -127,7 +127,7 @@ public class UserImageIT extends BaseApiTest{
     }
 
     @Test
-    public void findMiniature_ReturnsNull_WhenUserHasPhoto() {
+    public void findMiniature_ReturnsNull_WhenUserHasNoPhoto() {
         ResponseEntity<String> response = super.get(BASE_URL + "/miniature", String.class);
 
         Assertions.assertThat(response).isNotNull();

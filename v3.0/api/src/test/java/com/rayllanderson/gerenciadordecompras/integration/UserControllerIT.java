@@ -34,6 +34,44 @@ public class UserControllerIT extends BaseApiTest{
     }
 
     @Test
+    void register_RegisterUsersWithoutEmail_WhenSuccessful() {
+        UserPostRequestBody userToBeRegistered = UserCreator.createUserToBeRegistered();
+
+        //setando email para "", dessa forma, garanto que pode registrar mais de 1 usuário com email "" (vazio)
+        userToBeRegistered.setEmail("");
+
+        UserPostRequestBody anotherUserToBeRegistered = UserCreator.createAnotherUserPostRequestBody();
+
+        //precisa setar outro username por conta do @BeforeAll que já cadastra um usuário com username do objeto acima
+        anotherUserToBeRegistered.setUsername("anyUsername");
+
+        //setando vazio aqui também, ou seja, "" é igual a "" e a intenção é registrar com sucesso,
+        // mesmo já existindo um email "" na base de dados.
+        anotherUserToBeRegistered.setEmail("");
+
+
+        //cadastrando primeiro usuário
+        ResponseEntity<UserResponseBody> firstResponseEntity = rest.postForEntity("/api/v1/users",
+                userToBeRegistered, UserResponseBody.class);
+
+        //cadastrando segundo usuário
+        ResponseEntity<UserResponseBody> secondResponseEntity = rest.postForEntity("/api/v1/users",
+                anotherUserToBeRegistered, UserResponseBody.class);
+
+        Assertions.assertThat(firstResponseEntity).isNotNull();
+        Assertions.assertThat(firstResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(firstResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(firstResponseEntity.getBody().getId()).isNotNull();
+        Assertions.assertThat(firstResponseEntity.getBody().getEmail()).isEmpty();
+
+        Assertions.assertThat(secondResponseEntity).isNotNull();
+        Assertions.assertThat(secondResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(secondResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(secondResponseEntity.getBody().getId()).isNotNull();
+        Assertions.assertThat(secondResponseEntity.getBody().getEmail()).isEmpty();
+    }
+
+    @Test
     void register_NonRegisterAnUser_WhenUsernameIsInvalid() {
         UserPostRequestBody userToBeRegistered = UserCreator.createUserToBeRegistered();
         userToBeRegistered.setUsername("");
