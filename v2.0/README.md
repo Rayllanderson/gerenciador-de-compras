@@ -66,15 +66,6 @@ gerar informações úteis, como, também, gerar gráficos com base nesses dados
 - Amazon AWS
 - Banco de dados: MySQL
 
-# Como executar o projeto
-
-Pré-requisitos: Java 11, Apache tomcat 9
-
-Download war: https://github.com/Rayllanderson/assets/blob/master/gerenciador-compras/gerenciador-compras.war
-
-Após ter o java e o tomcat instalado, basta apenas fazer o deploy do war via tomcat, ou jogar o arquivo war para a
-pasta <i> apache-tomcat-9\webapps </i>
-
 # Observações
 
 Esta é uma versão 2.0. Para consultar a versão
