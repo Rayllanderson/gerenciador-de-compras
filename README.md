@@ -1,5 +1,5 @@
 # 🛒 Gerenciador de compras
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Rayllanderson/gamelist/blob/master/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Rayllanderson/gerenciador-de-compras/blob/master/LICENSE) 
 
 ## 💻 Sobre o projeto
 
