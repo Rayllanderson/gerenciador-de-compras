@@ -48,6 +48,7 @@ https://user-images.githubusercontent.com/63964369/118383212-3ca2e480-b5d2-11eb-
 - [React](https://pt-br.reactjs.org/)
 - CSS
 - HTML
+- [Bootstrap](https://getbootstrap.com/)
 
 ## :hammer: Implantação em produção
 - Back end: Heroku
