@@ -115,9 +115,9 @@ export default createGlobalStyle`
         }
     }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     display: none;
-}
+}*/
   
   .hide{
     display: none;
